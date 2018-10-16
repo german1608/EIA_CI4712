@@ -35,7 +35,7 @@ script:
 # Envia correo a los lideres de los equipos
 notifications:
   email:
-    # - 13-11223@usb.ve # Manuel Rodríguez (Es Magia Negra sin I)
-    # - 14-10955@usb.ve # Daniel Rodríguez (Sin nombre yet)
-    # - ritces.parra@gmail.com # Ritces Parra (Sin nombre yet)
+    - 13-11223@usb.ve # Manuel Rodríguez (Es Magia Negra sin I)
+    - 14-10955@usb.ve # Daniel Rodríguez (Sin nombre yet)
+    - ritces.parra@gmail.com # Ritces Parra (Sin nombre yet)
     - 14-10924@usb.ve # German Robayo (Sin nombre yet)
