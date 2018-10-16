@@ -1,46 +1,34 @@
-# Especificamos el lenguaje del proyecto
 language: python
-
-# Versiones de python en las que correra cada job del build
 python:
-  - "3.5"
-  - "3.6"
-
-# Usamos postgresql para correr las pruebas
+- '3.5'
+- '3.6'
 services:
-  - postgresql
-
-# Antes de instalar las dependencias de pip nos debemos asegurar que
-# estemos en la ultima version
+- postgresql
 before_install:
-  - pip install --upgrade pip
-# Instalamos los paquetes necesarios para poder ejecutar nuestro codigo
+- pip install --upgrade pip
 install:
-  - pip install -r requirements.txt
-
-# Configuramos variables de entorno necesarias para la db
+- pip install -r requirements.txt
 before_script:
-  - export DB_NAME=test
-  - export DB_USER=postgres
-  - export DB_PASSWORD=
-  # las demas variables no son necesarias configurarlas por que podemos
-  # vivir con las que se ponen por defecto en eia/settings.py
-
-# corremos las pruebas de django
+- export DB_NAME=test
+- export DB_USER=postgres
+- export DB_PASSWORD=
 script:
-  # solo tests que no dependan de selenium
-  - python manage.py test --exclude=selenium
-
-
-# Envia correo a los lideres de los equipos
+- python manage.py test --exclude=selenium
 notifications:
   email:
-    - 13-11223@usb.ve # Manuel Rodríguez (Es Magia Negra sin I)
-    - 14-10955@usb.ve # Daniel Rodríguez (Sin nombre yet)
-    - ritces.parra@gmail.com # Ritces Parra (Sin nombre yet)
-    - 14-10924@usb.ve # German Robayo (Sin nombre yet)
-
-# Solo has build de los push a master. No ignora los push a los PRs
+  - 13-11223@usb.ve
+  - 14-10955@usb.ve
+  - ritces.parra@gmail.com
+  - 14-10924@usb.ve
 branches:
   only:
-    - master
+  - master
+deploy:
+  provider: heroku
+  api_key:
+    secure: D9S6nbXTjkjva2J8Khc5ZIISpOxV1IYOVT0COeTCJC1puQQAPBdfz8pcepn9iusaVLVpxXsFtPZwxdckIu0ssAPOWoU4i3MufQK7XA6dW+dvyf3H9Gdt0Ae8uAzrbixAz2/lfKSShNZUZDPwtVCMB9eDWRJ6qllzxLb+AUqtT9x6wwJJTfC5mVImfpp9fgc5ZOsCzXFFeXvFrC9tpNhzuh3mWcJYk8PM9dhvqFE0j6FNqSv9bqKAvpfZ2WhKYlNc/14ulfDQyJydZ3va1Pgp1LPWpzYIMms4TfcGgwicl0lbpXgSVCBwSiwEXG7QF3GOr0prdupj2PSKZHKCX0nbCjih5HgESWXcV8+MPMYVaFfsEXV0n5A9yUzoPITtycIzRkj6R+AP0wGyPMwvKyza9Lfu9+QKI4/wh84WYuZJ627huoCloPPlZ3RhUvnF462Qwngtx3ay7KMVQhXLBN8Uz+c1GYIWJPzUT2B1lWXYK53RsYevqq9ynM5BHN2AWTc9tVDJNJOtfXoyKgOp+3icxuAMVQVckNNJNkiUzAjJc6k934ZCp9IXB1QrUcXonPnrg+UBq02hey5NplCycZR/1WiJHKe3t83x7+jnC3RYySS0RtlWpIsblRnVffVztnIQLEy3ib3BDGJkRDPWehRDgq9SYvIKVFPIZcUNWgxlHKw=
+  app: eia-ci4712
+  on:
+    repo: german1608/EIA_CI4712
+  run:
+    - "python manage.py migrate"

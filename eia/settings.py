@@ -80,6 +80,9 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASSWORD', 'eiae123'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': os.environ.get('DB_PORT', '5432'),
+        'OPTIONS': {
+            'connect_timeout': None
+        }
     }
 }
 
