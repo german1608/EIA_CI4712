@@ -39,3 +39,8 @@ notifications:
     - 14-10955@usb.ve # Daniel Rodríguez (Sin nombre yet)
     - ritces.parra@gmail.com # Ritces Parra (Sin nombre yet)
     - 14-10924@usb.ve # German Robayo (Sin nombre yet)
+
+# Solo has build de los push a master. No ignora los push a los PRs
+branches:
+  only:
+    - master
