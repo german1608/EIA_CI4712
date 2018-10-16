@@ -1,0 +1,41 @@
+# Especificamos el lenguaje del proyecto
+language: python
+
+# Versiones de python en las que correra cada job del build
+python:
+  - "3.5"
+  - "3.6"
+
+# Usamos postgresql para correr las pruebas
+services:
+  - postgresql
+
+# Antes de instalar las dependencias de pip nos debemos asegurar que
+# estemos en la ultima version
+before_install:
+  - pip install --upgrade pip
+# Instalamos los paquetes necesarios para poder ejecutar nuestro codigo
+install:
+  - pip install -r requirements.txt
+
+# Configuramos variables de entorno necesarias para la db
+before_script:
+  - export DB_NAME=test
+  - export DB_USER=postgres
+  - export DB_PASSWORD=
+  # las demas variables no son necesarias configurarlas por que podemos
+  # vivir con las que se ponen por defecto en eia/settings.py
+
+# corremos las pruebas de django
+script:
+  # solo tests que no dependan de selenium
+  - python manage.py test --exclude=selenium
+
+
+# Envia correo a los lideres de los equipos
+notifications:
+  email:
+    # - 13-11223@usb.ve # Manuel Rodríguez (Es Magia Negra sin I)
+    # - 14-10955@usb.ve # Daniel Rodríguez (Sin nombre yet)
+    # - ritces.parra@gmail.com # Ritces Parra (Sin nombre yet)
+    - 14-10924@usb.ve # German Robayo (Sin nombre yet)
