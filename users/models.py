@@ -3,6 +3,10 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
+'''
+    Clase que representa la tabla de los usuarios del sistema 
+'''
+
 class Usuario(AbstractUser):
     nombre = models.CharField(max_length=200)
     apellido = models.CharField(max_length=200)
