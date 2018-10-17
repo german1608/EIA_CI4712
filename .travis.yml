@@ -36,5 +36,3 @@ deploy:
   app: eia-ci4712
   on:
     repo: german1608/EIA_CI4712
-  run:
-    - "python manage.py migrate"
