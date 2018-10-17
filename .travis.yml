@@ -1,4 +1,8 @@
 language: python
+addons:
+  firefox: latest
+env:
+  - MOZ_HEADLESS=1
 python:
 - '3.5'
 - '3.6'
@@ -8,6 +12,7 @@ before_install:
 - pip install --upgrade pip
 install:
 - pip install -r requirements.txt
+- ./installgeckodriver.sh
 before_script:
 - export DB_NAME=test
 - export DB_USER=postgres
