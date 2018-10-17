@@ -23,5 +23,5 @@
         "**/*.pyc": true,
         "**/env": true
     },
-    "python.pythonPath": "env/bin/python",
+    "python.pythonPath": "bin/python",
 }
