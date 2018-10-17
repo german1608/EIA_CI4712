@@ -13,6 +13,7 @@ before_script:
 - export DB_USER=postgres
 - export DB_PASSWORD=
 script:
+- find . -name "*.py" -exec pylint {} +
 - python manage.py test --exclude=selenium
 notifications:
   email:
