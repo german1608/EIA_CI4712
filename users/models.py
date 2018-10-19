@@ -15,7 +15,6 @@ class Usuario(AbstractUser):
     correo = models.EmailField(unique=True)
     # Esta clave debe tener una funcion que la encripta
     # En este field realmente se va almacenar la clave encriptada
-    # clave = models.CharField(max_length=200)
     doc_identidad = models.PositiveIntegerField()
 
     def __str__(self):
