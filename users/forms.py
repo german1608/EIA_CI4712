@@ -5,6 +5,7 @@
 '''
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import Usuario
+from django.utils.translation import gettext_lazy as _
 #pylint: disable=r0903
 class CustomUserCreationForm(UserCreationForm):
     '''
@@ -18,7 +19,30 @@ class CustomUserCreationForm(UserCreationForm):
         '''
         model = Usuario
         fields = ('nombre', 'apellido', 'correo', 'doc_identidad')
-
+        labels = {
+            'doc_identidad': _('Documento Identidad')
+        }
+        
+        error_messages  = {
+                'nombre': {
+                    'required': _("Por favor ingrese su nombre"),
+                },
+                'apellido': {
+                    'required': _("Por favor ingrese su apellido"),
+                },
+                'correo': {
+                    'required': _("Por favor ingrese su correo"),
+                    'invalid': _("Ingrese un formato valido de correo")
+                },
+                'clave': {
+                    'required': _("Por favor ingrese su clave"),
+                },
+                'doc_identidad': {
+                    'required': _("Por favor ingrese su numero de documento"),
+                    'invalid': _("Ingrese un numero mayor que 0")
+                },
+                
+        }
 
 
 class CustomUserChangeForm(UserChangeForm):
