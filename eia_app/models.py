@@ -42,7 +42,7 @@ class Datos_Persona(models.Model):
         _('Cédula incorrecta'), 'invalid')]
     )
     pasaporte = models.IntegerField(
-        validators = MinValueValidator(0)
+        validators = [MinValueValidator(0)]
     )
 
 class Organizacion(models.Model):
