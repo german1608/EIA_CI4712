@@ -13,6 +13,7 @@ class Usuario(AbstractUser):
     nombre = models.CharField(max_length=200)
     apellido = models.CharField(max_length=200)
     doc_identidad = models.PositiveIntegerField()
+    email = models.EmailField(unique=True)
     REQUIRED_FIELDS = ['nombre', 'apellido', 'email', 'doc_identidad']
 
     def __str__(self):
