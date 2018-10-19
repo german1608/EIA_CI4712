@@ -18,8 +18,7 @@ before_script:
 - export DB_USER=postgres
 - export DB_PASSWORD=
 script:
-- find . -name "*.py" -exec pylint {} +
-- python manage.py test --exclude=selenium
+- ./test.sh
 notifications:
   email:
   - 13-11223@usb.ve
