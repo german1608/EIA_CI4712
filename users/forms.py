@@ -19,7 +19,7 @@ class CustomUserCreationForm(UserCreationForm):
             el formulario
         '''
         model = Usuario
-        fields = ('nombre', 'apellido', 'correo', 'doc_identidad')
+        fields = ('nombre', 'apellido', 'email', 'doc_identidad')
         labels = {
             'doc_identidad': _('Documento Identidad')
         }

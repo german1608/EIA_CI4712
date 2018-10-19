@@ -10,7 +10,9 @@ def new_user(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            post = form.save()
+            user = form.save(commit=False)
+            user.username = form.cleaned_data['email']
+            form.save()
             return redirect('new_user')
     else:
         form = CustomUserCreationForm()
