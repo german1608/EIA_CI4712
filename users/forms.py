@@ -34,4 +34,4 @@ class CustomUserChangeForm(UserChangeForm):
             Aqui se especifica que datos son los que se pueden modificar
         '''
         model = Usuario
-        fields = ('nombre', 'apellido', 'correo', 'doc_identidad')
+        fields = ('nombre', 'apellido', 'email', 'doc_identidad')
