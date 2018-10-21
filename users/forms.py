@@ -19,7 +19,7 @@ class CustomUserCreationForm(UserCreationForm):
             el formulario
         '''
         model = Usuario
-        fields = ('nombre', 'apellido', 'email', 'doc_identidad')
+        fields = ('first_name', 'last_name', 'email', 'doc_identidad')
         labels = {
             'doc_identidad': _('Documento Identidad')
         }
@@ -34,4 +34,4 @@ class CustomUserChangeForm(UserChangeForm):
             Aqui se especifica que datos son los que se pueden modificar
         '''
         model = Usuario
-        fields = ('nombre', 'apellido', 'email', 'doc_identidad')
+        fields = ('first_name', 'last_name', 'email', 'doc_identidad')
