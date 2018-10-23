@@ -21,6 +21,9 @@ class CustomUserCreationForm(UserCreationForm):
         model = Usuario
         fields = ('first_name', 'last_name', 'email', 'doc_identidad')
         labels = {
+            'first_name': _('Nombre'),
+            'last_name': _('Apellido'),
+            'email': _('Correo'),
             'doc_identidad': _('Documento Identidad')
         }
 
