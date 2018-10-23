@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="user">
+        <h3>Usuario: {{ user.first_name }} {{ user.last_name }}</h1>
+        <h3>Correo: {{ user.email}}</h1>
+        <h3>Documento de Identidad: {{ user.doc_identidad}}</h1>
+        <a class="btn btn-default" href="{% url 'edit_user' pk=user.pk %}">Editar</a>
+
+    </div>
+{% endblock %}
