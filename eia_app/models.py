@@ -73,14 +73,30 @@ class Organizacion(models.Model):
     )
     rif = models.CharField(
         max_length = 12,
-        primary_key = True,
+        unique = True,
         validators = [RegexValidator(re.compile('^([VEJPGvejpg]{1})-([0-9]{8})-([0-9]{1}$)'),
         _('RIF incorrecto'), 'invalid')]
     )
     direccion = models.TextField()
-    representante_legal = models.ForeignKey(
-        Datos_Persona, 
-        on_delete=models.CASCADE
+    nombre_representante_legal = models.CharField(
+        max_length = 60, 
+        validators = [RegexValidator(re.compile('^[\w+\s]+$'),
+        _('Nombre incorrecto'), 'invalid')]
+    )
+    apellido_representante_legal = models.CharField(
+        max_length = 60, 
+        validators = [RegexValidator(re.compile('^[\w+\s]+$'),
+        _('Apellido incorrecto'), 'invalid')]
+    )
+    cedula_representante_legal = models.CharField(
+        max_length = 9,
+        validators = [RegexValidator(re.compile('^[V|E|J|P][0-9]{5,9}$'),
+        _('Cédula incorrecta'), 'invalid')]
+    )
+    pasaporte_representante_legal = models.IntegerField(
+        validators = [MinValueValidator(0)],
+        blank = True,
+        null =  True
     )
     telefono = models.CharField(
         max_length = 11,
@@ -88,6 +104,7 @@ class Organizacion(models.Model):
         _('Teléfono incorrecto'), 'invalid')]
     )
     email = models.EmailField()
+    
 
 class Solicitante(models.Model):
     """ Tabla que referencia a los datos de una persona
