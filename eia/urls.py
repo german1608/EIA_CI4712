@@ -22,6 +22,6 @@ urlpatterns = [ #pylint: disable=invalid-name
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
     path('consultor-crud/', views.consultor_index, name='consultor-crud-index'),
-    path('consultor-crud/', include('eia_app.urls', namespace='consultor-crud'))
+    path('consultor-crud/', include('eia_app.urls', namespace='consultor-crud')),
     path('users/', include("users.urls")),
 ]
