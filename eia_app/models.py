@@ -157,3 +157,24 @@ class DatosProyecto(models.Model):
     def get_model_type(self): #pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "Datos_Proyecto"
+
+class DatosDocumento(models.Model):
+    """ Tabla para almacenar la informacion de los datos de un documento de intencion.
+    Parametros:
+        models.Model (DatosDocumento): Instancia sobre la que se crea la tabla.
+    Atributos:
+        proyecto: Proyecto al que pertenencen los datos del documento.
+        fecha: fecha en que se realiza el estudio
+        ciudad: ciudad donde se realiza el estudio
+        estado: estado donde se realiza el estudio
+        pais: pais donde se realiza el estudio
+    """
+    proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
+    fecha = models.DateField()
+    ciudad = models.CharField(max_length=100)
+    estado = models.CharField(max_length=100)
+    pais = models.CharField(max_length=100)
+
+    def get_model_type(self): #pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
+        return "Datos_Documento"
