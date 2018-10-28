@@ -1,0 +1,14 @@
+{% if Organizacion %}
+  <form method="post">
+    {% csrf_token %}
+    <p>¿Estás seguro que deseas borrar la organizacion "{{ object.nombre }}"?</p>
+    <input type="submit" value="Submit" />
+  </form>
+{% endif %}
+{% if Datos_Proyecto %}
+  <form method="post">
+    {% csrf_token %}
+    <p>¿Estás seguro que deseas borrar la organizacion "{{ object.titulo }}"?</p>
+    <input type="submit" value="Submit" />
+  </form>
+{% endif %}

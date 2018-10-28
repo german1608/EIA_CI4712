@@ -104,6 +104,9 @@ class Organizacion(models.Model):
         _('Teléfono incorrecto'), 'invalid')]
     )
     email = models.EmailField()
+
+    def get_model_type(self):
+        return "Organizacion"
     
 
 class Solicitante(models.Model):
@@ -145,9 +148,12 @@ class Datos_Proyecto(models.Model):
     """
     titulo = models.CharField(
         max_length = 100,
-        primary_key = True
+        unique = True    
     )
     ubicacion = models.TextField()
     area = models.TextField()
     tipo = models.TextField()
     url = models.URLField()
+
+    def get_model_type(self):
+        return "Datos_Proyecto"

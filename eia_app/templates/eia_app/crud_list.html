@@ -1,0 +1,36 @@
+{% if Organizacion %}
+  <h1>Lista de organizaciones</h1>
+  <p>
+      <a href="{% url "consultor-crud:nueva-organizacion" %}">Agregar organizacion</a>
+  </p>
+  <ul>
+      {% for organizacion in object_list %}
+          <li>
+              <p>{{ organizacion.nombre }}</p>
+              <p>
+                  <a href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}">Ver</a> | 
+                  <a href="{% url "consultor-crud:editar-organizacion" organizacion.id %}">Editar</a> | 
+                  <a href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}">Borrar</a> 
+              </p>
+          </li>
+      {% endfor %}
+  </ul>
+{% endif %}
+{% if Datos_Proyecto %}
+  <h1>Lista de datos de proyectos</h1>
+  <p>
+      <a href="{% url "consultor-crud:nueva-datos-proyecto" %}">Agregar datos de un proyecto</a>
+  </p>
+  <ul>
+    {% for proyecto in object_list %}
+        <li>
+            <p>{{ proyecto.titulo }}</p>
+            <p>
+                <a href="{% url "consultor-crud:detalles-datos-proyecto"  proyecto.id %}">Ver</a> | 
+                <a href="{% url "consultor-crud:editar-datos-proyecto" proyecto.id %}">Editar</a> | 
+                <a href="{% url "consultor-crud:borrar-datos-proyecto" proyecto.id %}">Borrar</a>
+            </p>
+        </li>
+    {% endfor %}
+  </ul>
+{% endif %}
