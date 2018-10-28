@@ -39,6 +39,11 @@ class OrganizacionCreate(CreateView): # pylint: disable=too-many-ancestors
     template_name = 'eia_app/crud_form.html'
     success_url = reverse_lazy('consultor-crud:lista-organizaciones')
 
+    def get_context_data(self, **kwargs): #pylint: disable=arguments-differ
+        context = super(OrganizacionCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Organización"
+        return context
+
 
 class OrganizacionUpdate(UpdateView): # pylint: disable=too-many-ancestors
     '''Actualizar una organizacion'''
@@ -77,6 +82,11 @@ class DatosProyectoCreate(CreateView): # pylint: disable=too-many-ancestors
     fields = '__all__'
     template_name = 'eia_app/crud_form.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-proyectos')
+
+    def get_context_data(self, **kwargs): #pylint: disable=arguments-differ
+        context = super(DatosProyectoCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Datos de un proyecto"
+        return context
 
 
 class DatosProyectoUpdate(UpdateView): # pylint: disable=too-many-ancestors
