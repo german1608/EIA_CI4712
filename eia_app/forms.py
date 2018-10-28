@@ -1,7 +1,11 @@
+'''Forms para el uso del crud del consultor'''
+
 from django import forms
-from .models import *
+from .models import * #pylint: disable=unused-wildcard-import, wildcard-import
 
 class OrganizacionCreateForm(forms.ModelForm):
-    class Meta:
+    '''Form del modelo organizacion'''
+    class Meta: # pylint: disable=too-few-public-methods
+        '''Clase meta del formulario'''
         model = Organizacion
         fields = '__all__'

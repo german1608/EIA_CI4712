@@ -3,16 +3,14 @@
     para la creacion de un EsIA.
 """
 
-import datetime
 import re
 from django.db import models
-from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
-from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _ #pylint: disable=unused-import
 
-class Datos_Persona(models.Model):
+
+class DatosPersona(models.Model):
     """ Tabla para registrar los datos de un representante legal
         de una organizacion.
         Parametros:
@@ -24,26 +22,33 @@ class Datos_Persona(models.Model):
             cedula: Cedula del representante legal
             pasaporte: pasaporte del represenante legal
     """
-    class Meta:
+    class Meta: # pylint: disable=too-few-public-methods
+        '''Hacer unica la combinacion entre pasporte y cedula'''
         unique_together = (('cedula', 'pasaporte'))
     nombre = models.CharField(
-        max_length = 60, 
-        validators = [RegexValidator(re.compile('^[\w+\s]+$'),
-        _('Nombre incorrecto'), 'invalid')]
-    )
+        max_length=60,
+        validators=[
+            RegexValidator(
+                re.compile(r'^[\w+\s]+$'),
+                _('Nombre incorrecto'),
+                'invalid')])
     apellido = models.CharField(
-        max_length = 60, 
-        validators = [RegexValidator(re.compile('^[\w+\s]+$'),
-        _('Apellido incorrecto'), 'invalid')]
-    )
+        max_length=60,
+        validators=[
+            RegexValidator(
+                re.compile(r'^[\w+\s]+$'),
+                _('Apellido incorrecto'),
+                'invalid')])
     cedula = models.CharField(
-        max_length = 8,
-        validators = [RegexValidator(re.compile('/^[V|E|J|P][0-9]{5,9}$/'),
-        _('Cédula incorrecta'), 'invalid')]
-    )
-    pasaporte = models.IntegerField(
-        validators = [MinValueValidator(0)]
-    )
+        max_length=8,
+        validators=[
+            RegexValidator(
+                re.compile('/^[V|E|J|P][0-9]{5,9}$/'),
+                _('Cédula incorrecta'),
+                'invalid')])
+    pasaporte = models.IntegerField(validators=[MinValueValidator(0)]
+                                    )
+
 
 class Organizacion(models.Model):
     """ Tabla de las organizaciones que proponen un proyecto
@@ -60,54 +65,55 @@ class Organizacion(models.Model):
         telefono: Telefono de la organizacion
         email: Email de la organizacion
     """
-    RAZON_SOCIAL_CHOICES = (
-        ('natural', 'Persona natural'),
-        ('juridica', 'Persona Jurídica')
-    )
-    razon_social = models.CharField(
-        max_length = 8,
-        choices = RAZON_SOCIAL_CHOICES,    
-    )
-    nombre = models.CharField(
-        max_length = 100
-    )
+    RAZON_SOCIAL_CHOICES = (('natural', 'Persona natural'),
+                            ('juridica', 'Persona Jurídica'))
+    razon_social = models.CharField(max_length=8, choices=RAZON_SOCIAL_CHOICES)
+    nombre = models.CharField(max_length=100)
     rif = models.CharField(
-        max_length = 12,
-        unique = True,
-        validators = [RegexValidator(re.compile('^([VEJPGvejpg]{1})-([0-9]{8})-([0-9]{1}$)'),
-        _('RIF incorrecto'), 'invalid')]
-    )
+        max_length=12,
+        unique=True,
+        validators=[
+            RegexValidator(
+                re.compile('^([VEJPGvejpg]{1})-([0-9]{8})-([0-9]{1}$)'),
+                _('RIF incorrecto'),
+                'invalid')])
     direccion = models.TextField()
     nombre_representante_legal = models.CharField(
-        max_length = 60, 
-        validators = [RegexValidator(re.compile('^[\w+\s]+$'),
-        _('Nombre incorrecto'), 'invalid')]
-    )
+        max_length=60,
+        validators=[
+            RegexValidator(
+                re.compile(r'^[\w+\s]+$'),
+                _('Nombre incorrecto'),
+                'invalid')])
     apellido_representante_legal = models.CharField(
-        max_length = 60, 
-        validators = [RegexValidator(re.compile('^[\w+\s]+$'),
-        _('Apellido incorrecto'), 'invalid')]
-    )
+        max_length=60,
+        validators=[
+            RegexValidator(
+                re.compile(r'^[\w+\s]+$'),
+                _('Apellido incorrecto'),
+                'invalid')])
     cedula_representante_legal = models.CharField(
-        max_length = 9,
-        validators = [RegexValidator(re.compile('^[V|E|J|P][0-9]{5,9}$'),
-        _('Cédula incorrecta'), 'invalid')]
-    )
+        max_length=9,
+        validators=[
+            RegexValidator(
+                re.compile('^[V|E|J|P][0-9]{5,9}$'),
+                _('Cédula incorrecta'),
+                'invalid')])
     pasaporte_representante_legal = models.IntegerField(
-        validators = [MinValueValidator(0)],
-        blank = True,
-        null =  True
-    )
+        validators=[MinValueValidator(0)], blank=True, null=True)
     telefono = models.CharField(
-        max_length = 11,
-        validators = [RegexValidator((re.compile('^[0-9]{11}$')), 
-        _('Teléfono incorrecto'), 'invalid')]
-    )
+        max_length=11,
+        validators=[
+            RegexValidator(
+                (re.compile('^[0-9]{11}$')),
+                _('Teléfono incorrecto'),
+                'invalid')])
     email = models.EmailField()
 
-    def get_model_type(self):
+    def get_model_type(self): #pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
         return "Organizacion"
-    
+
 
 class Solicitante(models.Model):
     """ Tabla que referencia a los datos de una persona
@@ -117,10 +123,8 @@ class Solicitante(models.Model):
     Atributos:
         solicitante: Datos personales del solicitante o promotor.
     """
-    solicitante = models.ForeignKey(
-        Datos_Persona, 
-        on_delete=models.CASCADE
-    )
+    solicitante = models.ForeignKey(DatosPersona, on_delete=models.CASCADE)
+
 
 class Responsable(models.Model):
     """ Tabla que referencia a los datos de una persona
@@ -130,12 +134,10 @@ class Responsable(models.Model):
     Atributos:
         responsable: Datos personales del responsable del proyecto.
     """
-    responsable = models.ForeignKey(
-        Datos_Persona,
-        on_delete = models.CASCADE
-    )
+    responsable = models.ForeignKey(DatosPersona, on_delete=models.CASCADE)
 
-class Datos_Proyecto(models.Model):
+
+class DatosProyecto(models.Model):
     """ Tabla para almacenar la informacion general de un proyecto.
     Parametros:
         models.Model (Datos_Proyecto): Instancia sobre la que se crea la tabla.
@@ -146,14 +148,12 @@ class Datos_Proyecto(models.Model):
         tipo: tipo de proyecto
         url: Url al PDF del proyecto.
     """
-    titulo = models.CharField(
-        max_length = 100,
-        unique = True    
-    )
+    titulo = models.CharField(max_length=100, unique=True)
     ubicacion = models.TextField()
     area = models.TextField()
     tipo = models.TextField()
     url = models.URLField()
 
-    def get_model_type(self):
+    def get_model_type(self): #pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
         return "Datos_Proyecto"
