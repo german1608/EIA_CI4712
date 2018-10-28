@@ -1,4 +1,4 @@
-"""eia URL Configuration
+"""users URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
@@ -13,15 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
-from django.views.generic import TemplateView
-from eia_app import views
+from django.urls import path
+from users import views
 
 urlpatterns = [ #pylint: disable=invalid-name
-    path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name='index.html'), name='index'),
-    path('consultor-crud/', views.consultor_index, name='consultor-crud-index'),
-    path('consultor-crud/', include('eia_app.urls', namespace='consultor-crud'))
-    path('users/', include("users.urls")),
+    path('', views.new_user, name='new_user'),
+    path('edit/<int:pk>/', views.edit_user, name='edit_user'),
+    path('profile/<int:pk>/', views.details_user, name='details_user'),
 ]

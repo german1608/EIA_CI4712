@@ -18,8 +18,7 @@ before_script:
 - export DB_USER=postgres
 - export DB_PASSWORD=
 script:
-- find . -name "*.py" -exec pylint {} +
-- python manage.py test --exclude=selenium
+- ./test.sh
 notifications:
   email:
   - 13-11223@usb.ve
@@ -36,3 +35,4 @@ deploy:
   app: eia-ci4712
   on:
     repo: german1608/EIA_CI4712
+    python: '3.6'

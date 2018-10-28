@@ -4,22 +4,146 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+  <!-- COMIENZO DEL CSS -->
+
   {% block css %}
   {% endblock %}
+
+  <!-- FIN DEL CSS -->
+
   <title>{% block title %}EIA{% endblock title %}</title>
+
 </head>
 
 <body>
-  {% block content %}
-  Hola mundo
-  {% endblock %}
+
+  <!-- COMIENZO DEL SIDEBAR -->
+
+
+  <ul id="slide-out" class="side-nav fixed z-depth-4">
+    
+    <!-- PARTE SUPERIOR DEL SIDEBAR -->
+
+    <li>
+      <div class="userView">
+        <div class="background">
+            <div class="fill"></div>
+        </div>
+        <a href="#"><img class="circle" src="{% static 'img/germanbb.jpg' %}"></a>
+        <a href="#"><span class="white-text name">Bienvenido Individuo</span></a>
+      </div>
+    </li>
+
+    <!-- FIN DE LA PARTE SUPERIOR DEL SIDEBAR -->
+
+    <li><div class="divider"></div></li>
+    
+    <!-- PARTE INFERIOR DEL SIDEBAR -->
+
+    <li>
+      <a class="active" href="#"><i class="material-icons white-item white-text">home</i>
+        <span class="white-text">Home</span>
+      </a>
+    </li>
+    <li>
+      <a href="#"><i class="material-icons white-item white-text">keyboard</i>
+        <span class="white-text">Calculadora</span>
+      </a>
+    </li>
+    <li>
+      <a href="#"><i class="material-icons white-text white-item">settings</i>
+        <span class="white-text name">Configuración</span>
+      </a>
+    </li>
+    <li>
+      <a href="#"><i class="material-icons white-text white-item">arrow_back</i>
+        <span class="white-text name">Cerrar Sesión</span>
+      </a>
+    </li>
+
+    <!-- FIN DE LA PARTE INFERIOR DEL SIDEBAR -->
+  
+  </ul>
+
+  <!-- FIN DE SIDEBAR -->
+  
+  <!-- SECCION DE CONTENIDO -->
+  
+  <main>
+    <section class="content">
+      {% block content %}
+
+      {% endblock %}
+    </section>
+  </main>
+  
+  <!-- FIN DE LA SECCION DE CONTENIDO -->
+
+  <!-- FOOTER -->
+
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container">
+        <span class="white-text">
+          Ingeniería del Software II. Septiembre-Diciembre 2018
+        </span>
+        
+      </div>
+    </div>
+  </footer>
+
+  <!-- FIN DEL FOOTER -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- COMIENZO DEL JS -->
 
   {% block js %}
   {% endblock %}
+
+  <!-- FIN DEL JS -->
+
 </body>
 
+
+
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
