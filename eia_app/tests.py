@@ -112,6 +112,149 @@ class OrganizacionTestCase(TestCase):
         except BaseException:
             pass
 
+    def test_organizacion_mala_razonSocial(self):
+        '''Prueba para crear una instancia de una organizacion con la razon social mala'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'razon_social': "hola",
+            'nombre': "Nombre de prueba",
+            'rif': "V-25872062-4",
+            'direccion': "Calle ecuador",
+            'nombre_representante_legal': "manuel",
+            'apellido_representante_legal': "Rodriguez",
+            'cedula_representante_legal': "V25872062",
+            'telefono': "04141633960",
+            'email': "prueba@gmail.ve"}
+        form_organizacion = OrganizacionCreateForm(data=form_data)
+        self.assertFalse(form_organizacion.is_valid())
+
+    def test_organizacion_email_incompleto(self):
+        '''Prueba para crear una instancia de una organizacion con la razon social mala'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'razon_social': "juridica",
+            'nombre': "Nombre de prueba",
+            'rif': "V-25872062-4",
+            'direccion': "Calle ecuador",
+            'nombre_representante_legal': "manuel",
+            'apellido_representante_legal': "Rodriguez",
+            'cedula_representante_legal': "V25872062",
+            'telefono': "04141633960",
+            'email': "prueba@"}
+        form_organizacion = OrganizacionCreateForm(data=form_data)
+        self.assertFalse(form_organizacion.is_valid())
+    
+    def test_organizacion_rif_incompleto(self):
+        '''Prueba para crear una instancia de una organizacion con el rif incompleto'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'razon_social': "juridica",
+            'nombre': "Nombre de prueba",
+            'rif': "V258720624",
+            'direccion': "Calle ecuador",
+            'nombre_representante_legal': "manuel",
+            'apellido_representante_legal': "Rodriguez",
+            'cedula_representante_legal': "V25872062",
+            'telefono': "04141633960",
+            'email': "prueba@gmail.ve"}
+        form_organizacion = OrganizacionCreateForm(data=form_data)
+        self.assertFalse(form_organizacion.is_valid())
+
+    def test_organizacion_cedula_incompleta(self):
+        '''Prueba para crear una instancia de una organizacion con la cedula incompleta'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'razon_social': "juridica",
+            'nombre': "Nombre de prueba",
+            'rif': "V-25872062-4",
+            'direccion': "Calle ecuador",
+            'nombre_representante_legal': "manuel",
+            'apellido_representante_legal': "Rodriguez",
+            'cedula_representante_legal': "25872062",
+            'telefono': "04141633960",
+            'email': "prueba@gmail.ve"}
+        form_organizacion = OrganizacionCreateForm(data=form_data)
+        self.assertFalse(form_organizacion.is_valid())
+    
+    def test_organizacion_telefono_incompleto(self):
+        '''Prueba para crear una instancia de una organizacion con el telefono incompleto'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'razon_social': "juridica",
+            'nombre': "Nombre de prueba",
+            'rif': "V-25872062-4",
+            'direccion': "Calle ecuador",
+            'nombre_representante_legal': "manuel",
+            'apellido_representante_legal': "Rodriguez",
+            'cedula_representante_legal': "V25872062",
+            'telefono': "041416339",
+            'email': "prueba@gmail.ve"}
+        form_organizacion = OrganizacionCreateForm(data=form_data)
+        self.assertFalse(form_organizacion.is_valid())
+
+    def test_organizacion_editar_nombre_representante_legal(self):
+        '''Prueba para editar el nombre del representante legal de una organizacion'''
+        # pylint: disable=no-member
+        organizacion = Organizacion.objects.get(
+            rif="V-25872062-4")
+        organizacion.nombre_representante_legal = "Giulianne"
+        organizacion.save()
+        # pylint: disable=no-member
+        organizacion = Organizacion.objects.get(
+            rif="V-25872062-4")
+        self.assertEqual(organizacion.nombre_representante_legal, "Giulianne")
+
+    def test_organizacion_editar_cedula(self):
+        '''Prueba para editar la cedula del representante legal de una organizacion'''
+        # pylint: disable=no-member
+        organizacion = Organizacion.objects.get(
+            rif="V-25872062-4")
+        organizacion.cedula_representante_legal = "V-2587206"
+        organizacion.save()
+        # pylint: disable=no-member
+        organizacion = Organizacion.objects.get(
+            rif="V-25872062-4")
+        self.assertEqual(organizacion.cedula_representante_legal, "V-2587206")
+
+    def test_organizacion_eliminar(self):
+        '''Prueba para crear una instancia de una organizacion para luego
+        eliminarla y despues verificar si se elimino'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'razon_social': "natural",
+            'nombre': "Nombre de prueba",
+            'rif': "V-25872062-5",
+            'direccion': "Calle ecuador",
+            'nombre_representante_legal': "manuel",
+            'apellido_representante_legal': "Rodriguez",
+            'cedula_representante_legal': "V25872062",
+            'telefono': "04141633960",
+            'email': "prueba@gmail.ve"}
+        form_organizacion = OrganizacionCreateForm(data=form_data)
+        form_organizacion.save()
+        # pylint: disable=no-member
+        organizacion = Organizacion.objects.get(rif="V-25872062-5").delete()
+        try:
+            org1 = organizacion = Organizacion.objects.get(rif="V-25872062-5")
+        except:
+            pass
+
+    def test_organizacion_apellido_malo(self):
+        '''Prueba para crear una instancia de una organizacion con el
+        apellido del representante legal malo'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'razon_social': "juridica",
+            'nombre': "Nombre de prueba",
+            'rif': "V-25872062-4",
+            'direccion': "Calle ecuador",
+            'nombre_representante_legal': "manuel",
+            'apellido_representante_legal': "Rodrigu987ez",
+            'cedula_representante_legal': "V25872062",
+            'telefono': "04141633960",
+            'email': "prueba@gmail.ve"}
+        form_organizacion = OrganizacionCreateForm(data=form_data)
+        self.assertFalse(form_organizacion.is_valid())
 
 class SolicitanteTestCase(TestCase):
     ''' Pruebas para la tabla de solicitante '''
