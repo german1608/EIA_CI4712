@@ -7,7 +7,7 @@ import re
 from django.db import models
 from django.core.validators import MinValueValidator
 from django.core.validators import RegexValidator
-from django.utils.translation import gettext_lazy as _ #pylint: disable=unused-import
+from django.utils.translation import gettext_lazy as _  # pylint: disable=unused-import
 
 
 class DatosPersona(models.Model):
@@ -22,7 +22,7 @@ class DatosPersona(models.Model):
             cedula: Cedula del representante legal
             pasaporte: pasaporte del represenante legal
     """
-    class Meta: # pylint: disable=too-few-public-methods
+    class Meta:  # pylint: disable=too-few-public-methods
         '''Hacer unica la combinacion entre pasporte y cedula'''
         unique_together = (('cedula', 'pasaporte'))
     nombre = models.CharField(
@@ -46,8 +46,7 @@ class DatosPersona(models.Model):
                 re.compile('/^[V|E|J|P][0-9]{5,9}$/'),
                 _('Cédula incorrecta'),
                 'invalid')])
-    pasaporte = models.IntegerField(validators=[MinValueValidator(0)]
-                                    )
+    pasaporte = models.IntegerField(validators=[MinValueValidator(0)])
 
 
 class Organizacion(models.Model):
@@ -110,7 +109,7 @@ class Organizacion(models.Model):
                 'invalid')])
     email = models.EmailField()
 
-    def get_model_type(self): #pylint: disable=no-self-use
+    def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "Organizacion"
 
@@ -121,17 +120,17 @@ class Solicitante(models.Model):
     Parametros:
         models.Model (Solicitante): Instancia sobre la que se crea la tabla.
     Atributos:
-		nombre: Nombre del solicitante o promotor
-		apellido: Apellido del solicitante o promotor
-		cedula: Cedula del solicitante o promotor
+                nombre: Nombre del solicitante o promotor
+                apellido: Apellido del solicitante o promotor
+                cedula: Cedula del solicitante o promotor
         pasaporte: pasaporte del solicitante o promotor
         telefono: Telefono del solicitante o promotor
         email: Email del solicitante o promotor
     """
-    class Meta: # pylint: disable=too-few-public-methods
+    class Meta:  # pylint: disable=too-few-public-methods
         '''Hacer unica la combinacion entre pasporte y cedula'''
         unique_together = (('cedula', 'pasaporte'))
-        
+
     nombre = models.CharField(
         max_length=60,
         validators=[
@@ -153,8 +152,7 @@ class Solicitante(models.Model):
                 re.compile('^[V|E|J|P][0-9]{5,9}$'),
                 _('Cédula incorrecta'),
                 'invalid')])
-    pasaporte = models.IntegerField(validators=[MinValueValidator(0)]
-                                    )
+    pasaporte = models.IntegerField(validators=[MinValueValidator(0)])
     telefono = models.CharField(
         max_length=11,
         validators=[
@@ -163,10 +161,11 @@ class Solicitante(models.Model):
                 _('Teléfono incorrecto'),
                 'invalid')])
     email = models.EmailField()
-	
-    def get_model_type(self): #pylint: disable=no-self-use
+
+    def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "Solicitante"
+
 
 class Responsable(models.Model):
     """ Tabla para almacenar los datos de una persona
@@ -175,13 +174,13 @@ class Responsable(models.Model):
         models.Model (Solicitante): Instancia sobre la que se crea la tabla.
     Atributos:
         nombre: Nombre del responsable
-		apellido: Apellido del responsable
-		cedula: Cedula del responsable
+                apellido: Apellido del responsable
+                cedula: Cedula del responsable
         pasaporte: pasaporte del responsable
-		nivel_academico: Nivel academico del responsable
+                nivel_academico: Nivel academico del responsable
         tipo_responsable: Tipo de especialidad del responsable
     """
-    class Meta: # pylint: disable=too-few-public-methods
+    class Meta:  # pylint: disable=too-few-public-methods
         '''Hacer unica la combinacion entre pasporte y cedula'''
         unique_together = (('cedula', 'pasaporte'))
 
@@ -206,17 +205,16 @@ class Responsable(models.Model):
                 re.compile('^[V|E|J|P][0-9]{5,9}$'),
                 _('Cédula incorrecta'),
                 'invalid')])
-    pasaporte = models.IntegerField(validators=[MinValueValidator(0)]
-                                    )
+    pasaporte = models.IntegerField(validators=[MinValueValidator(0)])
     nivel_academico = models.CharField(max_length=100)
     TIPO_PERSONAL = (('EsIA', 'Especialista del EsIA'),
-                            ('fisico', 'Especialista del Medio Físico'),
-                            ('biologico', 'Especialista del Medio Biológico'),
-                            ('socioeconomico', 'Especialista del Medio Socioeconómico'),
-                            ('gerente', 'Gerente del Proyecto de Desarrollo'))
+                     ('fisico', 'Especialista del Medio Físico'),
+                     ('biologico', 'Especialista del Medio Biológico'),
+                     ('socioeconomico', 'Especialista del Medio Socioeconómico'),
+                     ('gerente', 'Gerente del Proyecto de Desarrollo'))
     tipo_responsable = models.CharField(max_length=8, choices=TIPO_PERSONAL)
 
-    def get_model_type(self): #pylint: disable=no-self-use
+    def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "Responsable"
 
@@ -238,9 +236,10 @@ class DatosProyecto(models.Model):
     tipo = models.TextField()
     url = models.URLField()
 
-    def get_model_type(self): #pylint: disable=no-self-use
+    def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "Datos_Proyecto"
+
 
 class DatosDocumento(models.Model):
     """ Tabla para almacenar la informacion de los datos de un documento de intencion.
@@ -259,6 +258,6 @@ class DatosDocumento(models.Model):
     estado = models.CharField(max_length=100)
     pais = models.CharField(max_length=100)
 
-    def get_model_type(self): #pylint: disable=no-self-use
+    def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "Datos_Documento"

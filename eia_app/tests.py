@@ -101,6 +101,7 @@ class OrganizacionTestCase(TestCase):
         except BaseException:
             pass
 
+
 class SolicitanteTestCase(TestCase):
     ''' Pruebas para la tabla de solicitante '''
 
@@ -184,6 +185,7 @@ class SolicitanteTestCase(TestCase):
             self.fail("Se guardo una instancia de una cedula que ya existe")
         except BaseException:
             pass
+
 
 class ResponsableTestCase(TestCase):
     ''' Pruebas para la tabla de solicitante '''
