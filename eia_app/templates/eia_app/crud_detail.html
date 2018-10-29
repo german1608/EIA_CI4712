@@ -2,11 +2,20 @@
 {% load static %}
 
 {% block content %}
+
+<!-- Detalles de una organizacion -->
 {% if Organizacion %}
 <h1>Detalles de la organizacion {{organizacion.nombre}}</h1>
 <p>Rif: {{organizacion.rif}}</p>
 {% endif %}
+
+<!-- Detalles de un proyecto -->
 {% if Datos_Proyecto %}
 <h1>Datos del proyecto {{datos_proyecto.titulo}}</h1>
+{% endif %}
+
+<!-- Detalles de un responsable -->
+{% if Responsable %}
+<h1>Datos del responsable {{responsable.nombre}}</h1>
 {% endif %}
 {% endblock %}

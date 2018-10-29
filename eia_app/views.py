@@ -119,6 +119,60 @@ class DatosProyectoDetail(DetailView): # pylint: disable=too-many-ancestors
         context["Datos_Proyecto"] = True
         return context
 
+class ResponsableList(ListView): # pylint: disable=too-many-ancestors
+    '''Listar las Responsables'''
+    model = Responsable
+    template_name = 'eia_app/crud_list.html'
+
+    def get_context_data(self, **kwargs): #pylint: disable=arguments-differ
+        context = super(ResponsableList, self).get_context_data(**kwargs)
+        context["Responsable"] = True
+        return context
+
+
+class ResponsableDetail(DetailView): # pylint: disable=too-many-ancestors
+    '''Detalles de una Responsable'''
+    model = Responsable
+    template_name = 'eia_app/crud_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ResponsableDetail, self).get_context_data(**kwargs)
+        context["Responsable"] = True
+        return context
+
+
+class ResponsableCreate(CreateView): # pylint: disable=too-many-ancestors
+    '''Crear una Responsable'''
+    model = Responsable
+    form_class = ResponsableCreateForm
+    template_name = 'eia_app/crud_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-responsables')
+
+    def get_context_data(self, **kwargs): #pylint: disable=arguments-differ
+        context = super(ResponsableCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Responsable"
+        return context
+
+
+class ResponsableUpdate(UpdateView): # pylint: disable=too-many-ancestors
+    '''Actualizar una Responsable'''
+    model = Responsable
+    template_name = 'eia_app/crud_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-responsables')
+    fields = '__all__'
+
+
+class ResponsableDelete(DeleteView): # pylint: disable=too-many-ancestors
+    '''Eliminar una Responsable'''
+    model = Responsable
+    template_name = 'eia_app/crud_confirm_delete.html'
+    success_url = reverse_lazy('consultor-crud:lista-responsables')
+
+    def get_context_data(self, **kwargs):
+        context = super(ResponsableDelete, self).get_context_data(**kwargs)
+        context["Responsable"] = True
+        return context
+
 
 def consultor_index(request):
     '''Index de la vista del consultor'''

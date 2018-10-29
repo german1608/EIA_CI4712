@@ -152,7 +152,7 @@ class Solicitante(models.Model):
                 re.compile('^[V|E|J|P][0-9]{5,9}$'),
                 _('Cédula incorrecta'),
                 'invalid')])
-    pasaporte = models.IntegerField(validators=[MinValueValidator(0)])
+    pasaporte = models.IntegerField(validators=[MinValueValidator(0)], blank=True, null=True)
     telefono = models.CharField(
         max_length=11,
         validators=[
@@ -205,14 +205,14 @@ class Responsable(models.Model):
                 re.compile('^[V|E|J|P][0-9]{5,9}$'),
                 _('Cédula incorrecta'),
                 'invalid')])
-    pasaporte = models.IntegerField(validators=[MinValueValidator(0)])
+    pasaporte = models.IntegerField(validators=[MinValueValidator(0)], blank=True, null=True)
     nivel_academico = models.CharField(max_length=100)
     TIPO_PERSONAL = (('EsIA', 'Especialista del EsIA'),
                      ('fisico', 'Especialista del Medio Físico'),
                      ('biologico', 'Especialista del Medio Biológico'),
                      ('socioeconomico', 'Especialista del Medio Socioeconómico'),
                      ('gerente', 'Gerente del Proyecto de Desarrollo'))
-    tipo_responsable = models.CharField(max_length=8, choices=TIPO_PERSONAL)
+    tipo_responsable = models.CharField(max_length=16, choices=TIPO_PERSONAL)
 
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
