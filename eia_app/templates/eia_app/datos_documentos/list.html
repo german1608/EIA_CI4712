@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<h3>Lista de datos de un documento</h3>
+<p>
+    <a href="{% url "consultor-crud:nuevo-datos-documento" %}">Agregar datos de un documento</a>
+</p>
+<div class="container" style="width:90% !important">
+    {%if object_list.count > 0%}
+      <table id="datos_documento" class="display">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Ciudad</th>
+                <th>Proyecto</th>
+                <th>Ver detalles</th>
+                <th>Editar</th>
+                <th>Borrar</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for documento in object_list %}
+            <tr>
+                <td>{{ documento.fecha }}</td>
+                <td>{{ documento.ciudad }}</td>
+                <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  documento.proyecto.id %}">{{ documento.proyecto }}</a></td>
+                <td><a href="{% url "consultor-crud:detalles-datos-documento"  documento.id %}"><i class="fas fa-info-circle fa-lg" style="color: #77933c"></i></a></td>
+                <td><a href="{% url "consultor-crud:editar-datos-documento" documento.id %}"><i class="fas fa-edit fa-lg" style="color: #77933c"></i></a></td>
+                <td><a href="{% url "consultor-crud:borrar-datos-documento" documento.id %}"><i class="fas fa-trash-alt fa-lg" style="color: #77933c"></i></a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No existen datos de un documentos agregados a la base de datos</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+<!--BLOQUE DE JS-->
+
+{% block js %}
+<script>
+  $(document).ready( function () {
+    $('#datos_documento').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      }
+    });
+  });
+</script>
+{% endblock %}

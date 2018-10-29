@@ -13,30 +13,18 @@ from .forms import * #pylint: disable=wildcard-import, unused-wildcard-import
 class OrganizacionList(ListView): # pylint: disable=too-many-ancestors
     '''Listar las organizaciones'''
     model = Organizacion
-    template_name = 'eia_app/crud_list.html'
-
-    def get_context_data(self, **kwargs): #pylint: disable=arguments-differ
-        context = super(OrganizacionList, self).get_context_data(**kwargs)
-        context["Organizacion"] = True
-        return context
-
+    template_name = 'eia_app/organizaciones/list.html'
 
 class OrganizacionDetail(DetailView): # pylint: disable=too-many-ancestors
     '''Detalles de una organizacion'''
     model = Organizacion
-    template_name = 'eia_app/crud_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(OrganizacionDetail, self).get_context_data(**kwargs)
-        context["Organizacion"] = True
-        return context
-
+    template_name = 'eia_app/organizaciones/detail.html'
 
 class OrganizacionCreate(CreateView): # pylint: disable=too-many-ancestors
     '''Crear una organizacion'''
     model = Organizacion
     form_class = OrganizacionCreateForm
-    template_name = 'eia_app/crud_form.html'
+    template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-organizaciones')
 
     def get_context_data(self, **kwargs): #pylint: disable=arguments-differ
@@ -48,7 +36,7 @@ class OrganizacionCreate(CreateView): # pylint: disable=too-many-ancestors
 class OrganizacionUpdate(UpdateView): # pylint: disable=too-many-ancestors
     '''Actualizar una organizacion'''
     model = Organizacion
-    template_name = 'eia_app/crud_form.html'
+    template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-organizaciones')
     fields = '__all__'
 
@@ -56,31 +44,19 @@ class OrganizacionUpdate(UpdateView): # pylint: disable=too-many-ancestors
 class OrganizacionDelete(DeleteView): # pylint: disable=too-many-ancestors
     '''Eliminar una organizacion'''
     model = Organizacion
-    template_name = 'eia_app/crud_confirm_delete.html'
+    template_name = 'eia_app/organizaciones/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-organizaciones')
-
-    def get_context_data(self, **kwargs):
-        context = super(OrganizacionDelete, self).get_context_data(**kwargs)
-        context["Organizacion"] = True
-        return context
-
 
 class DatosProyectoList(ListView): # pylint: disable=too-many-ancestors
     '''Listar los datos de los proyectos'''
     model = DatosProyecto
-    template_name = 'eia_app/crud_list.html'
-
-    def get_context_data(self, **kwargs): #pylint: disable=arguments-differ
-        context = super(DatosProyectoList, self).get_context_data(**kwargs)
-        context["Datos_Proyecto"] = True
-        return context
-
+    template_name = 'eia_app/datos_proyectos/list.html'
 
 class DatosProyectoCreate(CreateView): # pylint: disable=too-many-ancestors
     '''Crear datos de un proyecto'''
     model = DatosProyecto
     fields = '__all__'
-    template_name = 'eia_app/crud_form.html'
+    template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-proyectos')
 
     def get_context_data(self, **kwargs): #pylint: disable=arguments-differ
@@ -92,7 +68,7 @@ class DatosProyectoCreate(CreateView): # pylint: disable=too-many-ancestors
 class DatosProyectoUpdate(UpdateView): # pylint: disable=too-many-ancestors
     '''Actualizar los datos de un proyecto'''
     model = DatosProyecto
-    template_name = 'eia_app/crud_form.html'
+    template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-proyectos')
     fields = '__all__'
 
@@ -100,52 +76,29 @@ class DatosProyectoUpdate(UpdateView): # pylint: disable=too-many-ancestors
 class DatosProyectoDelete(DeleteView): # pylint: disable=too-many-ancestors
     '''Eliminar los datos de un proyecto'''
     model = DatosProyecto
-    template_name = 'eia_app/crud_confirm_delete.html'
+    template_name = 'eia_app/datos_proyectos/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-proyectos')
-
-    def get_context_data(self, **kwargs):
-        context = super(DatosProyectoDelete, self).get_context_data(**kwargs)
-        context["Datos_Proyecto"] = True
-        return context
-
 
 class DatosProyectoDetail(DetailView): # pylint: disable=too-many-ancestors
     '''Detalles de los datos de un proyecto'''
     model = DatosProyecto
-    template_name = 'eia_app/crud_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(DatosProyectoDetail, self).get_context_data(**kwargs)
-        context["Datos_Proyecto"] = True
-        return context
+    template_name = 'eia_app/datos_proyectos/detail.html'
 
 class ResponsableList(ListView): # pylint: disable=too-many-ancestors
     '''Listar las Responsables'''
     model = Responsable
-    template_name = 'eia_app/crud_list.html'
-
-    def get_context_data(self, **kwargs): #pylint: disable=arguments-differ
-        context = super(ResponsableList, self).get_context_data(**kwargs)
-        context["Responsable"] = True
-        return context
-
+    template_name = 'eia_app/responsables/list.html'
 
 class ResponsableDetail(DetailView): # pylint: disable=too-many-ancestors
     '''Detalles de una Responsable'''
     model = Responsable
-    template_name = 'eia_app/crud_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(ResponsableDetail, self).get_context_data(**kwargs)
-        context["Responsable"] = True
-        return context
-
+    template_name = 'eia_app/responsables/detail.html'
 
 class ResponsableCreate(CreateView): # pylint: disable=too-many-ancestors
     '''Crear una Responsable'''
     model = Responsable
     form_class = ResponsableCreateForm
-    template_name = 'eia_app/crud_form.html'
+    template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-responsables')
 
     def get_context_data(self, **kwargs): #pylint: disable=arguments-differ
@@ -157,22 +110,91 @@ class ResponsableCreate(CreateView): # pylint: disable=too-many-ancestors
 class ResponsableUpdate(UpdateView): # pylint: disable=too-many-ancestors
     '''Actualizar una Responsable'''
     model = Responsable
-    template_name = 'eia_app/crud_form.html'
+    template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-responsables')
     fields = '__all__'
-
 
 class ResponsableDelete(DeleteView): # pylint: disable=too-many-ancestors
     '''Eliminar una Responsable'''
     model = Responsable
-    template_name = 'eia_app/crud_confirm_delete.html'
+    template_name = 'eia_app/responsables/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-responsables')
 
-    def get_context_data(self, **kwargs):
-        context = super(ResponsableDelete, self).get_context_data(**kwargs)
-        context["Responsable"] = True
+class SolicitanteList(ListView): # pylint: disable=too-many-ancestors
+    '''Listar las Solicitantes'''
+    model = Solicitante
+    template_name = 'eia_app/solicitantes/list.html'
+
+class SolicitanteDetail(DetailView): # pylint: disable=too-many-ancestors
+    '''Detalles de una Solicitante'''
+    model = Solicitante
+    template_name = 'eia_app/solicitantes/detail.html'
+
+class SolicitanteCreate(CreateView): # pylint: disable=too-many-ancestors
+    '''Crear una Solicitante'''
+    model = Solicitante
+    form_class = SolicitanteCreateForm
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-solicitantes')
+
+    def get_context_data(self, **kwargs): #pylint: disable=arguments-differ
+        context = super(SolicitanteCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Solicitante"
         return context
 
+
+class SolicitanteUpdate(UpdateView): # pylint: disable=too-many-ancestors
+    '''Actualizar una Solicitante'''
+    model = Solicitante
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-solicitantes')
+    fields = '__all__'
+
+
+class SolicitanteDelete(DeleteView): # pylint: disable=too-many-ancestors
+    '''Eliminar una Solicitante'''
+    model = Solicitante
+    template_name = 'eia_app/solicitantes/delete.html'
+    success_url = reverse_lazy('consultor-crud:lista-solicitantes')
+
+
+class DatosDocumentoList(ListView): # pylint: disable=too-many-ancestors
+    '''Listar las DatosDocumentos'''
+    model = DatosDocumento
+    template_name = 'eia_app/datos_documentos/list.html'
+
+
+class DatosDocumentoDetail(DetailView): # pylint: disable=too-many-ancestors
+    '''Detalles de un DatosDocumento'''
+    model = DatosDocumento
+    template_name = 'eia_app/datos_documentos/detail.html'
+
+class DatosDocumentoCreate(CreateView): # pylint: disable=too-many-ancestors
+    '''Crear una DatosDocumento'''
+    model = DatosDocumento
+    form_class = DatosDocumentoCreateForm
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-datos-documentos')
+
+    def get_context_data(self, **kwargs): #pylint: disable=arguments-differ
+        context = super(DatosDocumentoCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Datos de un documento"
+        return context
+
+
+class DatosDocumentoUpdate(UpdateView): # pylint: disable=too-many-ancestors
+    '''Actualizar una DatosDocumento'''
+    model = DatosDocumento
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-datos-documentos')
+    fields = '__all__'
+
+
+class DatosDocumentoDelete(DeleteView): # pylint: disable=too-many-ancestors
+    '''Eliminar una DatosDocumento'''
+    model = DatosDocumento
+    template_name = 'eia_app/datos_documentos/delete.html'
+    success_url = reverse_lazy('consultor-crud:lista-datos-documentos')
 
 def consultor_index(request):
     '''Index de la vista del consultor'''
