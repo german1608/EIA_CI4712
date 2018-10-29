@@ -10,6 +10,32 @@ from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _  # pylint: disable=unused-import
 
 
+class DatosProyecto(models.Model):
+    """ Tabla para almacenar la informacion general de un proyecto.
+    Parametros:
+        models.Model (Datos_Proyecto): Instancia sobre la que se crea la tabla.
+    Atributos:
+        titulo: Titulo del proyecto
+        ubicacion: ubicacion geografica donde se desarrollara el proyecto
+        area: area de desempeño del proyecto
+        tipo: tipo de proyecto
+        url: Url al PDF del proyecto.
+    """
+    titulo = models.CharField(max_length=100, unique=True)
+    ubicacion = models.TextField()
+    area = models.TextField()
+    tipo = models.TextField()
+    url = models.URLField()
+
+    def get_model_type(self):  # pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
+        return "Datos_Proyecto"
+
+    def __str__(self):
+        '''Devuelve el nombre del proyecto'''
+        return str(self.titulo)
+
+
 class DatosPersona(models.Model):
     """ Tabla para registrar los datos de un representante legal
         de una organizacion.
@@ -56,6 +82,7 @@ class Organizacion(models.Model):
         models.Model (Organizacion): Instancia sobre la que se
         crea la tabla.
     Atributos de la clase:
+        proyecto: proyecto al que pertenece la organizacion
         razon_social: Razon social de la organizacion
         nombre: Nombre de la orgnizacion
         rif: Rif de la organizacion
@@ -64,6 +91,7 @@ class Organizacion(models.Model):
         telefono: Telefono de la organizacion
         email: Email de la organizacion
     """
+    proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
     RAZON_SOCIAL_CHOICES = (('natural', 'Persona natural'),
                             ('juridica', 'Persona Jurídica'))
     razon_social = models.CharField(max_length=8, choices=RAZON_SOCIAL_CHOICES)
@@ -120,9 +148,10 @@ class Solicitante(models.Model):
     Parametros:
         models.Model (Solicitante): Instancia sobre la que se crea la tabla.
     Atributos:
-                nombre: Nombre del solicitante o promotor
-                apellido: Apellido del solicitante o promotor
-                cedula: Cedula del solicitante o promotor
+        proyecto: proyecto al que pertenece el solicitante
+        nombre: Nombre del solicitante o promotor
+        apellido: Apellido del solicitante o promotor
+        cedula: Cedula del solicitante o promotor
         pasaporte: pasaporte del solicitante o promotor
         telefono: Telefono del solicitante o promotor
         email: Email del solicitante o promotor
@@ -131,6 +160,7 @@ class Solicitante(models.Model):
         '''Hacer unica la combinacion entre pasporte y cedula'''
         unique_together = (('cedula', 'pasaporte'))
 
+    proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
     nombre = models.CharField(
         max_length=60,
         validators=[
@@ -152,7 +182,11 @@ class Solicitante(models.Model):
                 re.compile('^[V|E|J|P][0-9]{5,9}$'),
                 _('Cédula incorrecta'),
                 'invalid')])
-    pasaporte = models.IntegerField(validators=[MinValueValidator(0)], blank=True, null=True)
+    pasaporte = models.IntegerField(
+        validators=[
+            MinValueValidator(0)],
+        blank=True,
+        null=True)
     telefono = models.CharField(
         max_length=11,
         validators=[
@@ -173,9 +207,10 @@ class Responsable(models.Model):
     Parametros:
         models.Model (Solicitante): Instancia sobre la que se crea la tabla.
     Atributos:
+        proyecto: proyecto al que pertenece el responsable
         nombre: Nombre del responsable
-                apellido: Apellido del responsable
-                cedula: Cedula del responsable
+        apellido: Apellido del responsable
+        cedula: Cedula del responsable
         pasaporte: pasaporte del responsable
                 nivel_academico: Nivel academico del responsable
         tipo_responsable: Tipo de especialidad del responsable
@@ -184,6 +219,7 @@ class Responsable(models.Model):
         '''Hacer unica la combinacion entre pasporte y cedula'''
         unique_together = (('cedula', 'pasaporte'))
 
+    proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
     nombre = models.CharField(
         max_length=60,
         validators=[
@@ -205,7 +241,11 @@ class Responsable(models.Model):
                 re.compile('^[V|E|J|P][0-9]{5,9}$'),
                 _('Cédula incorrecta'),
                 'invalid')])
-    pasaporte = models.IntegerField(validators=[MinValueValidator(0)], blank=True, null=True)
+    pasaporte = models.IntegerField(
+        validators=[
+            MinValueValidator(0)],
+        blank=True,
+        null=True)
     nivel_academico = models.CharField(max_length=100)
     TIPO_PERSONAL = (('EsIA', 'Especialista del EsIA'),
                      ('fisico', 'Especialista del Medio Físico'),
@@ -217,28 +257,6 @@ class Responsable(models.Model):
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "Responsable"
-
-
-class DatosProyecto(models.Model):
-    """ Tabla para almacenar la informacion general de un proyecto.
-    Parametros:
-        models.Model (Datos_Proyecto): Instancia sobre la que se crea la tabla.
-    Atributos:
-        titulo: Titulo del proyecto
-        ubicacion: ubicacion geografica donde se desarrollara el proyecto
-        area: area de desempeño del proyecto
-        tipo: tipo de proyecto
-        url: Url al PDF del proyecto.
-    """
-    titulo = models.CharField(max_length=100, unique=True)
-    ubicacion = models.TextField()
-    area = models.TextField()
-    tipo = models.TextField()
-    url = models.URLField()
-
-    def get_model_type(self):  # pylint: disable=no-self-use
-        '''Devuelve el tipo de modelo'''
-        return "Datos_Proyecto"
 
 
 class DatosDocumento(models.Model):

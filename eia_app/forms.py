@@ -23,3 +23,10 @@ class ResponsableCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = Responsable
         fields = '__all__'
+
+class DatosProyectoCreateForm(forms.ModelForm):
+    '''Form del modelo datos proyecto'''
+    class Meta: # pylint: disable=too-few-public-methods
+        '''Clase meta del formulario'''
+        model = DatosProyecto
+        fields = '__all__'

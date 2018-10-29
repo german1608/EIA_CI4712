@@ -11,7 +11,15 @@ class OrganizacionTestCase(TestCase):
 
     def setUp(self):
         '''Se crean instancias de organizaciones para realizar pruebas'''
+        # pylint: disable=no-member
+        self.proyecto = DatosProyecto.objects.create(
+            titulo="hola",
+            ubicacion="caracas",
+            area="area de prueba",
+            tipo="prueba",
+            url="www.google.com")
         form_data = {
+            'proyecto': self.proyecto.id,
             'razon_social': "natural",
             'nombre': "Nombre de prueba",
             'rif': "V-25872062-4",
@@ -30,6 +38,7 @@ class OrganizacionTestCase(TestCase):
     def test_organizacion_crear(self):
         '''Prueba para crear una instancia de una organizacion'''
         form_data = {
+            'proyecto': self.proyecto.id,
             'razon_social': "natural",
             'nombre': "Nombre de prueba",
             'rif': "V-25872062-5",
@@ -49,6 +58,7 @@ class OrganizacionTestCase(TestCase):
     def test_organizacion_sin_rif(self):
         '''Prueba para crear una instancia de una organizacion sin rif'''
         form_data = {
+            'proyecto': self.proyecto.id,
             'razon_social': "natural",
             'nombre': "Nombre de prueba",
             'rif': "",
@@ -64,6 +74,7 @@ class OrganizacionTestCase(TestCase):
     def test_organizacion_sin_nombre(self):
         '''Prueba para crear una instancia de una organizacion sin nombre'''
         form_data = {
+            'proyecto': self.proyecto.id,
             'razon_social': "natural",
             'nombre': "",
             'rif': "V-25872062-4",
@@ -107,7 +118,15 @@ class SolicitanteTestCase(TestCase):
 
     def setUp(self):
         '''Se crean instancias de solicitantes para realizar pruebas'''
+        # pylint: disable=no-member
+        self.proyecto = DatosProyecto.objects.create(
+            titulo="hola",
+            ubicacion="caracas",
+            area="area de prueba",
+            tipo="prueba",
+            url="www.google.com")
         form_data = {
+            'proyecto': self.proyecto.id,
             'nombre': "Nombre Prueba",
             'apellido': "Apellido Prueba",
             'cedula': "V2587206",
@@ -124,6 +143,7 @@ class SolicitanteTestCase(TestCase):
     def test_solicitante_crear(self):
         '''Prueba para crear una instancia de un solicitante'''
         form_data = {
+            'proyecto': self.proyecto.id,
             'nombre': "NombrePrueba",
             'apellido': "ApellidoPrueba",
             'cedula': "V25872062",
@@ -140,6 +160,7 @@ class SolicitanteTestCase(TestCase):
     def test_solicitante_sin_cedula(self):
         '''Prueba para crear una instancia de un solicitante sin cedula'''
         form_data = {
+            'proyecto': self.proyecto.id,
             'nombre': "NombrePrueba",
             'apellido': "ApellidoPrueba",
             'cedula': "",
@@ -152,6 +173,7 @@ class SolicitanteTestCase(TestCase):
     def test_solicitante_sin_nombre(self):
         '''Prueba para crear una instancia de un solicitante sin nombre'''
         form_data = {
+            'proyecto': self.proyecto.id,
             'nombre': "",
             'apellido': "ApellidoPrueba",
             'cedula': "V25872062",
@@ -192,7 +214,15 @@ class ResponsableTestCase(TestCase):
 
     def setUp(self):
         '''Se crean instancias de responsables para realizar pruebas'''
+        # pylint: disable=no-member
+        self.proyecto = DatosProyecto.objects.create(
+            titulo="hola",
+            ubicacion="caracas",
+            area="area de prueba",
+            tipo="prueba",
+            url="www.google.com")
         form_data = {
+            'proyecto': self.proyecto.id,
             'nombre': "Nombre Prueba",
             'apellido': "Apellido Prueba",
             'cedula': "V2587206",
@@ -211,6 +241,7 @@ class ResponsableTestCase(TestCase):
     def test_responsable_crear(self):
         '''Prueba para crear una instancia de un responsable'''
         form_data = {
+            'proyecto': self.proyecto.id,
             'nombre': "NombrePrueba",
             'apellido': "ApellidoPrueba",
             'cedula': "V25872062",
@@ -229,6 +260,7 @@ class ResponsableTestCase(TestCase):
     def test_responsable_sin_cedula(self):
         '''Prueba para crear una instancia de un responsable sin cedula'''
         form_data = {
+            'proyecto': self.proyecto.id,
             'nombre': "NombrePrueba",
             'apellido': "ApellidoPrueba",
             'cedula': "",
@@ -243,6 +275,7 @@ class ResponsableTestCase(TestCase):
     def test_responsable_sin_nombre(self):
         '''Prueba para crear una instancia de un responsable sin nombre'''
         form_data = {
+            'proyecto': self.proyecto.id,
             'nombre': "",
             'apellido': "ApellidoPrueba",
             'cedula': "V25872062",
