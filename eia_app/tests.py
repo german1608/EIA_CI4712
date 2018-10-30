@@ -620,7 +620,7 @@ class ResponsableTestCase(TestCase):
         self.assertFalse(form_responsable.is_valid())
 
     def test_responsable_eliminar(self):
-        '''Prueba para crear una instancia de un responsable sin nombre'''
+        '''Prueba para eliminar una instancia de un responsable'''
         form_data = {
             'proyecto': self.proyecto.id,
             'nombre': "NombrePrueba",
@@ -635,5 +635,137 @@ class ResponsableTestCase(TestCase):
         responsable = Responsable.objects.get(cedula="V25872062").delete()
         try:
             res1 = responsable = Responsable.objects.get(cedula="V25872062")
+        except:
+            pass
+
+class DatosDocumentoTestCase(TestCase):
+    ''' Pruebas para la tabla de solicitante '''
+
+    def setUp(self):
+        '''Se crean instancias de responsables para realizar pruebas'''
+        # pylint: disable=no-member
+        self.proyecto = DatosProyecto.objects.create(
+            titulo="hola",
+            ubicacion="caracas",
+            area="area de prueba",
+            tipo="prueba",
+            url="www.google.com")
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'fecha' : "2007-10-25",
+            'ciudad' : "Maracay",
+            'estado' : "Aragua",
+            'pais' : "Venezuela"}
+        form_datos = DatosDocumentoCreateForm(data=form_data)
+        form_datos.save()
+
+    def test_datosDocumento_crear(self):
+        '''Prueba para crear una instancia de datos de documentos'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'fecha' : "2006-10-25",
+            'ciudad' : "maracay",
+            'estado' : "aragua",
+            'pais' : "Venezuela"}
+        form_datos = DatosDocumentoCreateForm(data=form_data)
+        form_datos.save()
+        # pylint: disable=no-member
+        datos = DatosDocumento.objects.get(
+            fecha= "2006-10-25")
+        self.assertEqual(datos.ciudad, "maracay")
+
+    def test_datosDocumento_sin_fecha(self):
+        '''Prueba para crear una instancia de datos de documentos sin fecha'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'fecha' : "",
+            'ciudad' : "maracay",
+            'estado' : "aragua",
+            'pais' : "Venezuela"}
+        form_datos = DatosDocumentoCreateForm(data=form_data)
+        self.assertFalse(form_datos.is_valid())
+    
+    def test_datosDocumento_sin_ciudad(self):
+        '''Prueba para crear una instancia de datos de documentos sin ciudad'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'fecha' : "2006-10-25",
+            'ciudad' : "",
+            'estado' : "aragua",
+            'pais' : "Venezuela"}
+        form_datos = DatosDocumentoCreateForm(data=form_data)
+        self.assertFalse(form_datos.is_valid())
+    
+    def test_datosDocumento_sin_estado(self):
+        '''Prueba para crear una instancia de datos de documentos sin estado'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'fecha' : "2006-10-25",
+            'ciudad' : "maracay",
+            'estado' : "",
+            'pais' : "Venezuela"}
+        form_datos = DatosDocumentoCreateForm(data=form_data)
+        self.assertFalse(form_datos.is_valid())
+    
+    def test_datosDocumento_sin_pais(self):
+        '''Prueba para crear una instancia de datos de documentos sin pais'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'fecha' : "2006-10-25",
+            'ciudad' : "maracay",
+            'estado' : "aragua",
+            'pais' : ""}
+        form_datos = DatosDocumentoCreateForm(data=form_data)
+        self.assertFalse(form_datos.is_valid())
+
+    def test_datosDocumento_editar_ciudad(self):
+        '''Prueba para editar la ciudad de un documento'''
+        # pylint: disable=no-member
+        datos = DatosDocumento.objects.get(
+            fecha="2007-10-25")
+        datos.ciudad = "Caracas"
+        datos.save()
+        # pylint: disable=no-member
+        datos = DatosDocumento.objects.get(
+            fecha="2007-10-25")
+        self.assertEqual(datos.ciudad, "Caracas")
+
+    def test_datosDocumento_editar_estado(self):
+        '''Prueba para editar el estado de un documento'''
+        # pylint: disable=no-member
+        datos = DatosDocumento.objects.get(
+            fecha="2007-10-25")
+        datos.ciudad = "Miranda"
+        datos.save()
+        # pylint: disable=no-member
+        datos = DatosDocumento.objects.get(
+            fecha="2007-10-25")
+        self.assertEqual(datos.ciudad, "Miranda")
+
+    def test_datosDocumento_editar_pais(self):
+        '''Prueba para editar el pais de un documento'''
+        # pylint: disable=no-member
+        datos = DatosDocumento.objects.get(
+            fecha="2007-10-25")
+        datos.pais = "España"
+        datos.save()
+        # pylint: disable=no-member
+        datos = DatosDocumento.objects.get(
+            fecha="2007-10-25")
+        self.assertEqual(datos.pais, "España")
+    def test_datosDocumento_eliminar(self):
+        '''Prueba para eliminar una instancia de datos de documentos'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'fecha' : "2006-10-25",
+            'ciudad' : "maracay",
+            'estado' : "aragua",
+            'pais' : "Venezuela"}
+        form_datos = DatosDocumentoCreateForm(data=form_data)
+        form_datos.save()
+        # pylint: disable=no-member
+        datos = DatosDocumento.objects.get(fecha="2006-10-25").delete()
+        try:
+            dat1 = datos = DatosDocumento.objects.get(fecha="2006-10-25")
         except:
             pass
