@@ -112,8 +112,8 @@ class OrganizacionTestCase(TestCase):
         except BaseException:
             pass
 
-    def test_organizacion_mala_razonSocial(self):
-        '''Prueba para crear una instancia de una organizacion con la razon social mala'''
+    def test_organizacion_razonSocial_invalida(self):
+        '''Prueba para crear una instancia de una organizacion con la razon social invalida'''
         form_data = {
             'proyecto': self.proyecto.id,
             'razon_social': "hola",
@@ -129,7 +129,7 @@ class OrganizacionTestCase(TestCase):
         self.assertFalse(form_organizacion.is_valid())
 
     def test_organizacion_email_incompleto(self):
-        '''Prueba para crear una instancia de una organizacion con la razon social mala'''
+        '''Prueba para crear una instancia de una organizacion con el email incompleto'''
         form_data = {
             'proyecto': self.proyecto.id,
             'razon_social': "juridica",
@@ -239,9 +239,9 @@ class OrganizacionTestCase(TestCase):
         except:
             pass
 
-    def test_organizacion_apellido_malo(self):
+    def test_organizacion_apellido_invalido(self):
         '''Prueba para crear una instancia de una organizacion con el
-        apellido del representante legal malo'''
+        apellido del representante legal invalido'''
         form_data = {
             'proyecto': self.proyecto.id,
             'razon_social': "juridica",
@@ -465,8 +465,6 @@ class ResponsableTestCase(TestCase):
             'apellido': "Apellido Prueba",
             'cedula': "V2587206",
             'pasaporte': 25872061,
-            'telefono': "04141633960",
-            'email': "prueba@gmail.ve",
             'nivel_academico': "Bachiller",
             'tipo_responsable': "EsIA"}
         form_responsable = ResponsableCreateForm(data=form_data)
@@ -484,8 +482,6 @@ class ResponsableTestCase(TestCase):
             'apellido': "ApellidoPrueba",
             'cedula': "V25872062",
             'pasaporte': 25872061,
-            'telefono': "04141633960",
-            'email': "prueba@gmail.ve",
             'nivel_academico': "Bachiller",
             'tipo_responsable': "EsIA"}
         form_responsable = ResponsableCreateForm(data=form_data)
@@ -503,8 +499,6 @@ class ResponsableTestCase(TestCase):
             'apellido': "ApellidoPrueba",
             'cedula': "",
             'pasaporte': 25872061,
-            'telefono': "04141633960",
-            'email': "prueba@gmail.ve",
             'nivel_academico': "Bachiller",
             'tipo_responsable': "EsIA"}
         form_responsable = ResponsableCreateForm(data=form_data)
@@ -518,10 +512,34 @@ class ResponsableTestCase(TestCase):
             'apellido': "ApellidoPrueba",
             'cedula': "V25872062",
             'pasaporte': 25872061,
-            'telefono': "04141633960",
-            'email': "prueba@gmail.ve",
             'nivel_academico': "Bachiller",
             'tipo_responsable': "EsIA"}
+        form_responsable = ResponsableCreateForm(data=form_data)
+        self.assertFalse(form_responsable.is_valid())
+
+    def test_responsable_sin_nivelAcademico(self):
+        '''Prueba para crear una instancia de un responsable sin nivel academico'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'nombre': "",
+            'apellido': "ApellidoPrueba",
+            'cedula': "V25872062",
+            'pasaporte': 25872061,
+            'nivel_academico': "",
+            'tipo_responsable': "EsIA"}
+        form_responsable = ResponsableCreateForm(data=form_data)
+        self.assertFalse(form_responsable.is_valid())
+    
+    def test_responsable_sin_tipoResponsable(self):
+        '''Prueba para crear una instancia de un responsable sin tipo de responsable'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'nombre': "",
+            'apellido': "ApellidoPrueba",
+            'cedula': "V25872062",
+            'pasaporte': 25872061,
+            'nivel_academico': "Bachiller",
+            'tipo_responsable': ""}
         form_responsable = ResponsableCreateForm(data=form_data)
         self.assertFalse(form_responsable.is_valid())
 
@@ -548,4 +566,74 @@ class ResponsableTestCase(TestCase):
             responsable.save()
             self.fail("Se guardo una instancia de una cedula que ya existe")
         except BaseException:
+            pass
+
+    def test_responsable_editar_tipoResponsable(self):
+        '''Prueba para editar el tipo de un responsable'''
+        # pylint: disable=no-member
+        responsable = Responsable.objects.get(
+            cedula="V2587206")
+        responsable.tipo_responsable = "gerente"
+        responsable.save()
+        # pylint: disable=no-member
+        responsable = Responsable.objects.get(
+            cedula="V2587206")
+        self.assertEqual(responsable.tipo_responsable, "gerente")
+
+    def test_responsable_cedula_incompleta(self):
+        '''Prueba para crear una instancia de un responsable con cedula incompleta'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'nombre': "NombrePrueba",
+            'apellido': "ApellidoPrueba",
+            'cedula': "25872062",
+            'pasaporte': 25872061,
+            'nivel_academico': "Bachiller",
+            'tipo_responsable': "EsIA"}
+        form_responsable = ResponsableCreateForm(data=form_data)
+        self.assertFalse(form_responsable.is_valid())
+
+    def test_responsable_tipoPersonal_invalido(self):
+        '''Prueba para crear una instancia de un responsable con tipo de personal invalido'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'nombre': "NombrePrueba",
+            'apellido': "ApellidoPrueba",
+            'cedula': "V25872062",
+            'pasaporte': 25872061,
+            'nivel_academico': "Bachiller",
+            'tipo_responsable': "hola"}
+        form_responsable = ResponsableCreateForm(data=form_data)
+        self.assertFalse(form_responsable.is_valid())
+
+    def test_responsable_apellido_invalido(self):
+        '''Prueba para crear una instancia de un responsable con apellido invalido'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'nombre': "NombrePrueba",
+            'apellido': "Apellido334Prueba",
+            'cedula': "V25872062",
+            'pasaporte': 25872061,
+            'nivel_academico': "Bachiller",
+            'tipo_responsable': "hola"}
+        form_responsable = ResponsableCreateForm(data=form_data)
+        self.assertFalse(form_responsable.is_valid())
+
+    def test_responsable_eliminar(self):
+        '''Prueba para crear una instancia de un responsable sin nombre'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'nombre': "NombrePrueba",
+            'apellido': "ApellidoPrueba",
+            'cedula': "V25872062",
+            'pasaporte': 25872061,
+            'nivel_academico': "Bachiller",
+            'tipo_responsable': "EsIA"}
+        form_responsable = ResponsableCreateForm(data=form_data)
+        form_responsable.save()
+        # pylint: disable=no-member
+        responsable = Responsable.objects.get(cedula="V25872062").delete()
+        try:
+            res1 = responsable = Responsable.objects.get(cedula="V25872062")
+        except:
             pass
