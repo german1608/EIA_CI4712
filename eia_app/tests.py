@@ -326,6 +326,32 @@ class SolicitanteTestCase(TestCase):
         form_solicitante = SolicitanteCreateForm(data=form_data)
         self.assertFalse(form_solicitante.is_valid())
 
+    def test_solicitante_sin_telefono(self):
+        '''Prueba para crear una instancia de un solicitante sin telefono'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'nombre': "NombrePrueba",
+            'apellido': "ApellidoPrueba",
+            'cedula': "V25872062",
+            'pasaporte': 25872061,
+            'telefono': "",
+            'email': "prueba@gmail.ve"}
+        form_solicitante = SolicitanteCreateForm(data=form_data)
+        self.assertFalse(form_solicitante.is_valid())
+
+    def test_solicitante_sin_email(self):
+        '''Prueba para crear una instancia de un solicitante sin email'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'nombre': "NombrePrueba",
+            'apellido': "ApellidoPrueba",
+            'cedula': "V25872062",
+            'pasaporte': 25872061,
+            'telefono': "04141633960",
+            'email': ""}
+        form_solicitante = SolicitanteCreateForm(data=form_data)
+        self.assertFalse(form_solicitante.is_valid())
+
     def test_solicitante_editar_nombre(self):
         '''Prueba para editar el nombre de un solicitante'''
         # pylint: disable=no-member
@@ -350,7 +376,76 @@ class SolicitanteTestCase(TestCase):
             self.fail("Se guardo una instancia de una cedula que ya existe")
         except BaseException:
             pass
+    
+    def test_solicitante_editar_email(self):
+        '''Prueba para editar el nombre de un solicitante'''
+        # pylint: disable=no-member
+        solicitante = Solicitante.objects.get(
+            cedula="V2587206")
+        solicitante.email = "correo@gmail.com"
+        solicitante.save()
+        # pylint: disable=no-member
+        solicitante = Solicitante.objects.get(
+            cedula="V2587206")
+        self.assertEqual(solicitante.email, "correo@gmail.com")
 
+    def test_solicitante_cedula_incompleta(self):
+        '''Prueba para crear una instancia de un solicitante con la cedula incompleta'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'nombre': "NombrePrueba",
+            'apellido': "ApellidoPrueba",
+            'cedula': "25872062",
+            'pasaporte': 25872061,
+            'telefono': "04141633960",
+            'email': "prueba@gmail.ve"}
+        form_solicitante = SolicitanteCreateForm(data=form_data)
+        self.assertFalse(form_solicitante.is_valid())
+    
+    def test_solicitante_telefono_incompleto(self):
+        '''Prueba para crear una instancia de un solicitante con el telefono incompleto'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'nombre': "NombrePrueba",
+            'apellido': "ApellidoPrueba",
+            'cedula': "V25872062",
+            'pasaporte': 25872061,
+            'telefono': "041416339",
+            'email': "prueba@gmail.ve"}
+        form_solicitante = SolicitanteCreateForm(data=form_data)
+        self.assertFalse(form_solicitante.is_valid())
+    
+    def test_solicitante_email_incompleto(self):
+        '''Prueba para crear una instancia de un solicitante con el email incompleto'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'nombre': "NombrePrueba",
+            'apellido': "ApellidoPrueba",
+            'cedula': "V25872062",
+            'pasaporte': 25872061,
+            'telefono': "04141633989",
+            'email': "prueba@gma"}
+        form_solicitante = SolicitanteCreateForm(data=form_data)
+        self.assertFalse(form_solicitante.is_valid())
+
+    def test_solicitante_eliminar(self):
+        '''Prueba para eliminar una instancia de un solicitante'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'nombre': "NombrePrueba",
+            'apellido': "ApellidoPrueba",
+            'cedula': "V25872062",
+            'pasaporte': 25872061,
+            'telefono': "04141633989",
+            'email': "prueba@gmail.com"}
+        form_solicitante = SolicitanteCreateForm(data=form_data)
+        form_solicitante.save()
+        # pylint: disable=no-member
+        solicitante = Solicitante.objects.get(cedula="V25872062").delete()
+        try:
+            sol1 = solicitante = Solicitante.objects.get(cedula="V25872062")
+        except:
+            pass
 
 class ResponsableTestCase(TestCase):
     ''' Pruebas para la tabla de solicitante '''
