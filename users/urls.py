@@ -14,10 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from users.views import NewUser, UpdateUser, DeleteUser
+from users.views import NewUser, UpdateUser, DeleteUser, UserList
 
 urlpatterns = [ #pylint: disable=invalid-name
-    path('', NewUser.as_view(), name='new_user'),
+    path('', UserList.as_view(), name='users_list'),
+    path('create/', NewUser.as_view(), name='new_user'),
     path('edit/<int:pk>/', UpdateUser.as_view(), name='edit_user'),
     path('delete/<int:pk>/', DeleteUser.as_view(), name='delete_user'),
 ]
