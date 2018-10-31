@@ -1,5 +1,6 @@
 ''' views.py '''
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import Usuario
@@ -26,3 +27,7 @@ class DeleteUser(DeleteView): # pylint: disable=too-many-ancestors
     ''' Class based view encargada de la eliminacion de un usuario'''
     model = Usuario
     success_url = reverse_lazy('new_user')
+
+class UserList(ListView): # pylint: disable=too-many-ancestors
+    ''' Class based view encargada de listar todos los usuarios de la tabla Usuario'''
+    model = Usuario
