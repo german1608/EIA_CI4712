@@ -1,8 +1,64 @@
 {% extends 'base.html' %}
 {% load static %}
-
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
 {% block content %}
 
-<h1>Datos del proyecto {{datosproyecto.titulo}}</h1>
+
+<div class="wrap">
+        <h1> {{ datosproyecto.detailsName}} : {{datosproyecto.titulo}}</h1>
+        
+        
+        
+
+        
+        <div class="lud-6 lud">
+        <p class="sub-title">Datos </p>
+          
+          
+            <div class="example ex-6">
+
+
+                <!-- 
+                {% for x in datosproyecto.getInformation %}
+                <div class="col">
+                    <div class="text-col">
+                        <p class="title">{{x}}</p>
+                        <p>{{ x }}</p>
+                    </div>
+                </div>
+                {% endfor %} -->
+
+
+                <div class="col">
+                        <div class="text-col">
+                            <p class="title">Ubicación</p>
+                            <p>{{ datosproyecto.ubicacion}}</p>
+                        </div>
+                </div>
+
+                <div class="col">
+                        <div class="text-col">
+                            <p class="title">Área</p>
+                            <p>{{ datosproyecto.area }}</p>
+                        </div>
+                </div>
+
+                <div class="col">
+                        <div class="text-col">
+                            <p class="title">URL</p>
+                            <p>{{ datosproyecto.url }}</p>
+                        </div>
+                </div>
+
+                <div class="col">
+                        <div class="text-col">
+                            <p class="title">Tipo</p>
+                            <p>{{ datosproyecto.tipo }}</p>
+                        </div>
+                </div>
+
+            </div>
+      </div>
+      </div>
 
 {% endblock %}

@@ -3,6 +3,57 @@
 
 {% block content %}
 
-<h1>Detalles del solicitante {{solicitante.nombre}}</h1>
+
+<div class="wrap">
+        <h1> Detalles del solicitante {{solicitante.nombre}}</h1>
+        
+        
+        
+
+        
+        <div class="lud-6 lud">
+        <p class="sub-title">Datos </p>
+          
+          
+            <div class="example ex-6">
+
+
+                <!-- 
+                {% for x in datosproyecto.getInformation %}
+                <div class="col">
+                    <div class="text-col">
+                        <p class="title">{{x}}</p>
+                        <p>{{ x }}</p>
+                    </div>
+                </div>
+                {% endfor %} -->
+
+
+                <div class="col">
+                        <div class="text-col">
+                            <p class="title">Nombre y Apellido </p>
+                            <p>{{ solicitante.nombre}} {{solicitante.apellido}} </p>
+                        </div>
+                </div>
+
+                <div class="col">
+                        <div class="text-col">
+                            <p class="title">Cédula</p>
+                            <p>{{ solicitante.cedula }}</p>
+                        </div>
+                </div>
+
+                <div class="col">
+                        <div class="text-col">
+                            <p class="title">Pasaporte</p>
+                            <p>{{ solicitante.pasaporte }}</p>
+                        </div>
+                </div>
+
+
+
+            </div>
+      </div>
+      </div>
 
 {% endblock %}

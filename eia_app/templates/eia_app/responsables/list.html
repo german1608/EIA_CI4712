@@ -3,10 +3,14 @@
 
 {% block content %}
 
-<h3>Lista de responsables</h3>
-<p>
-    <a href="{% url "consultor-crud:nuevo-responsable" %}">Agregar datos de un responsable</a>
-</p>
+
+<div class="wrap">
+        <h3>Lista de responsables</h3>
+        <p>
+            <a href="{% url "consultor-crud:nuevo-responsable" %}">Agregar datos de un responsable</a>
+        </p>
+</div>
+
 <div class="container" style="width:90% !important">
   {%if object_list.count > 0%}
   <table id="responsable" class="display">

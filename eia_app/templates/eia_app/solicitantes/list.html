@@ -3,10 +3,16 @@
 
 {% block content %}
 
-<h3>Lista de solicitantes</h3>
-<p>
-    <a href="{% url "consultor-crud:nuevo-solicitante" %}">Agregar datos de un solicitante</a>
-</p>
+<div class="wrap">
+        <h3>Lista de solicitantes</h3>
+        <p>
+            <a href="{% url "consultor-crud:nuevo-solicitante" %}">Agregar datos de un solicitante</a>
+        </p>
+
+</div>
+
+
+
 <div class="container" style="width:90% !important">
   {%if object_list.count > 0%}
   <table id="solicitante" class="display">
