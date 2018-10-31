@@ -1,38 +1,28 @@
 ''' views.py '''
-from django.shortcuts import render, redirect
-from django.contrib import messages
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import Usuario
 # Create your views here.
 
-def new_user(request):
-    ''' Funcion encargada de la vista de registro de nuevo usuario '''
-    if request.method == "POST":
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.username = form.cleaned_data['email']
-            form.save()
-            return redirect('edit_user', user.pk)
-    else:
-        form = CustomUserCreationForm()
-    return render(request, 'new_user.html', {'form': form})
+class NewUser(CreateView): # pylint: disable=too-many-ancestors
+    ''' Class based view encargada de la creacion de un nuevo usuario'''
+    model = Usuario
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('new_user')
 
-def details_user(request, usuario):
-    ''' Funcion encargada de la vista de perfil de usuario'''
-    user = Usuario.objects.get(pk=usuario)
-    return render(request, 'details_user.html', {'user': user})
+    def form_valid(self, form):
+        form.instance.username = form.cleaned_data['email']
+        return super().form_valid(form)
 
-def edit_user(request, usuario):
-    ''' Funcion encargada de la vista de edición de usuario'''
-    user = Usuario.objects.get(pk=usuario)
-    if request.method == 'POST':
-        form = CustomUserChangeForm(request.POST, instance=user)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.username = form.cleaned_data['email']
-            form.save()
-            messages.info(request, 'Datos actualizados exitosamente')
-    else:
-        form = CustomUserChangeForm(instance=user)
-    return render(request, 'edit_user.html', {'form': form})
+class UpdateUser(UpdateView): # pylint: disable=too-many-ancestors
+    ''' Class based view encargada de la edicion de un usuario'''
+    model = Usuario
+    form_class = CustomUserChangeForm
+    template_name_suffix = '_update_form'
+    success_url = reverse_lazy('new_user')
+
+class DeleteUser(DeleteView): # pylint: disable=too-many-ancestors
+    ''' Class based view encargada de la eliminacion de un usuario'''
+    model = Usuario
+    success_url = reverse_lazy('new_user')
