@@ -6,7 +6,9 @@ addons:
       - postgresql-client-10
   firefox: latest
 env:
-  - MOZ_HEADLESS=1
+  global:
+    - MOZ_HEADLESS=1
+    - PGPORT=5433
   - POSTGRESQL_VERSION=10
   - POSTGRESQL_VERSION=9.5
   - POSTGRESQL_VERSION=9.6
