@@ -1,17 +1,13 @@
 language: python
 addons:
+  postgresql: "10"
   apt:
     packages:
       - postgresql-10
       - postgresql-client-10
-      - postgresql-11
-      - postgresql-client-11
   firefox: latest
 env:
-  - MOZ_HEADLESS=1 PGPORT=5433 POSTGRESQL_VERSION=10
-  - MOZ_HEADLESS=1 PGPORT=5433 POSTGRESQL_VERSION=9.5
-  - MOZ_HEADLESS=1 PGPORT=5433 POSTGRESQL_VERSION=9.6
-  - MOZ_HEADLESS=1 PGPORT=5433 POSTGRESQL_VERSION=11
+  - MOZ_HEADLESS=1 PGPORT=5433
 python:
 - '3.5'
 - '3.6'
