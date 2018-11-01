@@ -4,6 +4,8 @@ addons:
     packages:
       - postgresql-10
       - postgresql-client-10
+      - postgresql-11
+      - postgresql-client-11
   firefox: latest
 env:
   global:
