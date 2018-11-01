@@ -1,8 +1,13 @@
 language: python
 addons:
+  postgresql: "10"
+  apt:
+    packages:
+      - postgresql-10
+      - postgresql-client-10
   firefox: latest
 env:
-  - MOZ_HEADLESS=1
+  - MOZ_HEADLESS=1 PGPORT=5433
 python:
 - '3.5'
 - '3.6'
@@ -10,6 +15,7 @@ services:
 - postgresql
 before_install:
 - pip install --upgrade pip
+- sudo service postgresql stop && sudo service postgresql start $POSTGRESQL_VERSION
 install:
 - pip install -r requirements.txt
 - ./installgeckodriver.sh
