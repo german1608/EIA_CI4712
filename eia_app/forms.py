@@ -1,7 +1,10 @@
 '''Forms para el uso del crud del consultor'''
 
 from django import forms
-from .models import * #pylint: disable=unused-wildcard-import, wildcard-import
+from .models import (
+    Organizacion, Responsable, Solicitante,
+    DatosProyecto, DatosDocumento
+)
 
 class OrganizacionCreateForm(forms.ModelForm):
     '''Form del modelo organizacion'''
