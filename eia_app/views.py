@@ -10,7 +10,11 @@ from .models import (
     Organizacion, Responsable, Solicitante,
     DatosProyecto, DatosDocumento
 )
-from .forms import *  # pylint: disable=wildcard-import, unused-wildcard-import
+from .forms import (
+    OrganizacionCreateForm, SolicitanteCreateForm,
+    ResponsableCreateForm, DatosProyectoCreateForm,
+    DatosDocumentoCreateForm
+)
 
 
 class OrganizacionList(ListView):  # pylint: disable=too-many-ancestors
