@@ -1,5 +1,9 @@
 language: python
 addons:
+  apt:
+    packages:
+      - postgresql-10
+      - postgresql-client-10
   firefox: latest
 env:
   - MOZ_HEADLESS=1
