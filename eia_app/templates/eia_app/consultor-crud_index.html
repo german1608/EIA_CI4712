@@ -18,7 +18,7 @@
 
     <a href="{% url "consultor-crud:lista-organizaciones" %}">   
         <div class="card"  > 
-            <img  src="http://s4c.cymru/temp/wave1.jpg" height="100" width="150">
+            <img  src="{% static 'img/enterprise.png' %}" height="100" width="150">
             <div class="card-title">
     
                 <h5>
@@ -30,7 +30,7 @@
 
     <a href="{% url "consultor-crud:lista-datos-proyectos" %}">   
         <div class="card"  > 
-            <img  src="http://s4c.cymru/temp/wave1.jpg" height="100" width="150">
+            <img  src="{% static 'img/infographic.png' %}" height="100" width="150">
             <div class="card-title">
     
                 <h5>
@@ -42,7 +42,7 @@
 
     <a href="{% url "consultor-crud:lista-responsables" %}">   
         <div class="card"  > 
-            <img  src="http://s4c.cymru/temp/wave1.jpg" height="100" width="150">
+            <img  src="{% static 'img/group.png' %}" height="100" width="150">
             <div class="card-title">
     
                 <h5>
@@ -54,7 +54,7 @@
 
     <a href="{% url "consultor-crud:lista-datos-documentos" %}">   
         <div class="card"  > 
-            <img  src="http://s4c.cymru/temp/wave1.jpg" height="100" width="150">
+            <img  src="{% static 'img/folder.png' %}" height="100" width="150">
             <div class="card-title">
     
                 <h5>
@@ -64,20 +64,22 @@
         </div>
     </a>
 
+    <a href="{% url "consultor-crud:lista-solicitantes" %}">   
+      <div class="card"  > 
+          <img  src="{% static 'img/solicitante.png' %}" height="100" width="150">
+          <div class="card-title">
+  
+              <h5>
+                  Ver datos de Solicitantes
+              </h5>
+          </div>
+      </div>
+  </a>
+
 
 
   
   </div>
   
-  
-  
-
-
-<a href="{% url "consultor-crud:lista-organizaciones" %}">Ver organizaciones</a>
-<br>
-<a href="{% url "consultor-crud:lista-datos-proyectos" %}">Ver Datos de proyectos</a>
-<br>
-<a href="{% url "consultor-crud:lista-responsables" %}">Ver responsables de un proyecto</a>
-<br>
-<a href="{% url "consultor-crud:lista-datos-documentos" %}">Ver datos de un documento</a>
+ 
 {% endblock %}

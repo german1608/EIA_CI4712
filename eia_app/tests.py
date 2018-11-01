@@ -99,6 +99,7 @@ class OrganizacionTestCase(TestCase):
             rif="V-25872062-4")
         self.assertEqual(organizacion.nombre, "Nombre de prueba2")
 
+    # pylint: disable=invalid-name
     def test_organizacion_editar_rif_existente(self):
         '''Prueba para editar el rif de una organizacion. Se intenta
         ingresar un rif que ya esta registrado'''
@@ -112,7 +113,8 @@ class OrganizacionTestCase(TestCase):
         except BaseException:
             pass
 
-    def test_organizacion_razonSocial_invalida(self):
+    # pylint: disable=invalid-name
+    def test_organizacion_razonsocial_invalida(self):
         '''Prueba para crear una instancia de una organizacion con la razon social invalida'''
         form_data = {
             'proyecto': self.proyecto.id,
@@ -128,6 +130,7 @@ class OrganizacionTestCase(TestCase):
         form_organizacion = OrganizacionCreateForm(data=form_data)
         self.assertFalse(form_organizacion.is_valid())
 
+    # pylint: disable=invalid-name
     def test_organizacion_email_incompleto(self):
         '''Prueba para crear una instancia de una organizacion con el email incompleto'''
         form_data = {
@@ -143,7 +146,8 @@ class OrganizacionTestCase(TestCase):
             'email': "prueba@"}
         form_organizacion = OrganizacionCreateForm(data=form_data)
         self.assertFalse(form_organizacion.is_valid())
-    
+
+    # pylint: disable=invalid-name
     def test_organizacion_rif_incompleto(self):
         '''Prueba para crear una instancia de una organizacion con el rif incompleto'''
         form_data = {
@@ -160,6 +164,7 @@ class OrganizacionTestCase(TestCase):
         form_organizacion = OrganizacionCreateForm(data=form_data)
         self.assertFalse(form_organizacion.is_valid())
 
+    # pylint: disable=invalid-name
     def test_organizacion_cedula_incompleta(self):
         '''Prueba para crear una instancia de una organizacion con la cedula incompleta'''
         form_data = {
@@ -175,7 +180,8 @@ class OrganizacionTestCase(TestCase):
             'email': "prueba@gmail.ve"}
         form_organizacion = OrganizacionCreateForm(data=form_data)
         self.assertFalse(form_organizacion.is_valid())
-    
+
+    # pylint: disable=invalid-name
     def test_organizacion_telefono_incompleto(self):
         '''Prueba para crear una instancia de una organizacion con el telefono incompleto'''
         form_data = {
@@ -192,6 +198,7 @@ class OrganizacionTestCase(TestCase):
         form_organizacion = OrganizacionCreateForm(data=form_data)
         self.assertFalse(form_organizacion.is_valid())
 
+    # pylint: disable=invalid-name
     def test_organizacion_editar_nombre_representante_legal(self):
         '''Prueba para editar el nombre del representante legal de una organizacion'''
         # pylint: disable=no-member
@@ -233,12 +240,13 @@ class OrganizacionTestCase(TestCase):
         form_organizacion = OrganizacionCreateForm(data=form_data)
         form_organizacion.save()
         # pylint: disable=no-member
-        organizacion = Organizacion.objects.get(rif="V-25872062-5").delete()
+        Organizacion.objects.get(rif="V-25872062-5").delete()
         try:
-            org1 = organizacion = Organizacion.objects.get(rif="V-25872062-5")
-        except:
+            Organizacion.objects.get(rif="V-25872062-5")
+        except BaseException:
             pass
 
+    # pylint: disable=invalid-name
     def test_organizacion_apellido_invalido(self):
         '''Prueba para crear una instancia de una organizacion con el
         apellido del representante legal invalido'''
@@ -255,6 +263,7 @@ class OrganizacionTestCase(TestCase):
             'email': "prueba@gmail.ve"}
         form_organizacion = OrganizacionCreateForm(data=form_data)
         self.assertFalse(form_organizacion.is_valid())
+
 
 class SolicitanteTestCase(TestCase):
     ''' Pruebas para la tabla de solicitante '''
@@ -364,6 +373,7 @@ class SolicitanteTestCase(TestCase):
             cedula="V2587206")
         self.assertEqual(solicitante.nombre, "NombrePrueba2")
 
+    # pylint: disable=invalid-name
     def test_solicitante_editar_ci_existente(self):
         '''Prueba para editar la cedula de un solicitante. Se intenta
         ingresar una cedula que ya esta registrada'''
@@ -376,7 +386,7 @@ class SolicitanteTestCase(TestCase):
             self.fail("Se guardo una instancia de una cedula que ya existe")
         except BaseException:
             pass
-    
+
     def test_solicitante_editar_email(self):
         '''Prueba para editar el nombre de un solicitante'''
         # pylint: disable=no-member
@@ -389,6 +399,7 @@ class SolicitanteTestCase(TestCase):
             cedula="V2587206")
         self.assertEqual(solicitante.email, "correo@gmail.com")
 
+    # pylint: disable=invalid-name
     def test_solicitante_cedula_incompleta(self):
         '''Prueba para crear una instancia de un solicitante con la cedula incompleta'''
         form_data = {
@@ -401,7 +412,8 @@ class SolicitanteTestCase(TestCase):
             'email': "prueba@gmail.ve"}
         form_solicitante = SolicitanteCreateForm(data=form_data)
         self.assertFalse(form_solicitante.is_valid())
-    
+
+    # pylint: disable=invalid-name
     def test_solicitante_telefono_incompleto(self):
         '''Prueba para crear una instancia de un solicitante con el telefono incompleto'''
         form_data = {
@@ -414,7 +426,8 @@ class SolicitanteTestCase(TestCase):
             'email': "prueba@gmail.ve"}
         form_solicitante = SolicitanteCreateForm(data=form_data)
         self.assertFalse(form_solicitante.is_valid())
-    
+
+    # pylint: disable=invalid-name
     def test_solicitante_email_incompleto(self):
         '''Prueba para crear una instancia de un solicitante con el email incompleto'''
         form_data = {
@@ -441,11 +454,12 @@ class SolicitanteTestCase(TestCase):
         form_solicitante = SolicitanteCreateForm(data=form_data)
         form_solicitante.save()
         # pylint: disable=no-member
-        solicitante = Solicitante.objects.get(cedula="V25872062").delete()
+        Solicitante.objects.get(cedula="V25872062").delete()
         try:
-            sol1 = solicitante = Solicitante.objects.get(cedula="V25872062")
-        except:
+            Solicitante.objects.get(cedula="V25872062")
+        except BaseException:
             pass
+
 
 class ResponsableTestCase(TestCase):
     ''' Pruebas para la tabla de solicitante '''
@@ -517,7 +531,8 @@ class ResponsableTestCase(TestCase):
         form_responsable = ResponsableCreateForm(data=form_data)
         self.assertFalse(form_responsable.is_valid())
 
-    def test_responsable_sin_nivelAcademico(self):
+    # pylint: disable=invalid-name
+    def test_responsable_sin_nivelacademico(self):
         '''Prueba para crear una instancia de un responsable sin nivel academico'''
         form_data = {
             'proyecto': self.proyecto.id,
@@ -529,8 +544,9 @@ class ResponsableTestCase(TestCase):
             'tipo_responsable': "EsIA"}
         form_responsable = ResponsableCreateForm(data=form_data)
         self.assertFalse(form_responsable.is_valid())
-    
-    def test_responsable_sin_tipoResponsable(self):
+
+    # pylint: disable=invalid-name
+    def test_responsable_sin_tiporesponsable(self):
         '''Prueba para crear una instancia de un responsable sin tipo de responsable'''
         form_data = {
             'proyecto': self.proyecto.id,
@@ -555,6 +571,7 @@ class ResponsableTestCase(TestCase):
             cedula="V2587206")
         self.assertEqual(responsable.nombre, "NombrePrueba2")
 
+    # pylint: disable=invalid-name
     def test_responsable_editar_ci_existente(self):
         '''Prueba para editar la cedula de un responsable. Se intenta
         ingresar una cedula que ya esta registrada'''
@@ -568,7 +585,8 @@ class ResponsableTestCase(TestCase):
         except BaseException:
             pass
 
-    def test_responsable_editar_tipoResponsable(self):
+    # pylint: disable=invalid-name
+    def test_responsable_editar_tiporesponsable(self):
         '''Prueba para editar el tipo de un responsable'''
         # pylint: disable=no-member
         responsable = Responsable.objects.get(
@@ -580,6 +598,7 @@ class ResponsableTestCase(TestCase):
             cedula="V2587206")
         self.assertEqual(responsable.tipo_responsable, "gerente")
 
+    # pylint: disable=invalid-name
     def test_responsable_cedula_incompleta(self):
         '''Prueba para crear una instancia de un responsable con cedula incompleta'''
         form_data = {
@@ -593,7 +612,8 @@ class ResponsableTestCase(TestCase):
         form_responsable = ResponsableCreateForm(data=form_data)
         self.assertFalse(form_responsable.is_valid())
 
-    def test_responsable_tipoPersonal_invalido(self):
+    # pylint: disable=invalid-name
+    def test_responsable_tipopersonal_invalido(self):
         '''Prueba para crear una instancia de un responsable con tipo de personal invalido'''
         form_data = {
             'proyecto': self.proyecto.id,
@@ -606,6 +626,7 @@ class ResponsableTestCase(TestCase):
         form_responsable = ResponsableCreateForm(data=form_data)
         self.assertFalse(form_responsable.is_valid())
 
+    # pylint: disable=invalid-name
     def test_responsable_apellido_invalido(self):
         '''Prueba para crear una instancia de un responsable con apellido invalido'''
         form_data = {
@@ -632,11 +653,12 @@ class ResponsableTestCase(TestCase):
         form_responsable = ResponsableCreateForm(data=form_data)
         form_responsable.save()
         # pylint: disable=no-member
-        responsable = Responsable.objects.get(cedula="V25872062").delete()
+        Responsable.objects.get(cedula="V25872062").delete()
         try:
-            res1 = responsable = Responsable.objects.get(cedula="V25872062")
-        except:
+            Responsable.objects.get(cedula="V25872062")
+        except BaseException:
             pass
+
 
 class DatosDocumentoTestCase(TestCase):
     ''' Pruebas para la tabla de solicitante '''
@@ -652,73 +674,74 @@ class DatosDocumentoTestCase(TestCase):
             url="www.google.com")
         form_data = {
             'proyecto': self.proyecto.id,
-            'fecha' : "2007-10-25",
-            'ciudad' : "Maracay",
-            'estado' : "Aragua",
-            'pais' : "Venezuela"}
+            'fecha': "2007-10-25",
+            'ciudad': "Maracay",
+            'estado': "Aragua",
+            'pais': "Venezuela"}
         form_datos = DatosDocumentoCreateForm(data=form_data)
         form_datos.save()
 
-    def test_datosDocumento_crear(self):
+    def test_datosdocumento_crear(self):
         '''Prueba para crear una instancia de datos de documentos'''
         form_data = {
             'proyecto': self.proyecto.id,
-            'fecha' : "2006-10-25",
-            'ciudad' : "maracay",
-            'estado' : "aragua",
-            'pais' : "Venezuela"}
+            'fecha': "2006-10-25",
+            'ciudad': "maracay",
+            'estado': "aragua",
+            'pais': "Venezuela"}
         form_datos = DatosDocumentoCreateForm(data=form_data)
         form_datos.save()
         # pylint: disable=no-member
         datos = DatosDocumento.objects.get(
-            fecha= "2006-10-25")
+            fecha="2006-10-25")
         self.assertEqual(datos.ciudad, "maracay")
 
-    def test_datosDocumento_sin_fecha(self):
+    def test_datosdocumento_sin_fecha(self):
         '''Prueba para crear una instancia de datos de documentos sin fecha'''
         form_data = {
             'proyecto': self.proyecto.id,
-            'fecha' : "",
-            'ciudad' : "maracay",
-            'estado' : "aragua",
-            'pais' : "Venezuela"}
-        form_datos = DatosDocumentoCreateForm(data=form_data)
-        self.assertFalse(form_datos.is_valid())
-    
-    def test_datosDocumento_sin_ciudad(self):
-        '''Prueba para crear una instancia de datos de documentos sin ciudad'''
-        form_data = {
-            'proyecto': self.proyecto.id,
-            'fecha' : "2006-10-25",
-            'ciudad' : "",
-            'estado' : "aragua",
-            'pais' : "Venezuela"}
-        form_datos = DatosDocumentoCreateForm(data=form_data)
-        self.assertFalse(form_datos.is_valid())
-    
-    def test_datosDocumento_sin_estado(self):
-        '''Prueba para crear una instancia de datos de documentos sin estado'''
-        form_data = {
-            'proyecto': self.proyecto.id,
-            'fecha' : "2006-10-25",
-            'ciudad' : "maracay",
-            'estado' : "",
-            'pais' : "Venezuela"}
-        form_datos = DatosDocumentoCreateForm(data=form_data)
-        self.assertFalse(form_datos.is_valid())
-    
-    def test_datosDocumento_sin_pais(self):
-        '''Prueba para crear una instancia de datos de documentos sin pais'''
-        form_data = {
-            'proyecto': self.proyecto.id,
-            'fecha' : "2006-10-25",
-            'ciudad' : "maracay",
-            'estado' : "aragua",
-            'pais' : ""}
+            'fecha': "",
+            'ciudad': "maracay",
+            'estado': "aragua",
+            'pais': "Venezuela"}
         form_datos = DatosDocumentoCreateForm(data=form_data)
         self.assertFalse(form_datos.is_valid())
 
-    def test_datosDocumento_editar_ciudad(self):
+    def test_datosdocumento_sin_ciudad(self):
+        '''Prueba para crear una instancia de datos de documentos sin ciudad'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'fecha': "2006-10-25",
+            'ciudad': "",
+            'estado': "aragua",
+            'pais': "Venezuela"}
+        form_datos = DatosDocumentoCreateForm(data=form_data)
+        self.assertFalse(form_datos.is_valid())
+
+    def test_datosdocumento_sin_estado(self):
+        '''Prueba para crear una instancia de datos de documentos sin estado'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'fecha': "2006-10-25",
+            'ciudad': "maracay",
+            'estado': "",
+            'pais': "Venezuela"}
+        form_datos = DatosDocumentoCreateForm(data=form_data)
+        self.assertFalse(form_datos.is_valid())
+
+    def test_datosdocumento_sin_pais(self):
+        '''Prueba para crear una instancia de datos de documentos sin pais'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'fecha': "2006-10-25",
+            'ciudad': "maracay",
+            'estado': "aragua",
+            'pais': ""}
+        form_datos = DatosDocumentoCreateForm(data=form_data)
+        self.assertFalse(form_datos.is_valid())
+
+    # pylint: disable=invalid-name
+    def test_datosdocumento_editar_ciudad(self):
         '''Prueba para editar la ciudad de un documento'''
         # pylint: disable=no-member
         datos = DatosDocumento.objects.get(
@@ -730,7 +753,8 @@ class DatosDocumentoTestCase(TestCase):
             fecha="2007-10-25")
         self.assertEqual(datos.ciudad, "Caracas")
 
-    def test_datosDocumento_editar_estado(self):
+    # pylint: disable=invalid-name
+    def test_datosdocumento_editar_estado(self):
         '''Prueba para editar el estado de un documento'''
         # pylint: disable=no-member
         datos = DatosDocumento.objects.get(
@@ -742,7 +766,7 @@ class DatosDocumentoTestCase(TestCase):
             fecha="2007-10-25")
         self.assertEqual(datos.ciudad, "Miranda")
 
-    def test_datosDocumento_editar_pais(self):
+    def test_datosdocumento_editar_pais(self):
         '''Prueba para editar el pais de un documento'''
         # pylint: disable=no-member
         datos = DatosDocumento.objects.get(
@@ -753,19 +777,20 @@ class DatosDocumentoTestCase(TestCase):
         datos = DatosDocumento.objects.get(
             fecha="2007-10-25")
         self.assertEqual(datos.pais, "España")
-    def test_datosDocumento_eliminar(self):
+
+    def test_datosdocumento_eliminar(self):
         '''Prueba para eliminar una instancia de datos de documentos'''
         form_data = {
             'proyecto': self.proyecto.id,
-            'fecha' : "2006-10-25",
-            'ciudad' : "maracay",
-            'estado' : "aragua",
-            'pais' : "Venezuela"}
+            'fecha': "2006-10-25",
+            'ciudad': "maracay",
+            'estado': "aragua",
+            'pais': "Venezuela"}
         form_datos = DatosDocumentoCreateForm(data=form_data)
         form_datos.save()
         # pylint: disable=no-member
-        datos = DatosDocumento.objects.get(fecha="2006-10-25").delete()
+        DatosDocumento.objects.get(fecha="2006-10-25").delete()
         try:
-            dat1 = datos = DatosDocumento.objects.get(fecha="2006-10-25")
-        except:
+            DatosDocumento.objects.get(fecha="2006-10-25")
+        except BaseException:
             pass

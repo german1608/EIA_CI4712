@@ -3,6 +3,38 @@
 
 {% block content %}
 
-<h1>Detalles del documento del proyecto {{datosdocumento.proyecto}}</h1>
+<h4>Detalles del documento del proyecto {{datosdocumento.proyecto}}</h4>
+<div class="grid-container" style="margin-left:10%">
+  <div class="grid-item">
+    <div class="text-col">
+        <p class="title">Fecha del presente documento</p>
+        <p>{{ datosdocumento.fecha }}</p>
+    </div>
+  </div>
+    <div class="grid-item">
+      <div class="text-col">
+          <p class="title">Ciudad</p>
+          <p>{{ datosdocumento.ciudad }}</p>
+      </div>
+    </div>
+    <div class="grid-item">
+      <div class="text-col">
+          <p class="title">Estado</p>
+          <p>{{ datosdocumento.estado }}</p>
+      </div>
+    </div>
+    <div class="grid-item">
+      <div class="text-col">
+          <p class="title">País</p>
+          <p>{{ datosdocumento.pais }}</p>
+      </div>
+    </div>
+    <div class="grid-item">
+      <div class="text-col">
+          <p class="title">Proyecto</p>
+          <p><a href="{% url "consultor-crud:detalles-datos-proyecto"  datosdocumento.proyecto.id %}">{{ datosdocumento.proyecto }}<a></a></p>
+      </div>
+    </div>
+</div>
 
 {% endblock %}
