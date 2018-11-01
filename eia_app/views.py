@@ -6,7 +6,10 @@ from django.views.generic import (CreateView, DetailView,
                                   UpdateView,
                                   DeleteView)
 from django.urls import reverse_lazy
-from .models import *  # pylint: disable=wildcard-import, unused-wildcard-import
+from .models import (
+    Organizacion, Responsable, Solicitante,
+    DatosProyecto, DatosDocumento
+)
 from .forms import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 
