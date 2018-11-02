@@ -12,8 +12,7 @@ from .models import (
 )
 from .forms import (
     OrganizacionCreateForm, SolicitanteCreateForm,
-    ResponsableCreateForm, DatosProyectoCreateForm,
-    DatosDocumentoCreateForm
+    ResponsableCreateForm, DatosDocumentoCreateForm
 )
 
 
