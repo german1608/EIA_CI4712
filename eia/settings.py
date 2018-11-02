@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -78,17 +79,9 @@ WSGI_APPLICATION = 'eia.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME', 'eia'),
-        'USER': os.environ.get('DB_USER', 'eia'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'eiae123'),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
-        'OPTIONS': {
-            'connect_timeout': None
-        }
-    }
+    'default': dj_database_url.config(
+        default='postgres://eia:eiae123@localhost:5432/eia'
+        )
 }
 
 
