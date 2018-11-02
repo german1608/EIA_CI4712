@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'eia_app',
     'users',
-    'crispy_forms',
+    'materializecssform',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
