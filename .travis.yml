@@ -20,9 +20,7 @@ install:
 - pip install -r requirements.txt
 - ./installgeckodriver.sh
 before_script:
-- export DB_NAME=test
-- export DB_USER=postgres
-- export DB_PASSWORD=
+- export DATABASE_URL=postgres://postgres:@localhost:5432/test
 script:
 - ./test.sh
 notifications:
