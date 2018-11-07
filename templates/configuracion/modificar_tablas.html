@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/configuracion_main.css' %}">
 {% endblock %}
 {% block content %}
-<script src="{% static 'js/validacion_base.js' %}" type="text/javascript"></script>
+<script src="{% static 'configuracion/js/validacion_base.js' %}" type="text/javascript"></script>
 
 {% for message in messages %}
   <div class="alert {{ message.tags }} alert-dismissible" role="alert">
