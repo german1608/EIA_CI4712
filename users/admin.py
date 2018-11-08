@@ -22,7 +22,9 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         ('Datos Personales', {'fields': ('first_name', 'last_name', 'doc_identidad')}),
-        ('Permisología', {'fields': ('groups', 'user_permissions', 'is_superuser', 'is_staff', 'is_active')})
+        ('Permisología', {
+            'fields': ('groups', 'user_permissions', 'is_superuser',
+                       'is_staff', 'is_active')})
     )
 
 admin.site.register(Usuario, CustomUserAdmin)

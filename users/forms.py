@@ -4,7 +4,6 @@
     al front
 '''
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django.utils.translation import gettext_lazy as _
 
 from .models import Usuario
 #pylint: disable=r0903
