@@ -35,7 +35,8 @@ class TestViews(TestCase):
 
         # Hacemos la peticion sin estar autenticados
         response = self.client.get(reverse('dashboard:index'))
-        self.assertRedirects(response, '{}?next={}'.format(settings.LOGIN_URL, reverse('dashboard:index')))
+        self.assertRedirects(response, '{}?next={}'.format(settings.LOGIN_URL,
+                                                           reverse('dashboard:index')))
 
         # Nos logueamos
         self.client.login(username='username', password='password')
