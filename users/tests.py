@@ -3,10 +3,10 @@ Pruebas unitarias del modulo de usuarios de EIA
 """
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from django.db.models import CharField
 from .models import Usuario
 
 # Create your tests here.
+# pylint: disable=no-self-use
 class TestUsuarioModel(TestCase):
     """
     Pruebas para el modelo de usuarios. Las pruebas encapsulan:
@@ -37,7 +37,8 @@ class TestUsuarioModel(TestCase):
         """
         actual = Usuario.REQUIRED_FIELDS
         actual.sort()
-        esperado = ['first_name', 'last_name', 'email', 'doc_identidad'] # password y username son implicitos
+        # password y username son implicitos
+        esperado = ['first_name', 'last_name', 'email', 'doc_identidad']
         esperado.sort()
         self.assertEqual(actual, esperado)
 
