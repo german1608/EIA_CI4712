@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/configuracion_main.css' %}">
+{% endblock %}
+{% block content %}
+<script src="{% static 'configuracion/js/validacion_base.js' %}" type="text/javascript"></script>
+
+{% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+{% endfor %}
+<div class="row center-align section">
+	<div class="col s1">
+		<div class="col m6 offset-m2" align="center">
+			<div class="form-group">
+				<a class="btn menu" style="color: gray" href="{% url 'tablas' %}">Volver</a>
+			</div>
+		</div>
+	</div>
+	<div class="col s11">
+		<div class="row center-align">
+			<h1> Modificar Valores </h1><br>
+		</div>
+	</div>
+</div>
+<form method="post" id="">
+{% csrf_token %}
+<div class="row center-align section">
+	<div class="col m6 s12">
+		<table class="indicador">
+			<caption>Valoración de la intensidad</caption>
+			<tr class="cabecera">
+				<th>Grado de perturbancia</th>
+				<th colspan="4">Valor socio-cultural</th>
+			</tr>
+			<tr class="cabecera">
+				<th>
+					<th>Muy alto</th>
+					<th>Alto</th>
+					<th>Medio</th>
+					<th>Bajo</th>
+				</th>
+			</tr>
+			<tr>	
+				<td>Fuerte</td>
+				{% for i in intensidad_fuerte %}
+				{% if i.valor_sociocultural == 'MA' %}
+				<td><input type="text" name="valor1" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'A' %}
+				<td><input type="text" name="valor2" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'M' %}
+				<td><input type="text" name="valor3" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'B' %}
+				<td><input type="text" name="valor4" value="{{i.valor}}"></td>
+				{% endif %}
+				{% endfor %}
+			</tr>
+				<td>Medio</td>
+				{% for i in intensidad_medio %}
+				{% if i.valor_sociocultural == 'MA' %}
+				<td><input type="text" name="valor5" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'A' %}
+				<td><input type="text" name="valor6" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'M' %}
+				<td><input type="text" name="valor7" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'B' %}
+				<td><input type="text" name="valor8" value="{{i.valor}}"></td>
+				{% endif %}
+				{% endfor %}
+			</tr>
+			<tr>
+				<td>Suave</td>
+				{% for i in intensidad_suave %}
+				{% if i.valor_sociocultural == 'MA' %}
+				<td><input type="text" name="valor9" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'A' %}
+				<td><input type="text" name="valor10" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'M' %}
+				<td><input type="text" name="valor11" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'B' %}
+				<td><input type="text" name="valor12" value="{{i.valor}}"></td>
+				{% endif %}
+				{% endfor %}
+			</tr>
+		</table>
+	</div>
+	<div class="col m6 s12">
+		<table class="indicador">
+			<caption>Valoración de la extensión</caption>
+			<tr class="cabecera">
+				<th>Clasificacion</th>
+				<th colspan="2">Extension</th>
+			</tr>
+			<tr class="cabecera">
+				<th>
+					<th>%</th>
+					<th>Valor</th>
+				</th>
+			</tr>
+			<tr>
+				{% for i in extension %}
+				{% if i.clasificacion == 'GE' %}
+				<td>Generalizada</td>
+				<td>>75%</td>
+				<td><input type="text" name="valor13" value="{{i.valor}}"></td>
+			</tr>
+			<tr>
+				{% elif i.clasificacion == 'EX' %}
+				<td>Extensiva</td>
+				<td>35-74%</td>
+				<td><input type="text" name="valor14" value="{{i.valor}}"></td>
+			</tr>
+			<tr>
+				{% elif i.clasificacion == 'LO' %}
+				<td>Local</td>
+				<td>10-34%</td>
+				<td><input type="text" name="valor15" value="{{i.valor}}"></td>
+			</tr>
+			<tr>
+				{% elif i.clasificacion == 'PU' %}
+				<td>Puntual</td>
+				<td><10%</td>
+				<td><input type="text" name="valor16" value="{{i.valor}}"></td>
+				{% endif %}
+				{% endfor %}
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="row center-align section">
+	<div class="col m6 s12">
+		<table class="indicador">
+			<caption>Valoración de la duración</caption>
+			<tr class="cabecera">
+				<th>Criterios</th>
+				<th>Valor</th>
+			</tr>
+			{% for i in duracion %}
+			{% if i.criterio == 'M2' %}
+			<tr>
+				<td>Menos de 2 años</td>
+				<td><input type="text" name="valor17" value="{{i.valor}}"></td>
+			</tr>
+			{% elif i.criterio == 'M2-5' %}
+			<tr>
+				<td>2 a 5 años</td>
+				<td><input type="text" name="valor18" value="{{i.valor}}"></td>
+			</tr>
+			{% elif i.criterio == 'M5-10' %}
+			<tr>
+				<td>5 a 10 años</td>
+				<td><input type="text" name="valor19" value="{{i.valor}}"></td>
+			</tr>
+			{% elif i.criterio == 'M10' %}
+			<tr>
+				<td>Más de 10 años</td>
+				<td><input type="text" name="valor20" value="{{i.valor}}"></td>
+			</tr>
+			{% endif %}
+			{% endfor %}
+		</table>
+	</div>
+	<div class="col m6 s12">
+		<table class="indicador">
+			<caption>Valoración de la reversibilidad</caption>
+			<tr class="cabecera">
+				<th>Clasificación</th>
+				<th>Valor</th>
+			</tr>
+			{% for i in reversibilidad %}
+			{% if i.clasificacion == 'IR' %}
+			<tr>
+				<td>Irreversible</td>
+				<td><input type="text" name="valor21" value="{{i.valor}}"></td>
+			</tr>
+			{% elif i.clasificacion == 'TR' %}
+			<tr>
+				<td>Requiere tratamiento</td>
+				<td><input type="text" name="valor22" value="{{i.valor}}"></td>
+			</tr>
+			{% elif i.clasificacion == 'MR' %}
+			<tr>
+				<td>Medianamente reversible</td>
+				<td><input type="text" name="valor23" value="{{i.valor}}"></td>
+			</tr>
+			{% elif i.clasificacion == 'RE' %}
+			<tr>
+				<td>Reversible</td>
+				<td><input type="text" name="valor24" value="{{i.valor}}"></td>
+			</tr>
+			{% endif %}
+			{% endfor %}
+		</table>
+	</div>
+</div>
+<div class="row center-align section">
+	<div class="col m6 s12">
+		<table class="indicador">
+			<caption>Probabilidades</caption>
+			<tr class="cabecera">
+				<th>Clasificación</th>
+				<th>Porcentaje</th>
+			</tr>
+			{% for i in probabilidad %}
+			{% if i.probabilidad == 'A' %}
+			<tr>
+				<td>Alta</td>
+				<td><input type="text" name="valor25" value="{{i.valor}}"></td>
+			</tr>
+			{% elif i.probabilidad == 'M' %}
+			<tr>
+				<td>Media</td>
+				<td><input type="text" name="valor26" value="{{i.valor}}"></td>
+			</tr>
+			{% elif i.probabilidad == 'B' %}
+			<tr>
+				<td>Baja</td>
+				<td><input type="text" name="valor27" value="{{i.valor}}"></td>
+			</tr>
+			{% elif i.probabilidad == 'N' %}
+			<tr>
+				<td>Nula</td>
+				<td><input type="text" name="valor28" value="{{i.valor}}"></td>
+			</tr>
+			{% endif %}
+			{% endfor %}
+		</table>
+	</div>
+	<div class="col m6 s12">
+		<table class="indicador">
+			<caption>Criterios de clasificación de la importancia del efecto</caption>
+			<tr class="cabecera">
+				<th>Importancia</th>
+				<th colspan="2">Rango</th>
+				<th>Valor del impacto</th>
+			</tr>
+			<tr class="cabecera">
+				<th>
+					<th>Min</th>
+					<th>Max</th>
+				</th>
+				<th></th>
+			</tr>
+			{% for i in importancia %}
+			{% if i.importancia == 'MA' %}
+			<tr>
+				<td>Muy alta</td>
+				<td>{{i.minimo}}</td>
+				<td>{{i.maximo}}</td>
+				<td><input type="text" name="valor29" value="{{i.valor}}"></td>
+			</tr>
+			{% elif i.importancia == 'A' %}
+			<tr>
+				<td>Alta</td>
+				<td>{{i.minimo}}</td>
+				<td>{{i.maximo}}</td>
+				<td><input type="text" name="valor30" value="{{i.valor}}"></td>
+			</tr>
+			{% elif i.importancia == 'M' %}
+			<tr>
+				<td>Media</td>
+				<td>{{i.minimo}}</td>
+				<td>{{i.maximo}}</td>
+				<td><input type="text" name="valor31" value="{{i.valor}}"></td>
+			</tr>
+			{% elif i.importancia == 'B' %}
+			<tr>
+				<td>Baja</td>
+				<td>{{i.minimo}}</td>
+				<td>{{i.maximo}}</td>
+				<td><input type="text" name="valor32" value="{{i.valor}}"></td>
+			</tr>
+			{% endif %}
+			{% endfor %}
+		</table>
+	</div>
+</div>
+<div class="row center-align section">
+	<input class="btn boton-form" type='submit' name='submit' value="Guardar Cambios">
+</div>
+</form>
+{% endblock %}
