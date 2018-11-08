@@ -21,7 +21,7 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('agregar_estudio/', EstudioCreate.as_view(), name='agregar_estudio'),
     path('editar_estudio/<int:pk>/', EstudioUpdate.as_view(), name='editar_estudio'),
-    path('eliminar_estudio/<int:pk>/', views.eliminar_estudio, name='eliminar_estudio'),
+    path('eliminar_estudio/<int:pk_id>/', views.eliminar_estudio, name='eliminar_estudio'),
     path('tablas/', views.tablas, name='tablas'),
     path('modificar_tablas/', views.modificar_tablas, name='modificar_tablas'),
 ]
