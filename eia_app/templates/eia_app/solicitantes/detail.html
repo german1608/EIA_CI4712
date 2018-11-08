@@ -1,24 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock %}
 {% block content %}
 
 <h3> Detalles del solicitante {{solicitante.nombre}}</h3>
 <div class="grid-container" style="margin-left:10%">
         
-        
-        
-
-
-                <!-- 
-                {% for x in datosproyecto.getInformation %}
-                <div class="col">
-                    <div class="text-col">
-                        <p class="title">{{x}}</p>
-                        <p>{{ x }}</p>
-                    </div>
-                </div>
-                {% endfor %} -->
 
 
                 <div class="grid-item">

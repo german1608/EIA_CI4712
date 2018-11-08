@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock %}
 {% block content %}
 
 <h3> Detalles de la organizacion: {{organizacion.nombre}}</h3>
