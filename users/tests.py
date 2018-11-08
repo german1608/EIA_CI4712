@@ -14,7 +14,11 @@ class TestUsuarioModel(TestCase):
     * Decirle a Django que use esta tabla en vez de la que trae por defecto
     """
     def setUp(self):
-        self.usuario = Usuario.objects.create_user('username', 'username@username.com', 'password')
+        self.usuario = Usuario.objects.create_user('username',
+                                                   'username@username.com',
+                                                   'password',
+                                                   first_name='Usuario',
+                                                   last_name='De Prueba')
 
     def test_model_existence(self):
         """ Verifica la existencia del modelo Usuario """
@@ -49,5 +53,5 @@ class TestUsuarioModel(TestCase):
     def test_model_full_name(self):
         """ El nombre completo se obtiene al concatenar el nombre y el apellido """
         actual = self.usuario.full_name()
-        expected = self.usuario.first_name + self.usuario.last_name
+        expected = self.usuario.first_name + ' ' + self.usuario.last_name
         self.assertEqual(actual, expected)

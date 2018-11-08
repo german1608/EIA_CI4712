@@ -17,3 +17,7 @@ class Usuario(AbstractUser):
 
     def __str__(self):
         return self.email
+
+    def full_name(self):
+        """ Retorna el nombre completo del usuario """
+        return '{} {}'.format(self.first_name, self.last_name)
