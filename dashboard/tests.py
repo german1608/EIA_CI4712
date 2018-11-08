@@ -44,5 +44,5 @@ class TestViews(TestCase):
         # que maneja la peticion sea el correcto
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.resolver_match.func.__name__,
-                        DashboardView.as_view().__name__)
+                         DashboardView.as_view().__name__)
         self.client.logout()
