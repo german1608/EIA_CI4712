@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'widget_tweaks',
     'dashboard'
 ]
 
@@ -134,3 +135,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, '.staticfiles')
 AUTH_USER_MODEL = 'users.Usuario'
 
 LOGIN_URL = reverse_lazy('login')
+LOGIN_REDIRECT_URL = reverse_lazy('dashboard:index')
+LOGOUT_REDIRECT_URL = LOGIN_URL
