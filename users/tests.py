@@ -45,3 +45,9 @@ class TestUsuarioModel(TestCase):
     def test_model_str_representation(self):
         """ La representacion de un usuario deberia ser su nombre de usuario """
         self.assertEqual(str(self.usuario), self.usuario.email)
+
+    def test_model_full_name(self):
+        """ El nombre completo se obtiene al concatenar el nombre y el apellido """
+        actual = self.usuario.full_name()
+        expected = self.usuario.first_name + self.usuario.last_name
+        self.assertEqual(actual, expected)
