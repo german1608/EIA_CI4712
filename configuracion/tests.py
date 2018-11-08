@@ -7,24 +7,38 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import time
 from django.test import TestCase
 from configuracion.models import NIVEL_RELEVANCIA, TIPO_RELEVANCIA, GRADO_PERTUBACION
-from configuracion.views import _calcular_via
+from configuracion.views import _calcular_via, EstudioCreate
 from configuracion.forms import EstudioForm
 
 class KaraotaTests(TestCase):
 
+    def setUp(self):
+        self.client = Client() #Pruebas con testing tools de django
+
+    def tearDown(self):
+        self.client=None
+
     def test_ponderaciones_iguala101(self):
         valores={
-            'nombre': "Nombre 1",
+            'nombre': 'Nombre 1',
             'tipo': 'FS',
             'valoracion_relevancia': 'MA',
             'tipo_relevancia': 'DI',
-            'pondIntensidad': 20,
+            # 'intensidad': intensidad,
+            # 'extension': extension,
+            # 'duracion': duracion,
+            # 'reversibilidad': reversibilidad,
+            # 'probabilidad': probabilidad,
+            'pondIntensidad': 21,
             'pondExtension': 20,
             'pondDuracion': 20,
             'pondReversibilidad': 20,
             'pondProbabilidad': 20,
+            # 'via': 5.0,
+            # 'importancia_estudio': importancia
+
         }
-        form = EstudioForm(data = valores)
+        form = EstudioForm(data=valores)
 
         self.assertFalse(form.is_valid())
 
@@ -112,68 +126,62 @@ class KaraotaTests(TestCase):
         self.assertEqual(GRADO_PERTUBACION[1][1], GRADO_PERTUBACION2[1][1]) 
         self.assertEqual(GRADO_PERTUBACION[2][1], GRADO_PERTUBACION2[2][1])
 
+    def test_http_reponse_ok_tabla(self):
+        # Estatu Ok HTTP de la pagina de la tabla
+        response = self.client.get('/configuracion/index/')
+        self.assertEquals(response.status_code, 200)
+
+    def test_templates_correctos_tabla(self):
+        # Carga exitosa de los Templates
+        response = self.client.get('/configuracion/index/')
+        self.assertTemplateUsed(response, 'configuracion/index.html')
+        self.assertTemplateUsed(response, 'base.html')
+
+    def test_http_reponse_ok_formulario(self):
+        # Estatu Ok HTTP del formulario
+        response = self.client.get('/configuracion/agregar_estudio/')
+        self.assertEquals(response.status_code, 200)
+
+    def test_templates_correctos_formulario(self):
+        # Carga exitosa de los Templates
+        response = self.client.get('/configuracion/agregar_estudio/')
+        self.assertTemplateUsed(response, 'configuracion/agregar_estudio.html')
+        self.assertTemplateUsed(response, 'base.html')
+
+    def test_http_reponse_ok_tablas(self):
+        # Estatu Ok HTTP del formulario
+        response = self.client.get('/configuracion/tablas/')
+        self.assertEquals(response.status_code, 200)
+
+    def test_templates_correctos_tablas(self):
+        # Carga exitosa de los Templates
+        response = self.client.get('/configuracion/tablas/')
+        self.assertTemplateUsed(response, 'configuracion/tablas.html')
+        self.assertTemplateUsed(response, 'base.html')
+
+    def test_http_reponse_ok_modificar_tablas(self):
+        # Estatu Ok HTTP del formulario
+        response = self.client.get('/configuracion/tablas/')
+        self.assertEquals(response.status_code, 200)
+
+    def test_templates_correctos_modificar_tablas(self):
+        # Carga exitosa de los Templates
+        response = self.client.get('/configuracion/modificar_tablas/')
+        self.assertTemplateUsed(response, 'configuracion/modificar_tablas.html')
+        self.assertTemplateUsed(response, 'base.html')
+        
+
 class PruebaFormularioEstudio(StaticLiveServerTestCase):
     port = 8005
 
     def setUp(self):
-        self.client = Client() #Pruebas con testing tools de django
+        
         super(PruebaFormularioEstudio, self).setUp()
         #Llenamos distintos formularios
-        self.client = None
         self.browser = webdriver.Firefox() #Pruebas de navegador con selenium
         self.browser.maximize_window()
 
-    # def test_http_reponse_ok_tabla(self):
-    #     # Estatu Ok HTTP de la pagina de la tabla
-    #     response = self.client.get('/configuracion/index/')
-    #     self.assertEquals(response.status_code, 200)
-
-    # def test_templates_correctos_tabla(self):
-    #     # Carga exitosa de los Templates
-    #     response = self.client.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-    #     self.assertTemplateUsed(response, 'configuracion/index.html')
-    #     self.assertTemplateUsed(response, 'configuracion/base.html')
-
-    # def test_http_reponse_ok_formulario(self):
-    #     # Estatu Ok HTTP del formulario
-    #     response = self.client.get('/configuracion/agregar_estudio/')
-    #     self.assertEquals(response.status_code, 200)
-
-    # def test_templates_correctos_formulario(self):
-    #     # Carga exitosa de los Templates
-    #     response = self.client.get('%s%s' % (self.live_server_url, '/configuracion/agregar_estudio/'))
-    #     self.assertTemplateUsed(response, 'configuracion/agregar_estudio.html')
-    #     self.assertTemplateUsed(response, 'configuracion/base.html')
-
-    def test_agregar_estudio_fisico(self):
-
-        intensidad=Intensidad.objects.create(
-            valor_sociocultural='MA',
-            grado_perturbacion='F',
-            valor=7,
-            )
-        extension=Extension.objects.create(
-            clasificacion='GE',
-            valor=7,
-            )
-        duracion=Duracion.objects.create(
-            criterio='M2',
-            valor=7,
-            )
-        reversibilidad=Reversibilidad.objects.create(
-            clasificacion='RE',
-            valor=7,
-            )
-        probabilidad=Probabilidad.objects.create(
-            probabilidad='A',
-            valor=7,
-            )
-        importancia=Importancia.objects.create(
-            importancia='MA',
-            minimo=8,
-            maximo=10,
-            valor=9,
-            )
+    def test_navegador(self):
 
         self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
         time.sleep(4)
@@ -187,18 +195,60 @@ class PruebaFormularioEstudio(StaticLiveServerTestCase):
         select_tipo = Select(self.browser.find_element_by_name('tipo'))
         time.sleep(2)
         select_tipo.select_by_visible_text('Fisico')
-        # time.sleep(2)
-        # self.browser.find_element_by_name('probabilidad').send_keys(4) #agregamos la probabilidad
         time.sleep(2)
         self.browser.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
         time.sleep(2)
-        self.browser.find_element_by_name('pondIntensidad').send_keys(20) #agregamos la ponderacion de la intensidad
+        #agregamos la ponderacion de la intensidad
+        self.browser.find_element_by_name('pondIntensidad').send_keys(20)
         time.sleep(2)
-        self.browser.find_element_by_name('pondExtension').send_keys(20)#agregamos la ponderacion de la extension
+        #agregamos la ponderacion de la extension
+        self.browser.find_element_by_name('pondExtension').send_keys(20)
         time.sleep(2)
-        self.browser.find_element_by_name('pondDuracion').send_keys(30) #agregamos la ponderacion de la duracion
+        #agregamos la ponderacion de la duracion
+        self.browser.find_element_by_name('pondDuracion').send_keys(30)
         time.sleep(2)
-        self.browser.find_element_by_name('pondReversibilidad').send_keys(10) #agregamos la ponderacion de la reversibilidad
+        #agregamos la ponderacion de la reversibilidad
+        self.browser.find_element_by_name('pondReversibilidad').send_keys(10)
+        time.sleep(2)
+        #agregamos la ponderacion de la probabilidad
+        self.browser.find_element_by_name('pondProbabilidad').send_keys(20)
+        time.sleep(2)
+        # Hacemos click en agregar
+        self.browser.find_element_by_name('editar').click()
+        time.sleep(2)
+        #para las alertas del navegador
+        confirmacion = self.browser.switch_to.alert 
+        time.sleep(2)
+        confirmacion.accept()
+        self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
+        time.sleep(4)
+
+        # Volvemos a agregar otro elemento pero ahora de tipo Biologico
+        # Hacemos click en agregar
+        self.browser.find_element_by_css_selector('.btn').click()
+        time.sleep(5)
+        nombre = "Impacto B"
+        #agregamos el nombre
+        self.browser.find_element_by_name('nombre').send_keys(nombre)
+        time.sleep(2)
+        select_tipo = Select(self.browser.find_element_by_name('tipo'))
+        time.sleep(2)
+        select_tipo.select_by_visible_text('Biologico')
+        time.sleep(2)
+        #movemos el scroll un poco
+        self.browser.execute_script("window.scrollTo(0, 720)")
+        time.sleep(2)
+        #agregamos la ponderacion de la intensidad
+        self.browser.find_element_by_name('pondIntensidad').send_keys(20)
+        time.sleep(2)
+        #agregamos la ponderacion de la extension
+        self.browser.find_element_by_name('pondExtension').send_keys(20)
+        time.sleep(2)
+        #agregamos la ponderacion de la duracion
+        self.browser.find_element_by_name('pondDuracion').send_keys(30)
+        time.sleep(2)
+        #agregamos la ponderacion de la reversibilidad
+        self.browser.find_element_by_name('pondReversibilidad').send_keys(10)
         time.sleep(2)
         self.browser.find_element_by_name('pondProbabilidad').send_keys(20)  #agregamos la ponderacion de la probabilidad
         time.sleep(2)
@@ -209,39 +259,137 @@ class PruebaFormularioEstudio(StaticLiveServerTestCase):
         confirmacion.accept()
         self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
         time.sleep(4)
-
-
-    def test_agregar_estudio_biologico(self):
         
-        self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-        time.sleep(4)
-
-        # Volvemos a agregar otro elemento pero ahora de tipo Biologico
+        # Volvemos a agregar otro elemento pero ahora de tipo Socio-Cultural
         self.browser.find_element_by_css_selector('.btn').click() # Hacemos click en agregar
         time.sleep(5)
-        nombre = "Impacto B"
+        nombre = "Impacto SC"
         self.browser.find_element_by_name('nombre').send_keys(nombre) #agregamos el nombre
         time.sleep(2)
         select_tipo = Select(self.browser.find_element_by_name('tipo'))
         time.sleep(2)
-        select_tipo.select_by_visible_text('Biologico')
-        # time.sleep(2)
-        # self.browser.find_element_by_name('probabilidad').send_keys(4) #agregamos la probabilidad
+        select_tipo.select_by_visible_text('Socio-Cultural')
+        time.sleep(2)
+        #movemos el scroll un poco
+        self.browser.execute_script("window.scrollTo(0, 720)")
+        time.sleep(2)
+        #agregamos la ponderacion de la intensidad
+        self.browser.find_element_by_name('pondIntensidad').send_keys(20)
+        time.sleep(2)
+        #agregamos la ponderacion de la extension
+        self.browser.find_element_by_name('pondExtension').send_keys(20)
+        time.sleep(2)
+        #agregamos la ponderacion de la duracion
+        self.browser.find_element_by_name('pondDuracion').send_keys(30)
+        time.sleep(2)
+        #agregamos la ponderacion de la reversibilidad
+        self.browser.find_element_by_name('pondReversibilidad').send_keys(10)
+        time.sleep(2)
+        #agregamos la ponderacion de la probabilidad
+        self.browser.find_element_by_name('pondProbabilidad').send_keys(20)
+        time.sleep(2)
+        # Hacemos click en agregar
+        self.browser.find_element_by_name('editar').click()
+        time.sleep(2)
+        #para las alertas del navegador
+        confirmacion = self.browser.switch_to.alert
+        time.sleep(2)
+        confirmacion.accept()
+        self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
+        time.sleep(4)
+        
+        #Intentamos agregar un impacto que ya se encuentra registrado
+        self.browser.find_element_by_css_selector('.btn').click() # Hacemos click en agregar
+        time.sleep(3)
+        #agregamos el nombre Impacto SC
+        self.browser.find_element_by_name('nombre').send_keys(nombre)
         time.sleep(2)
         self.browser.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
-        time.sleep(2)
+        time.sleep(4)
         self.browser.find_element_by_name('pondIntensidad').send_keys(20) #agregamos la ponderacion de la intensidad
         time.sleep(2)
-        self.browser.find_element_by_name('pondExtension').send_keys(20)#agregamos la ponderacion de la extension
+        self.browser.find_element_by_name('pondExtension').send_keys(20) #agregamos la ponderacion de la extension
         time.sleep(2)
-        self.browser.find_element_by_name('pondDuracion').send_keys(30) #agregamos la ponderacion de la duracion
+        self.browser.find_element_by_name('pondDuracion').send_keys(30)  #agregamos la ponderacion de la duracion
         time.sleep(2)
         self.browser.find_element_by_name('pondReversibilidad').send_keys(10) #agregamos la ponderacion de la reversibilidad
         time.sleep(2)
-        self.browser.find_element_by_name('pondProbabilidad').send_keys(20)  #agregamos la ponderacion de la probabilidad
+        self.browser.find_element_by_name('pondProbabilidad').send_keys(20) #agregamos la ponderacion de la probabilidad
         time.sleep(2)
         self.browser.find_element_by_name('editar').click() # Hacemos click en agregar
         time.sleep(2)
+        confirmacion = self.browser.switch_to.alert #para las alertas del navegador
+        time.sleep(2)
+        confirmacion.accept()
+        time.sleep(4)
+        self.browser.find_element_by_name('nombre').clear()
+        time.sleep(2)
+        self.browser.find_element_by_name('nombre').send_keys('Impacto 5') #agregamos el nombre no repetido
+        time.sleep(2)
+        self.browser.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
+        time.sleep(4)
+        self.browser.find_element_by_name('editar').click() # Hacemos click en agregar
+        time.sleep(4)
+        confirmacion.accept()
+        self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
+        time.sleep(4)
+        
+        self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
+        time.sleep(5)
+
+        #Visualizando los datos del impacto SC y modificandolos
+        consulta = Estudio.objects.get(nombre=nombre)
+        time.sleep(2)
+        self.browser.find_element_by_name(str(consulta.id)).click() # Hacemos click para consultar
+        time.sleep(5)
+        self.browser.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
+        time.sleep(10)
+        self.browser.execute_script("window.scrollTo(0, 0)") #movemos el scroll un poco
+        time.sleep(2)
+        self.browser.find_element_by_name('nombre').clear()
+        time.sleep(2)
+        self.browser.find_element_by_name('nombre').send_keys("Este es un nuevo nombre") #agregamos el nombre
+        time.sleep(3)
+        self.browser.execute_script("window.scrollTo(0, 1080)") #movemos el scroll un poco
+        time.sleep(5)
+        self.browser.find_element_by_name('pondExtension').clear()
+        time.sleep(2)
+        self.browser.find_element_by_name('pondExtension').send_keys(0) #agregamos la ponderacion de la extension
+        time.sleep(2)
+        self.browser.find_element_by_name('pondDuracion').clear()
+        time.sleep(2)
+        self.browser.find_element_by_name('pondDuracion').send_keys(20)  #agregamos la ponderacion de la duracion
+        time.sleep(2)
+        self.browser.find_element_by_name('pondReversibilidad').clear()
+        time.sleep(2)
+        self.browser.find_element_by_name('pondReversibilidad').send_keys(40) #agregamos la ponderacion de la reversibilidad
+        time.sleep(2)
+        self.browser.find_element_by_name('editar').click() # Hacemos click en agregar
+        time.sleep(4)
+        confirmacion = self.browser.switch_to.alert #para las alertas del navegador
+        time.sleep(2)
+        confirmacion.accept()
+        self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
+        time.sleep(2)
+        self.browser.find_element_by_name(str(consulta.id)).click() # Hacemos click para consultar
+        time.sleep(5)
+        self.browser.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
+        time.sleep(10)
+        self.browser.execute_script("window.scrollTo(0, 0)") #movemos el scroll un poco
+        time.sleep(2)
+        
+        self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
+        time.sleep(4)
+
+        #Consultando los datos y Eliminando el impacto F cambiado
+        nombre="Impacto F"
+        consulta = Estudio.objects.get(nombre=nombre)
+        self.browser.find_element_by_name(str(consulta.id)).click() # Hacemos click para consultar
+        time.sleep(3)
+        self.browser.execute_script("window.scrollTo(0, 1080)") #movemos el scroll un poco
+        time.sleep(4)
+        self.browser.find_element_by_name('eliminar').click() # Hacemos click en agregar
+        time.sleep(4)
         confirmacion = self.browser.switch_to.alert #para las alertas del navegador
         time.sleep(2)
         confirmacion.accept()
@@ -354,435 +502,6 @@ class PruebaFormularioEstudio(StaticLiveServerTestCase):
         time.sleep(5)
         self.browser.get('%s%s' % (self.live_server_url, '/configuracion/tablas/'))
         time.sleep(4)
-
-
-    def test_agregar_estudio_sociocultural(self):
-        intensidad=Intensidad.objects.create(
-            valor_sociocultural='MA',
-            grado_perturbacion='F',
-            valor=7,
-            )
-        extension=Extension.objects.create(
-            clasificacion='GE',
-            valor=7,
-            )
-        duracion=Duracion.objects.create(
-            criterio='M2',
-            valor=7,
-            )
-        reversibilidad=Reversibilidad.objects.create(
-            clasificacion='RE',
-            valor=7,
-            )
-        probabilidad=Probabilidad.objects.create(
-            probabilidad='A',
-            valor=7,
-            )
-        importancia=Importancia.objects.create(
-            importancia='MA',
-            minimo=8,
-            maximo=10,
-            valor=9,
-            )
-        
-        self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-        time.sleep(4)
-
-        # Volvemos a agregar otro elemento pero ahora de tipo Biologico
-        self.browser.find_element_by_css_selector('.btn').click() # Hacemos click en agregar
-        time.sleep(5)
-        nombre = "Impacto SC"
-        self.browser.find_element_by_name('nombre').send_keys(nombre) #agregamos el nombre
-        time.sleep(2)
-        select_tipo = Select(self.browser.find_element_by_name('tipo'))
-        time.sleep(2)
-        select_tipo.select_by_visible_text('Socio-Cultural')
-        # time.sleep(2)
-        # self.browser.find_element_by_name('probabilidad').send_keys(4) #agregamos la probabilidad
-        time.sleep(2)
-        self.browser.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
-        time.sleep(2)
-        self.browser.find_element_by_name('pondIntensidad').send_keys(20) #agregamos la ponderacion de la intensidad
-        time.sleep(2)
-        self.browser.find_element_by_name('pondExtension').send_keys(20)#agregamos la ponderacion de la extension
-        time.sleep(2)
-        self.browser.find_element_by_name('pondDuracion').send_keys(30) #agregamos la ponderacion de la duracion
-        time.sleep(2)
-        self.browser.find_element_by_name('pondReversibilidad').send_keys(10) #agregamos la ponderacion de la reversibilidad
-        time.sleep(2)
-        self.browser.find_element_by_name('pondProbabilidad').send_keys(20)  #agregamos la ponderacion de la probabilidad
-        time.sleep(2)
-        self.browser.find_element_by_name('editar').click() # Hacemos click en agregar
-        time.sleep(2)
-        confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-        time.sleep(2)
-        confirmacion.accept()
-        self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-        time.sleep(4)
-
-
-    def test_agregar_estudio_repetido(self):
-        # Se agrega el estudio impacto R
-        nombre = "Impacto R"
-        intensidad=Intensidad.objects.create(
-            valor_sociocultural='MA',
-            grado_perturbacion='F',
-            valor=7,
-            )
-        extension=Extension.objects.create(
-            clasificacion='GE',
-            valor=7,
-            )
-        duracion=Duracion.objects.create(
-            criterio='M2',
-            valor=7,
-            )
-        reversibilidad=Reversibilidad.objects.create(
-            clasificacion='RE',
-            valor=7,
-            )
-        probabilidad=Probabilidad.objects.create(
-            probabilidad='A',
-            valor=7,
-            )
-        importancia=Importancia.objects.create(
-            importancia='MA',
-            minimo=8,
-            maximo=10,
-            valor=9,
-            )
-        objeto = Estudio.objects.create(
-                nombre=nombre,
-                tipo='FS',
-                valoracion_relevancia='MA',
-                tipo_relevancia='DI',
-                intensidad=intensidad,
-                extension=extension,
-                duracion=duracion,
-                reversibilidad=reversibilidad,
-                probabilidad=probabilidad,
-                pondIntensidad=20,
-                pondExtension=20,
-                pondDuracion=20,
-                pondReversibilidad=20,
-                pondProbabilidad=20,
-                via=7.0,
-                importancia_estudio=importancia,
-            )
-        
-        self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-        time.sleep(4)
-
-        #Intentamos agregar un impacto que ya se encuentra registrado
-        self.browser.find_element_by_css_selector('.btn').click() # Hacemos click en agregar
-        time.sleep(3)
-        self.browser.find_element_by_name('nombre').send_keys(nombre) #agregamos el nombre
-        # time.sleep(2)
-        # select_tipo = Select(self.browser.find_element_by_name('tipo'))
-        # time.sleep(2)
-        # select_tipo.select_by_visible_text('Fisico')
-        # time.sleep(2)
-        # self.browser.find_element_by_name('probabilidad').send_keys(4) #agregamos la probabilidad
-        time.sleep(2)
-        self.browser.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
-        time.sleep(4)
-        self.browser.find_element_by_name('pondIntensidad').send_keys(20) #agregamos la ponderacion de la intensidad
-        time.sleep(2)
-        self.browser.find_element_by_name('pondExtension').send_keys(20) #agregamos la ponderacion de la extension
-        time.sleep(2)
-        self.browser.find_element_by_name('pondDuracion').send_keys(30)  #agregamos la ponderacion de la duracion
-        time.sleep(2)
-        self.browser.find_element_by_name('pondReversibilidad').send_keys(10) #agregamos la ponderacion de la reversibilidad
-        time.sleep(2)
-        self.browser.find_element_by_name('pondProbabilidad').send_keys(20) #agregamos la ponderacion de la probabilidad
-        time.sleep(2)
-        self.browser.find_element_by_name('editar').click() # Hacemos click en agregar
-        time.sleep(2)
-        confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-        time.sleep(2)
-        confirmacion.accept()
-        time.sleep(4)
-        self.browser.find_element_by_name('nombre').clear()
-        time.sleep(2)
-        self.browser.find_element_by_name('nombre').send_keys('Impacto 5') #agregamos el nombre no repetido
-        time.sleep(2)
-        self.browser.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
-        time.sleep(4)
-        self.browser.find_element_by_name('editar').click() # Hacemos click en agregar
-        time.sleep(4)
-        confirmacion.accept()
-        self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-        time.sleep(4)
-
-
-    def test_modificar_estudio(self):
-        # Se agrega el estudio impacto M
-        nombre = "Impacto M"
-        intensidad=Intensidad.objects.create(
-            valor_sociocultural='MA',
-            grado_perturbacion='F',
-            valor=7,
-            )
-        extension=Extension.objects.create(
-            clasificacion='GE',
-            valor=7,
-            )
-        duracion=Duracion.objects.create(
-            criterio='M2',
-            valor=7,
-            )
-        reversibilidad=Reversibilidad.objects.create(
-            clasificacion='RE',
-            valor=7,
-            )
-        probabilidad=Probabilidad.objects.create(
-            probabilidad='A',
-            valor=7,
-            )
-        importancia=Importancia.objects.create(
-            importancia='MA',
-            minimo=8,
-            maximo=10,
-            valor=9,
-            )
-        objeto = Estudio.objects.create(
-                nombre=nombre,
-                tipo='FS',
-                valoracion_relevancia='MA',
-                tipo_relevancia='DI',
-                intensidad=intensidad,
-                extension=extension,
-                duracion=duracion,
-                reversibilidad=reversibilidad,
-                probabilidad=probabilidad,
-                pondIntensidad=20,
-                pondExtension=20,
-                pondDuracion=20,
-                pondReversibilidad=20,
-                pondProbabilidad=20,
-                via=7.0,
-                importancia_estudio=importancia,
-            )
-        
-        self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-        time.sleep(5)
-
-        #Visualizando los datos del impacto 1 y modificandolos
-        consulta = Estudio.objects.get(nombre=nombre)
-        time.sleep(2)
-        self.browser.find_element_by_name(str(consulta.id)).click() # Hacemos click para consultar
-        time.sleep(5)
-        self.browser.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
-        time.sleep(10)
-        self.browser.execute_script("window.scrollTo(0, 0)") #movemos el scroll un poco
-        time.sleep(2)
-        self.browser.find_element_by_name('nombre').clear()
-        time.sleep(2)
-        self.browser.find_element_by_name('nombre').send_keys("Este es un nuevo nombre") #agregamos el nombre
-        time.sleep(3)
-        self.browser.execute_script("window.scrollTo(0, 1080)") #movemos el scroll un poco
-        time.sleep(5)
-        self.browser.find_element_by_name('pondExtension').clear()
-        time.sleep(2)
-        self.browser.find_element_by_name('pondExtension').send_keys(0) #agregamos la ponderacion de la extension
-        time.sleep(2)
-        self.browser.find_element_by_name('pondDuracion').clear()
-        time.sleep(2)
-        self.browser.find_element_by_name('pondDuracion').send_keys(20)  #agregamos la ponderacion de la duracion
-        time.sleep(2)
-        self.browser.find_element_by_name('pondReversibilidad').clear()
-        time.sleep(2)
-        self.browser.find_element_by_name('pondReversibilidad').send_keys(40) #agregamos la ponderacion de la reversibilidad
-        time.sleep(2)
-        self.browser.find_element_by_name('editar').click() # Hacemos click en agregar
-        time.sleep(4)
-        confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-        time.sleep(2)
-        confirmacion.accept()
-        self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-        time.sleep(2)
-        self.browser.find_element_by_name(str(consulta.id)).click() # Hacemos click para consultar
-        time.sleep(5)
-        self.browser.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
-        time.sleep(10)
-        self.browser.execute_script("window.scrollTo(0, 0)") #movemos el scroll un poco
-        time.sleep(2)
-
-
-    def test_eliminar_estudio(self):
-        # Se agrega el estudio impacto 1
-        nombre = "Impacto 1"
-        intensidad=Intensidad.objects.create(
-            valor_sociocultural='MA',
-            grado_perturbacion='F',
-            valor=7,
-            )
-        extension=Extension.objects.create(
-            clasificacion='GE',
-            valor=7,
-            )
-        duracion=Duracion.objects.create(
-            criterio='M2',
-            valor=7,
-            )
-        reversibilidad=Reversibilidad.objects.create(
-            clasificacion='RE',
-            valor=7,
-            )
-        probabilidad=Probabilidad.objects.create(
-            probabilidad='A',
-            valor=7,
-            )
-        importancia=Importancia.objects.create(
-            importancia='MA',
-            minimo=8,
-            maximo=10,
-            valor=9,
-            )
-        objeto = Estudio.objects.create(
-                nombre=nombre,
-                tipo='FS',
-                valoracion_relevancia='MA',
-                tipo_relevancia='DI',
-                intensidad=intensidad,
-                extension=extension,
-                duracion=duracion,
-                reversibilidad=reversibilidad,
-                probabilidad=probabilidad,
-                pondIntensidad=20,
-                pondExtension=20,
-                pondDuracion=20,
-                pondReversibilidad=20,
-                pondProbabilidad=20,
-                via=7.0,
-                importancia_estudio=importancia,
-            )
-        
-        self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-        time.sleep(4)
-
-        #Consultando los datos cambiados y Eliminando el impacto 1 cambiado
-        consulta = Estudio.objects.get(nombre=nombre)
-        self.browser.find_element_by_name(str(consulta.id)).click() # Hacemos click para consultar
-        time.sleep(3)
-        self.browser.execute_script("window.scrollTo(0, 1080)") #movemos el scroll un poco
-        time.sleep(4)
-        self.browser.find_element_by_name('eliminar').click() # Hacemos click en agregar
-        time.sleep(4)
-        confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-        time.sleep(2)
-        confirmacion.accept()
-        self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-        time.sleep(4)
-
-    # def test_modificar_bases_calculo(self):
-
-    #     ### Prueba a bases de calculo ###
-    #     self.browser.get('%s%s' % (self.live_server_url, '/configuracion/modificar_tablas/'))
-    #     time.sleep(5)
-    #     self.browser.execute_script("window.scrollTo(0, 1080)") #movemos el scroll un poco
-    #     time.sleep(2)
-
-    #     self.browser.find_element_by_name('valor1').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor1').send_keys("9.0")
-    #     time.sleep(1)
-    #     self.browser.find_element_by_name('valor2').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor2').send_keys("6.0")
-    #     time.sleep(1)
-    #     self.browser.find_element_by_name('valor6').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor6').send_keys("6.0")
-    #     time.sleep(1)
-    #     self.browser.find_element_by_name('valor8').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor8').send_keys("1.0")
-    #     time.sleep(1)
-    #     self.browser.find_element_by_name('valor9').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor9').send_keys("4.0")
-    #     time.sleep(1)
-    #     self.browser.find_element_by_name('valor12').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor12').send_keys("0.0")
-    #     time.sleep(1)
-    #     self.browser.find_element_by_name('valor13').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor13').send_keys("9.0")
-    #     time.sleep(1)
-    #     self.browser.find_element_by_name('valor14').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor14').send_keys("6.0")
-    #     time.sleep(1)
-    #     self.browser.find_element_by_name('valor15').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor15').send_keys("4.0")
-    #     time.sleep(1)
-    #     self.browser.find_element_by_name('valor16').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor16').send_keys("1.0")
-    #     time.sleep(1)
-    #     self.browser.find_element_by_name('valor17').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor17').send_keys("1.0")
-    #     time.sleep(1)
-    #     self.browser.find_element_by_name('valor19').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor19').send_keys("8.0")
-    #     time.sleep(1)
-    #     self.browser.find_element_by_name('valor21').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor21').send_keys("9.0")
-    #     time.sleep(1)
-    #     self.browser.find_element_by_name('valor24').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor24').send_keys("0.0")
-    #     time.sleep(1)
-    #     self.browser.find_element_by_name('valor27').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor27').send_keys("2.0")
-    #     time.sleep(1)
-    #     self.browser.find_element_by_name('valor32').clear()
-    #     confirmacion = self.browser.switch_to.alert #para las alertas del navegador
-    #     time.sleep(2)
-    #     confirmacion.accept()
-    #     #self.browser.find_element_by_name('valor32').send_keys("1.0")
-    #     time.sleep(2)
-    #     self.browser.find_element_by_name('submit').click()
-    #     time.sleep(5)
-    #     self.browser.get('%s%s' % (self.live_server_url, '/configuracion/tablas/'))
-    #     time.sleep(4)
 
     def tearDown(self):
         # Llama al tearDown al cerrar el browser
