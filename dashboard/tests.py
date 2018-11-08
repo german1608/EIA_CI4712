@@ -35,9 +35,7 @@ class TestViews(TestCase):
 
         # Hacemos la peticion sin estar autenticados
         response = self.client.get(reverse('dashboard:index'))
-        self.assertRedirects(response, settings.LOGIN_URL)
-        self.assertNotEqual(response.resolver_match.func.__name__,
-                            DashboardView.as_view().__name__)
+        self.assertRedirects(response, '{}?next={}'.format(settings.LOGIN_URL, reverse('dashboard:index')))
 
         # Nos logueamos
         self.client.login(username='username', password='password')
@@ -45,5 +43,6 @@ class TestViews(TestCase):
         # Verificamos que no redirija y que el nombre de la funcino
         # que maneja la peticion sea el correcto
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.resolver_match.func.__name,
+        self.assertEqual(response.resolver_match.func.__name__,
                         DashboardView.as_view().__name__)
+        self.client.logout()
