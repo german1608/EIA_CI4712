@@ -3,6 +3,7 @@
 '''
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
 
 # Create your models here.
 class Usuario(AbstractUser):
@@ -10,6 +11,13 @@ class Usuario(AbstractUser):
         Esta clase representa a los usuarios que van a estar dentro del
         sistema
     '''
+    doc_identidad = models.CharField(max_length=10,
+                                     validators=[RegexValidator(r'^[VEF]-\d+$',
+                                                                'Formato de documento de identidad'
+                                                                ' inválido. Los números deben '
+                                                                'estar precedidos por V- o E-.'
+                                                                )],
+                                     verbose_name='Documento de Identidad')
     first_name = models.CharField(max_length=100, verbose_name='Nombre')
     last_name = models.CharField(max_length=100, verbose_name='Apellido')
 
