@@ -12,10 +12,6 @@ class NewUser(CreateView): # pylint: disable=too-many-ancestors
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('new_user')
 
-    def form_valid(self, form):
-        form.instance.username = form.cleaned_data['email']
-        return super().form_valid(form)
-
 class UpdateUser(UpdateView): # pylint: disable=too-many-ancestors
     ''' Class based view encargada de la edicion de un usuario'''
     model = Usuario
