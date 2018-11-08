@@ -2,6 +2,7 @@
 Pruebas unitarias del dashboard de EIA
 """
 from django.test import TestCase, Client
+from django.urls import reverse
 from users.models import Usuario
 from .views import DashboardView
 
@@ -23,3 +24,7 @@ class TestViews(TestCase):
     def test_dashboard_existence(self): # pylint: disable=no-self-use
         """ Prueba la existencia de la clase que muestra el dashboard """
         DashboardView.as_view()
+
+    def test_url_existence(self): # pylint: disable=no-self-use
+        """ Prueba la existencia del url que apunta a la vista DashboardView """
+        reverse('dashboard:index')
