@@ -42,3 +42,6 @@ class TestUsuarioModel(TestCase):
         esperado.sort()
         self.assertEqual(actual, esperado)
 
+    def test_model_str_representation(self):
+        """ La representacion de un usuario deberia ser su nombre de usuario """
+        self.assertEqual(str(self.usuario), self.usuario.email)
