@@ -21,7 +21,7 @@ install:
 - pip install -r requirements.txt
 - ./installgeckodriver.sh
 before_script:
-- export DATABASE_URL=postgres://postgres:@localhost:5432/test
+- export DATABASE_URL=postgres://postgres:@localhost:5432/postgres
 script:
 - psql --version
 - ./test.sh
