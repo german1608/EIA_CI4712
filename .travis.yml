@@ -17,7 +17,6 @@ services:
 - postgresql
 before_install:
 - pip install --upgrade pip
-- sudo service postgresql stop && sudo service postgresql start 10
 install:
 - pip install -r requirements.txt
 - ./installgeckodriver.sh
