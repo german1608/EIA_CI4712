@@ -22,7 +22,16 @@ install:
 - pip install -r requirements.txt
 - ./installgeckodriver.sh
 before_script:
-- export DATABASE_URL=postgres://postgres:@localhost:5432/test
+- psql -c 'drop database if exists eia' -U postgres
+- psql -c 'drop role if exists eia' -U postgres
+- psql -c 'create role eia' -U postgres
+- psql -c 'create database eia' -U postgres
+- psql -c "alter user eia with encrypted password 'eiae123';" -U postgres
+- psql -c "alter role eia set client_encoding to 'utf8';" -U postgres
+- psql -c "alter role eia set default_transaction_isolation to 'read committed';" -U postgres
+- psql -c "alter role eia set timezone to 'utc';" -U postgres
+- psql -c "alter role eia createdb;" -U postgres
+- psql -c "grant all privileges on database eia to eia ;" -U postgres
 script:
 - ./test.sh
 notifications:
