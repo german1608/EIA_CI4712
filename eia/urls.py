@@ -18,10 +18,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from eia_app import views
 
 urlpatterns = [ #pylint: disable=invalid-name
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
+    path('consultor-crud/', views.consultor_index, name='consultor-crud-index'),
+    path('consultor-crud/', include('eia_app.urls', namespace='consultor-crud')),
     path('users/', include("users.urls")),
     path('configuracion/', include("configuracion.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

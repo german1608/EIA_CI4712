@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}
+  <p>¿Estás seguro que deseas borrar el solicitante "{{ object.nombre }}"?</p>
+  <button type="submit" class="btn btn-primary">Aceptar</button>
+</form>
+
+{% endblock %}
