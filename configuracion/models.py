@@ -1,4 +1,5 @@
-""" Models de Configuracion
+"""
+   Modelo de Configuracion
 """
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -61,7 +62,8 @@ MEDIOS = (
     )
 
 class Intensidad(models.Model):
-    """Tabla Intensidad
+    """
+       Clase que representa la tabla de Intensidad
     """
     valor_sociocultural = models.CharField(
         choices=VALOR_SA,
@@ -80,7 +82,8 @@ class Intensidad(models.Model):
         )
 
     class Meta:
-        """Meta de Intensidad
+        """
+           Clase que especifica los datos unicos a incluir en la tabla de Intensidad
         """
 
         unique_together = (
@@ -89,7 +92,8 @@ class Intensidad(models.Model):
             )
 
 class Extension(models.Model):
-    """Tabla Estudio
+    """
+       Clase que representa la tabla de Extension
     """
     clasificacion = models.CharField(
         choices=EXT_CLASIFICACION,
@@ -103,7 +107,8 @@ class Extension(models.Model):
         )
 
 class Duracion(models.Model):
-    """Tabla Duracion
+    """
+       Clase que representa la tabla de Duracion
     """
     criterio = models.CharField(
         choices=DUR_CRITERIOS,
@@ -117,7 +122,8 @@ class Duracion(models.Model):
         )
 
 class Reversibilidad(models.Model):
-    """Tabla Reversibilidad
+    """
+       Clase que representa la tabla de Reversibilidad
     """
     clasificacion = models.CharField(
         choices=REV_CLASIFICACION,
@@ -131,7 +137,8 @@ class Reversibilidad(models.Model):
         )
 
 class Probabilidad(models.Model):
-    """Tabla Probabilidad
+    """
+       Clase que representa la tabla de Probabilidad
     """
     probabilidad = models.CharField(
         choices=PROBABILIDAD,
@@ -145,7 +152,8 @@ class Probabilidad(models.Model):
         )
 
 class Importancia(models.Model):
-    """Tabla Importancia
+    """
+       Clase que representa la tabla de Importancia
     """
     importancia = models.CharField(
         choices=NIVEL_IMPORTANCIA,
@@ -165,7 +173,8 @@ class Importancia(models.Model):
         )
 
 class Estudio(models.Model):
-    """Tabla Estudio
+    """
+       Clase que representa la tabla de Estudio
     """
     nombre = models.CharField(
         max_length=40,

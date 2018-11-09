@@ -1,15 +1,19 @@
-"""Formularios de Configuracion
+"""
+   Formularios de Configuracion
 """
 from django import forms
 from configuracion.models import Estudio, Intensidad, Duracion, Extension
 from configuracion.models import Reversibilidad, Probabilidad, Importancia
 
 class EstudioForm(forms.ModelForm):
-    """Formulario de Estudio
+    """
+       Clase donde se crea el formulario de Estudio
     """
 
     class Meta:
-        """ Meta del formulario de Estudio
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Estudio
         """
         model = Estudio
         fields = [
@@ -49,11 +53,14 @@ class EstudioForm(forms.ModelForm):
             }
 
 class IntesidadForm(forms.ModelForm):
-    """Formulario de Intensidad
+    """
+        Clase donde se crea el formulario de Intensidad
     """
 
     class Meta:
-        """Meta del formulario de Intensidad
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Intensidad
         """
 
         model = Intensidad
@@ -78,11 +85,14 @@ class IntesidadForm(forms.ModelForm):
         }
 
 class ExtensionForm(forms.ModelForm):
-    """FOrmulario de Extension
+    """
+       Clase donde se crea el formulario de Extension
     """
 
     class Meta:
-        """Meta del formulario de Extension
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Extension
         """
 
         model = Extension
@@ -105,11 +115,14 @@ class ExtensionForm(forms.ModelForm):
         }
 
 class DuracionForm(forms.ModelForm):
-    """Formulario de Duracion
+    """
+       Clase donde se crea el formulario de Duracion
     """
 
     class Meta:
-        """Meta del formulario Duracion
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Duracion
         """
 
         model = Duracion
@@ -131,11 +144,14 @@ class DuracionForm(forms.ModelForm):
         }
 
 class ReversibilidadForm(forms.ModelForm):
-    """Formulario de Reversibilidad
+    """
+       Clase donde se crea el formulario de Reversibilidad
     """
 
     class Meta:
-        """Meta del formulario de Reversibilidad
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Reversibilidad
         """
 
         model = Reversibilidad
@@ -156,11 +172,14 @@ class ReversibilidadForm(forms.ModelForm):
         }
 
 class ProbabilidadForm(forms.ModelForm):
-    """Formulario de Probabilidad
+    """
+       Clase donde se crea el formulario de Probabilidad
     """
 
     class Meta:
-        """Meta del Formulario de Probabilidad
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Probabilidad
         """
 
         model = Probabilidad
@@ -182,11 +201,14 @@ class ProbabilidadForm(forms.ModelForm):
         }
 
 class ImportanciaForm(forms.ModelForm):
-    """Formulario de Importancia
+    """
+       Clase donde se crea el formulario de Importancia
     """
 
     class Meta:
-        """ Meta del Formulario Importancia
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Importancia
         """
         model = Importancia
         fields = [
