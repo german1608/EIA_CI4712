@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock %}
+{% block content %}
+
+<h4> Detalles del proyecto: {{datosproyecto.titulo}}</h4>
+<div class="grid-container" style="margin-left:10%">
+
+
+                <div class="grid-item">
+                        <div class="text-col">
+                            <p class="title">Ubicación</p>
+                            <p>{{ datosproyecto.ubicacion}}</p>
+                        </div>
+                </div>
+
+                <div class="grid-item">
+                        <div class="text-col">
+                            <p class="title">Área</p>
+                            <p>{{ datosproyecto.area }}</p>
+                        </div>
+                </div>
+
+                <div class="grid-item">
+                        <div class="text-col">
+                            <p class="title">URL</p>
+                            <p><a href="{{ datosproyecto.url }}">{{ datosproyecto.url }}</a></p>
+                        </div>
+                </div>
+
+                <div class="grid-item" >
+                        <div class="text-col">
+                            <p class="title">Tipo</p>
+                            <p>{{ datosproyecto.tipo }}</p>
+                        </div>
+                </div>
+</div>
+
+{% endblock %}

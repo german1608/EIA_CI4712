@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock %}
+{% block content %}
+
+<h3> Detalles del solicitante {{solicitante.nombre}}</h3>
+<div class="grid-container" style="margin-left:10%">
+        
+
+
+                <div class="grid-item">
+                        <div class="text-col">
+                            <p class="title">Nombre y Apellido </p>
+                            <p>{{ solicitante.nombre}} {{solicitante.apellido}} </p>
+                        </div>
+                </div>
+
+                <div class="grid-item">
+                        <div class="text-col">
+                            <p class="title">Cédula</p>
+                            <p>{{ solicitante.cedula }}</p>
+                        </div>
+                </div>
+
+                {% if solicitante.pasaporte != None %}
+                <div class="grid-item">
+                        <div class="text-col">
+                            <p class="title">Pasaporte</p>
+                            <p>{{ solicitante.pasaporte }}</p>
+                        </div>
+                </div>
+                {% endif %}
+
+                <div class="grid-item">
+                  <div class="text-col">
+                      <p class="title">Teléfono</p>
+                      <p>{{ solicitante.telefono }}</p>
+                  </div>
+            </div>
+
+            <div class="grid-item">
+              <div class="text-col">
+                  <p class="title">Proyecto</p>
+                  <p><a href="{% url "consultor-crud:detalles-datos-proyecto"  solicitante.proyecto.id %}">{{ solicitante.proyecto }}</a></p>
+              </div>
+          </div>
+
+            <div class="grid-item">
+              <div class="text-col">
+                  <p class="title">Email</p>
+                  <p>{{ solicitante.email }}</p>
+              </div>
+            </div>
+
+
+
+            </div>
+      </div>
+      </div>
+
+{% endblock %}
