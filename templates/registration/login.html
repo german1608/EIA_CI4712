@@ -1,1 +1,31 @@
 {% extends './base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+  <div class="container">
+    <div class="card"></div>
+    <div class="card">
+      <h1 class="title">Login</h1>
+      {% for error in form.non_field_errors %}
+      {{error|escape}}
+      {% endfor %}
+      <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="input-container">
+          {% render_field form.username %}
+          <label>{{form.username.label}}</label>
+          <div class="bar"></div>
+        </div>
+        <div class="input-container">
+          {% render_field form.password %}
+          <label>{{form.password.label}}</label>
+          <div class="bar"></div>
+        </div>
+        <div class="button-container">
+          <button type="submit"><span>Ingresar</span></button>
+        </div>
+        <div class="footer"><a href="#">¿Olvidaste tu contraseña?</a></div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
