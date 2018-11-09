@@ -5,14 +5,7 @@
 {% endblock %}
 
 {% block content %}
-{% for message in messages %}
-  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    {{ message }}
-  </div>
-{% endfor %}
+
 <div class="container">
 <div class="row center-align section">
 	<table class="table">
@@ -44,3 +37,19 @@
 </div>
 </div>	
 {%endblock%}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/js/materialize.min.js" integrity="sha256-SrBfGi+Zp2LhAvy9M1bWOCXztRU9Ztztxmu5BcYPcPE=" crossorigin="anonymous"></script>
+{% if messages %}
+<script>
+window.onload = function() {
+{% for message in messages %}
+M.toast({html: '{{ message }}'})
+
+{% endfor %}
+};
+
+
+</script>
+{% endif %}
+{% endblock %}

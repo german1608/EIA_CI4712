@@ -10,6 +10,7 @@ input{
 }
 
 td, th{
+  border-radius:0px;
   text-align: center;
 }
 h1{
@@ -32,7 +33,11 @@ h1{
   text-align: center;
   width: 5%;
 }
-.menu{
+.menu {
+  background-color: rgb(196, 213, 159);
+  border-radius: 0px;
+}
+.menu:hover {
   background-color: rgb(196, 213, 159);
 }
 .menu p{
@@ -76,4 +81,10 @@ h1{
   background: #4f6228;
   color: white;
   width: 50%;
+}
+#toast-container {
+  top: auto !important;
+  right: auto !important;
+  bottom: 10%;
+  left: 20%;
 }

@@ -6,7 +6,6 @@ function validar(){
 	constantes.id_inputs = ["id_pondIntensidad","id_pondExtension","id_pondDuracion","id_pondReversibilidad","id_pondProbabilidad"];
 	constantes.inputs = [];
 	constantes.submit = document.getElementById("formulario");
-	constantes.ponderacion = document.getElementById("id_probabilidad");
 	
 	//Se obtienen los apuntadores a los objetos DOM (Los inputs) dado sus ID
 	for (var i = 0; i < constantes.id_inputs.length; i++) { 
@@ -110,13 +109,6 @@ function validar(){
 		return true;
 	};
 	
-	//Se agrega la validacion que sea un numero
-	constantes.ponderacion.onchange = function(){
-
-		if(!probabilidad_validado()){
-			this.value = 0;
-		}
-	}
 };
 
 //Al cargar la pagina se activa la funcionalidad de validacion

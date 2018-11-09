@@ -1,17 +1,17 @@
 """
-Pruebas Unitarias
+Dependencias
 """
-
-import time
 from django.test import Client
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.test import TestCase
 from selenium import webdriver
+from selenium.webdriver.common.alert import Alert
+from configuracion.models import *
 from selenium.webdriver.support.ui import Select
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+import time
+from django.test import TestCase
 from configuracion.models import NIVEL_RELEVANCIA, TIPO_RELEVANCIA, GRADO_PERTUBACION
 from configuracion.views import _calcular_via
 from configuracion.forms import EstudioForm
-from configuracion.models import Estudio
 
 class KaraotaTests(TestCase):
     """
@@ -37,26 +37,125 @@ class KaraotaTests(TestCase):
         valores = {
             'nombre': 'Nombre 1',
             'tipo': 'FS',
-            'valoracion_relevancia': 'MA',
+            'valoracion_relevancia': 'A',
             'tipo_relevancia': 'DI',
-            # 'intensidad': intensidad,
-            # 'extension': extension,
-            # 'duracion': duracion,
-            # 'reversibilidad': reversibilidad,
-            # 'probabilidad': probabilidad,
             'pondIntensidad': 21,
             'pondExtension': 20,
             'pondDuracion': 20,
             'pondReversibilidad': 20,
             'pondProbabilidad': 20,
-            # 'via': 5.0,
-            # 'importancia_estudio': importancia
-
-        }
+            }
         form = EstudioForm(data=valores)
-
         self.assertFalse(form.is_valid())
 
+    def test_ponderaciones_iguala100(self):
+        """
+        test_ponderacionesigual101
+        """
+        valores = {
+            'nombre': 'Nombre 1',
+            'tipo': 'FS',
+            'valoracion_relevancia': 'A',
+            'tipo_relevancia': 'DI',
+            'pondIntensidad': 20,
+            'pondExtension': 20,
+            'pondDuracion': 20,
+            'pondReversibilidad': 20,
+            'pondProbabilidad': 20,
+            }
+        form = EstudioForm(data=valores)
+        self.assertTrue(form.is_valid())
+
+    def test_ponderaciones_negativo(self):
+        """
+        test_ponderacionesigual101
+        """
+        valores = {
+            'nombre': 'Nombre 1',
+            'tipo': 'FS',
+            'valoracion_relevancia': 'A',
+            'tipo_relevancia': 'DI',
+            'pondIntensidad': 0,
+            'pondExtension': -1,
+            'pondDuracion': -1,
+            'pondReversibilidad': 0,
+            'pondProbabilidad': 0,
+            }
+        form = EstudioForm(data=valores)
+        self.assertFalse(form.is_valid())
+
+    def test_ponderaciones_iguala0(self):
+        """
+        test_ponderacionesigual101
+        """
+        valores = {
+            'nombre': 'Nombre 1',
+            'tipo': 'FS',
+            'valoracion_relevancia': 'A',
+            'tipo_relevancia': 'DI',
+            'pondIntensidad': 0,
+            'pondExtension': 0,
+            'pondDuracion': 0,
+            'pondReversibilidad': 0,
+            'pondProbabilidad': 0,
+            }
+        form = EstudioForm(data=valores)
+        self.assertTrue(form.is_valid())    
+
+    def test_ponderaciones_iguala1(self):
+        """
+        test_ponderacionesigual101
+        """
+        valores = {
+            'nombre': 'Nombre 1',
+            'tipo': 'FS',
+            'valoracion_relevancia': 'A',
+            'tipo_relevancia': 'DI',
+            'pondIntensidad': 1,
+            'pondExtension': 0,
+            'pondDuracion': 0,
+            'pondReversibilidad': 0,
+            'pondProbabilidad': 0,
+            }
+        form = EstudioForm(data=valores)
+        self.assertTrue(form.is_valid())            
+
+    def test_ponderaciones_iguala99(self):
+        """
+        test_ponderacionesigual101
+        """
+        valores = {
+            'nombre': 'Nombre 1',
+            'tipo': 'FS',
+            'valoracion_relevancia': 'A',
+            'tipo_relevancia': 'DI',
+            'pondIntensidad': 99,
+            'pondExtension': 0,
+            'pondDuracion': 0,
+            'pondReversibilidad': 0,
+            'pondProbabilidad': 0,
+            }
+        form = EstudioForm(data=valores)
+        self.assertTrue(form.is_valid())    
+        
+    def test_ponderaciones_iguala50(self):
+        """
+        test_ponderacionesigual101
+        """
+        valores = {
+            'nombre': 'Nombre 1',
+            'tipo': 'FS',
+            'valoracion_relevancia': 'A',
+            'tipo_relevancia': 'DI',
+            'pondIntensidad': 25,
+            'pondExtension': 25,
+            'pondDuracion': 0,
+            'pondReversibilidad': 0,
+            'pondProbabilidad': 0,
+            }
+        form = EstudioForm(data=valores)
+        self.assertTrue(form.is_valid())            
+    
     def test_via_cota_inferior(self):
         """
         VIA inferior bien calculado
@@ -201,25 +300,20 @@ class KaraotaTests(TestCase):
         self.assertTemplateUsed(response, 'configuracion/modificar_tablas.html')
         self.assertTemplateUsed(response, 'base.html')
 
+
+        
+
 class PruebaFormularioEstudio(StaticLiveServerTestCase):
-    """
-    Prueba Formulario Estudio
-    """
     port = 8005
 
     def setUp(self):
-        """
-        setup
-        """
+        
         super(PruebaFormularioEstudio, self).setUp()
         #Llenamos distintos formularios
         self.browser = webdriver.Firefox() #Pruebas de navegador con selenium
         self.browser.maximize_window()
 
-    def test_navegador(self): #pylint: disable=too-many-statements
-        """
-        test del navegador
-        """
+    def test_navegador(self):
 
         self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
         time.sleep(4)
@@ -255,7 +349,7 @@ class PruebaFormularioEstudio(StaticLiveServerTestCase):
         self.browser.find_element_by_name('editar').click()
         time.sleep(2)
         #para las alertas del navegador
-        confirmacion = self.browser.switch_to.alert
+        confirmacion = self.browser.switch_to.alert 
         time.sleep(2)
         confirmacion.accept()
         self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
@@ -288,9 +382,7 @@ class PruebaFormularioEstudio(StaticLiveServerTestCase):
         #agregamos la ponderacion de la reversibilidad
         self.browser.find_element_by_name('pondReversibilidad').send_keys(10)
         time.sleep(2)
-
-        # agregamos la ponderacion de la probabilidad
-        self.browser.find_element_by_name('pondProbabilidad').send_keys(20)
+        self.browser.find_element_by_name('pondProbabilidad').send_keys(20)  #agregamos la ponderacion de la probabilidad
         time.sleep(2)
         self.browser.find_element_by_name('editar').click() # Hacemos click en agregar
         time.sleep(2)
@@ -299,7 +391,7 @@ class PruebaFormularioEstudio(StaticLiveServerTestCase):
         confirmacion.accept()
         self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
         time.sleep(4)
-
+        
         # Volvemos a agregar otro elemento pero ahora de tipo Socio-Cultural
         self.browser.find_element_by_css_selector('.btn').click() # Hacemos click en agregar
         time.sleep(5)
@@ -337,36 +429,24 @@ class PruebaFormularioEstudio(StaticLiveServerTestCase):
         confirmacion.accept()
         self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
         time.sleep(4)
-
+        
         #Intentamos agregar un impacto que ya se encuentra registrado
         self.browser.find_element_by_css_selector('.btn').click() # Hacemos click en agregar
         time.sleep(3)
         #agregamos el nombre Impacto SC
         self.browser.find_element_by_name('nombre').send_keys(nombre)
         time.sleep(2)
-        self.browser.execute_script("window.scrollTo(0, 720)") # movemos el scroll un poco
+        self.browser.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
         time.sleep(4)
-
-        # agregamos la ponderacion de la intensidad
-        self.browser.find_element_by_name('pondIntensidad').send_keys(20)
+        self.browser.find_element_by_name('pondIntensidad').send_keys(20) #agregamos la ponderacion de la intensidad
         time.sleep(2)
-
-        # agregamos la ponderacion de la extension
-        self.browser.find_element_by_name('pondExtension').send_keys(20)
+        self.browser.find_element_by_name('pondExtension').send_keys(20) #agregamos la ponderacion de la extension
         time.sleep(2)
-
-        # agregamos la ponderacion de la duracion
-        self.browser.find_element_by_name('pondDuracion').send_keys(30)
+        self.browser.find_element_by_name('pondDuracion').send_keys(30)  #agregamos la ponderacion de la duracion
         time.sleep(2)
-
-        # agregamos la ponderacion de la reversibilidad
-        self.browser.find_element_by_name('pondReversibilidad').send_keys(10)
+        self.browser.find_element_by_name('pondReversibilidad').send_keys(10) #agregamos la ponderacion de la reversibilidad
         time.sleep(2)
-
-        # agregamos la ponderacion de la probabilidad
-        self.browser.find_element_by_name('pondProbabilidad').send_keys(20)
-
-
+        self.browser.find_element_by_name('pondProbabilidad').send_keys(20) #agregamos la ponderacion de la probabilidad
         time.sleep(2)
         self.browser.find_element_by_name('editar').click() # Hacemos click en agregar
         time.sleep(2)
@@ -376,9 +456,7 @@ class PruebaFormularioEstudio(StaticLiveServerTestCase):
         time.sleep(4)
         self.browser.find_element_by_name('nombre').clear()
         time.sleep(2)
-
-        # agregamos el nombre no repetido
-        self.browser.find_element_by_name('nombre').send_keys('Impacto 5')
+        self.browser.find_element_by_name('nombre').send_keys('Impacto 5') #agregamos el nombre no repetido
         time.sleep(2)
         self.browser.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
         time.sleep(4)
@@ -387,7 +465,7 @@ class PruebaFormularioEstudio(StaticLiveServerTestCase):
         confirmacion.accept()
         self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
         time.sleep(4)
-
+        
         self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
         time.sleep(5)
 
@@ -402,29 +480,21 @@ class PruebaFormularioEstudio(StaticLiveServerTestCase):
         time.sleep(2)
         self.browser.find_element_by_name('nombre').clear()
         time.sleep(2)
-
-        #agregamos el nombre
-        self.browser.find_element_by_name('nombre').send_keys("Este es un nuevo nombre")
+        self.browser.find_element_by_name('nombre').send_keys("Este es un nuevo nombre") #agregamos el nombre
         time.sleep(3)
         self.browser.execute_script("window.scrollTo(0, 1080)") #movemos el scroll un poco
         time.sleep(5)
         self.browser.find_element_by_name('pondExtension').clear()
         time.sleep(2)
-
-        #agregamos la ponderacion de la extension
-        self.browser.find_element_by_name('pondExtension').send_keys(0)
+        self.browser.find_element_by_name('pondExtension').send_keys(0) #agregamos la ponderacion de la extension
         time.sleep(2)
         self.browser.find_element_by_name('pondDuracion').clear()
         time.sleep(2)
-
-        #agregamos la ponderacion de la duracion
-        self.browser.find_element_by_name('pondDuracion').send_keys(20)
+        self.browser.find_element_by_name('pondDuracion').send_keys(20)  #agregamos la ponderacion de la duracion
         time.sleep(2)
         self.browser.find_element_by_name('pondReversibilidad').clear()
         time.sleep(2)
-
-        #agregamos la ponderacion de la reversibilidad
-        self.browser.find_element_by_name('pondReversibilidad').send_keys(40)
+        self.browser.find_element_by_name('pondReversibilidad').send_keys(40) #agregamos la ponderacion de la reversibilidad
         time.sleep(2)
         self.browser.find_element_by_name('editar').click() # Hacemos click en agregar
         time.sleep(4)
@@ -439,12 +509,12 @@ class PruebaFormularioEstudio(StaticLiveServerTestCase):
         time.sleep(10)
         self.browser.execute_script("window.scrollTo(0, 0)") #movemos el scroll un poco
         time.sleep(2)
-
+        
         self.browser.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
         time.sleep(4)
 
         #Consultando los datos y Eliminando el impacto F cambiado
-        nombre = "Impacto F"
+        nombre="Impacto F"
         consulta = Estudio.objects.get(nombre=nombre)
         self.browser.find_element_by_name(str(consulta.id)).click() # Hacemos click para consultar
         time.sleep(3)
@@ -566,8 +636,8 @@ class PruebaFormularioEstudio(StaticLiveServerTestCase):
         time.sleep(4)
 
     def tearDown(self):
-        """
-        Llama al tearDown al cerrar el browser
-        """
+        # Llama al tearDown al cerrar el browser
         self.browser.quit()
         super(PruebaFormularioEstudio, self).tearDown()
+
+
