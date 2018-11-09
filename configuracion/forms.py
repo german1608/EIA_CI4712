@@ -1,14 +1,19 @@
-"""Formularios de Configuracion
+"""
+   Formularios de Configuracion
 """
 from django import forms
 from configuracion.models import Estudio, Intensidad, Duracion, Extension
 from configuracion.models import Reversibilidad, Probabilidad, Importancia
 
 class EstudioForm(forms.ModelForm):
-    """Formulario de Estudio
     """
+       Clase donde se crea el formulario de Estudio
+    """
+
     class Meta:
-        """ Meta del formulario de Estudio
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Estudio
         """
         model = Estudio
         fields = [
@@ -36,35 +41,26 @@ class EstudioForm(forms.ModelForm):
         }
 
         widgets = {
-            'nombre': forms.TextInput(attrs={'class':'validate', 'required':'', 'type': 'text'}),
-            'tipo': forms.Select(attrs={'class':'validate', 'required':''}),
-            'valoracion_relevancia':forms.Select(attrs={'class':'validate', 'required':''}),
-            'tipo_relevancia': forms.Select(attrs={'class':'validate', 'required':''}),
-            'pondIntensidad': forms.TextInput(attrs={'class':'validate', 'required':''}),
-            'pondExtension': forms.TextInput(attrs={'class':'validate', 'required':''}),
-            'pondDuracion': forms.TextInput(attrs={'class':'validate', 'required':''}),
-            'pondReversibilidad': forms.TextInput(attrs={'class':'validate', 'required':''}),
-            'pondProbabilidad': forms.TextInput(attrs={'class':'validate', 'required':''}),
+            'nombre': forms.TextInput(attrs={'class':'browser-default', 'required':''}),
+            'tipo': forms.Select(attrs={'class':'browser-default', 'required':''}),
+            'valoracion_relevancia':forms.Select(attrs={'class':'browser-default', 'required':''}),
+            'tipo_relevancia': forms.Select(attrs={'class':'browser-default', 'required':''}),
+            'pondIntensidad': forms.TextInput(attrs={'class':'form-control', 'required':''}),
+            'pondExtension': forms.TextInput(attrs={'class':'form-control', 'required':''}),
+            'pondDuracion': forms.TextInput(attrs={'class':'form-control', 'required':''}),
+            'pondReversibilidad': forms.TextInput(attrs={'class':'form-control', 'required':''}),
+            'pondProbabilidad': forms.TextInput(attrs={'class':'form-control', 'required':''}),
             }
-        
-    def clean(self):
 
-        pondIntensidad0 = float(self.cleaned_data['pondIntensidad'])
-        pondExtension0 =  float(self.cleaned_data["pondExtension"])
-        pondDuracion0 =  float(self.cleaned_data["pondDuracion"])
-        pondReversibilidad0 = float(self.cleaned_data["pondReversibilidad"])
-        pondProbabilidad0 =  float(self.cleaned_data["pondProbabilidad"])
-        total = pondIntensidad0+pondExtension0+pondDuracion0+pondReversibilidad0+pondProbabilidad0
-        if total<0.0 or total >100.0:
-            self.add_error('pondIntensidad', "Se salio de los limites")
-
-            
 class IntesidadForm(forms.ModelForm):
-    """Formulario de Intensidad
+    """
+        Clase donde se crea el formulario de Intensidad
     """
 
     class Meta:
-        """Meta del formulario de Intensidad
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Intensidad
         """
 
         model = Intensidad
@@ -83,17 +79,20 @@ class IntesidadForm(forms.ModelForm):
         }
 
         widgets = {
-            'valor_sociocultural':forms.TextInput(attrs={'class':'validate', 'required':''}),
-            'grado_perturbacion':forms.TextInput(attrs={'class':'validate', 'required':''}),
-            'valor':forms.TextInput(attrs={'class':'validate', 'required':''}),
+            'valor_sociocultural':forms.TextInput(attrs={'class':'form-control', 'required':''}),
+            'grado_perturbacion':forms.TextInput(attrs={'class':'form-control', 'required':''}),
+            'valor':forms.TextInput(attrs={'class':'form-control', 'required':''}),
         }
 
 class ExtensionForm(forms.ModelForm):
-    """FOrmulario de Extension
+    """
+       Clase donde se crea el formulario de Extension
     """
 
     class Meta:
-        """Meta del formulario de Extension
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Extension
         """
 
         model = Extension
@@ -110,17 +109,20 @@ class ExtensionForm(forms.ModelForm):
         }
 
         widgets = {
-            'clasificacion':forms.Select(attrs={'class':'validate', 'required':''}),
-            'valor':forms.TextInput(attrs={'class':'validate', 'required':''}),
+            'clasificacion':forms.Select(attrs={'class':'form-control', 'required':''}),
+            'valor':forms.TextInput(attrs={'class':'form-control', 'required':''}),
 
         }
 
 class DuracionForm(forms.ModelForm):
-    """Formulario de Duracion
+    """
+       Clase donde se crea el formulario de Duracion
     """
 
     class Meta:
-        """Meta del formulario Duracion
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Duracion
         """
 
         model = Duracion
@@ -136,17 +138,20 @@ class DuracionForm(forms.ModelForm):
         }
 
         widgets = {
-            'criterio':forms.Select(attrs={'class':'validate', 'required':''}),
-            'valor':forms.TextInput(attrs={'class':'validate', 'required':''}),
+            'criterio':forms.Select(attrs={'class':'form-control', 'required':''}),
+            'valor':forms.TextInput(attrs={'class':'form-control', 'required':''}),
 
         }
 
 class ReversibilidadForm(forms.ModelForm):
-    """Formulario de Reversibilidad
+    """
+       Clase donde se crea el formulario de Reversibilidad
     """
 
     class Meta:
-        """Meta del formulario de Reversibilidad
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Reversibilidad
         """
 
         model = Reversibilidad
@@ -162,16 +167,19 @@ class ReversibilidadForm(forms.ModelForm):
         }
 
         widgets = {
-            'clasificacion':forms.Select(attrs={'class':'validate', 'required':''}),
-            'valor':forms.TextInput(attrs={'class':'validate', 'required':''}),
+            'clasificacion':forms.Select(attrs={'class':'form-control', 'required':''}),
+            'valor':forms.TextInput(attrs={'class':'form-control', 'required':''}),
         }
 
 class ProbabilidadForm(forms.ModelForm):
-    """Formulario de Probabilidad
+    """
+       Clase donde se crea el formulario de Probabilidad
     """
 
     class Meta:
-        """Meta del Formulario de Probabilidad
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Probabilidad
         """
 
         model = Probabilidad
@@ -187,17 +195,20 @@ class ProbabilidadForm(forms.ModelForm):
         }
 
         widgets = {
-            'probabilidad':forms.Select(attrs={'class':'validate', 'required':''}),
-            'valor':forms.TextInput(attrs={'class':'validate', 'required':''}),
+            'probabilidad':forms.Select(attrs={'class':'form-control', 'required':''}),
+            'valor':forms.TextInput(attrs={'class':'form-control', 'required':''}),
 
         }
 
 class ImportanciaForm(forms.ModelForm):
-    """Formulario de Importancia
+    """
+       Clase donde se crea el formulario de Importancia
     """
 
     class Meta:
-        """ Meta del Formulario Importancia
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Importancia
         """
         model = Importancia
         fields = [
@@ -216,9 +227,9 @@ class ImportanciaForm(forms.ModelForm):
         }
 
         widgets = {
-            'importancia':forms.Select(attrs={'class':'validate', 'required':''}),
-            'minimo': forms.TextInput(attrs={'class':'validate', 'required':''}),
-            'maximo':forms.TextInput(attrs={'class':'validate', 'required':''}),
-            'valor': forms.TextInput(attrs={'class':'validate', 'required':''}),
+            'importancia':forms.Select(attrs={'class':'form-control', 'required':''}),
+            'minimo': forms.TextInput(attrs={'class':'form-control', 'required':''}),
+            'maximo':forms.TextInput(attrs={'class':'form-control', 'required':''}),
+            'valor': forms.TextInput(attrs={'class':'form-control', 'required':''}),
         }
         
