@@ -18,6 +18,7 @@ class CustomUserCreationForm(UserCreationForm):
             el formulario
         '''
         model = Usuario
+        fields = ('first_name', 'last_name', 'email', 'doc_identidad', 'username')
 
 class CustomUserChangeForm(UserChangeForm):
     '''
@@ -29,3 +30,4 @@ class CustomUserChangeForm(UserChangeForm):
             Aqui se especifica que datos son los que se pueden modificar
         '''
         model = Usuario
+        fields = ('first_name', 'last_name', 'email', 'doc_identidad')
