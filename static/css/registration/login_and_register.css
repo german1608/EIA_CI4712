@@ -111,7 +111,7 @@ body {
   z-index: 1;
   position: relative;
   background: none;
-  width: 100%;
+  width: 90%;
   height: 60px;
   border: 0;
   color: #212121;
@@ -343,4 +343,16 @@ body {
     bottom: 30px;
     opacity: 0;
   }
+}
+
+#error_msg {
+  margin-left: 50px; 
+  margin-right: 50px; 
+  color: red
+}
+#done_msg
+{
+  margin-left: 50px; 
+  margin-right: 50px; 
+  color: #4f6228
 }
