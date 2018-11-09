@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock %}
+{% block content %}
+<h3> Detallles del responsable: {{responsable.nombre}} {{responsable.apellido}} </h3>
+<div class="grid-container" style="margin-left:10%">
+
+
+                <div class="grid-item">
+                        <div class="text-col">
+                            <p class="title">Nombre y Apellido </p>
+                            <p>{{ responsable.nombre}} {{responsable.apellido}} </p>
+                        </div>
+                </div>
+                
+
+                <div class="grid-item">
+                        <div class="text-col">
+                            <p class="title">Cédula</p>
+                            <p>{{ responsable.cedula }}</p>
+                        </div>
+                </div>
+
+                {% if responsable.pasaporte %}
+                <div class="grid-item">
+                        <div class="text-col">
+                            <p class="title">Pasaporte</p>
+                            <p>{{ responsable.pasaporte }}</p>
+                        </div>
+                </div>
+                {% endif %}
+
+
+                
+
+                <div class="grid-item">
+                        <div class="text-col">
+                            <p class="title">Proyecto</p>
+                            <p><a href="{% url "consultor-crud:detalles-datos-proyecto"  responsable.proyecto.id %}">{{ responsable.proyecto }}</a></p>
+                        </div>
+                </div>
+        
+                <div class="grid-item">
+                        <div class="text-col">
+                            <p class="title">Nivel Académico</p>
+                            <p>{{ responsable.nivel_academico }}</p>
+                        </div>
+                </div>
+
+                <div class="grid-item">
+                        <div class="text-col">
+                            <p class="title">Tipo responsable</p>
+                            <p>{{ responsable.tipo_responsable }}</p>
+                        </div>
+                </div>
+
+
+
+
+            </div>
+      </div>
+      </div>
+
+
+{% endblock %}

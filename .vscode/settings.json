@@ -24,4 +24,5 @@
         "**/env": true
     },
     "python.pythonPath": "env/bin/python",
-}
+  }
+

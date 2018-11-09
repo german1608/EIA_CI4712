@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock %}
+{% block content %}
+
+<h3> Detalles de la organizacion: {{organizacion.nombre}}</h3>
+<br>
+<div class="grid-container" style="margin-left:10%">
+  <div class="grid-item">
+    <div class="text-col">
+        <p class="title">Nombre </p>
+        <p>{{ organizacion.nombre}} </p>
+    </div>
+  </div>    
+        
+  <div class="grid-item">
+      <div class="text-col">
+          <p class="title">RIF </p>
+          <p>{{ organizacion.rif}} </p>
+      </div>
+  </div>
+
+  <div class="grid-item">
+      <div class="text-col">
+          <p class="title">Razón Social </p>
+          <p>{{ organizacion.razon_social}} </p>
+      </div>
+  </div>
+
+
+  <div class="grid-item">
+      <div class="text-col">
+          <p class="title">Dirección </p>
+          <p>{{ organizacion.direccion}} </p>
+      </div>
+  </div>
+
+  <div class="grid-item">
+      <div class="text-col">
+          <p class="title">Representante Legal </p>
+          <p>{{ organizacion.nombre_representante_legal}} {{organizacion.apellido_representante_legal}} </p>
+      </div>
+  </div>
+
+  <div class="grid-item">
+      <div class="text-col">
+          <p class="title">Cédula Representante legal</p>
+          <p>{{ organizacion.cedula_representante_legal }}</p>
+      </div>
+  </div>       
+
+  {% if organizacion.pasaporte_representante_legal %}
+  <div class="grid-item">
+          <div class="text-col">
+              <p class="title">Pasaporte Representante legal</p>
+              <p>{{ organizacion.pasaporte_representante_legal  }}</p>
+          </div>
+  </div>
+  {% endif %}
+
+
+  <div class="grid-item">
+    <div class="text-col">
+        <p class="title">Proyecto</p>
+        <p><a href="{% url "consultor-crud:detalles-datos-proyecto"  organizacion.proyecto.id %}">{{ organizacion.proyecto }}</a></p>
+    </div>
+  </div>         
+                
+  <div class="grid-item">
+    <div class="text-col">
+        <p class="title">Teléfono </p>
+        <p>{{ organizacion.telefono}} </p>
+    </div>
+  </div>
+
+  <div class="grid-item">
+    <div class="text-col">
+        <p class="title">Correo </p>
+        <p>{{ organizacion.email}} </p>
+    </div>
+  </div>          
+</div>
+
+{% endblock %}

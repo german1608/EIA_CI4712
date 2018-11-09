@@ -17,9 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from eia_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('consultor-crud/', views.consultor_index, name='consultor-crud-index'),
+    path('consultor-crud/', include('eia_app.urls', namespace='consultor-crud')),
     path('users/', include("users.urls")),
     path('', include('dashboard.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

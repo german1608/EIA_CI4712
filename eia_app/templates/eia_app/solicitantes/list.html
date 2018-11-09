@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/b-1.5.4/b-html5-1.5.4/b-print-1.5.4/kt-2.5.0/r-2.2.2/datatables.min.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="wrap">
+        <h3>Lista de solicitantes</h3>
+        <p>
+            <a href="{% url "consultor-crud:nuevo-solicitante" %}">Agregar datos de un solicitante</a>
+        </p>
+
+</div>
+
+
+
+<div class="container" style="width:90% !important">
+  {%if object_list.count > 0%}
+  <table id="solicitante" class="display">
+      <thead>
+          <tr>
+              <th>Nombre</th>
+              <th>Cédula</th>
+              <th>Proyecto</th>
+              <th style="text-align:center;">Ver detalles</th>
+              <th style="text-align:center;">Editar</th>
+              <th style="text-align:center;">Borrar</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for solicitante in object_list %}
+          <tr>
+              <td>{{ solicitante.nombre }}</td>
+              <td>{{ solicitante.cedula }}</td>
+              <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  solicitante.proyecto.id %}">{{ solicitante.proyecto }}</a></td>
+              <td style="text-align:center;"><a href="{% url "consultor-crud:detalles-solicitante"  solicitante.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+              <td style="text-align:center;"><a href="{% url "consultor-crud:editar-solicitante" solicitante.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+              <td style="text-align:center;"><a href="{% url "consultor-crud:borrar-solicitante" solicitante.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No existen datos de solicitantes agregados a la base de datos</p>
+  {% endif %}
+</div>
+
+{% endblock %}
+
+<!--BLOQUE DE JS-->
+
+{% block js %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/b-1.5.4/b-html5-1.5.4/b-print-1.5.4/kt-2.5.0/r-2.2.2/datatables.min.js"></script> 
+<script>
+  $(document).ready( function () {
+    $('#solicitante').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      }
+    });
+  });
+</script>
+{% endblock %}
