@@ -42,9 +42,9 @@ class EstudioForm(forms.ModelForm):
 
         widgets = {
             'nombre': forms.TextInput(attrs={'class':'browser-default', 'required':''}),
-            'tipo': forms.Select(attrs={'class':'browser-default', 'required':''}),
-            'valoracion_relevancia':forms.Select(attrs={'class':'browser-default', 'required':''}),
-            'tipo_relevancia': forms.Select(attrs={'class':'browser-default', 'required':''}),
+            'tipo': forms.Select(attrs={'class':'form-control', 'required':''}),
+            'valoracion_relevancia':forms.Select(attrs={'class':'form-control', 'required':''}),
+            'tipo_relevancia': forms.Select(attrs={'class':'form-control', 'required':''}),
             'pondIntensidad': forms.TextInput(attrs={'class':'form-control', 'required':''}),
             'pondExtension': forms.TextInput(attrs={'class':'form-control', 'required':''}),
             'pondDuracion': forms.TextInput(attrs={'class':'form-control', 'required':''}),
