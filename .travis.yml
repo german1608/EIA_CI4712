@@ -36,6 +36,7 @@ before_script:
 - psql -c "alter role eia set timezone to 'utc';" -U postgres
 - psql -c "alter role eia createdb;" -U postgres
 - psql -c "grant all privileges on database eia to eia ;" -U postgres
+- psql -c "alter role eia with login;" -U postgres
 - export DATABASE_URL=postgres://eia:eiae123@localhost:$PGPORT/eia
 script:
 - ./test.sh
