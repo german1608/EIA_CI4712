@@ -3,7 +3,33 @@
 
 {% block content %}
   <h1>Listado de Usuarios</h1>
-  <table style="width:100%">
+  <!--Comienzo del dataTable para los usuarios-->
+  <div class="row">
+    <div class="col">
+      <!--Tabla de usuarios-->
+      <table id="t_usuarios" class=display>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Documento de identidad</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for user in object_list %}
+            <tr>
+              <td>{{user.first_name}}</td>
+              <td>{{user.last_name}}</td> 
+              <td>{{user.email}}</td>
+              <td>{{user.doc_identidad}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!--<table style="width:100%">
     <tr>
       <th>Nombre</th>
       <th>Apellido</th> 
@@ -18,6 +44,12 @@
         <td>{{user.doc_identidad}}</td>
       </tr>
     {% endfor %}
-  </table>
+  </table>-->
 
-  {% endblock %}
+<!--Comienzo de los scripts-->
+{% block js %}
+<script src="{% static 'js/jquery.dataTables.js' %}"></script>
+<script src="{% static 'js/users/lista_usuarios.js' %}"></script>
+{% endblock %}
+
+{% endblock %}

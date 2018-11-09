@@ -7,6 +7,7 @@
   <meta charset="UTF-8">
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
   <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
   <link href="{% static 'fonts/material-icons/material-icons.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 
@@ -51,13 +52,13 @@
       </a>
     </li>
     <li>
-      <a href="#"><i class="material-icons white-item white-text">keyboard</i>
-        <span class="white-text">Calculadora</span>
+      <a href="{% url 'users_list' %}"><i class="material-icons white-item white-text">keyboard</i>
+        <span class="white-text">Listado de usuarios</span>
       </a>
     </li>
     <li>
-      <a href="#"><i class="material-icons white-text white-item">settings</i>
-        <span class="white-text name">Configuración</span>
+      <a href="{% url 'new_user' %}"><i class="material-icons white-text white-item">settings</i>
+        <span class="white-text name">Agregar Usuario</span>
       </a>
     </li>
     <li>
