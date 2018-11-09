@@ -23,6 +23,7 @@ install:
 before_script:
 - export DATABASE_URL=postgres://postgres:@localhost:5432/test
 script:
+- psql --version
 - ./test.sh
 notifications:
   email:
