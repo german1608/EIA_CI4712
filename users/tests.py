@@ -1,13 +1,13 @@
 """
 Pruebas unitarias del modulo de usuarios de EIA
 """
+import time
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from selenium import webdriver
 from .models import Usuario
-import time
 
 
 class UserTestCase(StaticLiveServerTestCase):
