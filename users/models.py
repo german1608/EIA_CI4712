@@ -17,7 +17,8 @@ class Usuario(AbstractUser):
                                                                 ' inválido. Los números deben '
                                                                 'estar precedidos por V- o E-.'
                                                                 )],
-                                     verbose_name='Documento de Identidad')
+                                     verbose_name='Documento de Identidad',
+                                     unique=True)
     first_name = models.CharField(max_length=100, verbose_name='Nombre')
     last_name = models.CharField(max_length=100, verbose_name='Apellido')
 
