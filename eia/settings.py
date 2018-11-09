@@ -134,6 +134,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, '.staticfiles')
 
 AUTH_USER_MODEL = 'users.Usuario'
 
+# Autenticacion
 LOGIN_URL = reverse_lazy('login')
 LOGIN_REDIRECT_URL = reverse_lazy('dashboard:index')
 LOGOUT_REDIRECT_URL = LOGIN_URL
+
+# Emails
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
