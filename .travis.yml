@@ -8,7 +8,7 @@ addons:
       - postgresql-client-10
   firefox: latest
 env:
-  - MOZ_HEADLESS=1 PGPORT=5433
+  - MOZ_HEADLESS=1 PGPORT=5432
 python:
 - '3.5'
 - '3.6'
