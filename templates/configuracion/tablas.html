@@ -4,6 +4,14 @@
 <link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 {% endblock %}
 {% block content %}
+{% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+{% endfor %}
 <div class="row center-align section">
 	<div class="col m6 s12">
 		<table class="indicador">
