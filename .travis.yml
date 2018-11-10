@@ -1,11 +1,6 @@
-sudo: enabled
 language: python
 addons:
-  postgresql: "10"
-  apt:
-    packages:
-      - postgresql-10
-      - postgresql-client-10
+  postgresql: "9.5"
   firefox: latest
 env:
   global:
@@ -22,12 +17,7 @@ before_install:
 install:
 - pip install -r requirements.txt
 - ./installgeckodriver.sh
-before_script:
-- sudo cp /etc/postgresql/9.4/main/pg_hba.conf /etc/postgresql/10/main/pg_hba.conf
-- sudo /etc/init.d/postgresql restart
 script:
-- psql --version
-- psql -c '\d;\l;' -U postgres -p 5432 -d postgres
 - ./test.sh
 notifications:
   email:
