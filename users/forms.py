@@ -19,12 +19,13 @@ class CustomUserCreationForm(UserCreationForm):
             el formulario
         '''
         model = Usuario
-        fields = ('first_name', 'last_name', 'email', 'doc_identidad')
+        fields = ('first_name', 'last_name', 'email', 'doc_identidad', 'username')
         labels = {
             'first_name': _('Nombre'),
             'last_name': _('Apellido'),
             'email': _('Correo'),
-            'doc_identidad': _('Documento Identidad')
+            'doc_identidad': _('Documento Identidad'),
+            'username': _('Nombre de Usuario')
         }
 
 class CustomUserChangeForm(UserChangeForm):
