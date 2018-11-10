@@ -271,8 +271,8 @@ class PruebaFormularioEstudio(StaticLiveServerTestCase):
         time.sleep(2)
         select_tipo = Select(self.browser.find_element_by_name('tipo'))
         time.sleep(2)
-        select_tipo.select_by_visible_text('Biologico')
-        time.sleep(2)
+        # select_tipo.select_by_visible_text('Biologico')
+        # time.sleep(2)
         #movemos el scroll un poco
         self.browser.execute_script("window.scrollTo(0, 720)")
         time.sleep(2)
@@ -308,8 +308,8 @@ class PruebaFormularioEstudio(StaticLiveServerTestCase):
         time.sleep(2)
         select_tipo = Select(self.browser.find_element_by_name('tipo'))
         time.sleep(2)
-        select_tipo.select_by_visible_text('Socio-Cultural')
-        time.sleep(2)
+        # select_tipo.select_by_visible_text('Socio-Cultural')
+        # time.sleep(2)
         #movemos el scroll un poco
         self.browser.execute_script("window.scrollTo(0, 720)")
         time.sleep(2)
