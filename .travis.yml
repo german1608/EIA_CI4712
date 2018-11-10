@@ -1,11 +1,10 @@
-sudo: enabled
 language: python
 addons:
-  postgresql: "10"
+  postgresql: "11"
   apt:
     packages:
-      - postgresql-10
-      - postgresql-client-10
+      - postgresql-11
+      - postgresql-client-11
   firefox: latest
 env:
   global:
