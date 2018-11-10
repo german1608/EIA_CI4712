@@ -26,4 +26,5 @@ urlpatterns = [ #pylint: disable=invalid-name
     path('consultor-crud/', views.consultor_index, name='consultor-crud-index'),
     path('consultor-crud/', include('eia_app.urls', namespace='consultor-crud')),
     path('users/', include("users.urls")),
+    path('configuracion/', include("configuracion.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

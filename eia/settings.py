@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'eia_app',
     'users',
+    'configuracion',
     'materializecssform',
 ]
 
