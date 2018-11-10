@@ -1,4 +1,5 @@
-sudo: required
+sudo: enabled
+dist: xenial
 language: python
 addons:
   postgresql: "10"
@@ -9,8 +10,9 @@ addons:
   firefox: latest
 env:
   global:
-    - PGPORT=5433
     - MOZ_HEADLESS=1
+    - PGPORT=5432
+    - DATABASE_URL=postgres://postgres:@localhost:5432/postgres
 python:
 - '3.5'
 - '3.6'
@@ -21,23 +23,6 @@ before_install:
 install:
 - pip install -r requirements.txt
 - ./installgeckodriver.sh
-- sudo sed -i -e '/local.*peer/s/postgres/all/' -e 's/peer\|md5/trust/g' /etc/postgresql/*/main/pg_hba.conf
-- sudo service postgresql restart
-- sleep 1
-
-before_script:
-- psql -c 'drop database if exists eia' -U postgres
-- psql -c 'drop role if exists eia' -U postgres
-- psql -c 'create role eia' -U postgres
-- psql -c 'create database eia' -U postgres
-- psql -c "alter user eia with encrypted password 'eiae123';" -U postgres
-- psql -c "alter role eia set client_encoding to 'utf8';" -U postgres
-- psql -c "alter role eia set default_transaction_isolation to 'read committed';" -U postgres
-- psql -c "alter role eia set timezone to 'utc';" -U postgres
-- psql -c "alter role eia createdb;" -U postgres
-- psql -c "grant all privileges on database eia to eia ;" -U postgres
-- psql -c "alter role eia with login;" -U postgres
-- export DATABASE_URL=postgres://eia:eiae123@localhost:$PGPORT/eia
 script:
 - ./test.sh
 notifications:
