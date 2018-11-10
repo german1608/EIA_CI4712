@@ -1,6 +1,12 @@
+sudo: enabled
+dist: xenial
 language: python
 addons:
-  postgresql: "9.5"
+  postgresql: "10"
+  apt:
+    packages:
+      - postgresql-10
+      - postgresql-client-10
   firefox: latest
 env:
   global:
