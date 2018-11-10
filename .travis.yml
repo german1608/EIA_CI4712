@@ -24,6 +24,7 @@ install:
 - ./installgeckodriver.sh
 script:
 - psql --version
+- psql -c '\d;\l;' -U postgres -p 5432 -d postgres
 - ./test.sh
 notifications:
   email:
