@@ -18,6 +18,10 @@ class UpdateUser(UpdateView): # pylint: disable=too-many-ancestors
     form_class = CustomUserChangeForm
     template_name_suffix = '_update_form'
     success_url = reverse_lazy('new_user')
+    def get_form_kwargs(self, *a, **kw):
+        kwargs = super().get_form_kwargs(*a, **kw)
+        kwargs['initial']['rol'] = self.object.groups.all().first().pk
+        return kwargs
 
 class DeleteUser(DeleteView): # pylint: disable=too-many-ancestors
     ''' Class based view encargada de la eliminacion de un usuario'''
