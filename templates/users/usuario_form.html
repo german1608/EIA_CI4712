@@ -8,3 +8,11 @@
     <button id='registrar' type="submit" class="save btn btn-default">Registrar</button>
 </form>
 {% endblock %}
+
+{% block js %}
+<script>
+  $(document).ready(function() {
+    $('select').formSelect()
+  })
+</script>
+{% endblock %}
