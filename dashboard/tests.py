@@ -8,6 +8,7 @@ from users.models import Usuario
 from .views import DashboardView
 
 # Create your tests here.
+# pylint: disable=no-self-use
 class TestViews(TestCase):
     """
     Pruebas unitarias para las vistas de la aplicacion `dashboard`
@@ -22,11 +23,11 @@ class TestViews(TestCase):
                                     first_name='Nombre', last_name='Apellido')
         self.client = Client()
 
-    def test_dashboard_existence(self): # pylint: disable=no-self-use
+    def test_dashboard_existence(self):
         """ Prueba la existencia de la clase que muestra el dashboard """
         DashboardView.as_view()
 
-    def test_url_existence(self): # pylint: disable=no-self-use
+    def test_url_existence(self):
         """ Prueba la existencia del url que apunta a la vista DashboardView """
         reverse('dashboard:index')
 
