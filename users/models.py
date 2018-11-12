@@ -27,7 +27,8 @@ class Usuario(AbstractUser):
 
     @property
     def rol(self):
-        return self.groups.all().first().name
+        """ Obtiene el rol del usuario """
+        return self.groups.all().first()
 
     def __str__(self):
         return self.email

@@ -23,8 +23,8 @@ class CustomUserCreationForm(UserCreationForm):
         model = Usuario
         fields = ('first_name', 'last_name', 'email', 'doc_identidad', 'username')
 
-    def save(self, *a, **kw):
-        instance = super().save(*a, **kw)
+    def save(self, commit=True):
+        instance = super().save(commit)
         rol = self.cleaned_data['rol']
         instance.groups.set([rol])
         return instance
@@ -42,8 +42,8 @@ class CustomUserChangeForm(UserChangeForm):
         model = Usuario
         fields = ('first_name', 'last_name', 'email', 'doc_identidad')
 
-    def save(self, *a, **kw):
-        instance = super().save(*a, **kw)
+    def save(self, commit=True):
+        instance = super().save(commit)
         rol = self.cleaned_data['rol']
         instance.groups.set([rol])
         return instance
