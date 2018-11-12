@@ -25,6 +25,10 @@ class Usuario(AbstractUser):
 
     REQUIRED_FIELDS = ['first_name', 'last_name', 'email', 'doc_identidad']
 
+    @property
+    def rol(self):
+        return self.groups.all().first().name
+
     def __str__(self):
         return self.email
 

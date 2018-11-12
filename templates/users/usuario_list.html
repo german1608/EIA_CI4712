@@ -14,6 +14,7 @@
             <th>Apellido</th>
             <th>Correo</th>
             <th>Documento de identidad</th>
+            <th>Rol</th>
           </tr>
         </thead>
         <tbody>
@@ -23,30 +24,13 @@
               <td>{{user.last_name}}</td> 
               <td>{{user.email}}</td>
               <td>{{user.doc_identidad}}</td>
+              <td>{{user.rol}}</td>
             </tr>
             {% endfor %}
         </tbody>
       </table>
     </div>
   </div>
-  <!--<table style="width:100%">
-    <tr>
-      <th>Nombre</th>
-      <th>Apellido</th> 
-      <th>Correo</th>
-      <th>Nombre de Usuario</th>
-      <th>Documento de identidad</th>
-    </tr>
-    {% for user in object_list %}
-      <tr>
-        <td>{{user.first_name}}</td>
-        <td>{{user.last_name}}</td> 
-        <td>{{user.email}}</td>
-        <td>{{user.username}}</td>
-        <td>{{user.doc_identidad}}</td>
-      </tr>
-    {% endfor %}
-  </table>-->
 
 <!--Comienzo de los scripts-->
 {% block js %}
