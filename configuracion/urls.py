@@ -1,4 +1,4 @@
-"""eia URL Configuration
+"""configuracion URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
@@ -13,17 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
-from eia_app import views
+from django.urls import path
+from configuracion.views import EstudioUpdate, EstudioCreate
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('consultor-crud/', views.consultor_index, name='consultor-crud-index'),
-    path('consultor-crud/', include('eia_app.urls', namespace='consultor-crud')),
-    path('users/', include("users.urls")),
-    path('', include('dashboard.urls')),
-    path('configuracion/', include("configuracion.urls")),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('index/', views.index, name='index'),
+    path('agregar_estudio/', EstudioCreate.as_view(), name='agregar_estudio'),
+    path('editar_estudio/<int:pk>/', EstudioUpdate.as_view(), name='editar_estudio'),
+    path('eliminar_estudio/<int:pk_id>/', views.eliminar_estudio, name='eliminar_estudio'),
+    path('tablas/', views.tablas, name='tablas'),
+    path('modificar_tablas/', views.modificar_tablas, name='modificar_tablas'),
+]

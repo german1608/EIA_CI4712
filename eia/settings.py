@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'users',
     'widget_tweaks',
     'dashboard',
+    'configuracion',
     'materializecssform',
 ]
 

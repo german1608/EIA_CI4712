@@ -1,0 +1,250 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
+{% endblock %}
+
+	{% block content %}
+	
+	{% if form.errors %}
+	{% for fields in form %}
+	{% for error in fields.errors %}
+	<div class="alert alert2 {{ message.tags }} alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	  <span aria-hidden="true">&times;</span>
+	</button>
+	<i class=""><strong>{{ error }}</strong></i>
+	</div>
+	{% endfor %}
+	{% endfor %}
+	{% endif %}
+
+		<div class="row center-align section">
+			<div class="col s1">			
+				<div class="col m6 offset-m2" align="center">
+					<div class="input-field">
+						<a class="btn menu" style="color: gray" href="{% url 'index' %}">Volver</a>
+					</div>
+				</div>
+			</div>
+			<div class="col s11">
+				{% if object %}
+				<h1> Datos del Estudio </h1>
+				{% else %}
+				<h1> Agregar un Estudio </h1>
+				{% endif %}
+			<br>
+			</div>	
+		</div>
+
+		<form method="post" id="formulario">
+			{% csrf_token %}
+			
+			<div class="row center-align section">
+				<div class="input-field col m3 offset-m2">
+					
+							{{form.nombre}}
+							<label for="">{{form.nombre.label}}</label>
+					
+				</div>
+				<div class="input-field col m3 offset-m2">
+						{{form.tipo}}
+						<label for="tipo">{{form.tipo.label}}</label>
+				</div>
+			</div>
+		
+			<div class="row center-align section">
+				<div class="input-field col m3 offset-m2">
+
+					{{form.valoracion_relevancia}}
+					<label for="">{{form.valoracion_relevancia.label}}</label>	
+					
+				</div>
+				<div class="input-field col m3 offset-m2">
+							{{form.tipo_relevancia}}
+							<label for="">{{form.tipo_relevancia.label}}</label>
+					
+				</div>
+			</div>
+
+			<div class="row center-align section">
+				<div class="input-field col m3 offset-m2">
+						
+						<select name="grado_perturbacion" id="grado_perturbacion" class="validate" required>
+							{%for i in view.grado_perturbacion%}
+							<option value="{{i}}">{{i}}</option>
+							{% endfor %}
+						</select>
+						<label for="">Grado de Perturbacion</label>
+				</div>
+				<div class="input-field col m3 offset-m2">
+
+					<select name="valor_sociocultural" id="valor_sociocultural" class="validate" required>
+						{%for i in view.valor_sa%}
+						<option value="{{i}}">{{i}}</option>
+						{% endfor %}
+					</select>
+					<label for="">Valor Socio Cultural</label>
+				</div>
+			</div>
+			
+			<div class="row center-align section">
+				<div class="input-field col m3 offset-m2">
+
+					<select name="clasificacion_extension" id="clasificacion_extension" class="validate" required>
+						{%for i in view.ext_clasificacion%}
+						<option value="{{i}}">{{i}}</option>
+						{% endfor %}
+					</select>
+					<label for="">Clasificacion de la extension</label>					
+				</div>
+				<div class="input-field col m3 offset-m2">
+					
+						<select name="criterio_duracion" id="criterio_duracion" class="validate" required>
+							{%for i in view.dur_criterios%}
+							<option value="{{i}}">{{i}}</option>
+							{% endfor %}
+						</select>
+						<label for="">Criterio de la duracion</label>
+				</div>
+			</div>
+			
+			<div class="row center-align section">
+				<div class="input-field col m3 offset-m2">
+					
+							
+								<select name="clasificacion_reversibilidad" id="clasificacion_reversibilidad" class="validate" required>
+									{%for i in view.rev_clasificacion%}
+									<option value="{{i}}">{{i}}</option>
+									{% endfor %}
+								</select>
+								<label for="">Clasificacion de la reversibildid</label>
+						
+				</div>
+				<div class="input-field col m3 offset-m2">					
+					
+						<select name="clasificacion_probabilidad" id="clasificacion_probabilidad" class="validate" required>
+							<!-- <option value="" disabled selected>Choose your option</option> -->
+							{%for i in view.probabilidad%}
+							<option value="{{i}}">{{i}}</option>
+							{% endfor %}
+						</select>
+						<label for="">Clasificacion de la probabilidad</label>
+				</div>
+			</div>
+
+			<div class="row center-align section">
+				<div class="col m3 offset-m2">
+					<div class="input-field">
+						
+							
+								{{form.pondIntensidad}}
+								<label for="">{{form.pondIntensidad.label}}</label>
+						
+					</div>
+				</div>
+				<div class="col m3 offset-m2">
+					<div class="input-field">
+						
+							{{form.pondExtension}}
+							<label for="">{{form.pondExtension.label}}</label>
+								
+						
+					</div>
+				</div>
+			</div>
+
+			<div class="row center-align section">
+				<div class="col m3 offset-m2">
+					<div class="input-field">
+						
+							{{form.pondDuracion}}
+							<label for="">{{form.pondDuracion.label}}</label>
+								
+						
+					</div>
+				</div>
+				<div class="col m3 offset-m2">
+					<div class="input-field">
+						
+							<label for="">{{form.pondReversibilidad.label}}</label>
+								{{form.pondReversibilidad}}
+						
+					</div>
+				</div>
+			</div>
+
+			<div class="row center-align section">
+				<div class="col m3 offset-m2">
+					<div class="input-field">
+						
+							{{form.pondProbabilidad}}
+							<label for="">{{form.pondProbabilidad.label}}</label>
+								
+						
+					</div>
+				</div>
+
+			{% if object %}
+				<div class="col m3 offset-m2">
+					<div class="input-field">
+						
+							
+								<input class="string validate" type="text" value="{{object.via}}" readonly="" />
+								<label for="disabled">VIA</label>
+						
+					</div>
+				</div>
+			</div>
+
+			<div class="row center-align section">
+				<div class="col m3 offset-m2">
+					<div class="input-field">
+						
+								<input class="string validate" type="text" value="{{object.importancia_estudio.get_importancia_display}}" readonly="" />
+								<label for="disabled">Importancia del Estudio</label>
+						
+					</div>
+				</div>
+				<div class="col m3 offset-m2">
+					<div class="input-field">
+						
+								<input class="string validate" type="text" value="{{object.importancia_estudio.valor}}" readonly="" />
+								<label for="disabled">Valor del Impacto</label>
+						
+					</div>
+				</div>
+			</div>
+			{% else %}
+			</div>
+			{% endif %}
+
+			<div class="row center-align section">
+				<div class="col m6" align="center">
+					<div class="input-field">
+							<input id="editar" name="editar" class="btn" onclick = "return confirm('¿Está seguro de los datos introducidos?')" style="background: #4f6228; color: white; width: 50%" value="Guardar" type="submit">
+					</div>
+				</div>
+				{% if object %}
+				<div class="col m6" align="center">
+					<div class="input-field">
+						<a class="btn" name="eliminar" style="background: #4f6228; color: white; width: 50%" onclick = "return confirm('¿Está seguro de eliminar este estudio?')" href="{% url 'eliminar_estudio' object.id %}">Eliminar</a>
+					</div>
+				{% endif %}
+				</div>
+			</div>
+		</form>
+	</div>
+	{%endblock%}
+
+	{% block js %}
+	<script src="{% static 'configuracion/js/validacion_ponderacion.js' %}" type="text/javascript"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/js/materialize.min.js" integrity="sha256-SrBfGi+Zp2LhAvy9M1bWOCXztRU9Ztztxmu5BcYPcPE=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+    		$('input#input_text, textarea#textarea2').characterCounter();
+    		$('select').formSelect();
+  		});
+	</script>
+
+	{% endblock %}

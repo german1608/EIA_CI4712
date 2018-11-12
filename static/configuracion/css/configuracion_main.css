@@ -1,0 +1,90 @@
+/* Configuracion App */
+caption{
+  caption-side: top;
+  text-align: center;
+}
+
+input{
+  width: 50%;
+  text-align: center;
+}
+
+td, th{
+  border-radius:0px;
+  text-align: center;
+}
+h1{
+  font-size: 3rem;
+}
+
+.total_height{
+  height:100%;
+}
+
+.banner{
+  background-color: rgb(79, 98, 40);
+  color: rgb(248, 248, 248);
+  padding: 0.5em;
+    font-size: 40px;
+}
+.tablenav tr td {
+  font-weight: bold;
+  border: 2px solid rgb(248, 248, 248);
+  text-align: center;
+  width: 5%;
+}
+.menu {
+  background-color: rgb(196, 213, 159);
+  border-radius: 0px;
+}
+.menu:hover {
+  background-color: rgb(196, 213, 159);
+}
+.menu p{
+    font-size: 24px;
+}
+.content{
+  background-color: rgb(248, 248, 248);
+}
+
+.cabecera{
+  background-color: #4f6228;
+  color: #fff;
+  text-align: center;
+}   
+.table tr td {
+  font-weight: bold;
+  border: 2px solid #000;
+  text-align: center;
+  width: 33%;
+}
+.columna {
+      background-color: #e6fad2;
+}
+
+.alert {
+  background-color: #e6fad2;
+}
+
+.alert2 {
+  background-color: #ee8484
+}
+
+.indicador{
+  font-weight: bold;
+  border: 2px solid #000;
+  text-align: center;
+  width: 100%;
+}
+
+.boton-form{
+  background: #4f6228;
+  color: white;
+  width: 50%;
+}
+#toast-container {
+  top: auto !important;
+  right: auto !important;
+  bottom: 10%;
+  left: 20%;
+}
