@@ -245,3 +245,93 @@ class Estudio(models.Model):
         default='',
         on_delete=models.PROTECT
         )
+
+class Macro(models.Model):
+    """
+       Clase que representa la tabla de Estudio
+    """
+    nombre = models.CharField(
+        max_length=40,
+        default="",
+        unique=True,
+        error_messages={'unique':'Ya existe un Macro con ese nombre  colocado'}
+        )
+    descripcion = models.CharField(
+        max_length=40,
+        default=""
+        )
+    proyecto = models.CharField(
+        max_length=40,
+        default=""
+        )
+	
+    class Meta:
+        """
+           Clase  macro
+        """
+
+        unique_together = (
+            ('nombre',
+             'proyecto'),
+            )	
+	
+class Disciplina(models.Model):
+    """
+       Clase que representa la tabla de Estudio
+    """
+    nombre = models.CharField(
+        max_length=40,
+        default="",
+        unique=True,
+        error_messages={'unique':'Ya existe un Macro con ese nombre  colocado'}
+        )
+    descripcion = models.CharField(
+        max_length=40,
+        default=""
+        )
+	
+    macro = models.ForeignKey(
+        Macro,
+        default='',
+        on_delete=models.PROTECT
+        )	
+	
+    class Meta:
+        """
+           Clase disciplina
+        """
+
+        unique_together = (
+            ('nombre',
+             'macro'),
+            )
+		
+class Actividad(models.Model):
+    """
+       Clase que representa la tabla de Estudio
+    """
+    nombre = models.CharField(
+        max_length=40,
+        default="",
+        unique=True,
+        error_messages={'unique':'Ya existe un Macro con ese nombre  colocado'}
+        )
+    descripcion = models.CharField(
+        max_length=40,
+        default=""
+        )
+    disciplina = models.ForeignKey(
+        Disciplina,
+        default='',
+        on_delete=models.PROTECT
+        )	
+	
+    class Meta:
+        """
+           Clase actividad
+        """
+
+        unique_together = (
+            ('nombre',
+             'disciplina'),
+            )			
