@@ -1,45 +1,46 @@
 {% extends '../base.html' %}
 {% load static %}
 {% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/bootstrap.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 {% endblock %}
 
 {% block content %}
 
-<div class="container">
-<div class="row center-align section">
-	<table class="table">
-		<tr class="cabecera">
-			<td colspan="3">Elementos Ambientales</td>
-		</tr>
-		<tr class="cabecera">
-			<td>Medios Físico</td>
-			<td>Medios Biológicos</td>
-			<td>Medios Socio-Cultural</td>
-		</tr>
-		{% if lista %}
-		{% for estudio in lista %}
-		<tr class=""></td>
-			{% for x in estudio %}
-			{% if x%}
-			<td> <a name="{{x.id}}"href="{% url 'editar_estudio' x.id %}">{{x.nombre}}</a> </td>
-			{% else %}
-			<td> </td>
-			{% endif %}
+<div class="container h-100">
+	<div class="row justify-content-center pt-3">
+		<table class="table">
+			<tr class="cabecera">
+				<td colspan="3">Elementos Ambientales</td>
+			</tr>
+			<tr class="cabecera">
+				<td>Medios Físico</td>
+				<td>Medios Biológicos</td>
+				<td>Medios Socio-Cultural</td>
+			</tr>
+			{% if lista %}
+			{% for estudio in lista %}
+			<tr class=""></td>
+				{% for x in estudio %}
+				{% if x%}
+				<td> <a name="{{x.id}}"href="{% url 'editar_estudio' x.id %}">{{x.nombre}}</a> </td>
+				{% else %}
+				<td> </td>
+				{% endif %}
+				{% endfor %}
+			</tr>
 			{% endfor %}
-		</tr>
-		{% endfor %}
-		{% endif %}
-	</table>
-	<div class="center-align section">
-		<a class="btn" style="background: #4f6228; color: white" href="{% url 'agregar_estudio' %}">Agregar Estudio</a>
+			{% endif %}
+		</table>
+		<div class="justify-content-center">
+			<a class="btn" style="background: #4f6228; color: white" href="{% url 'agregar_estudio' %}">Agregar Estudio</a>
+		</div>
 	</div>
-</div>
 </div>	
 {%endblock%}
 
 {% block js %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/js/materialize.min.js" integrity="sha256-SrBfGi+Zp2LhAvy9M1bWOCXztRU9Ztztxmu5BcYPcPE=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
 {% if messages %}
 <script>
 window.onload = function() {

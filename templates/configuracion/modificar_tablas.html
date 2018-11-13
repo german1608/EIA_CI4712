@@ -1,28 +1,29 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/bootstrap.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 {% endblock %}
 {% block content %}
 
-<div class="row center-align section">
-	<div class="col s1">			
-		<div class="col m6 offset-m2" align="center">
-			<div class="input-field">
+<div class="row justify-content-center p-3">
+	<div class="col-sm-1">			
+		<div class="col-md-6 offset-m2" align="center">
+			<div class="">
 				<a class="btn menu" style="color: gray" href="{% url 'tablas' %}">Volver</a>
 			</div>
 		</div>
 	</div>
-	<div class="col m11">
-		<div class="row center-align">
+	<div class="col-md-11 ">
+		<div class="text-center">
 			<h1> Modificar Valores</h1><br>
 		</div>
 	</div>
 </div>
 <form method="post" id="">
 {% csrf_token %}
-<div class="row center-align section">
-	<div class="col m6 s12">
+<div class="row justify-content-center px-3">
+	<div class="col-md-6 col-sm-12">
 		<table class="indicador">
 			<caption>Valoración de la intensidad</caption>
 			<tr class="cabecera">
@@ -80,7 +81,7 @@
 			</tr>
 		</table>
 	</div>
-	<div class="col m6 s12">
+	<div class="col-md-6 col-sm-12 px-3">
 		<table class="indicador">
 			<caption>Valoración de la extensión</caption>
 			<tr class="cabecera">
@@ -123,8 +124,8 @@
 		</table>
 	</div>
 </div>
-<div class="row center-align section">
-	<div class="col m6 s12">
+<div class="row justify-content-center px-3">
+	<div class="col-md-6 col-sm-12">
 		<table class="indicador">
 			<caption>Valoración de la duración</caption>
 			<tr class="cabecera">
@@ -156,7 +157,7 @@
 			{% endfor %}
 		</table>
 	</div>
-	<div class="col m6 s12">
+	<div class="col-md-6 col-sm-12 px-3">
 		<table class="indicador">
 			<caption>Valoración de la reversibilidad</caption>
 			<tr class="cabecera">
@@ -189,8 +190,8 @@
 		</table>
 	</div>
 </div>
-<div class="row center-align section">
-	<div class="col m6 s12">
+<div class="row justify-content-center px-3">
+	<div class="col-md-6 col-sm-12">
 		<table class="indicador">
 			<caption>Probabilidades</caption>
 			<tr class="cabecera">
@@ -222,7 +223,7 @@
 			{% endfor %}
 		</table>
 	</div>
-	<div class="col m6 s12">
+	<div class="col-md-6 col-sm-12 px-3">
 		<table class="indicador">
 			<caption>Criterios de clasificación de la importancia del efecto</caption>
 			<tr class="cabecera">
@@ -271,20 +272,14 @@
 		</table>
 	</div>
 </div>
-<div class="row center-align section">
+<div class="row justify-content-center">
 	<input class="btn" type='submit' name='submit' style="background: #4f6228; color: white; width: 50%" value="Guardar Cambios">
 </div>
 </form>
 {% endblock %}
 
 {% block js %}
+<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/js/materialize.min.js" integrity="sha256-SrBfGi+Zp2LhAvy9M1bWOCXztRU9Ztztxmu5BcYPcPE=" crossorigin="anonymous"></script>
 <script src="{% static 'configuracion/js/validacion_base.js' %}" type="text/javascript"></script>
-<script>
-	{% if messages %}
-	{% for message in messages %}
-	M.toast('{{ message }}', 4000);
-	{% endfor %}
-	{% endif %}
-</script>
 {% endblock %}

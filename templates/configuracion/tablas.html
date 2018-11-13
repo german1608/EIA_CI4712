@@ -1,12 +1,13 @@
 {% extends '../base.html' %}
 {% load static %}
 {% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/bootstrap.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 {% endblock %}
 {% block content %}
 
-<div class="row center-align section">
-	<div class="col m6 s12">
+<div class="row justify-content-center px-3">
+	<div class="col-md-6 col-sm-12">
 		<table class="indicador">
 			<caption>Valoración de la intensidad</caption>
 			<tr class="cabecera">
@@ -64,8 +65,8 @@
 			</tr>
 		</table>
 	</div>
-	<div class="col m6 s12">
-		<table class="indicador centered">
+	<div class="col-md-6 col-sm-12">
+		<table class="indicador">
 			<caption>Valoración de la extensión</caption>
 			<tr class="cabecera">
 				<th>Clasificacion</th>
@@ -107,9 +108,9 @@
 		</table>
 	</div>
 </div>
-<div class="row center-align section">
-	<div class="col m6 s12">
-		<table class="indicador centered">
+<div class="row justify-content-center px-3">
+	<div class="col-md-6 col-sm-12">
+		<table class="indicador">
 			<caption>Valoración de la duración</caption>
 			<tr class="cabecera">
 				<th>Criterios</th>
@@ -140,8 +141,8 @@
 			{% endfor %}
 		</table>
 	</div>
-	<div class="col m6 s12">
-		<table class="indicador centered">
+	<div class="col-md-6 col-sm-12">
+		<table class="indicador">
 			<caption>Valoración de la reversibilidad</caption>
 			<tr class="cabecera">
 				<th>Clasificación</th>
@@ -173,9 +174,9 @@
 		</table>
 	</div>
 </div>
-<div class="row center-align section">
-	<div class="col m6 s12">
-		<table class="indicador centered">
+<div class="row justify-content-center px-3">
+	<div class="col-md-6 col-sm-12">
+		<table class="indicador">
 			<caption>Probabilidades</caption>
 			<tr class="cabecera">
 				<th>Clasificación</th>
@@ -206,8 +207,8 @@
 			{% endfor %}
 		</table>
 	</div>
-	<div class="col m6 s12">
-		<table class="indicador centered">
+	<div class="col-md-6 col-sm-12">
+		<table class="indicador">
 			<caption>Criterios de clasificación de la importancia del efecto</caption>
 			<tr class="cabecera">
 				<th>Importancia</th>
@@ -255,11 +256,11 @@
 		</table>
 	</div>
 </div>
-<div class="row center-align section">
-	<div class="col m6 s6">
+<div class="row p-3">
+	<div class="col-md-6 col-sm-6" align="center">
 		<a class="btn" name="modificar_valores" style="background: #4f6228; color: white; width: 50%" href="{% url 'modificar_tablas' %}">Modificar valores</a>	
 	</div>
-	<div class="col m6 s6">
+	<div class="col-md-6 col-sm-6" align="center">
 		<a class="btn" name="estudios" style="background: #4f6228; color: white; width: 50%" href="{% url 'index' %}">Estudios</a>	
 	</div>
 	
@@ -267,6 +268,7 @@
 {%endblock%}
 
 {% block js %}
+<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/js/materialize.min.js" integrity="sha256-SrBfGi+Zp2LhAvy9M1bWOCXztRU9Ztztxmu5BcYPcPE=" crossorigin="anonymous"></script>
 {% if messages %}
 <script>
