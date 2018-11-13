@@ -2,10 +2,9 @@
 Pruebas unitarias del dashboard de EIA
 """
 from django.test import TestCase, Client
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.urls import reverse
 from django.conf import settings
-from selenium.webdriver.firefox.webdriver import WebDriver
+from django.urls import reverse
+from utils.testutils import SeleniumTestCase
 from users.models import Usuario
 from .views import DashboardView
 
@@ -52,21 +51,11 @@ class TestViews(TestCase):
         self.client.logout()
 
 
-class TestDashboardInterface(StaticLiveServerTestCase):
+class TestDashboardInterface(SeleniumTestCase):
     """
     Suite de pruebas para la interfaz del dashboard
     """
     fixtures = ['users-and-groups.json']
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.selenium = WebDriver()
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
-
     def setUp(self):
         """
         Configuracion necesaria para cada prueba del suite.
