@@ -1,57 +1,48 @@
 """
 Pruebas unitarias del modulo de usuarios de EIA
 """
-import time
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from django.urls import reverse
-from selenium import webdriver
+from selenium.webdriver.support.ui import Select, WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from utils.testutils import SeleniumTestCase
 from .models import Usuario
 
 
-class UserTestCase(StaticLiveServerTestCase):
+class UserTestCase(SeleniumTestCase):
     ''' Clase que contiene las pruebas unitarias'''
-
-    def setUp(self):
-        self.selenium = webdriver.Firefox()
-        super(UserTestCase, self).setUp()
-
-    def tearDown(self):
-        self.selenium.quit()
-        super(UserTestCase, self).tearDown()
+    fixtures = ['users-and-groups.json']
 
     def test_registered_user(self):
         ''' Caso de prueba que hae post de un formulario de registro con datos, y verifica que se
             agrego el usua  rio a la base de datos.'''
-
-        selenium = self.selenium
-        selenium = self.selenium
         #Opening the link we want to test
-        selenium.get(self.live_server_url+'/users/create/')
+        self.selenium.get('{}{}'.format(
+            self.live_server_url, reverse('dashboard:index')))
+        self.selenium.find_element_by_id('id_username').send_keys('admin')
+        self.selenium.find_element_by_id('id_password').send_keys('jaja1234')
+        self.selenium.find_element_by_id('id_submit').click()
+
+        self.selenium.get(self.live_server_url+'/users/create/')
+        inputs_and_values = [
+            ('id_first_name', 'Jean'),
+            ('id_last_name', 'Guzman'),
+            ('id_username', 'jguzman'),
+            ('id_email', 'jguzman@usb.ve'),
+            ('id_password1', 'jaja1234'),
+            ('id_password2', 'jaja1234'),
+            ('id_doc_identidad', 'V-90'),
+        ]
         #find the form element
-        first_name = selenium.find_element_by_id('id_first_name')
-        last_name = selenium.find_element_by_id('id_last_name')
-        username = selenium.find_element_by_id('id_username')
-        email = selenium.find_element_by_id('id_email')
-        password1 = selenium.find_element_by_id('id_password1')
-        password2 = selenium.find_element_by_id('id_password2')
-        doc_identidad = selenium.find_element_by_id('id_doc_identidad')
+        for selector, value in inputs_and_values:
+            self.selenium.find_element_by_id(selector).send_keys(value)
 
-        submit = selenium.find_element_by_id('registrar')
-
-        #Fill the form with data
-        first_name.send_keys('Jean')
-        last_name.send_keys('Guzman')
-        username.send_keys('jguzman')
-        email.send_keys('jguzman@qawba.com')
-        password1.send_keys('123456q7q7')
-        password2.send_keys('123456q7q7')
-        doc_identidad.send_keys('V-90')
-
-        #submitting the form
-        submit.submit()
-        time.sleep(1)
+        Select(self.selenium.find_element_by_id('id_rol')).select_by_visible_text(
+            'Administrador del Sistema')
+        self.selenium.find_element_by_id('registrar').click()
 
         user = (Usuario.objects.get(username='jguzman'))
         self.assertEqual(user.first_name, 'Jean')
