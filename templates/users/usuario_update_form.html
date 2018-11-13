@@ -8,10 +8,10 @@
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
 {% endblock %}
-{% block js %}
-<script>
-  $(document).ready(function () {
-    $('select').formSelect()
-  })
-</script>
-{% endblock %}
+{% block css %}
+<style>
+  select {
+    display: block;
+  }
+</style>
+{% endblock css %}
