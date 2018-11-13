@@ -35,7 +35,7 @@
           <div class="fill"></div>
         </div>
         <a href="#"><img class="circle" src="{% static 'img/germanbb.jpg' %}"></a>
-        <a href="#"><span id="side-menu-user-name" class="white-text name">Bienvenido Individuo</span></a>
+        <a href="#"><span id="side-menu-user-name" class="white-text name">Bienvenido {{ request.user.full_name }}</span></a>
       </div>
     </li>
 
