@@ -248,13 +248,11 @@ class Estudio(models.Model):
 
 class Macro(models.Model):
     """
-       Clase que representa la tabla de Estudio
+       Clase que representa la tabla de Macro
     """
     nombre = models.CharField(
         max_length=40,
         default="",
-        unique=True,
-        error_messages={'unique':'Ya existe un Macro con ese nombre  colocado'}
         )
     descripcion = models.CharField(
         max_length=40,
@@ -264,7 +262,7 @@ class Macro(models.Model):
         max_length=40,
         default=""
         )
-	
+
     class Meta:
         """
            Clase  macro
@@ -273,29 +271,27 @@ class Macro(models.Model):
         unique_together = (
             ('nombre',
              'proyecto'),
-            )	
-	
+            )
+
 class Disciplina(models.Model):
     """
-       Clase que representa la tabla de Estudio
+       Clase que representa la tabla de Disciplina
     """
     nombre = models.CharField(
         max_length=40,
         default="",
-        unique=True,
-        error_messages={'unique':'Ya existe un Macro con ese nombre  colocado'}
         )
     descripcion = models.CharField(
         max_length=40,
         default=""
         )
-	
+
     macro = models.ForeignKey(
         Macro,
         default='',
         on_delete=models.PROTECT
-        )	
-	
+        )
+
     class Meta:
         """
            Clase disciplina
@@ -305,16 +301,14 @@ class Disciplina(models.Model):
             ('nombre',
              'macro'),
             )
-		
+
 class Actividad(models.Model):
     """
-       Clase que representa la tabla de Estudio
+       Clase que representa la tabla de Actividad
     """
     nombre = models.CharField(
         max_length=40,
         default="",
-        unique=True,
-        error_messages={'unique':'Ya existe un Macro con ese nombre  colocado'}
         )
     descripcion = models.CharField(
         max_length=40,
@@ -324,14 +318,4 @@ class Actividad(models.Model):
         Disciplina,
         default='',
         on_delete=models.PROTECT
-        )	
-	
-    class Meta:
-        """
-           Clase actividad
-        """
-
-        unique_together = (
-            ('nombre',
-             'disciplina'),
-            )			
+        )
