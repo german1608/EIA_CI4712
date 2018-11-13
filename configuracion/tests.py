@@ -319,8 +319,8 @@ class PruebaFormularioEstudio(SeleniumTestCase):
         self.selenium.find_element_by_name('editar').click() # Hacemos click en agregar
         confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
         confirmacion.accept()
+        time.sleep(2)
         self.selenium.find_element_by_name('nombre').clear()
-        time.sleep(1)
 
         # agregamos el nombre no repetido
         self.selenium.find_element_by_name('nombre').send_keys('Impacto 5')
