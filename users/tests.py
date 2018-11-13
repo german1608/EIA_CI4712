@@ -3,11 +3,8 @@ Pruebas unitarias del modulo de usuarios de EIA
 """
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group
 from django.urls import reverse
-from selenium.webdriver.support.ui import Select, WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 from utils.testutils import SeleniumTestCase
 from .models import Usuario
 
