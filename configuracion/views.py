@@ -7,10 +7,10 @@ from django.views.generic import CreateView, UpdateView, ListView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
-from configuracion.forms import EstudioForm, ActividadForm
+from configuracion.forms import EstudioForm, ActividadForm, MacroForm, DisciplinaForm
 from configuracion.models import Estudio, Intensidad, Duracion, Extension
 from configuracion.models import Reversibilidad, Probabilidad, Importancia
-from configuracion.models import Actividad
+from configuracion.models import Actividad, Macro, Disciplina
 from configuracion.models import GRADO_PERTUBACION
 from configuracion.models import VALOR_SA, EXT_CLASIFICACION, DUR_CRITERIOS
 from configuracion.models import REV_CLASIFICACION, PROBABILIDAD
@@ -645,7 +645,7 @@ class ActividadCreate(CreateView): # pylint: disable=too-many-ancestors
         """
         # pylint: disable=attribute-defined-outside-init
 
-        messages.success(self.request, "Actividad especifica agregado exitosamente", extra_tags='alert')
+        messages.success(self.request, "Actividad agregado exitosamente", extra_tags='alert')
         return super().form_valid(form)
 
 class ActividadUpdate(UpdateView): # pylint: disable=too-many-ancestors
@@ -654,8 +654,7 @@ class ActividadUpdate(UpdateView): # pylint: disable=too-many-ancestors
     """
     model = Actividad
     form_class = ActividadForm
-    template_name = 'configuracion/agregar_actividad.html.html'
-    success_message = "Datos del Estudio actualizados correctamente"
+    template_name = 'configuracion/agregar_actividad.html'
 
     def form_valid(self, form):
         """
@@ -667,25 +666,116 @@ class ActividadUpdate(UpdateView): # pylint: disable=too-many-ancestors
 
             messages.success(
                 self.request,
-                "Datos del estudio modificados exitosamente",
+                "Datos de la actividad modificados exitosamente",
                 extra_tags='alert'
                 )
         return super().form_valid(form)
-
-class ActividadList(ListView): # pylint: disable=too-many-ancestors
-    '''
-        Listar las actividades
-    '''
-    model = Actividad
-    template_name = 'configuracion/listar_actividades'
 
 class ActividadDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''
         Eliminar una Actividad
     '''
     model = Actividad
-    template_name = 'configuracion/eliminar_actividad'
-    success_url = reverse_lazy('configuracion:listar_actividades')
+    template_name = 'configuracion/eliminar_actividad.html'
+    success_url = reverse_lazy('configuracion:index')
+
+class DisciplinaCreate(CreateView): # pylint: disable=too-many-ancestors
+    """
+       Clase que permite registrar un actividad macro
+    """
+    model = Disciplina
+    form_class = DisciplinaForm
+    template_name = 'configuracion/agregar_disciplina.html'
+    success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        """
+           aaaa
+        """
+        # pylint: disable=attribute-defined-outside-init
+
+        messages.success(self.request, "Disciplina agregado exitosamente", extra_tags='alert')
+        return super().form_valid(form)
+
+class DisciplinaUpdate(UpdateView): # pylint: disable=too-many-ancestors
+    """
+        Clase que permite modificar los datos de las disciplinas
+    """
+    model = Disciplina
+    form_class = DisciplinaForm
+    template_name = 'configuracion/agregar_disciplina.html'
+
+    def form_valid(self, form):
+        """
+           Funcion llamada cuando los campos para actualizar el formulario
+           se llenan correctamente. Retorna un HttpResponse
+        """
+        if self.request.POST.get('editar'):
+            # pylint: disable=attribute-defined-outside-init
+
+            messages.success(
+                self.request,
+                "Datos de la disciplina modificados exitosamente",
+                extra_tags='alert'
+                )
+        return super().form_valid(form)
+
+class DisciplinaDelete(DeleteView):  # pylint: disable=too-many-ancestors
+    '''
+        Eliminar una Disciplina
+    '''
+    model = Disciplina
+    template_name = 'configuracion/eliminar_disciplina.html'
+    success_url = reverse_lazy('configuracion:index')
+
+class MacroCreate(CreateView): # pylint: disable=too-many-ancestors
+    """
+       Clase que permite registrar un actividad macro
+    """
+    model = Macro
+    form_class = MacroForm
+    template_name = 'configuracion/agregar_macro.html'
+    success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        """
+           aaaa
+        """
+        # pylint: disable=attribute-defined-outside-init
+
+        messages.success(self.request, "Actividad macro agregado exitosamente", extra_tags='alert')
+        return super().form_valid(form)
+
+class MacroUpdate(UpdateView): # pylint: disable=too-many-ancestors
+    """
+        Clase que permite modificar los datos de las actividades macros
+    """
+    model = Macro
+    form_class = MacroForm
+    template_name = 'configuracion/agregar_macro.html'
+
+    def form_valid(self, form):
+        """
+           Funcion llamada cuando los campos para actualizar el formulario
+           se llenan correctamente. Retorna un HttpResponse
+        """
+        if self.request.POST.get('editar'):
+            # pylint: disable=attribute-defined-outside-init
+
+            messages.success(
+                self.request,
+                "Datos de la actividad macro modificados exitosamente",
+                extra_tags='alert'
+                )
+        return super().form_valid(form)
+
+class MacroDelete(DeleteView):  # pylint: disable=too-many-ancestors
+    '''
+        Eliminar una Actividad Macro
+    '''
+    model = Macro
+    template_name = 'configuracion/eliminar_macro.html'
+    success_url = reverse_lazy('configuracion:index')
 
 def actividades(request):
     return render(request, 'configuracion/actividades.html', {})

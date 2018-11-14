@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from configuracion.views import EstudioUpdate, EstudioCreate, ActividadCreate, ActividadUpdate
-from configuracion.views import ActividadList, ActividadDelete
+from configuracion.views import EstudioUpdate, EstudioCreate 
+from configuracion.views import ActividadCreate, ActividadUpdate, ActividadDelete
+from configuracion.views import DisciplinaCreate, DisciplinaUpdate, DisciplinaDelete
+from configuracion.views import MacroCreate, MacroUpdate, MacroDelete
 from . import views
 
 urlpatterns = [
@@ -26,8 +28,13 @@ urlpatterns = [
     path('tablas/', views.tablas, name='tablas'),
     path('modificar_tablas/', views.modificar_tablas, name='modificar_tablas'),
     path('agregar_actividad/', ActividadCreate.as_view(), name='agregar_actividad'),
-    path('listar_actividades/', ActividadList.as_view(), name='listar_actividades'),
     path('editar_actividad/<int:pk>/', ActividadUpdate.as_view(), name='editar_actividad'),
     path('eliminar_actividad/<int:pk_id>/', ActividadDelete.as_view(), name='eliminar_actividad'),
+    path('agregar_disciplina/', DisciplinaCreate.as_view(), name='agregar_disciplina'),
+    path('editar_disciplina/<int:pk>/', DisciplinaUpdate.as_view(), name='editar_disciplina'),
+    path('eliminar_disciplina/<int:pk_id>/', DisciplinaDelete.as_view(), name='eliminar_disciplina'),
+    path('agregar_macro/', MacroCreate.as_view(), name='agregar_macro'),
+    path('editar_macro/<int:pk>/', MacroUpdate.as_view(), name='editar_macro'),
+    path('eliminar_macro/<int:pk_id>/', MacroDelete.as_view(), name='eliminar_macro'),
     path('actividades/', views.actividades, name='actividades'),
 ]
