@@ -366,3 +366,4 @@ class Actividad(models.Model):
              'macro',
              'disciplina'),
             )
+        

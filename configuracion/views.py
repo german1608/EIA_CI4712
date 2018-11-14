@@ -3,7 +3,7 @@
 """
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from django.views.generic import CreateView, UpdateView, ListView, DeleteView
+from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
@@ -782,32 +782,40 @@ def eliminar_disciplina(request, pk_id):
     return HttpResponseRedirect(reverse('disciplinas'))
 
 def actividades(request):
+    """
+    adad
+    """
     if Macro.objects.all():
-        macros = Macro.objects.all()
-        actividades = Actividad.objects.all()
+        actividades_macros = Macro.objects.all()
+        actividades_especificas = Actividad.objects.all()
         context = {
-            'actividades': actividades,
-            'macros': macros
+            'actividades': actividades_especificas,
+            'macros': actividades_macros
         }
         return render(request, 'configuracion/actividades.html', context)
-    else:
-        messages.success(
-                    request,
-                    "No existen actividades macros. Debe crear una primero",
-                    extra_tags='alert'
-                    )
-        return HttpResponseRedirect(reverse('macros'))
+    messages.success(
+        request,
+        "No existen actividades macros. Debe crear una primero",
+        extra_tags='alert'
+        )
+    return HttpResponseRedirect(reverse('macros'))
 
 def macros(request):
-    macros = Macro.objects.all()
+    """
+    adad
+    """
+    actividades_macros = Macro.objects.all()
     context = {
-        'macros': macros,
+        'macros': actividades_macros,
     }
     return render(request, 'configuracion/macros.html', context)
 
 def disciplinas(request):
-    disciplinas = Disciplina.objects.all()
+    """
+    adad
+    """
+    discipli = Disciplina.objects.all()
     context = {
-        'disciplinas': disciplinas,
+        'disciplinas': discipli,
     }
     return render(request, 'configuracion/disciplinas.html', context)
