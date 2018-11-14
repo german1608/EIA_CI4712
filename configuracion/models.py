@@ -292,6 +292,12 @@ class Macro(models.Model):
              'proyecto'),
             )
 
+    def __str__(self):
+        """
+            formato de aparicion en frontend
+        """
+        return '{}'.format(self.nombre)
+
 class Disciplina(models.Model):
     """
        Clase que representa la tabla de Disciplina
@@ -319,6 +325,12 @@ class Disciplina(models.Model):
              'proyecto'),
             )
 
+    def __str__(self):
+        """
+            formato de aparicion en frontend
+        """
+        return '{}'.format(self.nombre)
+
 class Actividad(models.Model):
     """
        Clase que representa la tabla de Actividad
@@ -334,12 +346,13 @@ class Actividad(models.Model):
     disciplina = models.ForeignKey(
         Disciplina,
         default='',
-        on_delete=models.PROTECT
+        blank=True,
+        on_delete=models.CASCADE
         )
     macro = models.ForeignKey(
         Macro,
         default='',
-        on_delete=models.PROTECT
+        on_delete=models.CASCADE
         )
 
     class Meta:

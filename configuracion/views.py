@@ -672,14 +672,6 @@ class ActividadUpdate(UpdateView): # pylint: disable=too-many-ancestors
                 )
         return super().form_valid(form)
 
-class ActividadDelete(DeleteView):  # pylint: disable=too-many-ancestors
-    '''
-        Eliminar una Actividad
-    '''
-    model = Actividad
-    template_name = 'configuracion/eliminar_actividad.html'
-    success_url = reverse_lazy('configuracion:index')
-
 class DisciplinaCreate(CreateView): # pylint: disable=too-many-ancestors
     """
        Clase que permite registrar un actividad macro
@@ -721,14 +713,6 @@ class DisciplinaUpdate(UpdateView): # pylint: disable=too-many-ancestors
                 extra_tags='alert'
                 )
         return super().form_valid(form)
-
-class DisciplinaDelete(DeleteView):  # pylint: disable=too-many-ancestors
-    '''
-        Eliminar una Disciplina
-    '''
-    model = Disciplina
-    template_name = 'configuracion/eliminar_disciplina.html'
-    success_url = reverse_lazy('disciplinas')
 
 class MacroCreate(CreateView): # pylint: disable=too-many-ancestors
     """
@@ -772,13 +756,29 @@ class MacroUpdate(UpdateView): # pylint: disable=too-many-ancestors
                 )
         return super().form_valid(form)
 
-class MacroDelete(DeleteView):  # pylint: disable=too-many-ancestors
-    '''
-        Eliminar una Actividad Macro
-    '''
-    model = Macro
-    template_name = 'configuracion/eliminar_macro.html'
-    success_url = reverse_lazy('macros')
+def eliminar_actividad(request, pk_id):
+    """
+        Funcion que permite eliminar una actividad
+    """
+    Actividad.objects.get(id=pk_id).delete()
+    messages.success(request, "Actividad eliminado exitosamente", extra_tags='alert')
+    return HttpResponseRedirect(reverse('actividades'))
+
+def eliminar_macro(request, pk_id):
+    """
+        Funcion que permite eliminar una actividad macro
+    """
+    Macro.objects.get(id=pk_id).delete()
+    messages.success(request, "Actividad Macro eliminado exitosamente", extra_tags='alert')
+    return HttpResponseRedirect(reverse('macros'))
+
+def eliminar_disciplina(request, pk_id):
+    """
+        Funcion que permite eliminar una disciplina
+    """
+    Disciplina.objects.get(id=pk_id).delete()
+    messages.success(request, "Disciplina eliminado exitosamente", extra_tags='alert')
+    return HttpResponseRedirect(reverse('disciplinas'))
 
 def actividades(request):
     actividades = Actividad.objects.all()
