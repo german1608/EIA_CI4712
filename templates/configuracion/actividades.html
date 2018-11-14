@@ -1,0 +1,57 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row justify-content-center">
+		<h1>Actividades</h1>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-md-5 col-sm-12" align="center">
+			<label for="">Disciplina</label>
+			<select id="disciplinas" style="display: inline-block;">
+				<option disabled selected>Escoger disciplina</option>
+				<option value="1">1era disciplina</option>
+				<option value="2">2da disciplina</option>
+				<option value="3">3era disciplina</option>
+			</select>
+			<!-- <div class="col-md-5 col-sm-6 mt-2">
+				<a class="btn" style="background: #4f6228; color: white" href="">Agregar</a>
+				<a class="btn" style="background: #4f6228; color: white" href="">Modificar</a>
+			</div> -->
+		</div>
+		<div class="col-md-5 col-sm-12" align="center">
+			<label for="">Actividad Macro</label>
+			<select id="macros" style="display: inline-block;">
+				<option disabled selected>Escoger act. macro</option>
+				<option value="1">1er macro</option>
+				<option value="2">2do act. macro</option>
+				<option value="3">3er act. macro</option>
+			</select>
+			<!-- <div class="col-md-6 col-sm-6 mt-2">
+				<a class="btn" style="background: #4f6228; color: white" href="">Agregar</a>
+				<a class="btn" style="background: #4f6228; color: white" href="">Modificar</a>
+			</div> -->
+		</div>
+		<div class="col-md-2 col-sm-6 align-self-end">
+			<a class="btn" style="background: #4f6228; color: white;" onclick="">Buscar</a>
+		</div>
+	</div>
+
+	<div class="row justify-content-center">
+		<div class="col-md-8 col-sm-10 text-center">
+			<table id="actividades"></table>
+			<p id="p"></p>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'configuracion/js/actividades.js' %}"></script>
+{% endblock %}

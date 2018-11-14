@@ -647,3 +647,6 @@ class ActividadCreate(CreateView): # pylint: disable=too-many-ancestors
 
         messages.success(self.request, "Actividad especifica agregado exitosamente", extra_tags='alert')
         return super().form_valid(form)
+
+def actividades(request):
+    return render(request, 'configuracion/actividades.html', {})

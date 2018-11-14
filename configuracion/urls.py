@@ -25,4 +25,5 @@ urlpatterns = [
     path('tablas/', views.tablas, name='tablas'),
     path('modificar_tablas/', views.modificar_tablas, name='modificar_tablas'),
     path('agregar_actividad/', ActividadCreate.as_view(), name='agregar_actividad'),
+    path('actividades/', views.actividades, name='actividades'),
 ]
