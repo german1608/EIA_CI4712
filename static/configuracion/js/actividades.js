@@ -17,3 +17,8 @@ for (var i = sel.options.length - 1; i >= 0; i--) {
 	parrafo.innerHTML += sel.options[i].text + "<br>"
 }
 */
+function eleccion() {
+	var e = document.getElementById("macros");
+	var strUser = e.options[e.selectedIndex].value;
+	console.log(strUser)
+}
