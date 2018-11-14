@@ -304,21 +304,19 @@ class Disciplina(models.Model):
         max_length=40,
         default=""
         )
-
-    macro = models.ForeignKey(
-        Macro,
-        default='',
-        on_delete=models.PROTECT
+    proyecto = models.CharField(
+        max_length=40,
+        default=""
         )
 
     class Meta:
         """
-           Clase disciplina
+           Clase  macro
         """
 
         unique_together = (
             ('nombre',
-             'macro'),
+             'proyecto'),
             )
 
 class Actividad(models.Model):
@@ -338,3 +336,19 @@ class Actividad(models.Model):
         default='',
         on_delete=models.PROTECT
         )
+    macro = models.ForeignKey(
+        Macro,
+        default='',
+        on_delete=models.PROTECT
+        )
+
+    class Meta:
+        """
+           Clase disciplina
+        """
+
+        unique_together = (
+            ('nombre',
+             'macro',
+             'disciplina'),
+            )
