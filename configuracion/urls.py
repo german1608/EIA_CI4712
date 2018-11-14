@@ -14,7 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from configuracion.views import EstudioUpdate, EstudioCreate, ActividadCreate
+from configuracion.views import EstudioUpdate, EstudioCreate, ActividadCreate, ActividadUpdate
+from configuracion.views import ActividadList, ActividadDelete
 from . import views
 
 urlpatterns = [
@@ -25,4 +26,7 @@ urlpatterns = [
     path('tablas/', views.tablas, name='tablas'),
     path('modificar_tablas/', views.modificar_tablas, name='modificar_tablas'),
     path('agregar_actividad/', ActividadCreate.as_view(), name='agregar_actividad'),
+    path('listar_actividades/', ActividadList.as_view(), name='listar_actividades'),
+    path('editar_actividad/<int:pk>/', ActividadUpdate.as_view(), name='editar_actividad'),
+    path('eliminar_actividad/<int:pk_id>/', ActividadDelete.as_view(), name='eliminar_actividad'),
 ]

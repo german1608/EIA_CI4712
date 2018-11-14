@@ -60,25 +60,25 @@ MEDIOS = (
     ('BIO', 'Biologico'),
     ('SC', 'Socio-Cultural'),
     )
-MACRO = (
-    ('PI', 'Proceso de Inicio'),
-    ('PP', 'Proceso de Planificación'),
-    ('PE', 'Proceso de Ejecucion'),
-    ('PCS', 'Proceso de Control y Seguimiento'),
-    ('PC', 'Proceso de Cierre'),
-    )
-DISCIPLINA = (
-    ('IN', 'Integración'),
-    ('SK', 'Stakeholder'),
-    ('AL', 'Alcance'),
-    ('RE', 'Recurso'),
-    ('TI', 'Tiempo'),
-    ('CO', 'Costo'),
-    ('RI', 'Riesgo'),
-    ('CA', 'Calidad'),
-    ('AD', 'Adquisición'),
-    ('COM', 'Comunicación'),
-    )
+# MACRO = (
+#     ('PI', 'Proceso de Inicio'),
+#     ('PP', 'Proceso de Planificación'),
+#     ('PE', 'Proceso de Ejecucion'),
+#     ('PCS', 'Proceso de Control y Seguimiento'),
+#     ('PC', 'Proceso de Cierre'),
+#     )
+# DISCIPLINA = (
+#     ('IN', 'Integración'),
+#     ('SK', 'Stakeholder'),
+#     ('AL', 'Alcance'),
+#     ('RE', 'Recurso'),
+#     ('TI', 'Tiempo'),
+#     ('CO', 'Costo'),
+#     ('RI', 'Riesgo'),
+#     ('CA', 'Calidad'),
+#     ('AD', 'Adquisición'),
+#     ('COM', 'Comunicación'),
+#     )
 
 class Intensidad(models.Model):
     """
@@ -265,6 +265,62 @@ class Estudio(models.Model):
         on_delete=models.PROTECT
         )
 
+class Macro(models.Model):
+    """
+       Clase que representa la tabla de Macro
+    """
+    nombre = models.CharField(
+        max_length=40,
+        default="",
+        )
+    descripcion = models.CharField(
+        max_length=40,
+        default=""
+        )
+    proyecto = models.CharField(
+        max_length=40,
+        default=""
+        )
+
+    class Meta:
+        """
+           Clase  macro
+        """
+
+        unique_together = (
+            ('nombre',
+             'proyecto'),
+            )
+
+class Disciplina(models.Model):
+    """
+       Clase que representa la tabla de Disciplina
+    """
+    nombre = models.CharField(
+        max_length=40,
+        default="",
+        )
+    descripcion = models.CharField(
+        max_length=40,
+        default=""
+        )
+
+    macro = models.ForeignKey(
+        Macro,
+        default='',
+        on_delete=models.PROTECT
+        )
+
+    class Meta:
+        """
+           Clase disciplina
+        """
+
+        unique_together = (
+            ('nombre',
+             'macro'),
+            )
+
 class Actividad(models.Model):
     """
        Clase que representa la tabla de Actividad
@@ -277,26 +333,8 @@ class Actividad(models.Model):
         max_length=40,
         default=""
         )
-    macro = models.CharField(
-        choices=MACRO,
-        max_length=50,
-        default=""
+    disciplina = models.ForeignKey(
+        Disciplina,
+        default='',
+        on_delete=models.PROTECT
         )
-    disciplina = models.CharField(
-        choices=DISCIPLINA,
-        max_length=50,
-        default=""
-        )
-    proyecto = models.CharField(
-        max_length=40,
-        default=""
-        )
-    class Meta:
-        """
-           Clase que especifica los datos unicos a incluir en la tabla de Actividad
-        """
-
-        unique_together = (
-            ('nombre',
-             'proyecto'),
-            )

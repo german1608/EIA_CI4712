@@ -3,7 +3,7 @@
 """
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
@@ -647,3 +647,42 @@ class ActividadCreate(CreateView): # pylint: disable=too-many-ancestors
 
         messages.success(self.request, "Actividad especifica agregado exitosamente", extra_tags='alert')
         return super().form_valid(form)
+
+class ActividadUpdate(UpdateView): # pylint: disable=too-many-ancestors
+    """
+        Clase que permite modificar los datos de los estudios
+    """
+    model = Actividad
+    form_class = ActividadForm
+    template_name = 'configuracion/agregar_actividad.html.html'
+    success_message = "Datos del Estudio actualizados correctamente"
+
+    def form_valid(self, form):
+        """
+           Funcion llamada cuando los campos para actualizar el formulario
+           se llenan correctamente. Retorna un HttpResponse
+        """
+        if self.request.POST.get('editar'):
+            # pylint: disable=attribute-defined-outside-init
+
+            messages.success(
+                self.request,
+                "Datos del estudio modificados exitosamente",
+                extra_tags='alert'
+                )
+        return super().form_valid(form)
+
+class ActividadList(ListView): # pylint: disable=too-many-ancestors
+    '''
+        Listar las actividades
+    '''
+    model = Actividad
+    template_name = 'configuracion/listar_actividades'
+
+class ActividadDelete(DeleteView):  # pylint: disable=too-many-ancestors
+    '''
+        Eliminar una Actividad
+    '''
+    model = Actividad
+    template_name = 'configuracion/eliminar_actividad'
+    success_url = reverse_lazy('configuracion:listar_actividades')
