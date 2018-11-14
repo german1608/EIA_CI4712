@@ -30,4 +30,5 @@ urlpatterns = [
     path('editar_actividad/<int:pk>/', ActividadUpdate.as_view(), name='editar_actividad'),
     path('eliminar_actividad/<int:pk_id>/', ActividadDelete.as_view(), name='eliminar_actividad'),
     path('actividades/', views.actividades, name='actividades'),
+    
 ]

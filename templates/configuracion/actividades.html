@@ -12,30 +12,38 @@
 	</div>
 	<div class="row justify-content-center">
 		<div class="col-md-5 col-sm-12" align="center">
-			<label for="">Disciplina</label>
-			<select id="disciplinas" style="display: inline-block;">
-				<option disabled selected>Escoger disciplina</option>
-				<option value="1">1era disciplina</option>
-				<option value="2">2da disciplina</option>
-				<option value="3">3era disciplina</option>
-			</select>
-			<!-- <div class="col-md-5 col-sm-6 mt-2">
-				<a class="btn" style="background: #4f6228; color: white" href="">Agregar</a>
-				<a class="btn" style="background: #4f6228; color: white" href="">Modificar</a>
-			</div> -->
-		</div>
-		<div class="col-md-5 col-sm-12" align="center">
 			<label for="">Actividad Macro</label>
 			<select id="macros" style="display: inline-block;">
 				<option disabled selected>Escoger act. macro</option>
-				<option value="1">1er macro</option>
-				<option value="2">2do act. macro</option>
-				<option value="3">3er act. macro</option>
+				{% for m in macros %}
+				<option value="{{m}}">{{m}}</option>
+				{% endfor %}
 			</select>
-			<!-- <div class="col-md-6 col-sm-6 mt-2">
-				<a class="btn" style="background: #4f6228; color: white" href="">Agregar</a>
-				<a class="btn" style="background: #4f6228; color: white" href="">Modificar</a>
-			</div> -->
+			<div class="row justify-content-center mt-2">
+				<div class="col-md-5 col-sm-6">
+					<a class="btn rounded" style="background: #4f6228; color: white;" href="">Agregar</i></a>
+				</div>
+				<div class="col-md-5 col-sm-6">
+					<a class="btn rounded" style="background: #4f6228; color: white;" href="">Modificar</i></a>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5 col-sm-12" align="center">
+			<label for="">Disciplina</label>
+			<select id="disciplinas" style="display: inline-block;">
+				<option disabled selected>Escoger disciplina</option>
+				{% for d in disciplinas %}
+				<option value="{{d}}">{{d}}</option>
+				{% endfor %}
+			</select>
+			<div class="row justify-content-center mt-2">
+				<div class="col-md-5 col-sm-6">
+					<a class="btn rounded" style="background: #4f6228; color: white;" href="">Agregar</i></a>
+				</div>
+				<div class="col-md-5 col-sm-6">
+					<a class="btn rounded" style="background: #4f6228; color: white;" href="">Modificar</i></a>
+				</div>
+			</div>
 		</div>
 		<div class="col-md-2 col-sm-6 align-self-end">
 			<a class="btn" style="background: #4f6228; color: white;" onclick="">Buscar</a>

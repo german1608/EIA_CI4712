@@ -11,9 +11,11 @@ from configuracion.forms import EstudioForm, ActividadForm
 from configuracion.models import Estudio, Intensidad, Duracion, Extension
 from configuracion.models import Reversibilidad, Probabilidad, Importancia
 from configuracion.models import Actividad
+from configuracion.models import Macro, Disciplina
 from configuracion.models import GRADO_PERTUBACION
 from configuracion.models import VALOR_SA, EXT_CLASIFICACION, DUR_CRITERIOS
 from configuracion.models import REV_CLASIFICACION, PROBABILIDAD
+
 
 def index(request):
     """
@@ -648,7 +650,6 @@ class ActividadCreate(CreateView): # pylint: disable=too-many-ancestors
         messages.success(self.request, "Actividad especifica agregado exitosamente", extra_tags='alert')
         return super().form_valid(form)
 
-<<<<<<< HEAD
 class ActividadUpdate(UpdateView): # pylint: disable=too-many-ancestors
     """
         Clase que permite modificar los datos de los estudios
@@ -687,7 +688,13 @@ class ActividadDelete(DeleteView):  # pylint: disable=too-many-ancestors
     model = Actividad
     template_name = 'configuracion/eliminar_actividad'
     success_url = reverse_lazy('configuracion:listar_actividades')
-=======
+
 def actividades(request):
-    return render(request, 'configuracion/actividades.html', {})
->>>>>>> 400ca3f71bed15f253502735636fd53d995e2c37
+    macros = Macro.objects.all()
+    disciplinas = Disciplina.objects.all()
+    context = {
+        'macros': macros,
+        'disciplinas': disciplinas,
+    }
+    return render(request, 'configuracion/actividades.html', context)
+
