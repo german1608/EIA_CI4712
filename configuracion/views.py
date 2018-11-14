@@ -648,6 +648,7 @@ class ActividadCreate(CreateView): # pylint: disable=too-many-ancestors
         messages.success(self.request, "Actividad especifica agregado exitosamente", extra_tags='alert')
         return super().form_valid(form)
 
+<<<<<<< HEAD
 class ActividadUpdate(UpdateView): # pylint: disable=too-many-ancestors
     """
         Clase que permite modificar los datos de los estudios
@@ -686,3 +687,7 @@ class ActividadDelete(DeleteView):  # pylint: disable=too-many-ancestors
     model = Actividad
     template_name = 'configuracion/eliminar_actividad'
     success_url = reverse_lazy('configuracion:listar_actividades')
+=======
+def actividades(request):
+    return render(request, 'configuracion/actividades.html', {})
+>>>>>>> 400ca3f71bed15f253502735636fd53d995e2c37
