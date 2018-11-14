@@ -4,7 +4,7 @@
 from django import forms
 from configuracion.models import Estudio, Intensidad, Duracion, Extension
 from configuracion.models import Reversibilidad, Probabilidad, Importancia
-from configuracion.models import Macro, Disciplina, Actividad
+from configuracion.models import Actividad
 
 class EstudioForm(forms.ModelForm):
     """
@@ -234,70 +234,6 @@ class ImportanciaForm(forms.ModelForm):
             'valor': forms.TextInput(attrs={'class':'form-control', 'required':''}),
         }
 
-class MacroForm(forms.ModelForm):
-    """
-       Clase donde se crea el formulario de Macro
-    """
-
-    class Meta:
-        """
-           Clase donde se indica el modelo que se quiere usar y se crea el
-           formulario de Macro
-        """
-
-        model = Macro
-        fields = [
-            'nombre',
-            'descripcion',
-            'proyecto'
-
-        ]
-
-        labels = {
-            'nombre':'Nombre',
-            'descripcion':'Descripcion',
-            'proyecto': 'Proyecto'
-        }
-
-        widgets = {
-            'nombre':forms.TextInput(attrs={'class':'form-control', 'required':''}),
-            'descripcion':forms.TextInput(attrs={'class':'form-control', 'required':''}),
-            'proyecto':forms.TextInput(attrs={'class':'form-control', 'required':''}),
-
-        }
-
-class DisciplinaForm(forms.ModelForm):
-    """
-       Clase donde se crea el formulario de Disciplina
-    """
-
-    class Meta:
-        """
-           Clase donde se indica el modelo que se quiere usar y se crea el
-           formulario de Disciplina
-        """
-
-        model = Disciplina
-        fields = [
-            'nombre',
-            'descripcion',
-            'macro',
-
-        ]
-
-        labels = {
-            'nombre':'Nombre',
-            'descripcion':'Descripcion',
-            'macro':'Actividad Macro',
-        }
-
-        widgets = {
-            'nombre':forms.TextInput(attrs={'class':'form-control', 'required':''}),
-            'descripcion':forms.TextInput(attrs={'class':'form-control', 'required':''}),
-            'macro': forms.Select(attrs={'class':'form-control'})
-
-        }
-
 class ActividadForm(forms.ModelForm):
     """
        Clase donde se crea el formulario de Actividad
@@ -313,19 +249,25 @@ class ActividadForm(forms.ModelForm):
         fields = [
             'nombre',
             'descripcion',
-            'disciplina'
+            'macro',
+            'disciplina',
+            'proyecto',
 
         ]
 
         labels = {
             'nombre':'Nombre',
-            'descripcion':'Descripcion',
-            'disciplina':'Disciplina'
+            'descripcion':'Descripción',
+            'macro':'Actividad Macro',
+            'disciplina':'Disciplina',
+            'proyecto': 'Nombre del Proyecto',
         }
 
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control', 'required':''}),
-            'descripcion':forms.TextInput(attrs={'class':'form-control', 'required':''}),
-            'disciplina': forms.Select(attrs={'class':'form-control'})
+            'descripcion':forms.Textarea(attrs={'class':'form-control', 'required':''}),
+            'macro': forms.Select(attrs={'class':'form-control', 'required':''}),
+            'disciplina': forms.Select(attrs={'class':'form-control', 'required':''}),
+            'proyecto':forms.TextInput(attrs={'class':'form-control', 'required':''}),
 
         }

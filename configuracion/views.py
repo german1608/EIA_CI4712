@@ -7,10 +7,10 @@ from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
-from configuracion.forms import EstudioForm, MacroForm, DisciplinaForm, ActividadForm
+from configuracion.forms import EstudioForm, ActividadForm
 from configuracion.models import Estudio, Intensidad, Duracion, Extension
 from configuracion.models import Reversibilidad, Probabilidad, Importancia
-from configuracion.models import Macro, Disciplina, Actividad
+from configuracion.models import Actividad
 from configuracion.models import GRADO_PERTUBACION
 from configuracion.models import VALOR_SA, EXT_CLASIFICACION, DUR_CRITERIOS
 from configuracion.models import REV_CLASIFICACION, PROBABILIDAD
@@ -629,42 +629,6 @@ def _conseguir_valor_tabla_importancia(request, importancia):
         else:
             i.valor = request.POST.get('valor32')
             i.save()
-
-class MacroCreate(CreateView): # pylint: disable=too-many-ancestors
-    """
-       Clase que permite registrar un actividad macro
-    """
-    model = Macro
-    form_class = MacroForm
-    template_name = 'configuracion/agregar_macro.html'
-    success_url = reverse_lazy('index')
-
-    def form_valid(self, form):
-        """
-           aaaa
-        """
-        # pylint: disable=attribute-defined-outside-init
-
-        messages.success(self.request, "Actividad macro agregado exitosamente", extra_tags='alert')
-        return super().form_valid(form)
-
-class DisciplinaCreate(CreateView): # pylint: disable=too-many-ancestors
-    """
-       Clase que permite registrar un actividad macro
-    """
-    model = Disciplina
-    form_class = DisciplinaForm
-    template_name = 'configuracion/agregar_disciplina.html'
-    success_url = reverse_lazy('index')
-
-    def form_valid(self, form):
-        """
-           aaaa
-        """
-        # pylint: disable=attribute-defined-outside-init
-
-        messages.success(self.request, "Disciplina agregado exitosamente", extra_tags='alert')
-        return super().form_valid(form)
 
 class ActividadCreate(CreateView): # pylint: disable=too-many-ancestors
     """
