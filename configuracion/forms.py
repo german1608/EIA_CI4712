@@ -256,7 +256,7 @@ class MacroForm(forms.ModelForm):
         }
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control', 'required':''}),
-            'descripcion':forms.TextInput(attrs={'class':'form-control', 'required':''}),
+            'descripcion':forms.Textarea(attrs={'class':'form-control', 'required':''}),
             'proyecto':forms.TextInput(attrs={'class':'form-control', 'required':''}),
         }
 
@@ -273,17 +273,17 @@ class DisciplinaForm(forms.ModelForm):
         fields = [
             'nombre',
             'descripcion',
-            'macro',
+            'proyecto',
         ]
         labels = {
             'nombre':'Nombre',
             'descripcion':'Descripcion',
-            'macro':'Actividad Macro',
+            'proyecto': 'Proyecto'
         }
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control', 'required':''}),
-            'descripcion':forms.TextInput(attrs={'class':'form-control', 'required':''}),
-            'macro': forms.Select(attrs={'class':'form-control'})
+            'descripcion':forms.Textarea(attrs={'class':'form-control', 'required':''}),
+            'proyecto':forms.TextInput(attrs={'class':'form-control', 'required':''}),
         }
 
 class ActividadForm(forms.ModelForm):
@@ -299,15 +299,18 @@ class ActividadForm(forms.ModelForm):
         fields = [
             'nombre',
             'descripcion',
-            'disciplina'
+            'disciplina',
+            'macro',
         ]
         labels = {
             'nombre':'Nombre',
             'descripcion':'Descripcion',
-            'disciplina':'Disciplina'
+            'disciplina':'Disciplina',
+            'macro':'Actividad Macro',
         }
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control', 'required':''}),
-            'descripcion':forms.TextInput(attrs={'class':'form-control', 'required':''}),
-            'disciplina': forms.Select(attrs={'class':'form-control'})
+            'descripcion':forms.Textarea(attrs={'class':'form-control', 'required':''}),
+            'disciplina': forms.Select(attrs={'class':'form-control'}),
+            'macro': forms.Select(attrs={'class':'form-control'})
         }

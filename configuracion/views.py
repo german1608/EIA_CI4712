@@ -697,4 +697,3 @@ def actividades(request):
         'disciplinas': disciplinas,
     }
     return render(request, 'configuracion/actividades.html', context)
-
