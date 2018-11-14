@@ -16,50 +16,63 @@
 			<select id="macros" style="display: inline-block;">
 				<option disabled selected>Escoger act. macro</option>
 				{% for m in macros %}
-				<option value="{{m}}">{{m}}</option>
+				<option value="{{m.nombre}}">{{m.nombre}}</option>
 				{% endfor %}
 			</select>
-			<div class="row justify-content-center mt-2">
-				<div class="col-md-5 col-sm-6">
-					<a class="btn rounded" style="background: #4f6228; color: white;" href="">Agregar</i></a>
-				</div>
-				<div class="col-md-5 col-sm-6">
-					<a class="btn rounded" style="background: #4f6228; color: white;" href="">Modificar</i></a>
-				</div>
-			</div>
+
 		</div>
 		<div class="col-md-5 col-sm-12" align="center">
 			<label for="">Disciplina</label>
 			<select id="disciplinas" style="display: inline-block;">
 				<option disabled selected>Escoger disciplina</option>
 				{% for d in disciplinas %}
-				<option value="{{d}}">{{d}}</option>
+				<option value="{{d.nombre}}">{{d.nombre}}</option>
 				{% endfor %}
 			</select>
-			<div class="row justify-content-center mt-2">
-				<div class="col-md-5 col-sm-6">
-					<a class="btn rounded" style="background: #4f6228; color: white;" href="">Agregar</i></a>
-				</div>
-				<div class="col-md-5 col-sm-6">
-					<a class="btn rounded" style="background: #4f6228; color: white;" href="">Modificar</i></a>
-				</div>
-			</div>
+
 		</div>
-		<div class="col-md-2 col-sm-6 align-self-end">
+		<div class="col-md-2 col-sm-6 align-self-center">
 			<a class="btn" style="background: #4f6228; color: white;" onclick="">Buscar</a>
 		</div>
 	</div>
 
 	<div class="row justify-content-center">
-		<div class="col-md-8 col-sm-10 text-center">
-			<table id="actividades"></table>
-			<p id="p"></p>
+		<div class="col-md-8 col-sm-12" align="center">
+			<table id="macros" class="tabla-actividades">
+				<tr>
+					<th>Nombre</th>
+					<th>Descripcion</th>
+					<th>Disciplina</th>
+					<th>Marco</th>
+					<th>Acciones</th>
+				</tr>
+				<tbody>
+					{% for m in actividades %}
+					<tr>
+						<td>{{m.nombre}}</td>
+						<td>{{m.descripcion}}</td>
+						<td>{{m.disciplina.nombre}}</td>
+						<td>{{m.marco.nombre}}</td>
+						<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href="{% url 'editar_actividad' m.id %}">Modificar</a>
+							<a class="btn rounded" style="background: #4f6228; color: white;" href="{% url 'eliminar_actividad' m.id %}">Eliminar</a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
 		</div>
 	</div>
+
+	<div class="row justify-content-center mt-2">
+		<div class="col-md-5 col-sm-6 align-self-center" align="center">
+			<a class="btn rounded" style="background: #4f6228; color: white;" href="{% url 'agregar_actividad' %}">Agregar actividad</a>
+		</div>
+	</div>
+
 </div>
 {% endblock %}
 
 {% block js %}
 <script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'configuracion/js/actividades.js' %}"></script>
+
 {% endblock %}

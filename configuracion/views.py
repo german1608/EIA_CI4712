@@ -687,7 +687,7 @@ class DisciplinaCreate(CreateView): # pylint: disable=too-many-ancestors
     model = Disciplina
     form_class = DisciplinaForm
     template_name = 'configuracion/agregar_disciplina.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('disciplinas')
 
     def form_valid(self, form):
         """
@@ -705,6 +705,7 @@ class DisciplinaUpdate(UpdateView): # pylint: disable=too-many-ancestors
     model = Disciplina
     form_class = DisciplinaForm
     template_name = 'configuracion/agregar_disciplina.html'
+    success_url = reverse_lazy('disciplinas')
 
     def form_valid(self, form):
         """
@@ -727,7 +728,7 @@ class DisciplinaDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''
     model = Disciplina
     template_name = 'configuracion/eliminar_disciplina.html'
-    success_url = reverse_lazy('configuracion:index')
+    success_url = reverse_lazy('disciplinas')
 
 class MacroCreate(CreateView): # pylint: disable=too-many-ancestors
     """
@@ -736,7 +737,7 @@ class MacroCreate(CreateView): # pylint: disable=too-many-ancestors
     model = Macro
     form_class = MacroForm
     template_name = 'configuracion/agregar_macro.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('macros')
 
     def form_valid(self, form):
         """
@@ -754,6 +755,7 @@ class MacroUpdate(UpdateView): # pylint: disable=too-many-ancestors
     model = Macro
     form_class = MacroForm
     template_name = 'configuracion/agregar_macro.html'
+    success_url = reverse_lazy('macros')
 
     def form_valid(self, form):
         """
@@ -776,13 +778,25 @@ class MacroDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''
     model = Macro
     template_name = 'configuracion/eliminar_macro.html'
-    success_url = reverse_lazy('configuracion:index')
+    success_url = reverse_lazy('macros')
 
 def actividades(request):
-    macros = Macro.objects.all()
-    disciplinas = Disciplina.objects.all()
+    actividades = Actividad.objects.all()
     context = {
-        'macros': macros,
-        'disciplinas': disciplinas,
+        'actividades': actividades
     }
     return render(request, 'configuracion/actividades.html', context)
+
+def macros(request):
+    macros = Macro.objects.all()
+    context = {
+        'macros': macros,
+    }
+    return render(request, 'configuracion/macros.html', context)
+
+def disciplinas(request):
+    disciplinas = Disciplina.objects.all()
+    context = {
+        'disciplinas': disciplinas,
+    }
+    return render(request, 'configuracion/disciplinas.html', context)

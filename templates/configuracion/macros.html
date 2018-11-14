@@ -1,0 +1,49 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row justify-content-center">
+		<h1>Actividades Macros</h1>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-md-8 col-sm-12" align="center">
+			<table id="macros" class="tabla-actividades">
+				<tr>
+					<th>Nombre</th>
+					<th>Descripcion</th>
+					<th>Proyecto</th>
+					<th>Acciones</th>
+				</tr>
+				<tbody>
+					{% for m in macros %}
+					<tr>
+						<td>{{m.nombre}}</td>
+						<td>{{m.descripcion}}</td>
+						<td>{{m.proyecto}}</td>
+						<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href="{% url 'editar_macro' m.id %}">Modificar</a>
+							<a class="btn rounded" style="background: #4f6228; color: white;" href="{% url 'eliminar_macro' m.id %}">Eliminar</a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row justify-content-center mt-2">
+		<div class="col-md-5 col-sm-6 align-self-center" align="center">
+			<a class="btn rounded" style="background: #4f6228; color: white;" href="{% url 'agregar_macro' %}">Agregar actividad</a>
+		</div>
+	</div>
+
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
+
+{% endblock %}

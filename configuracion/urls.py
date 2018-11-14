@@ -37,5 +37,6 @@ urlpatterns = [
     path('editar_macro/<int:pk>/', MacroUpdate.as_view(), name='editar_macro'),
     path('eliminar_macro/<int:pk_id>/', MacroDelete.as_view(), name='eliminar_macro'),
     path('actividades/', views.actividades, name='actividades'),
-    
+    path('macros/', views.macros, name='macros'),
+    path('disciplinas/', views.disciplinas, name='disciplinas'),
 ]
