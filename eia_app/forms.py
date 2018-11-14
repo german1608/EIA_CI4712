@@ -3,7 +3,7 @@
 from django import forms
 from .models import (
     Organizacion, Responsable, Solicitante,
-    DatosProyecto, DatosDocumento
+    DatosProyecto, DatosDocumento, DescripcionProyecto
 )
 
 class OrganizacionCreateForm(forms.ModelForm):
@@ -39,4 +39,11 @@ class DatosDocumentoCreateForm(forms.ModelForm):
     class Meta: # pylint: disable=too-few-public-methods
         '''Clase meta del formulario'''
         model = DatosDocumento
+        fields = '__all__'
+
+class DescripcionProyectoCreateForm(forms.ModelForm):
+    '''Form del modelo descripcion de proyectos'''
+    class Meta: # pylint: disable=too-few-public-methods
+        '''Clase meta del formulario'''
+        model = DescripcionProyecto
         fields = '__all__'
