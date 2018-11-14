@@ -10,12 +10,7 @@ from django.contrib import messages
 from configuracion.forms import EstudioForm, ActividadForm, MacroForm, DisciplinaForm
 from configuracion.models import Estudio, Intensidad, Duracion, Extension
 from configuracion.models import Reversibilidad, Probabilidad, Importancia
-<<<<<<< HEAD
 from configuracion.models import Actividad, Macro, Disciplina
-=======
-from configuracion.models import Actividad
-from configuracion.models import Macro, Disciplina
->>>>>>> 0d7a6922b55b9b95cc8d8a28e2725af22f6fdf91
 from configuracion.models import GRADO_PERTUBACION
 from configuracion.models import VALOR_SA, EXT_CLASIFICACION, DUR_CRITERIOS
 from configuracion.models import REV_CLASIFICACION, PROBABILIDAD
