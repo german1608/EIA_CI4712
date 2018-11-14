@@ -638,7 +638,7 @@ class ActividadCreate(CreateView): # pylint: disable=too-many-ancestors
     model = Actividad
     form_class = ActividadForm
     template_name = 'configuracion/agregar_actividad.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('actividades')
 
     def form_valid(self, form):
         """
@@ -656,6 +656,7 @@ class ActividadUpdate(UpdateView): # pylint: disable=too-many-ancestors
     model = Actividad
     form_class = ActividadForm
     template_name = 'configuracion/agregar_actividad.html'
+    success_url = reverse_lazy('actividades')
 
     def form_valid(self, form):
         """
@@ -781,11 +782,21 @@ def eliminar_disciplina(request, pk_id):
     return HttpResponseRedirect(reverse('disciplinas'))
 
 def actividades(request):
-    actividades = Actividad.objects.all()
-    context = {
-        'actividades': actividades
-    }
-    return render(request, 'configuracion/actividades.html', context)
+    if Macro.objects.all():
+        macros = Macro.objects.all()
+        actividades = Actividad.objects.all()
+        context = {
+            'actividades': actividades,
+            'macros': macros
+        }
+        return render(request, 'configuracion/actividades.html', context)
+    else:
+        messages.success(
+                    request,
+                    "No existen actividades macros. Debe crear una primero",
+                    extra_tags='alert'
+                    )
+        return HttpResponseRedirect(reverse('macros'))
 
 def macros(request):
     macros = Macro.objects.all()

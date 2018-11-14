@@ -347,6 +347,7 @@ class Actividad(models.Model):
         Disciplina,
         default='',
         blank=True,
+        null=True,
         on_delete=models.CASCADE
         )
     macro = models.ForeignKey(
