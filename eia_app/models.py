@@ -26,6 +26,9 @@ class DatosProyecto(models.Model):
     area = models.TextField()
     tipo = models.TextField()
     url = models.URLField()
+    marco_metodologico = models.TextField(null=True)
+    marco_juridico = models.TextField(null=True)
+    marco_teorico = models.TextField(null=True)
 
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
