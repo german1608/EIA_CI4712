@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{% block title %}EIA Register / Log In{% endblock title %}</title>
+
+  <meta charset="UTF-8">
+  <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+  <link href="{% static 'fonts/material-icons/material-icons.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/registration/login_and_register.css' %}">
+
+  <!-- COMIENZO DEL CSS -->
+
+  {% block css %}
+  {% endblock %}
+
+  <!-- FIN DEL CSS -->
+</head>
+
+<body>
+  {% block content %}
+  {% endblock %}
+</body>
+</html>

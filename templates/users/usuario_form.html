@@ -3,8 +3,13 @@
 
 {% block content %}
 <h1>Registro de Usuario</h1>
-<form method="POST" class="user-form">{% csrf_token %}
+<form method="POST" action="." class="user-form">{% csrf_token %}
     {{ form.as_p }}
     <button id='registrar' type="submit" class="save btn btn-default">Registrar</button>
 </form>
 {% endblock %}
+{% block css %}
+<style>
+  select { display: block; }
+</style>
+{% endblock css %}

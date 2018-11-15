@@ -2,16 +2,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
   <meta charset="UTF-8">
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/css/materialize.min.css" integrity="sha256-qj3p6P1fJIV+Ndv7RW1ovZI2UhOuboj9GcODzcNFIN8=" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+  <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
+  <link href="{% static 'fonts/material-icons/material-icons.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/custom.css' %}">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   
 
   <!-- COMIENZO DEL CSS -->
@@ -20,44 +18,43 @@
   {% endblock %}
 
   <!-- FIN DEL CSS -->
-
   <title>{% block title %}EIA{% endblock title %}</title>
-
 </head>
-
 <body>
 
   <!-- COMIENZO DEL SIDEBAR -->
 
 
-  <ul id="slide-out" class="side-nav fixed z-depth-4">
-    
+  <ul id="slide-out" class="sidenav sidenav-fixed z-depth-2">
+
     <!-- PARTE SUPERIOR DEL SIDEBAR -->
 
     <li>
-      <div class="userView">
+      <div class="user-view">
         <div class="background">
-            <div class="fill"></div>
+          <div class="fill"></div>
         </div>
         <a href="#"><img class="circle" src="{% static 'img/germanbb.jpg' %}"></a>
-        <a href="#"><span class="white-text name">Bienvenido Individuo</span></a>
+        <a href="#"><span id="side-menu-user-name" class="white-text name">Bienvenido {{ request.user.full_name }}</span></a>
       </div>
     </li>
 
     <!-- FIN DE LA PARTE SUPERIOR DEL SIDEBAR -->
 
-    <li><div class="divider"></div></li>
-    
+    <li>
+      <div class="divider"></div>
+    </li>
+
     <!-- PARTE INFERIOR DEL SIDEBAR -->
 
     <li>
-      <a class="active" href="#"><i class="material-icons white-item white-text">home</i>
+      <a class="active" href="{% url 'dashboard:index' %}"><i class="material-icons white-item white-text">home</i>
         <span class="white-text">Home</span>
       </a>
     </li>
     <li>
-      <a href="#"><i class="material-icons white-item white-text">keyboard</i>
-        <span class="white-text">Calculadora</span>
+      <a href="{% url 'users_list' %}"><i class="material-icons white-item white-text">people</i>
+        <span class="white-text">Control de Usuarios</span>
       </a>
     </li>
     <li>
@@ -66,89 +63,58 @@
       </a>
     </li>
     <li>
-      <a href="#"><i class="material-icons white-text white-item">arrow_back</i>
-        <span class="white-text name">Cerrar Sesión</span>
+      <a href="{% url "consultor-crud-index" %}"><i class="material-icons white-text white-item">border_color</i>
+        <span class="white-text name">Consultor ambiental</span>
       </a>
     </li>
     <li>
-      <a href="{% url "consultor-crud-index" %}"><i class="material-icons white-text white-item">border_color</i>
-        <span class="white-text name">CRUD Consultor ambiental</span>
+      <a href="{% url 'logout' %}"><i class="material-icons white-text white-item">arrow_back</i>
+        <span class="white-text name">Cerrar Sesión</span>
       </a>
     </li>
   
 
     <!-- FIN DE LA PARTE INFERIOR DEL SIDEBAR -->
-  
+
   </ul>
 
   <!-- FIN DE SIDEBAR -->
-  
+
   <!-- SECCION DE CONTENIDO -->
-  
+
   <main>
-    <section class="content">
+    <section class="container">
       {% block content %}
 
       {% endblock %}
     </section>
   </main>
-  
+
   <!-- FIN DE LA SECCION DE CONTENIDO -->
 
   <!-- FOOTER -->
 
   <footer class="page-footer">
     <div class="footer-copyright">
-      <div class="container">
+      <div class="container center-align">
         <span class="white-text">
           Ingeniería del Software II. Septiembre-Diciembre 2018
         </span>
-        
+
       </div>
     </div>
   </footer>
 
   <!-- FIN DEL FOOTER -->
-  
 
 
   <!-- COMIENZO DEL JS -->
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/materialize.min.js' %}"></script>
 
   {% block js %}
   {% endblock %}
 
   <!-- FIN DEL JS -->
-
 </body>
-
-
-
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

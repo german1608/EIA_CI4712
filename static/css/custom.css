@@ -1,15 +1,15 @@
-.side-nav{
-  background-color: #77933c; 
+.sidenav {
+  background-color: #77933c;
 }
 
 .fill{
   background-color: #77933c;
   padding-top: 100%;
-  padding-bottom: 100%; 
+  padding-bottom: 100%;
 }
 
 footer.page-footer{
-  background-color: #4f6228;  
+  background-color: #4f6228;
 }
 
 @media (min-width:993px) {

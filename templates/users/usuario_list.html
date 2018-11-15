@@ -3,23 +3,44 @@
 
 {% block content %}
   <h1>Listado de Usuarios</h1>
-  <table style="width:100%">
-    <tr>
-      <th>Nombre</th>
-      <th>Apellido</th> 
-      <th>Correo</th>
-      <th>Nombre de Usuario</th>
-      <th>Documento de identidad</th>
-    </tr>
-    {% for user in object_list %}
-      <tr>
-        <td>{{user.first_name}}</td>
-        <td>{{user.last_name}}</td> 
-        <td>{{user.email}}</td>
-        <td>{{user.username}}</td>
-        <td>{{user.doc_identidad}}</td>
-      </tr>
-    {% endfor %}
-  </table>
+  <!--Comienzo del dataTable para los usuarios-->
+  <div class="row">
+    <div class="col">
+      <!--Tabla de usuarios-->
+      <table id="t_usuarios">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Documento de identidad</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for user in object_list %}
+            <tr>
+              <td>{{user.first_name}}</td>
+              <td>{{user.last_name}}</td> 
+              <td>{{user.email}}</td>
+              <td>{{user.doc_identidad}}</td>
+              <td>{{user.rol}}</td>
+              <td>
+                <a href="{% url 'edit_user' user.pk %}"><i class="small material-icons">edit</i></a>
+                <a href="{% url 'delete_user' user.pk %}"><i class="small material-icons">close</i></a>
+              </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-  {% endblock %}
+<!--Comienzo de los scripts-->
+{% block js %}
+<script src="{% static 'js/jquery.dataTables.js' %}"></script>
+<script src="{% static 'js/users/lista_usuarios.js' %}"></script>
+{% endblock %}
+
+{% endblock %}
