@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock %}
+{% block content %}
+
+<h4> Detalles del proyecto: {{detallesproyecto.proyecto}}</h4>
+<div class="grid-container" style="margin-left:10%">
+
+
+                <div class="grid-item">
+                        <div class="text-col">
+                            <p class="title">Objetivo General</p>
+                            <p>{{ detallesproyecto.objGeneral}}</p>
+                        </div>
+                </div>
+
+                <div class="grid-item">
+                        <div class="text-col">
+                            <p class="title">Objetivos Específicos</p>
+                            <p>{{ detallesproyecto.objEspecifico }}</p>
+                        </div>
+                </div>
+                
+                <div class="grid-item">
+                  <div class="text-col">
+                      <p class="title">Justificación</p>
+                      <p>{{ detallesproyecto.justificacion }}</p>
+                  </div>
+                </div>
+
+                <div class="grid-item">
+                  <div class="text-col">
+                      <p class="title">Área de Estudio</p>
+                      <img class="icon"  src="{% detallesproyecto.area %}" height="100" width="150">
+                  </div>
+                </div>
+
+                <div class="grid-item">
+                  <div class="text-col">
+                      <p class="title">Proyecto</p>
+                      <p><a href="{% url "consultor-crud:detalles-proyecto"  detallesproyecto.proyecto.id %}">{{ detallesdocumento.proyecto }}<a></a></p>
+                  </div>
+                </div>
+
+</div>
+
+{% endblock %}
