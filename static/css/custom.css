@@ -1,15 +1,96 @@
+.white-text{
+  color: white;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+}
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 100vh;
+  background: #77933c;
+  position: fixed;
+  transition: all 0.3s;
+}
+
+#sidebar.active {
+  margin-left: -250px;
+}
+
 .sidenav {
   background-color: #77933c;
 }
 
-.fill{
+a, a:hover, a:focus {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+
+#sidebar .sidebar-header {
+  padding: 20px;
+}
+
+#sidebar ul.components {
+  padding: 20px 0;
+  border-top: 1px solid white;
+}
+#sidebar ul li a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+}
+
+#sidebar ul li a:hover {
+  background: #96b653;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+  color: #fff;
+  background: #96b653;
+}
+
+nav img{
+  width: 50%;
+  border-radius: 50%;
+  margin-left: 25%;
+}
+
+footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+ul>li>a>i{
+  color:white!important;
+}
+
+.btn-info {
+  color: #fff;
   background-color: #77933c;
-  padding-top: 100%;
-  padding-bottom: 100%;
+  border-color: #77933c;
+  transition: all 0.3s;
+}
+
+.btn-info:hover{
+  background-color:#96b653;
+  border-color:#96b653;
 }
 
 footer.page-footer{
   background-color: #4f6228;
+}
+
+main{
+  margin-top:5%;
 }
 
 @media (min-width:993px) {
@@ -217,6 +298,15 @@ div.quick-links a {
 .custom-responsive {
   display: block;
   overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+      margin-left: -250px;
+  }
+  #sidebar.active {
+      margin-left: 0;
+  }
 }
 
 @media (max-width: 320px) {
