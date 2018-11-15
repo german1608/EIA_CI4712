@@ -23,62 +23,52 @@
 <form method="post" id="">
 {% csrf_token %}
 <div class="row justify-content-center px-3">
-	<div class="col-md-6 col-sm-12">
+	<div class="col-md-6 col-sm-12 px-3">
 		<table class="indicador">
-			<caption>Valoración de la intensidad</caption>
+			<caption>Criterios de clasificación de la importancia del efecto</caption>
 			<tr class="cabecera">
-				<th>Grado de perturbancia</th>
-				<th colspan="4">Valor socio-cultural</th>
+				<th>Importancia</th>
+				<th colspan="2">Rango</th>
+				<th>Valor del impacto</th>
 			</tr>
 			<tr class="cabecera">
 				<th>
-					<th>Muy alto</th>
-					<th>Alto</th>
-					<th>Medio</th>
-					<th>Bajo</th>
+					<th>Min</th>
+					<th>Max</th>
 				</th>
+				<th></th>
 			</tr>
-			<tr>	
-				<td>Fuerte</td>
-				{% for i in intensidad_fuerte %}
-				{% if i.valor_sociocultural == 'MA' %}
-				<td><input type="text" name="valor1" value="{{i.valor}}"></td>
-				{% elif i.valor_sociocultural == 'A' %}
-				<td><input type="text" name="valor2" value="{{i.valor}}"></td>
-				{% elif i.valor_sociocultural == 'M' %}
-				<td><input type="text" name="valor3" value="{{i.valor}}"></td>
-				{% elif i.valor_sociocultural == 'B' %}
-				<td><input type="text" name="valor4" value="{{i.valor}}"></td>
-				{% endif %}
-				{% endfor %}
-			</tr>
-				<td>Medio</td>
-				{% for i in intensidad_medio %}
-				{% if i.valor_sociocultural == 'MA' %}
-				<td><input type="text" name="valor5" value="{{i.valor}}"></td>
-				{% elif i.valor_sociocultural == 'A' %}
-				<td><input type="text" name="valor6" value="{{i.valor}}"></td>
-				{% elif i.valor_sociocultural == 'M' %}
-				<td><input type="text" name="valor7" value="{{i.valor}}"></td>
-				{% elif i.valor_sociocultural == 'B' %}
-				<td><input type="text" name="valor8" value="{{i.valor}}"></td>
-				{% endif %}
-				{% endfor %}
-			</tr>
+			{% for i in importancia %}
+			{% if i.importancia == 'MA' %}
 			<tr>
-				<td>Suave</td>
-				{% for i in intensidad_suave %}
-				{% if i.valor_sociocultural == 'MA' %}
-				<td><input type="text" name="valor9" value="{{i.valor}}"></td>
-				{% elif i.valor_sociocultural == 'A' %}
-				<td><input type="text" name="valor10" value="{{i.valor}}"></td>
-				{% elif i.valor_sociocultural == 'M' %}
-				<td><input type="text" name="valor11" value="{{i.valor}}"></td>
-				{% elif i.valor_sociocultural == 'B' %}
-				<td><input type="text" name="valor12" value="{{i.valor}}"></td>
-				{% endif %}
-				{% endfor %}
+				<td>Muy alta</td>
+				<td>{{i.minimo}}</td>
+				<td>{{i.maximo}}</td>
+				<td><input type="text" name="valor29" value="{{i.valor}}"></td>
 			</tr>
+			{% elif i.importancia == 'A' %}
+			<tr>
+				<td>Alta</td>
+				<td>{{i.minimo}}</td>
+				<td>{{i.maximo}}</td>
+				<td><input type="text" name="valor30" value="{{i.valor}}"></td>
+			</tr>
+			{% elif i.importancia == 'M' %}
+			<tr>
+				<td>Media</td>
+				<td>{{i.minimo}}</td>
+				<td>{{i.maximo}}</td>
+				<td><input type="text" name="valor31" value="{{i.valor}}"></td>
+			</tr>
+			{% elif i.importancia == 'B' %}
+			<tr>
+				<td>Baja</td>
+				<td>{{i.minimo}}</td>
+				<td>{{i.maximo}}</td>
+				<td><input type="text" name="valor32" value="{{i.valor}}"></td>
+			</tr>
+			{% endif %}
+			{% endfor %}
 		</table>
 	</div>
 	<div class="col-md-6 col-sm-12 px-3">
@@ -223,52 +213,62 @@
 			{% endfor %}
 		</table>
 	</div>
-	<div class="col-md-6 col-sm-12 px-3">
+	<div class="col-md-6 col-sm-12">
 		<table class="indicador">
-			<caption>Criterios de clasificación de la importancia del efecto</caption>
+			<caption>Valoración de la intensidad</caption>
 			<tr class="cabecera">
-				<th>Importancia</th>
-				<th colspan="2">Rango</th>
-				<th>Valor del impacto</th>
+				<th>Grado de perturbancia</th>
+				<th colspan="4">Valor socio-cultural</th>
 			</tr>
 			<tr class="cabecera">
 				<th>
-					<th>Min</th>
-					<th>Max</th>
+					<th>Muy alto</th>
+					<th>Alto</th>
+					<th>Medio</th>
+					<th>Bajo</th>
 				</th>
-				<th></th>
 			</tr>
-			{% for i in importancia %}
-			{% if i.importancia == 'MA' %}
+			<tr>	
+				<td>Fuerte</td>
+				{% for i in intensidad_fuerte %}
+				{% if i.valor_sociocultural == 'MA' %}
+				<td><input type="text" name="valor1" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'A' %}
+				<td><input type="text" name="valor2" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'M' %}
+				<td><input type="text" name="valor3" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'B' %}
+				<td><input type="text" name="valor4" value="{{i.valor}}"></td>
+				{% endif %}
+				{% endfor %}
+			</tr>
+				<td>Medio</td>
+				{% for i in intensidad_medio %}
+				{% if i.valor_sociocultural == 'MA' %}
+				<td><input type="text" name="valor5" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'A' %}
+				<td><input type="text" name="valor6" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'M' %}
+				<td><input type="text" name="valor7" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'B' %}
+				<td><input type="text" name="valor8" value="{{i.valor}}"></td>
+				{% endif %}
+				{% endfor %}
+			</tr>
 			<tr>
-				<td>Muy alta</td>
-				<td>{{i.minimo}}</td>
-				<td>{{i.maximo}}</td>
-				<td><input type="text" name="valor29" value="{{i.valor}}"></td>
+				<td>Suave</td>
+				{% for i in intensidad_suave %}
+				{% if i.valor_sociocultural == 'MA' %}
+				<td><input type="text" name="valor9" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'A' %}
+				<td><input type="text" name="valor10" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'M' %}
+				<td><input type="text" name="valor11" value="{{i.valor}}"></td>
+				{% elif i.valor_sociocultural == 'B' %}
+				<td><input type="text" name="valor12" value="{{i.valor}}"></td>
+				{% endif %}
+				{% endfor %}
 			</tr>
-			{% elif i.importancia == 'A' %}
-			<tr>
-				<td>Alta</td>
-				<td>{{i.minimo}}</td>
-				<td>{{i.maximo}}</td>
-				<td><input type="text" name="valor30" value="{{i.valor}}"></td>
-			</tr>
-			{% elif i.importancia == 'M' %}
-			<tr>
-				<td>Media</td>
-				<td>{{i.minimo}}</td>
-				<td>{{i.maximo}}</td>
-				<td><input type="text" name="valor31" value="{{i.valor}}"></td>
-			</tr>
-			{% elif i.importancia == 'B' %}
-			<tr>
-				<td>Baja</td>
-				<td>{{i.minimo}}</td>
-				<td>{{i.maximo}}</td>
-				<td><input type="text" name="valor32" value="{{i.valor}}"></td>
-			</tr>
-			{% endif %}
-			{% endfor %}
 		</table>
 	</div>
 </div>

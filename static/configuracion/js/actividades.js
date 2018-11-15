@@ -1,29 +1,20 @@
-var macros = document.getElementById("macros")
-var parrafo = document.getElementById('p')
-
-var actividades = document.getElementById('actividades')
-var nuevaFila = actividades.insertRow(-1)
-
-var celda0 = nuevaFila.insertCell(0)
-var celda1 = nuevaFila.insertCell(1)
-var celda2 = nuevaFila.insertCell(2)
-
-celda0.innerHTML = "Celda0"
-celda1.innerHTML = "Celda1"
-celda2.innerHTML = "Celda2"
-
-/*console.log(sel.options.length)
-for (var i = sel.options.length - 1; i >= 0; i--) {
-	parrafo.innerHTML += sel.options[i].text + "<br>"
-}
-*/
-function eleccion_marco() {
-	var e = document.getElementById("macros");
-	var strUser = e.options[e.selectedIndex].value;
-	console.log(strUser)
-}
-function eleccion_disciplina() {
-	var e = document.getElementById("disciplinas");
-	var strUser = e.options[e.selectedIndex].value;
-	console.log(strUser)
-}
+function buscar(){
+		//elemento a buscar
+		var texto = document.getElementById("busqueda")
+		// Validacion de seleccion
+		if (texto.value != ""){
+			var tbody = document.getElementById("contenido")
+			var tr = tbody.getElementsByTagName("tr")
+			//Iteracion sobre la tabla
+			for (var i = tr.length - 1; i >= 0; i--) {
+				var td = tr[i].getElementsByTagName("td")
+				//match
+				if ((td[0].innerText == texto.value) || (td[1].innerText == texto.value) || (td[2].innerText == texto.value) || (td[3].innerText == texto.value)){
+					tr[i].style.display = "";
+				}
+				else {
+					tr[i].style.display = "none";
+				}
+			}
+		}	
+	}

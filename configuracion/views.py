@@ -788,9 +788,11 @@ def actividades(request):
     if Macro.objects.all():
         actividades_macros = Macro.objects.all()
         actividades_especificas = Actividad.objects.all()
+        actividades_disciplinas = Disciplina.objects.all()
         context = {
             'actividades': actividades_especificas,
-            'macros': actividades_macros
+            'macros': actividades_macros,
+            'disciplinas': actividades_disciplinas,
         }
         return render(request, 'configuracion/actividades.html', context)
     messages.success(

@@ -9,62 +9,53 @@
 <div class="row justify-content-center px-3">
 	<div class="col-md-6 col-sm-12">
 		<table class="indicador">
-			<caption>Valoración de la intensidad</caption>
+			<caption>Criterios de clasificación de la importancia del efecto</caption>
 			<tr class="cabecera">
-				<th>Grado de perturbancia</th>
-				<th colspan="4">Valor socio-cultural</th>
+				<th>Importancia</th>
+				<th colspan="2">Rango</th>
+				<th>Valor del impacto</th>
 			</tr>
 			<tr class="cabecera">
 				<th>
-					<th>Muy alto</th>
-					<th>Alto</th>
-					<th>Medio</th>
-					<th>Bajo</th>
+					<th>Min</th>
+					<th>Max</th>
 				</th>
+				<th></th>
 			</tr>
-			<tr>	
-				<td>Fuerte</td>
-				{% for i in intensidad_fuerte %}
-				{% if i.valor_sociocultural == 'MA' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'A' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'M' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'B' %}
-				<td>{{i.valor}}</td>
-				{% endif %}
-				{% endfor %}
-			</tr>
-				<td>Medio</td>
-				{% for i in intensidad_medio %}
-				{% if i.valor_sociocultural == 'MA' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'A' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'M' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'B' %}
-				<td>{{i.valor}}</td>
-				{% endif %}
-				{% endfor %}
-			</tr>
+			{% for i in importancia %}
+			{% if i.importancia == 'MA' %}
 			<tr>
-				<td>Suave</td>
-				{% for i in intensidad_suave %}
-				{% if i.valor_sociocultural == 'MA' %}
+				<td>Muy alta</td>
+				<td>{{i.minimo}}</td>
+				<td>{{i.maximo}}</td>
 				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'A' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'M' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'B' %}
-				<td>{{i.valor}}</td>
-				{% endif %}
-				{% endfor %}
 			</tr>
+			{% elif i.importancia == 'A' %}
+			<tr>
+				<td>Alta</td>
+				<td>{{i.minimo}}</td>
+				<td>{{i.maximo}}</td>
+				<td>{{i.valor}}</td>
+			</tr>
+			{% elif i.importancia == 'M' %}
+			<tr>
+				<td>Media</td>
+				<td>{{i.minimo}}</td>
+				<td>{{i.maximo}}</td>
+				<td>{{i.valor}}</td>
+			</tr>
+			{% elif i.importancia == 'B' %}
+			<tr>
+				<td>Baja</td>
+				<td>{{i.minimo}}</td>
+				<td>{{i.maximo}}</td>
+				<td>{{i.valor}}</td>
+			</tr>
+			{% endif %}
+			{% endfor %}
 		</table>
 	</div>
+	
 	<div class="col-md-6 col-sm-12">
 		<table class="indicador">
 			<caption>Valoración de la extensión</caption>
@@ -209,50 +200,60 @@
 	</div>
 	<div class="col-md-6 col-sm-12">
 		<table class="indicador">
-			<caption>Criterios de clasificación de la importancia del efecto</caption>
+			<caption>Valoración de la intensidad</caption>
 			<tr class="cabecera">
-				<th>Importancia</th>
-				<th colspan="2">Rango</th>
-				<th>Valor del impacto</th>
+				<th>Grado de perturbancia</th>
+				<th colspan="4">Valor socio-cultural</th>
 			</tr>
 			<tr class="cabecera">
 				<th>
-					<th>Min</th>
-					<th>Max</th>
+					<th>Muy alto</th>
+					<th>Alto</th>
+					<th>Medio</th>
+					<th>Bajo</th>
 				</th>
-				<th></th>
 			</tr>
-			{% for i in importancia %}
-			{% if i.importancia == 'MA' %}
-			<tr>
-				<td>Muy alta</td>
-				<td>{{i.minimo}}</td>
-				<td>{{i.maximo}}</td>
+			<tr>	
+				<td>Fuerte</td>
+				{% for i in intensidad_fuerte %}
+				{% if i.valor_sociocultural == 'MA' %}
 				<td>{{i.valor}}</td>
-			</tr>
-			{% elif i.importancia == 'A' %}
-			<tr>
-				<td>Alta</td>
-				<td>{{i.minimo}}</td>
-				<td>{{i.maximo}}</td>
+				{% elif i.valor_sociocultural == 'A' %}
 				<td>{{i.valor}}</td>
-			</tr>
-			{% elif i.importancia == 'M' %}
-			<tr>
-				<td>Media</td>
-				<td>{{i.minimo}}</td>
-				<td>{{i.maximo}}</td>
+				{% elif i.valor_sociocultural == 'M' %}
 				<td>{{i.valor}}</td>
-			</tr>
-			{% elif i.importancia == 'B' %}
-			<tr>
-				<td>Baja</td>
-				<td>{{i.minimo}}</td>
-				<td>{{i.maximo}}</td>
+				{% elif i.valor_sociocultural == 'B' %}
 				<td>{{i.valor}}</td>
+				{% endif %}
+				{% endfor %}
 			</tr>
-			{% endif %}
-			{% endfor %}
+				<td>Medio</td>
+				{% for i in intensidad_medio %}
+				{% if i.valor_sociocultural == 'MA' %}
+				<td>{{i.valor}}</td>
+				{% elif i.valor_sociocultural == 'A' %}
+				<td>{{i.valor}}</td>
+				{% elif i.valor_sociocultural == 'M' %}
+				<td>{{i.valor}}</td>
+				{% elif i.valor_sociocultural == 'B' %}
+				<td>{{i.valor}}</td>
+				{% endif %}
+				{% endfor %}
+			</tr>
+			<tr>
+				<td>Suave</td>
+				{% for i in intensidad_suave %}
+				{% if i.valor_sociocultural == 'MA' %}
+				<td>{{i.valor}}</td>
+				{% elif i.valor_sociocultural == 'A' %}
+				<td>{{i.valor}}</td>
+				{% elif i.valor_sociocultural == 'M' %}
+				<td>{{i.valor}}</td>
+				{% elif i.valor_sociocultural == 'B' %}
+				<td>{{i.valor}}</td>
+				{% endif %}
+				{% endfor %}
+			</tr>
 		</table>
 	</div>
 </div>
