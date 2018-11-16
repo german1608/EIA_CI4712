@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'dashboard',
     'configuracion',
     'materializecssform',
+    'crispy_forms',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load materializecss %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
   <div class="row justify-content-center">
@@ -9,31 +10,10 @@
       <hr class="mt-0 mb-4">
       <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          {{  form|materializecss }}
+          {{ form | crispy }}
           <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
     </div>
   </div>
 </div>
 {% endblock %}
-
-{% block js %}
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/js/materialize.min.js" integrity="sha256-SrBfGi+Zp2LhAvy9M1bWOCXztRU9Ztztxmu5BcYPcPE=" crossorigin="anonymous"></script>
-
-<script>
-$(document).ready(function(){
-
-  // Initialize materialize data picker
-  $('.datepicker').datepicker({'format': 'yyyy-mm-dd'});
-  $('select').formSelect();
-
-});
-
-</script>
-
-{% endblock js %}
