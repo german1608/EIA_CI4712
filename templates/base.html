@@ -2,18 +2,15 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
   <meta charset="UTF-8">
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
   <link href="{% static 'fonts/material-icons/material-icons.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/custom.css' %}">
-  <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/all.css' %}" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
-    crossorigin="anonymous">
-
+  
 
   <!-- COMIENZO DEL CSS -->
 
@@ -23,20 +20,23 @@
   <!-- FIN DEL CSS -->
   <title>{% block title %}EIA{% endblock title %}</title>
 </head>
-
 <body>
 
-  <div class="wrapper">
+  <!-- COMIENZO DEL SIDEBAR -->
 
-    <!-- COMIENZO DEL SIDEBAR -->
 
-    <nav id="sidebar">
-      <!-- PARTE SUPERIOR DEL SIDEBAR -->
-      <div class="sidebar-header">
-        <img class="circle" src="{% static 'img/germanbb.jpg' %}">
-        <h4 id="side-menu-user-name" class="white-text name">Bienvenido {{ request.user.full_name }}</h4>
+  <ul id="slide-out" class="sidenav sidenav-fixed z-depth-2">
+
+    <!-- PARTE SUPERIOR DEL SIDEBAR -->
+
+    <li>
+      <div class="user-view">
+        <div class="background">
+          <div class="fill"></div>
+        </div>
+        <a href="#"><img class="circle" src="{% static 'img/germanbb.jpg' %}"></a>
+        <a href="#"><span id="side-menu-user-name" class="white-text name">Bienvenido {{ request.user.full_name }}</span></a>
       </div>
-
     </li>
 
     <!-- FIN DE LA PARTE SUPERIOR DEL SIDEBAR -->
@@ -100,8 +100,8 @@
     </section>
   </main>
 
-    <!-- FIN DE LA SECCION DE CONTENIDO -->
-  </div>
+  <!-- FIN DE LA SECCION DE CONTENIDO -->
+
   <!-- FOOTER -->
 
   <footer class="page-footer">
@@ -120,19 +120,11 @@
 
   <!-- COMIENZO DEL JS -->
   <script src="{% static 'js/jquery.min.js' %}"></script>
-  <script src="{% static 'js/bootstrap.min.js' %}"></script>
-  <script>
-    $(document).ready(function () {
-      $('#sidebarCollapse').on('click', function () {
-        $('#sidebar').toggleClass('active');
-      });
-    });
-  </script>
+  <script src="{% static 'js/materialize.min.js' %}"></script>
 
   {% block js %}
   {% endblock %}
 
   <!-- FIN DEL JS -->
 </body>
-
 </html>

@@ -39,7 +39,7 @@
 						<td>{{m.descripcion}}</td>
 						<td>{{m.proyecto}}</td>
 						<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href="{% url 'editar_disciplina' m.id %}">Modificar</a>
-							<a class="btn rounded" style="background: #4f6228; color: white;" onclick = "return confirm('¿Está seguro de eliminar esta disciplina?'" href="{% url 'eliminar_disciplina' m.id %}">Eliminar</a>
+							<a class="btn rounded" style="background: #4f6228; color: white;" onclick = "return confirm('¿Está seguro de eliminar esta disciplina?')" href="{% url 'eliminar_disciplina' m.id %}">Eliminar</a>
 						</td>
 					</tr>
 					{% endfor %}
