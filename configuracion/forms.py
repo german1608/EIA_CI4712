@@ -43,7 +43,7 @@ class EstudioForm(forms.ModelForm):
         }
 
         widgets = {
-            'nombre': forms.TextInput(attrs={'class':'browser-default', 'required':''}),
+            'nombre': forms.TextInput(attrs={'class':'form-control', 'required':''}),
             'tipo': forms.Select(attrs={'class':'form-control', 'required':''}),
             'valoracion_relevancia':forms.Select(attrs={'class':'form-control', 'required':''}),
             'tipo_relevancia': forms.Select(attrs={'class':'form-control', 'required':''}),
