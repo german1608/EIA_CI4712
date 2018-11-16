@@ -30,11 +30,20 @@
 				{% endfor %}
 			</tr>
 			{% endfor %}
+<<<<<<< HEAD
 			{% endif %}
 		</table>
 		<div class="justify-content-center">
 			<a class="btn" style="background: #4f6228; color: white" href="{% url 'agregar_estudio' %}">Agregar Estudio</a>
 		</div>
+=======
+		</tr>
+		{% endfor %}
+		{% endif %}
+	</table>
+	<div class="center-align section">
+		<a id="agregar-estudio" class="btn" style="background: #4f6228; color: white" href="{% url 'agregar_estudio' %}">Agregar Estudio</a>
+>>>>>>> 55a7dc94cfbb7c514b6f7bed2379ff185fdefa75
 	</div>
 </div>
 {%endblock%}
