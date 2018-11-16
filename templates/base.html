@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
   <meta charset="UTF-8">
@@ -12,7 +13,7 @@
   <link rel="stylesheet" href="{% static 'css/custom.css' %}">
   <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/all.css' %}" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
     crossorigin="anonymous">
-  
+
 
   <!-- COMIENZO DEL CSS -->
 
@@ -22,6 +23,7 @@
   <!-- FIN DEL CSS -->
   <title>{% block title %}EIA{% endblock title %}</title>
 </head>
+
 <body>
 
   <div class="wrapper">
@@ -29,7 +31,7 @@
     <!-- COMIENZO DEL SIDEBAR -->
 
     <nav id="sidebar">
-    <!-- PARTE SUPERIOR DEL SIDEBAR -->
+      <!-- PARTE SUPERIOR DEL SIDEBAR -->
       <div class="sidebar-header">
         <img class="circle" src="{% static 'img/germanbb.jpg' %}">
         <h4 id="side-menu-user-name" class="white-text name">Bienvenido {{ request.user.full_name }}</h4>
@@ -44,7 +46,7 @@
         <!-- PARTE INFERIOR DEL SIDEBAR -->
 
         <li class="active">
-          <a  href="{% url 'dashboard:index' %}"><i class="fas fa-home"></i>
+          <a href="{% url 'dashboard:index' %}"><i class="fas fa-home"></i>
             <span class="white-text">Home</span>
           </a>
         </li>
@@ -68,12 +70,12 @@
             <span class="white-text name">Cerrar Sesión</span>
           </a>
         </li>
-      
+
 
         <!-- FIN DE LA PARTE INFERIOR DEL SIDEBAR -->
 
       </ul>
-    
+
     </nav>
     <!-- FIN DE SIDEBAR -->
 
@@ -94,8 +96,8 @@
       </section>
     </main>
 
-  <!-- FIN DE LA SECCION DE CONTENIDO -->
-</div>
+    <!-- FIN DE LA SECCION DE CONTENIDO -->
+  </div>
   <!-- FOOTER -->
 
   <footer class="page-footer">
@@ -118,7 +120,7 @@
   <script>
     $(document).ready(function () {
       $('#sidebarCollapse').on('click', function () {
-          $('#sidebar').toggleClass('active');
+        $('#sidebar').toggleClass('active');
       });
     });
   </script>
@@ -128,4 +130,5 @@
 
   <!-- FIN DEL JS -->
 </body>
+
 </html>
