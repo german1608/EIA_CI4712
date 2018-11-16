@@ -5,42 +5,42 @@
 {% endblock %}
 {% block content %}
 
-<h4> Detalles del proyecto: {{detallesproyecto.proyecto}}</h4>
+<h4> Descripción del proyecto: {{descripcionproyecto.proyecto}}</h4>
 <div class="grid-container" style="margin-left:10%">
 
 
                 <div class="grid-item">
                         <div class="text-col">
                             <p class="title">Objetivo General</p>
-                            <p>{{ detallesproyecto.objGeneral}}</p>
+                            <p>{{ descripcionproyecto.objGeneral}}</p>
                         </div>
                 </div>
 
                 <div class="grid-item">
                         <div class="text-col">
                             <p class="title">Objetivos Específicos</p>
-                            <p>{{ detallesproyecto.objEspecifico }}</p>
+                            <p>{{ descripcionproyecto.objEspecifico }}</p>
                         </div>
                 </div>
                 
                 <div class="grid-item">
                   <div class="text-col">
                       <p class="title">Justificación</p>
-                      <p>{{ detallesproyecto.justificacion }}</p>
+                      <p>{{ descripcionproyecto.justificacion }}</p>
                   </div>
                 </div>
 
                 <div class="grid-item">
                   <div class="text-col">
                       <p class="title">Área de Estudio</p>
-                      <img class="icon"  src="{% detallesproyecto.area %}" height="100" width="150">
+                      <img class="icon"  src="{% url "media"  descripcionproyecto.area %}" height="100" width="150">
                   </div>
                 </div>
 
                 <div class="grid-item">
                   <div class="text-col">
                       <p class="title">Proyecto</p>
-                      <p><a href="{% url "consultor-crud:detalles-proyecto"  detallesproyecto.proyecto.id %}">{{ detallesdocumento.proyecto }}<a></a></p>
+                      <p><a href="{% url "consultor-crud:detalles-datos-proyecto"  descripcionproyecto.proyecto.id %}">{{ descripcionproyecto.proyecto }}<a></a></p>
                   </div>
                 </div>
 

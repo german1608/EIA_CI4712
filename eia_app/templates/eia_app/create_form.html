@@ -7,7 +7,7 @@
     <div class="col-8">
       <h3 class="mt-2">Agregar {{ nombre }}</h3>
       <hr class="mt-0 mb-4">
-      <form method="post">
+      <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
           {{  form|materializecss }}
           <button type="submit" class="btn btn-primary">Guardar</button>
