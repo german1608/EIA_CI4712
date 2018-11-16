@@ -46,6 +46,7 @@
 					<th>Descripcion</th>
 					<th>Disciplina</th>
 					<th>Macro</th>
+					<th>Amenazas</th>
 					<th>Acciones</th>
 				</tr>
 				<tbody id="contenido">
@@ -55,6 +56,7 @@
 						<td>{{m.descripcion}}</td>
 						<td>{{m.disciplina.nombre}}</td>
 						<td>{{m.macro.nombre}}</td>
+						<td>{{m.amenazas}}</td>
 						<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href="{% url 'editar_actividad' m.id %}">Modificar</a>
 							<a class="btn rounded" style="background: #4f6228; color: white;" onclick = "return confirm('¿Está seguro de eliminar esta actividad?')" href="{% url 'eliminar_actividad' m.id %}">Eliminar</a>
 						</td>
