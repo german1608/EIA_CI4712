@@ -3,6 +3,7 @@
 """
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 NIVEL_RELEVANCIA = (
@@ -340,7 +341,7 @@ class Actividad(models.Model):
         default="",
         )
     descripcion = models.CharField(
-        max_length=40,
+        max_length=300,
         default=""
         )
     disciplina = models.ForeignKey(
@@ -354,6 +355,10 @@ class Actividad(models.Model):
         Macro,
         default='',
         on_delete=models.CASCADE
+        )
+    amenazas = models.CharField(
+        max_length=500,
+        default=""
         )
 
     class Meta:

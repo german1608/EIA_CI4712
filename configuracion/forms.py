@@ -2,6 +2,7 @@
    Formularios de Configuracion
 """
 from django import forms
+from django.contrib.postgres.forms import SimpleArrayField
 from configuracion.models import Estudio, Intensidad, Duracion, Extension
 from configuracion.models import Reversibilidad, Probabilidad, Importancia
 from configuracion.models import Macro, Disciplina, Actividad
@@ -301,16 +302,19 @@ class ActividadForm(forms.ModelForm):
             'descripcion',
             'disciplina',
             'macro',
+            'amenazas'
         ]
         labels = {
             'nombre':'Nombre',
             'descripcion':'Descripcion',
             'disciplina':'Disciplina',
             'macro':'Actividad Macro',
+            'amenazas':'Posibles amenazas o vulnerabilidades'
         }
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control', 'required':''}),
             'descripcion':forms.Textarea(attrs={'class':'form-control', 'required':''}),
             'disciplina': forms.Select(attrs={'class':'form-control'}),
-            'macro': forms.Select(attrs={'class':'form-control'})
+            'macro': forms.Select(attrs={'class':'form-control'}),
+            'amenazas':forms.Textarea(attrs={'class':'form-control', 'required':''}),
         }
