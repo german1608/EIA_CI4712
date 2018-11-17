@@ -6,10 +6,10 @@ from django.test import Client
 from django.test import TestCase
 from django.urls import reverse
 from selenium.webdriver.support.ui import Select
-from configuracion.models import NIVEL_RELEVANCIA, TIPO_RELEVANCIA, GRADO_PERTUBACION
+from configuracion.models import NIVEL_RELEVANCIA, TIPO_RELEVANCIA, GRADO_PERTUBACION,VALOR_SA,EXT_CLASIFICACION,DUR_CRITERIOS,REV_CLASIFICACION,NIVEL_IMPORTANCIA,PROBABILIDAD,MEDIOS
 from configuracion.views import _calcular_via
 from configuracion.forms import EstudioForm
-from configuracion.models import Estudio
+from configuracion.models import Intensidad,Probabilidad,Extension,Duracion,Reversibilidad,Importancia,Estudio
 from utils.testutils import SeleniumTestCase
 
 class KaraotaTests(TestCase):
@@ -28,6 +28,15 @@ class KaraotaTests(TestCase):
         teardown
         """
         self.client = None
+    def test_database_estudio(self):
+        MyObject = type('MyObject', (object,), {})
+        v_test = MyObject()
+        v_test.pondIntensidad = 0
+        v_test.pondExtension = 0
+        v_test.pondDuracion = 0
+        v_test.pondReversibilidad = 0
+        v_test.pondProbabilidad = 0
+     
 
     def test_ponderaciones_iguala101(self):
         """
@@ -139,10 +148,147 @@ class KaraotaTests(TestCase):
         self.assertEqual(GRADO_PERTUBACION[0][1], grado_pertubacion_2[0][1])
         self.assertEqual(GRADO_PERTUBACION[1][1], grado_pertubacion_2[1][1])
         self.assertEqual(GRADO_PERTUBACION[2][1], grado_pertubacion_2[2][1])
+		
+    def test_no_cambiaron_valor_sa(self):
+        """
+            se verifica que nadie cambio los valores_sa
+        """
+        valor_sa_2 = (
+            ('MA', 'Muy Alto'),
+            ('A', 'Alto'),
+            ('M', 'Medio'),
+            ('B', 'Bajo'),
+        )
+        self.assertEqual(VALOR_SA[0][0], valor_sa_2[0][0])
+        self.assertEqual(VALOR_SA[1][0], valor_sa_2[1][0])
+        self.assertEqual(VALOR_SA[2][0], valor_sa_2[2][0])
+        self.assertEqual(VALOR_SA[3][0], valor_sa_2[3][0])
+		
+        self.assertEqual(VALOR_SA[0][1], valor_sa_2[0][1])
+        self.assertEqual(VALOR_SA[1][1], valor_sa_2[1][1])
+        self.assertEqual(VALOR_SA[2][1], valor_sa_2[2][1])
+        self.assertEqual(VALOR_SA[3][1], valor_sa_2[3][1])
+		
+    def test_no_cambiaron_ext_clasificacion(self):
+        """
+            se verifica que nadie cambio ext_clasificacion
+        """
+        ext = (
+            ('GE', 'Generalizada (>75%)'),
+            ('EX', 'Extensiva (35-74%)'),
+            ('LO', 'Local (10-34%)'),
+            ('PU', 'Puntual (<10%)'),
+            )
+        self.assertEqual(EXT_CLASIFICACION[0][0], ext[0][0])
+        self.assertEqual(EXT_CLASIFICACION[1][0], ext[1][0])
+        self.assertEqual(EXT_CLASIFICACION[2][0], ext[2][0])
+        self.assertEqual(EXT_CLASIFICACION[3][0], ext[3][0])
+		
+        self.assertEqual(EXT_CLASIFICACION[0][1], ext[0][1])
+        self.assertEqual(EXT_CLASIFICACION[1][1], ext[1][1])
+        self.assertEqual(EXT_CLASIFICACION[2][1], ext[2][1])
+        self.assertEqual(EXT_CLASIFICACION[3][1], ext[3][1])
+		
+    def test_no_cambiaron_dur_criterios(self):
+        """
+            se verifica que nadie cambio dur_clasifiacion
+        """
+        dur = (
+            ('M2', 'Menos de 2 años'),
+            ('M2-5', '2 a 5 años'),
+            ('M5-10', '5 a 10 años'),
+            ('M10', 'Mas de 10 años'),
+            )
+        self.assertEqual(DUR_CRITERIOS[0][0], dur[0][0])
+        self.assertEqual(DUR_CRITERIOS[1][0], dur[1][0])
+        self.assertEqual(DUR_CRITERIOS[2][0], dur[2][0])
+        self.assertEqual(DUR_CRITERIOS[3][0], dur[3][0])
 
+        self.assertEqual(DUR_CRITERIOS[0][1], dur[0][1])
+        self.assertEqual(DUR_CRITERIOS[1][1], dur[1][1])
+        self.assertEqual(DUR_CRITERIOS[2][1], dur[2][1])
+        self.assertEqual(DUR_CRITERIOS[3][1], dur[3][1])	
+
+    def test_no_cambiaron_rev_clasificacion(self):
+        """
+            se verifica que nadie cambio rev_clasificacion
+        """
+        rev = (
+            ('IR', 'Irreversible'),
+            ('TR', 'Requiere Tratamiento'),
+            ('MR', 'Medianamente Reversible'),
+            ('RE', 'Reversible'),
+            )
+        self.assertEqual(REV_CLASIFICACION[0][0], rev[0][0])
+        self.assertEqual(REV_CLASIFICACION[1][0], rev[1][0])
+        self.assertEqual(REV_CLASIFICACION[2][0], rev[2][0])
+        self.assertEqual(REV_CLASIFICACION[3][0], rev[3][0])
+		
+        self.assertEqual(REV_CLASIFICACION[0][1], rev[0][1])
+        self.assertEqual(REV_CLASIFICACION[1][1], rev[1][1])
+        self.assertEqual(REV_CLASIFICACION[2][1], rev[2][1])				
+        self.assertEqual(REV_CLASIFICACION[3][1], rev[3][1])
+		
+    def test_no_cambiaron_probabilidad(self):
+        """
+            se verifica que nadie cambio rev_clasificacion
+        """
+        pro = (
+            ('A', 'Alta'),
+            ('M', 'Media'),
+            ('B', 'Baja'),
+            ('N', 'Nula'),
+            )
+        self.assertEqual(PROBABILIDAD[0][0], pro[0][0])
+        self.assertEqual(PROBABILIDAD[1][0], pro[1][0])
+        self.assertEqual(PROBABILIDAD[2][0], pro[2][0])
+        self.assertEqual(PROBABILIDAD[3][0], pro[3][0])
+		
+        self.assertEqual(PROBABILIDAD[0][1], pro[0][1])
+        self.assertEqual(PROBABILIDAD[1][1], pro[1][1])
+        self.assertEqual(PROBABILIDAD[2][1], pro[2][1])				
+        self.assertEqual(PROBABILIDAD[3][1], pro[3][1])								
+		
+    def test_no_cambiaron_nivel_importancia(self):
+        """
+            se verifica que nadie cambio rev_clasificacion
+        """
+        niv = (
+            ('MA', 'Muy Alta'),
+            ('A', 'Alta'),
+            ('M', 'Media'),
+            ('B', 'Baja'),
+            )
+        self.assertEqual(NIVEL_IMPORTANCIA[0][0], niv[0][0])
+        self.assertEqual(NIVEL_IMPORTANCIA[1][0], niv[1][0])
+        self.assertEqual(NIVEL_IMPORTANCIA[2][0], niv[2][0])
+        self.assertEqual(NIVEL_IMPORTANCIA[3][0], niv[3][0])
+		
+        self.assertEqual(NIVEL_IMPORTANCIA[0][1], niv[0][1])
+        self.assertEqual(NIVEL_IMPORTANCIA[1][1], niv[1][1])
+        self.assertEqual(NIVEL_IMPORTANCIA[2][1], niv[2][1])				
+        self.assertEqual(NIVEL_IMPORTANCIA[3][1], niv[3][1])	
+		
+    def test_no_cambiaron_medios(self):
+        """
+            se verifica que nadie cambio rev_clasificacion
+        """
+        med = (
+            ('FS', 'Fisico'),
+            ('BIO', 'Biologico'),
+            ('SC', 'Socio-Cultural'),
+            )		
+        self.assertEqual(MEDIOS[0][0], med[0][0])
+        self.assertEqual(MEDIOS[1][0], med[1][0])
+        self.assertEqual(MEDIOS[2][0], med[2][0])
+
+        self.assertEqual(MEDIOS[0][1], med[0][1])
+        self.assertEqual(MEDIOS[1][1], med[1][1])
+        self.assertEqual(MEDIOS[2][1], med[2][1])				
+			
     def test_http_reponse_ok_tabla(self):
         """
-        Estatu Ok HTTP de la pagina de la tabla
+        Estatus Ok HTTP de la pagina de la tabla
         """
         response = self.client.get('/configuracion/index/')
         self.assertEqual(response.status_code, 200)
@@ -199,6 +345,171 @@ class KaraotaTests(TestCase):
         response = self.client.get('/configuracion/modificar_tablas/')
         self.assertTemplateUsed(response, 'configuracion/modificar_tablas.html')
         self.assertTemplateUsed(response, 'base.html')
+
+class TestsIntegridadDatosTablasEstudio(TestCase):
+    def setUp(self):
+        '''Se crean instancias para las pruebas'''
+		
+		#Intensidad
+        self.intensidad = [[None,None,None],[None,None,None],[None,None,None],[None,None,None]]
+        self.intensidad[0][0]=Intensidad.objects.filter(valor_sociocultural="MA",grado_perturbacion="F").first()
+        self.intensidad[0][1]=Intensidad.objects.filter(valor_sociocultural="MA",grado_perturbacion="M").first()  
+        self.intensidad[0][2]=Intensidad.objects.filter(valor_sociocultural="MA",grado_perturbacion="S").first()  
+		
+        self.intensidad[1][0]=Intensidad.objects.filter(valor_sociocultural="A",grado_perturbacion="F").first()  
+        self.intensidad[1][1]=Intensidad.objects.filter(valor_sociocultural="A",grado_perturbacion="M").first()  
+        self.intensidad[1][2]=Intensidad.objects.filter(valor_sociocultural="A",grado_perturbacion="S").first()  
+
+        self.intensidad[2][0]=Intensidad.objects.filter(valor_sociocultural="M",grado_perturbacion="F").first()  
+        self.intensidad[2][1]=Intensidad.objects.filter(valor_sociocultural="M",grado_perturbacion="M").first()  
+        self.intensidad[2][2]=Intensidad.objects.filter(valor_sociocultural="M",grado_perturbacion="S").first()  
+		
+        self.intensidad[3][0]=Intensidad.objects.filter(valor_sociocultural="B",grado_perturbacion="F").first()  
+        self.intensidad[3][1]=Intensidad.objects.filter(valor_sociocultural="B",grado_perturbacion="M").first()  
+        self.intensidad[3][2]=Intensidad.objects.filter(valor_sociocultural="B",grado_perturbacion="S").first()  	
+
+        #Extension
+        self.extension = [None,None,None,None]
+        self.extension[0] = Extension.objects.filter(clasificacion="GE").first()
+        self.extension[1] = Extension.objects.filter(clasificacion="EX").first()
+        self.extension[2] = Extension.objects.filter(clasificacion="LO").first()
+        self.extension[3] = Extension.objects.filter(clasificacion="PU").first()
+
+
+        #Duracion
+        self.duracion = [None,None,None,None]
+
+        self.duracion[0] = Duracion.objects.filter(criterio="M10").first()
+        self.duracion[1] = Duracion.objects.filter(criterio="M5-10").first()
+        self.duracion[2] = Duracion.objects.filter(criterio="M2-5").first()
+        self.duracion[3] = Duracion.objects.filter(criterio="M2").first()
+		
+        #Reversibilidad
+        self.reversibilidad = [None,None,None,None]
+        self.reversibilidad[0] = Reversibilidad.objects.filter(clasificacion="IR").first()
+        self.reversibilidad[1] = Reversibilidad.objects.filter(clasificacion="TR").first()
+        self.reversibilidad[2] = Reversibilidad.objects.filter(clasificacion="MR").first()
+        self.reversibilidad[3] = Reversibilidad.objects.filter(clasificacion="RE").first()
+
+        #Importancia
+        self.importancia = [None,None,None,None]
+        self.importancia[0] = Importancia.objects.filter(importancia="MA").first()
+        self.importancia[1] = Importancia.objects.filter(importancia="A").first()
+        self.importancia[2] = Importancia.objects.filter(importancia="M").first()
+        self.importancia[3] = Importancia.objects.filter(importancia="B").first()
+		
+		#Probabilidad
+
+        self.probabilidad = [None,None,None,None]
+        self.probabilidad[0] = Probabilidad.objects.filter(probabilidad="A").first()
+        self.probabilidad[1] = Probabilidad.objects.filter(probabilidad="M").first()
+        self.probabilidad[2] = Probabilidad.objects.filter(probabilidad="B").first()
+        self.probabilidad[3] = Probabilidad.objects.filter(probabilidad="N").first()
+
+    def test_intensidad_transitividad_MA(self):
+        self.assertTrue(self.intensidad[0][0].valor>= self.intensidad[0][1].valor and self.intensidad[0][1].valor >= self.intensidad[0][2].valor )	
+
+    def test_intensidad_limites_MA(self):
+
+        self.assertTrue(self.intensidad[1][0].valor>= 0 and self.intensidad[1][2].valor<=10)		
+		
+    def test_intensidad_transitividad_A(self):
+        self.assertTrue(self.intensidad[1][0].valor>= self.intensidad[1][1].valor and self.intensidad[1][1].valor >= self.intensidad[1][2].valor )	
+
+    def test_intensidad_limites_A(self):
+
+        self.assertTrue(self.intensidad[1][0].valor>= 0 and self.intensidad[1][2].valor<=10)	
+		
+    def test_intensidad_transitividad_M(self):
+        self.assertTrue(self.intensidad[2][0].valor>= self.intensidad[2][1].valor and self.intensidad[2][1].valor >= self.intensidad[2][2].valor )	
+
+    def test_intensidad_limites_M(self):
+
+        self.assertTrue(self.intensidad[2][0].valor>= 0 and self.intensidad[2][2].valor<=10)			
+		
+    def test_intensidad_transitividad_B(self):
+        self.assertTrue(self.intensidad[3][0].valor>= self.intensidad[3][1].valor and self.intensidad[3][1].valor >= self.intensidad[3][2].valor )	
+
+    def test_intensidad_limites_B(self):
+
+        self.assertTrue(self.intensidad[3][0].valor>= 0 and self.intensidad[3][2].valor<=10)
+		
+    def test_extension_transitividad(self):
+
+        self.assertTrue(self.extension[0].valor>= self.extension[1].valor and self.extension[1].valor >= self.extension[2].valor and self.extension[2].valor>= self.extension[3].valor)	
+		
+    def test_extension_limites(self):
+
+        self.assertTrue(self.extension[0].valor>= 0 and self.extension[3].valor<=10)					
+
+    def test_duracion_transitividad(self):
+
+        self.assertTrue(self.duracion[0].valor>= self.duracion[1].valor and self.duracion[1].valor >= self.duracion[2].valor and self.duracion[2].valor>= self.duracion[3].valor)	
+		
+    def test_duracion_limites(self):
+
+        self.assertTrue(self.duracion[0].valor>= 0 and self.duracion[3].valor<=10)					
+		
+    def test_reversibilidad_transitividad(self):
+
+        self.assertTrue(self.reversibilidad[0].valor>= self.reversibilidad[1].valor and self.reversibilidad[1].valor >= self.reversibilidad[2].valor and self.reversibilidad[2].valor>= self.reversibilidad[3].valor)	
+		
+    def test_reversibilidad_limites(self):
+
+        self.assertTrue(self.reversibilidad[0].valor>= 0 and self.reversibilidad[3].valor<=10)					
+		
+    def test_importancia_transitividad(self):
+
+        self.assertTrue(self.importancia[0].valor>= self.importancia[1].valor and self.importancia[1].valor >= self.importancia[2].valor and self.importancia[2].valor>= self.importancia[3].valor)	
+		
+    def test_importancia_limites(self):
+
+        self.assertTrue(self.importancia[0].valor>= 0 and self.importancia[3].valor<=10)					
+						
+    def test_probabilidad_transitividad(self):
+
+        self.assertTrue(self.probabilidad[0].valor>= self.probabilidad[1].valor and self.probabilidad[1].valor >= self.probabilidad[2].valor and self.probabilidad[2].valor>= self.probabilidad[3].valor)	
+		
+    def test_probabilidad_limites(self):
+
+        self.assertTrue(self.probabilidad[0].valor>= 0 and self.probabilidad[3].valor<=100)			
+		
+		
+class TestsEstudio(TestCase):	
+			
+    def test_insertar_estudio(self):
+        intensidad2 = Intensidad.objects.filter(valor_sociocultural="MA",grado_perturbacion="F").first()
+        extension2=Extension.objects.filter(clasificacion="GE").first()
+        duracion2=Duracion.objects.filter(criterio="M10").first()
+        reversibilidad2=Reversibilidad.objects.filter(clasificacion="IR").first()
+        importancia2=Importancia.objects.filter(importancia="MA").first()
+        probabilidad2=Probabilidad.objects.filter(probabilidad="A").first()		
+		
+        est = Estudio.objects.create(
+            nombre="test_estudio",
+			tipo="FS",
+			valoracion_relevancia="MA",
+			tipo_relevancia="DI",
+			intensidad=intensidad2,
+			extension = extension2,
+			duracion = duracion2,
+			reversibilidad = reversibilidad2,
+			probabilidad = probabilidad2,
+			pondIntensidad="20",
+			pondExtension="20",
+			pondDuracion="20",
+			pondReversibilidad="20",
+			pondProbabilidad="20",
+			via="5",
+			importancia_estudio = importancia2
+		)
+		
+
+        est2 = Estudio.objects.filter(nombre="test_estudio").first()      		
+		
+        self.assertEqual(est.id,est2.id)			
+		
+ 
 
 
 class PruebaFormularioEstudio(SeleniumTestCase):
