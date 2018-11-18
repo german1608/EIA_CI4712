@@ -8,7 +8,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-8">
-      <h3 class="mt-2">{% if edicion %}Editar{% else %}Agregar{% endif %} marco {{tipo}}</h3>
+      <h3 class="mt-2">{% if edicion %}Editar{% else %}Agregar{% endif %} marco {{tipo_marco}}</h3>
       <hr class="mt-0 mb-4">
       <form method="post">
         {% csrf_token %}
@@ -45,7 +45,7 @@
     $('form').on('submit', function(e) {
       console.log(quill.getText() === '\n')
       if (quill.getText() === '\n') {
-        alert('Llene los datos del marco {{tipo}}')
+        alert('Llene los datos del marco {{tipo_marco}}')
         return false
       }
       $('#id_contenido').val(JSON.stringify(quill.getContents()))
