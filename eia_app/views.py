@@ -216,8 +216,12 @@ class DatosDocumentoDelete(DeleteView):  # pylint: disable=too-many-ancestors
     success_url = reverse_lazy('consultor-crud:lista-datos-documentos')
 
 class MarcoListView(ListView):
-    '''Lista los marcos del sistema'''
-    template_name = 'eia_app/marco_{tipo}/list.html'
+    '''
+    Lista los marcos del sistema
+    Toma los siguientes parametros:
+        tipo: (metodologico|juridico|teorico) Tipo de marco a listar
+    '''
+    template_name = 'eia_app/marco/list.html'
     model = DatosProyecto
 
     def get_queryset(self):
@@ -226,6 +230,19 @@ class MarcoListView(ListView):
         }
         # Filtramos los que no esten en None
         return self.model.objects.filter(~Q(**query))
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        tipo = self.kwargs.get('tipo')
+        context['tipo'] = tipo
+        if tipo == 'metodologico':
+            tipo_marco = 'metodológico'
+        elif tipo == 'teorico':
+            tipo_marco = 'teórico'
+        else:
+            tipo_marco = 'jurídico'
+        context['tipo_marco'] = tipo_marco
+        return context
 
     def get(self, request, *args, **kwargs):
         self.template_name = self.template_name.format(tipo=kwargs.get('tipo'))

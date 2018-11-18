@@ -6,12 +6,12 @@
 
 {% block content %}
 
-<h3>Lista de marcos metodológicos</h3>
+<h3>Lista de marcos {{tipo_marco}}s</h3>
 <p>
-    <a href="{% url 'eia_app:crear-marco' 'metodologico' %}">Agregar marco metodológico</a>
+    <a href="{% url 'eia_app:crear-marco' tipo %}">Agregar marco {{tipo_marco}}</a>
 </p>
 <div class="container" style="width:90% !important">
-    {%if object_list.count > 0%}
+    {% if object_list.count > 0 %}
       <table id="datos_documento" class="display">
         <thead>
             <tr>
@@ -24,13 +24,13 @@
             <tr>
                 <td>{{ proyecto.titulo }}</td>
                 <td colspan="3" style="text-align:center;">
-                  <a href="{% url 'eia_app:detalles-marco' tipo='metodologico' pk=proyecto.pk %}">
+                  <a href="{% url 'eia_app:detalles-marco' tipo=tipo pk=proyecto.pk %}">
                     <i class="material-icons" style="color: #77933c">info</i>
                   </a>
-                  <a href="{% url 'eia_app:editar-marco' tipo='metodologico' pk=proyecto.pk %}">
+                  <a href="{% url 'eia_app:editar-marco' tipo=tipo pk=proyecto.pk %}">
                     <i class="material-icons" style="color: #77933c">edit</i>
                   </a>
-                  <a href="{% url 'eia_app:eliminar-marco' tipo='metodologico' pk=proyecto.pk %}">
+                  <a href="{% url 'eia_app:eliminar-marco' tipo=tipo pk=proyecto.pk %}">
                     <i class="material-icons" style="color: #77933c">delete</i>
                   </a>
                 </td>
@@ -39,7 +39,7 @@
         </tbody>
       </table>
       {% else %}
-      <p>No existen datos de un documentos agregados a la base de datos</p>
+      <p>No existen datos de un marcos {{tipo_marco}} en la base de datos</p>
     {% endif %}
 </div>
 
