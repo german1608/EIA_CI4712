@@ -251,7 +251,7 @@ class MarcoListView(ListView):
 class MarcoCreateView(FormView):
     """ Vista que permite crear un marco metodologico a un proyecto """
     form_class = MarcoForm
-    template_name = 'eia_app/marco_form.html'
+    template_name = 'eia_app/marco/form.html'
     success_url = reverse_lazy('consultor-crud:lista-marcos')
     def get_context_data(self):
         context = super().get_context_data()
