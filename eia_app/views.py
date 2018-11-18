@@ -311,8 +311,19 @@ class MarcoDetailView(CargaContextoMarcoMixin, DetailView):
 def delete_marco_view(request, tipo, pk):
     proyecto = DatosProyecto.objects.get(pk=pk)
     if request.method == 'GET':
-        return render(request, 'eia_app/marco_{tipo}/delete.html'.format(tipo=tipo),
-                      {'object':proyecto})
+        if tipo == 'metodologico':
+            contenido = proyecto.marco_metodologico
+            tipo_marco = 'metodológico'
+        elif tipo == 'teorico':
+            contenido = proyecto.marco_teorico
+            tipo_marco = 'teórico'
+        else:
+            contenido = proyecto.marco_juridico
+            tipo_marco = 'jurídico'
+        if contenido is None:
+            return redirect('dashboard:index')
+        return render(request, 'eia_app/marco/delete.html',
+                      {'object':proyecto, 'contenido': contenido, 'tipo_marco': tipo_marco})
 
     if tipo == 'metodologico':
         proyecto.marco_metodologico = None
