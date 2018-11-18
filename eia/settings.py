@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'dashboard',
     'configuracion',
-    'materializecssform',
+    'bootstrap4',
     'behave_django',
 ]
 
