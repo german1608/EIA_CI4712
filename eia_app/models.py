@@ -293,7 +293,7 @@ class DescripcionProyecto(models.Model):
         area: mapa del sitio o espacio donde se realiza el estudio
     """
     proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
-    objGeneral = models.TextField()
+    obj_general = models.TextField()
     obj_especifico = models.TextField()
     justificacion = models.TextField()
     area = models.ImageField()
