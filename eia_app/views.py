@@ -249,6 +249,20 @@ class MarcoCreateView(FormView):
         return super().form_valid(form)
 
 
+class MarcoDetailView(DetailView):
+    template_name = "eia_app/marco_{tipo}/detail.html"
+    model = DatosProyecto
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tipo'] = self.kwargs.get('tipo')
+        return context
+
+    def get(self, request, *args, **kwargs):
+        self.template_name = self.template_name.format(tipo=kwargs.get('tipo'))
+        return super().get(request, *args, **kwargs)
+
+
 def consultor_index(request):
     '''Index de la vista del consultor'''
     template_name = 'eia_app/consultor-crud_index.html'
