@@ -3,6 +3,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView, DeleteView,
                                   FormView)
+from django.views.generic.base import ContextMixin
 from django.urls import reverse_lazy
 from django.db.models import Q
 from .models import (
@@ -215,7 +216,22 @@ class DatosDocumentoDelete(DeleteView):  # pylint: disable=too-many-ancestors
     template_name = 'eia_app/datos_documentos/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-documentos')
 
-class MarcoListView(ListView):
+class CargaContextoMarcoMixin(ContextMixin):
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        tipo = self.kwargs.get('tipo')
+        context['tipo'] = tipo
+        if tipo == 'metodologico':
+            tipo_marco = 'metodológico'
+        elif tipo == 'teorico':
+            tipo_marco = 'teórico'
+        else:
+            tipo_marco = 'jurídico'
+        context['tipo_marco'] = tipo_marco
+        return context
+
+
+class MarcoListView(CargaContextoMarcoMixin, ListView):
     '''
     Lista los marcos del sistema
     Toma los siguientes parametros:
@@ -231,39 +247,23 @@ class MarcoListView(ListView):
         # Filtramos los que no esten en None
         return self.model.objects.filter(~Q(**query))
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        tipo = self.kwargs.get('tipo')
-        context['tipo'] = tipo
-        if tipo == 'metodologico':
-            tipo_marco = 'metodológico'
-        elif tipo == 'teorico':
-            tipo_marco = 'teórico'
-        else:
-            tipo_marco = 'jurídico'
-        context['tipo_marco'] = tipo_marco
-        return context
 
-    def get(self, request, *args, **kwargs):
-        self.template_name = self.template_name.format(tipo=kwargs.get('tipo'))
-        return super().get(request, *args, **kwargs)
-
-class MarcoCreateView(FormView):
+class MarcoCreateView(CargaContextoMarcoMixin, FormView):
     """ Vista que permite crear un marco metodologico a un proyecto """
     form_class = MarcoForm
     template_name = 'eia_app/marco/form.html'
     success_url = reverse_lazy('consultor-crud:lista-marcos')
-    def get_context_data(self):
-        context = super().get_context_data()
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
         context['edicion'] = self.kwargs.get('pk', None) != None
         return context
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        pk = self.kwargs.get('pk', None)
-        if pk is None:
+        pk_proyecto = self.kwargs.get('pk', None)
+        if pk_proyecto is None:
             return kwargs
-        proyecto = DatosProyecto.objects.get(pk=pk)
+        proyecto = DatosProyecto.objects.get(pk=pk_proyecto)
         tipo = self.kwargs.get('tipo')
         if tipo == 'metodologico':
             contenido = proyecto.marco_metodologico
@@ -272,7 +272,7 @@ class MarcoCreateView(FormView):
         else:
             contenido = proyecto.marco_juridico
         kwargs['initial']['contenido'] = contenido
-        kwargs['initial']['proyecto'] = pk
+        kwargs['initial']['proyecto'] = pk_proyecto
         return kwargs
 
     def form_valid(self, form):
@@ -292,9 +292,7 @@ class MarcoCreateView(FormView):
         proyecto.save()
         return super().form_valid(form)
 
-
-class MarcoDetailView(DetailView):
-    template_name = "eia_app/marco_{tipo}/detail.html"
+class MarcoDetailView(CargaContextoMarcoMixin, DetailView):
     model = DatosProyecto
 
     def get_context_data(self, **kwargs):
