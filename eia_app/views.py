@@ -1,18 +1,18 @@
 '''Views del crud del consultor'''
 
 from django.shortcuts import render
-from django.views.generic import (CreateView, DetailView,
-                                  ListView,
-                                  UpdateView,
-                                  DeleteView)
+from django.views.generic import (CreateView, DetailView, ListView, UpdateView, DeleteView,
+                                  FormView)
 from django.urls import reverse_lazy
+from django.db.models import Q
 from .models import (
     Organizacion, Responsable, Solicitante,
     DatosProyecto, DatosDocumento
 )
 from .forms import (
     OrganizacionCreateForm, SolicitanteCreateForm,
-    ResponsableCreateForm, DatosDocumentoCreateForm, DatosProyectoCreateForm
+    ResponsableCreateForm, DatosDocumentoCreateForm, DatosProyectoCreateForm,
+    MarcoForm
 )
 
 
@@ -230,6 +230,23 @@ class MarcoListView(ListView):
     def get(self, request, *args, **kwargs):
         self.template_name = self.template_name.format(tipo=kwargs.get('tipo'))
         return super().get(request, *args, **kwargs)
+
+class MarcoCreateView(FormView):
+    """ Vista que permite crear un marco metodologico a un proyecto """
+    form_class = MarcoForm
+    template_name = 'eia_app/marco_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-marcos')
+    def form_valid(self, form):
+        tipo = self.kwargs.get('tipo')
+        self.success_url = reverse_lazy('consultor-crud:lista-marcos', kwargs={
+            'tipo': tipo
+        })
+        proyecto = form.cleaned_data['proyecto']
+        contenido = form.cleaned_data['contenido']
+        if tipo == 'metodologico':
+            proyecto.marco_metodologico = contenido
+        proyecto.save()
+        return super().form_valid(form)
 
 
 def consultor_index(request):

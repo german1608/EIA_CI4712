@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/quill.min.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <h3 class="mt-2">Agregar marco {{tipo}}</h3>
+      <hr class="mt-0 mb-4">
+      <form method="post">
+        {% csrf_token %}
+        {% bootstrap_field form.proyecto %}
+        {{form.contenido.as_hidden}}
+        {{form.contenido.errors}}
+        <div class="form-group">
+          <label for="exampleInputEmail1">{{form.contenido.label}}</label>
+          <div id="editor"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/quill.min.js' %}"></script>
+<script>
+  $(document).ready(function () {
+
+    // Initialize materialize data picker
+    const quill = new Quill('#editor', {
+      theme: 'snow',
+      placeholder: 'Introduzca su marco...'
+    })
+
+    $('form').on('submit', function(e) {
+      console.log(quill.getText() === '\n')
+      if (quill.getText() === '\n') {
+        alert('Llene los datos del marco {{tipo}}')
+        return false
+      }
+      $('#id_contenido').val(JSON.stringify(quill.getContents()))
+      return true
+    })
+  });
+
+</script>
+
+{% endblock js %}

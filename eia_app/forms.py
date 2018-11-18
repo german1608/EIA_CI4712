@@ -40,3 +40,8 @@ class DatosDocumentoCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = DatosDocumento
         fields = '__all__'
+
+class MarcoForm(forms.Form):
+    """Form para el marco (metodologico, juridico o teorico) de un proyecto."""
+    proyecto = forms.ModelChoiceField(DatosProyecto.objects.all(), label='Proyecto')
+    contenido = forms.CharField(widget=forms.Textarea, label='Contenido')
