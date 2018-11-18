@@ -2,6 +2,7 @@
 caption{
   caption-side: top;
   text-align: center;
+  background: #f3f3f3;
 }
 
 input{
@@ -85,7 +86,6 @@ h1{
 
 .indicador{
   font-weight: bold;
-  border: 2px solid #000;
   text-align: center;
   width: 100%;
 }
