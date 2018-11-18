@@ -220,6 +220,13 @@ class MarcoListView(ListView):
     template_name = 'eia_app/marco_{tipo}/list.html'
     model = DatosProyecto
 
+    def get_queryset(self):
+        query = {
+            'marco_{tipo}'.format(tipo=self.kwargs.get('tipo')): None
+        }
+        # Filtramos los que no esten en None
+        return self.model.objects.filter(~Q(**query))
+
     def get(self, request, *args, **kwargs):
         self.template_name = self.template_name.format(tipo=kwargs.get('tipo'))
         return super().get(request, *args, **kwargs)
