@@ -294,7 +294,7 @@ class DescripcionProyecto(models.Model):
     """
     proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
     objGeneral = models.TextField()
-    objEspecifico = models.TextField()
+    obj_especifico = models.TextField()
     justificacion = models.TextField()
     area = models.ImageField()
 
