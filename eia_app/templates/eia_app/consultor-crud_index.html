@@ -28,7 +28,7 @@
 <div class="row">
   <div class="col s4">
     <div class="card">
-      <a href="{% url " consultor-crud:lista-organizaciones" %}">
+      <a href="{% url "consultor-crud:lista-organizaciones" %}">
         <div class="card">
           <img class="icon" src="{% static 'img/enterprise.png' %}" height="100" width="150" style="margin-left:auto; margin-right:auto">
 
@@ -44,7 +44,7 @@
   </div>
   <div class="col s4">
     <div class="card">
-      <a href="{% url " consultor-crud:lista-datos-proyectos" %}">
+      <a href="{% url "consultor-crud:lista-datos-proyectos" %}">
         <div class="card">
           <img class="icon" src="{% static 'img/infographic.png' %}" height="100" width="150">
           <div class="card-title">
@@ -60,7 +60,7 @@
 
   <div class="col s4">
     <div class="card">
-      <a href="{% url " consultor-crud:lista-responsables" %}">
+      <a href="{% url "consultor-crud:lista-responsables" %}">
         <div class="card">
           <img class="icon" src="{% static 'img/group.png' %}" height="100" width="150">
           <div class="card-title">
@@ -78,7 +78,7 @@
 <div class="row">
   <div class="col s4">
     <div class="card">
-      <a href="{% url " consultor-crud:lista-datos-documentos" %}">
+      <a href="{% url "consultor-crud:lista-datos-documentos" %}">
         <div class="card">
           <img class="icon" src="{% static 'img/folder.png' %}" height="100" width="150">
           <div class="card-title">
@@ -94,7 +94,7 @@
 
   <div class="col s4">
     <div class="card">
-      <a href="{% url " consultor-crud:lista-solicitantes" %}">
+      <a href="{% url "consultor-crud:lista-solicitantes" %}">
         <div class="card">
           <img class="icon" src="{% static 'img/solicitante.png' %}" height="100" width="150">
           <div class="card-title">
@@ -107,12 +107,51 @@
       </a>
     </div>
   </div>
+  <div class="col s4">
+    <div class="card">
+      <a href="{% url "consultor-crud:lista-solicitantes" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/teorico.png' %}" height="100" width="150">
+          <div class="card-title">
+            <h5>
+              Ver marcos teóricos
+            </h5>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
 </div>
-
-
-
+<div class="row">
+  <div class="col s4">
+    <div class="card">
+      <a href="{% url "consultor-crud:lista-solicitantes" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/metodologico.png' %}" height="100" width="150">
+          <div class="card-title">
+            <h5>
+              Ver marcos metodológicos
+            </h5>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="col s4">
+    <div class="card">
+      <a href="{% url "consultor-crud:lista-solicitantes" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/juridico.png' %}" height="100" width="150">
+          <div class="card-title">
+            <h5>
+              Ver marcos jurídicos
+            </h5>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
 
 </div>
-
 
 {% endblock %}
