@@ -12,7 +12,7 @@ from .models import (
 )
 from .forms import (
     OrganizacionCreateForm, SolicitanteCreateForm,
-    ResponsableCreateForm, DatosDocumentoCreateForm
+    ResponsableCreateForm, DatosDocumentoCreateForm, DatosProyectoCreateForm
 )
 
 
@@ -65,7 +65,7 @@ class DatosProyectoList(ListView):  # pylint: disable=too-many-ancestors
 class DatosProyectoCreate(CreateView):  # pylint: disable=too-many-ancestors
     '''Crear datos de un proyecto'''
     model = DatosProyecto
-    fields = '__all__'
+    form_class = DatosProyectoCreateForm
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-proyectos')
 
@@ -80,7 +80,7 @@ class DatosProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     model = DatosProyecto
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-proyectos')
-    fields = '__all__'
+    form_class = DatosProyectoCreateForm
 
 
 class DatosProyectoDelete(DeleteView):  # pylint: disable=too-many-ancestors
