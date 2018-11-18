@@ -6,6 +6,7 @@ from .views import * #pylint: disable=wildcard-import, unused-wildcard-import
 app_name = 'eia_app' #pylint: disable=invalid-name
 
 urlpatterns = [ #pylint: disable=invalid-name
+    path('', consultor_index, name='consultor-crud-index'),
     path('organizaciones/', OrganizacionList.as_view(),
          name='lista-organizaciones'),
     path('organizaciones/nuevo/', OrganizacionCreate.as_view(),
