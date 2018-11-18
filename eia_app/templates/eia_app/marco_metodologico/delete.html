@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h6>¿Estás seguro que deseas borrar el marco metodológico del proyecto "{{ object.titulo }}"?</h6>
+<div class="container">
+  <div id="editor"></div>
+</div>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-primary">Aceptar</button>
+</form>
+{% endblock %}
+
+
+{% block js %}
+<script src="{% static 'js/quill.min.js' %}"></script>
+<script>
+  $(function () {
+    const quill = new Quill('#editor')
+    quill.disable()
+    {% autoescape off %}
+    quill.setContents({{ object.marco_metodologico }})
+  {% endautoescape %}
+  })
+</script>
+{% endblock js %}

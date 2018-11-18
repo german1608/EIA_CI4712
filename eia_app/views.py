@@ -1,6 +1,6 @@
 '''Views del crud del consultor'''
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView, DeleteView,
                                   FormView)
 from django.urls import reverse_lazy
@@ -262,6 +262,20 @@ class MarcoDetailView(DetailView):
         self.template_name = self.template_name.format(tipo=kwargs.get('tipo'))
         return super().get(request, *args, **kwargs)
 
+def delete_marco_view(request, tipo, pk):
+    proyecto = DatosProyecto.objects.get(pk=pk)
+    if request.method == 'GET':
+        return render(request, 'eia_app/marco_{tipo}/delete.html'.format(tipo=tipo),
+                      {'object':proyecto})
+
+    if tipo == 'metodologico':
+        proyecto.marco_metodologico = None
+    elif tipo == 'juridico':
+        proyecto.marco_juridico = None
+    else:
+        proyecto.marco_teorico = None
+    proyecto.save()
+    return redirect(reverse_lazy('consultor-crud:lista-marcos', kwargs={'tipo': tipo}))
 
 def consultor_index(request):
     '''Index de la vista del consultor'''
