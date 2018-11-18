@@ -36,6 +36,11 @@
       theme: 'snow',
       placeholder: 'Introduzca su marco...'
     })
+    {% if edicion %}
+    {% autoescape off %}
+    quill.setContents({{form.initial.contenido}})
+    {% endautoescape %}
+    {% endif %}
 
     $('form').on('submit', function(e) {
       console.log(quill.getText() === '\n')

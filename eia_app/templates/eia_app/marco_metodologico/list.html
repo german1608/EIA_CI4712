@@ -27,7 +27,7 @@
                   <a href="{% url 'eia_app:detalles-marco' tipo='metodologico' pk=proyecto.pk %}">
                     <i class="material-icons" style="color: #77933c">info</i>
                   </a>
-                  <a href="">
+                  <a href="{% url 'eia_app:editar-marco' tipo='metodologico' pk=proyecto.pk %}">
                     <i class="material-icons" style="color: #77933c">edit</i>
                   </a>
                   <a href="{% url 'eia_app:eliminar-marco' tipo='metodologico' pk=proyecto.pk %}">

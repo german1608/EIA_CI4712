@@ -236,6 +236,28 @@ class MarcoCreateView(FormView):
     form_class = MarcoForm
     template_name = 'eia_app/marco_form.html'
     success_url = reverse_lazy('consultor-crud:lista-marcos')
+    def get_context_data(self):
+        context = super().get_context_data()
+        context['edicion'] = self.kwargs.get('pk', None) != None
+        return context
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        pk = self.kwargs.get('pk', None)
+        if pk is None:
+            return kwargs
+        proyecto = DatosProyecto.objects.get(pk=pk)
+        tipo = self.kwargs.get('tipo')
+        if tipo == 'metodologico':
+            contenido = proyecto.marco_metodologico
+        elif tipo == 'teorico':
+            contenido = proyecto.marco_teorico
+        else:
+            contenido = proyecto.marco_juridico
+        kwargs['initial']['contenido'] = contenido
+        kwargs['initial']['proyecto'] = pk
+        return kwargs
+
     def form_valid(self, form):
         tipo = self.kwargs.get('tipo')
         self.success_url = reverse_lazy('consultor-crud:lista-marcos', kwargs={
@@ -245,6 +267,11 @@ class MarcoCreateView(FormView):
         contenido = form.cleaned_data['contenido']
         if tipo == 'metodologico':
             proyecto.marco_metodologico = contenido
+        elif tipo == 'juridico':
+            proyecto.marco_juridico = contenido
+        else:
+            proyecto.marco_teorico = contenido
+
         proyecto.save()
         return super().form_valid(form)
 
