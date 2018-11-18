@@ -32,7 +32,7 @@ class DatosProyectoCreateForm(forms.ModelForm):
     class Meta: # pylint: disable=too-few-public-methods
         '''Clase meta del formulario'''
         model = DatosProyecto
-        fields = '__all__'
+        fields = ('titulo', 'ubicacion', 'area', 'tipo', 'url')
 
 class DatosDocumentoCreateForm(forms.ModelForm):
     '''Form del modelo datos de documentos'''
