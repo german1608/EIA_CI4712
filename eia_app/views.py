@@ -215,6 +215,15 @@ class DatosDocumentoDelete(DeleteView):  # pylint: disable=too-many-ancestors
     template_name = 'eia_app/datos_documentos/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-documentos')
 
+class MarcoListView(ListView):
+    '''Lista los marcos del sistema'''
+    template_name = 'eia_app/marco_{tipo}/list.html'
+    model = DatosProyecto
+
+    def get(self, request, *args, **kwargs):
+        self.template_name = self.template_name.format(tipo=kwargs.get('tipo'))
+        return super().get(request, *args, **kwargs)
+
 
 def consultor_index(request):
     '''Index de la vista del consultor'''
