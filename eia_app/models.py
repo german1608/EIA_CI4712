@@ -292,7 +292,7 @@ class DescripcionProyecto(models.Model):
         justificacion: azones por las que se realiza el estudio
         area: mapa del sitio o espacio donde se realiza el estudio
     """
-    proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
+    proyecto = models.OneToOneField(DatosProyecto, on_delete=models.CASCADE)
     obj_general = models.TextField()
     obj_especifico = models.TextField()
     justificacion = models.TextField()
