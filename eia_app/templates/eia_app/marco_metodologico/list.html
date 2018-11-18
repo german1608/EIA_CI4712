@@ -8,7 +8,7 @@
 
 <h3>Lista de marcos metodológicos</h3>
 <p>
-    <a href="">Agregar marco metodológico</a>
+    <a href="{% url 'eia_app:crear-marco' 'metodologico' %}">Agregar marco metodológico</a>
 </p>
 <div class="container" style="width:90% !important">
     {%if object_list.count > 0%}
@@ -16,15 +16,13 @@
         <thead>
             <tr>
                 <th>Proyecto</th>
-                <th>Contenido</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
           {% for proyecto in object_list %}
             <tr>
-                <td>{{ proyecto.nombre }}</td>
-                <td>{{ documento.marco_metodologico }}</td>
+                <td>{{ proyecto.titulo }}</td>
                 <td colspan="3" style="text-align:center;">
                   <a href="">
                     <i class="material-icons" style="color: #77933c">info</i>
@@ -50,11 +48,13 @@
 <!--BLOQUE DE JS-->
 
 {% block js %}
+<script src="{% static 'js/quill.min.js' %}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/b-1.5.4/b-html5-1.5.4/b-print-1.5.4/kt-2.5.0/r-2.2.2/datatables.min.js"></script>
 <script>
   $(document).ready( function () {
+    const quill = new Quill('.editor')
     $('#datos_documento').DataTable({
       "language": {
         "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
