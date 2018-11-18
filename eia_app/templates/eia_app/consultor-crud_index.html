@@ -4,113 +4,115 @@
 
 
 <div class="wrap">
-        <h1>Crud consultor ambiental</h1>
+  <h1>Crud consultor ambiental</h1>
 </div>
 
 
 <style>
-    a {
-    text-decoration: none; 
-    color: black; 
-}
-h5{
-  text-align: center
-}
-img.icon {
-  display: block;
-  margin-left: auto;
-  margin-right: auto 
-}
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  h5 {
+    text-align: center
+  }
+
+  img.icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+  }
 </style>
 
 <div class="row">
   <div class="col s4">
     <div class="card">
-    <a href="{% url "consultor-crud:lista-organizaciones" %}">   
-          <div class="card"> 
-              <img class="icon"  src="{% static 'img/enterprise.png' %}" height="100" width="150" style="margin-left:auto; margin-right:auto">
-      
-              <div class="card-title text-center">
-      
-                  <h5>
-                      Ver organizaciones
-                  </h5>
-              </div>
+      <a href="{% url " consultor-crud:lista-organizaciones" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/enterprise.png' %}" height="100" width="150" style="margin-left:auto; margin-right:auto">
+
+          <div class="card-title text-center">
+
+            <h5>
+              Ver organizaciones
+            </h5>
           </div>
-      </a>
-      </div> 
-  </div> 
-  <div class="col s4">
-  <div class="card">
-    <a href="{% url "consultor-crud:lista-datos-proyectos" %}">   
-        <div class="card"  > 
-            <img class="icon" src="{% static 'img/infographic.png' %}" height="100" width="150">
-            <div class="card-title">
-    
-                <h5>
-                    Ver datos del proyectos 
-                </h5>
-            </div>
         </div>
-    </a>
+      </a>
+    </div>
   </div>
+  <div class="col s4">
+    <div class="card">
+      <a href="{% url " consultor-crud:lista-datos-proyectos" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/infographic.png' %}" height="100" width="150">
+          <div class="card-title">
+
+            <h5>
+              Ver datos del proyectos
+            </h5>
+          </div>
+        </div>
+      </a>
+    </div>
   </div>
 
   <div class="col s4">
-  <div class="card">  
-  <a href="{% url "consultor-crud:lista-responsables" %}">   
-        <div class="card"  > 
-            <img class="icon"  src="{% static 'img/group.png' %}" height="100" width="150">
-            <div class="card-title">
-    
-                <h5>
-                    Responsables del proyecto
-                </h5>
-            </div>
+    <div class="card">
+      <a href="{% url " consultor-crud:lista-responsables" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/group.png' %}" height="100" width="150">
+          <div class="card-title">
+
+            <h5>
+              Responsables del proyecto
+            </h5>
+          </div>
         </div>
-    </a>
-  </div>
+      </a>
+    </div>
   </div>
 </div>
 
 <div class="row">
   <div class="col s4">
-  <div class="card">  
-  <a href="{% url "consultor-crud:lista-datos-documentos" %}">   
-        <div class="card"  > 
-            <img class="icon" src="{% static 'img/folder.png' %}" height="100" width="150">
-            <div class="card-title">
-    
-                <h5>
-                    Ver datos del documento
-                </h5>
-            </div>
+    <div class="card">
+      <a href="{% url " consultor-crud:lista-datos-documentos" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/folder.png' %}" height="100" width="150">
+          <div class="card-title">
+
+            <h5>
+              Ver datos del documento
+            </h5>
+          </div>
         </div>
-    </a>
-  </div>
+      </a>
+    </div>
   </div>
 
   <div class="col s4">
-  <div class="card">  
-  <a href="{% url "consultor-crud:lista-solicitantes" %}">   
-      <div class="card"  > 
-          <img class="icon"  src="{% static 'img/solicitante.png' %}" height="100" width="150">
+    <div class="card">
+      <a href="{% url " consultor-crud:lista-solicitantes" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/solicitante.png' %}" height="100" width="150">
           <div class="card-title">
-  
-              <h5>
-                  Ver datos de Solicitantes
-              </h5>
+
+            <h5>
+              Ver datos de Solicitantes
+            </h5>
           </div>
-      </div>
-  </a>
-  </div>
+        </div>
+      </a>
+    </div>
   </div>
 </div>
 
 
 
-  
-  </div>
-  
- 
+
+</div>
+
+
 {% endblock %}
