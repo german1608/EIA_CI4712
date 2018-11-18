@@ -293,16 +293,20 @@ class MarcoCreateView(CargaContextoMarcoMixin, FormView):
         return super().form_valid(form)
 
 class MarcoDetailView(CargaContextoMarcoMixin, DetailView):
+    template_name = "eia_app/marco/detail.html"
     model = DatosProyecto
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tipo'] = self.kwargs.get('tipo')
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        tipo = context['tipo']
+        if tipo == 'metodologico':
+            contenido = self.object.marco_metodologico
+        elif tipo == 'teorico':
+            contenido = self.object.marco_teorico
+        else:
+            contenido = self.object.marco_juridico
+        context['contenido'] = contenido
         return context
-
-    def get(self, request, *args, **kwargs):
-        self.template_name = self.template_name.format(tipo=kwargs.get('tipo'))
-        return super().get(request, *args, **kwargs)
 
 def delete_marco_view(request, tipo, pk):
     proyecto = DatosProyecto.objects.get(pk=pk)
