@@ -216,9 +216,14 @@ class DatosDocumentoDelete(DeleteView):  # pylint: disable=too-many-ancestors
     template_name = 'eia_app/datos_documentos/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-documentos')
 
-class CargaContextoMarcoMixin(ContextMixin):
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+class CargaContextoMarcoMixin(ContextMixin): # pylint: disable=too-few-public-methods
+    '''
+    Mixin que anade contexto adicional a las vistas de marcos.
+    Anade el tipo de marco a editar acentuado (para mostrarlo al usuario)
+    y sin acentuar (para uso en {% url %})
+    '''
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         tipo = self.kwargs.get('tipo')
         context['tipo'] = tipo
         if tipo == 'metodologico':
@@ -231,7 +236,7 @@ class CargaContextoMarcoMixin(ContextMixin):
         return context
 
 
-class MarcoListView(CargaContextoMarcoMixin, ListView):
+class MarcoListView(CargaContextoMarcoMixin, ListView): # pylint: disable=too-many-ancestors
     '''
     Lista los marcos del sistema
     Toma los siguientes parametros:
@@ -253,9 +258,9 @@ class MarcoCreateView(CargaContextoMarcoMixin, FormView):
     form_class = MarcoForm
     template_name = 'eia_app/marco/form.html'
     success_url = reverse_lazy('consultor-crud:lista-marcos')
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['edicion'] = self.kwargs.get('pk', None) != None
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['edicion'] = self.kwargs.get('pk', None) is not None
         return context
 
     def get_form_kwargs(self):
@@ -292,12 +297,13 @@ class MarcoCreateView(CargaContextoMarcoMixin, FormView):
         proyecto.save()
         return super().form_valid(form)
 
-class MarcoDetailView(CargaContextoMarcoMixin, DetailView):
+class MarcoDetailView(CargaContextoMarcoMixin, DetailView): # pylint: disable=too-many-ancestors
+    ''' Vista para mostrar un marco de un proyecto '''
     template_name = "eia_app/marco/detail.html"
     model = DatosProyecto
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         tipo = context['tipo']
         if tipo == 'metodologico':
             contenido = self.object.marco_metodologico
@@ -308,7 +314,14 @@ class MarcoDetailView(CargaContextoMarcoMixin, DetailView):
         context['contenido'] = contenido
         return context
 
-def delete_marco_view(request, tipo, pk):
+def delete_marco_view(request, tipo, pk): # pylint: disable=invalid-name
+    '''
+    Maneja la eliminacion de marcos. La eliminacion de marcos consiste
+    el igualar el atributo a NULL
+    Argumentos:
+        - tipo: tipo de marco a eliminar (metodologico|juridico|teorico)
+        - pk: Primary key del proyecto cuyo marco se eliminara
+    '''
     proyecto = DatosProyecto.objects.get(pk=pk)
     if request.method == 'GET':
         if tipo == 'metodologico':

@@ -61,11 +61,11 @@ urlpatterns = [ #pylint: disable=invalid-name
             name='lista-marcos'),
     re_path(r'^marco-(?P<tipo>metodologico|juridico|teorico)/crear$', MarcoCreateView.as_view(),
             name='crear-marco'),
-    re_path(r'^marco-(?P<tipo>metodologico|juridico|teorico)/(?P<pk>\d+)/$', MarcoDetailView.as_view(),
-            name='detalles-marco'),
-    re_path(r'^marco-(?P<tipo>metodologico|juridico|teorico)/eliminar/(?P<pk>\d+)/$', delete_marco_view,
-            name='eliminar-marco'),
-    re_path(r'^marco-(?P<tipo>metodologico|juridico|teorico)/editar/(?P<pk>\d+)/$', MarcoCreateView.as_view(),
-            name='editar-marco'),
+    re_path(r'^marco-(?P<tipo>metodologico|juridico|teorico)/(?P<pk>\d+)/$',
+            MarcoDetailView.as_view(), name='detalles-marco'),
+    re_path(r'^marco-(?P<tipo>metodologico|juridico|teorico)/eliminar/(?P<pk>\d+)/$',
+            delete_marco_view, name='eliminar-marco'),
+    re_path(r'^marco-(?P<tipo>metodologico|juridico|teorico)/editar/(?P<pk>\d+)/$',
+            MarcoCreateView.as_view(), name='editar-marco'),
 
 ]
