@@ -1,7 +1,6 @@
 {% extends '../base.html' %}
 {% load static %}
 {% block css %}
-
 <link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 {% endblock %}
 
@@ -27,10 +26,10 @@
 	<div class="row justify-content-center mb-3">
 		<div class="col-md-8 col-sm-12" align="center">
 			<div class="row justify-content-end mb-3">
-				<div class="col-md-2 col-sm-4 mr-2">
+				<div class="col-md-2 col-sm-4 mr-5">
 					<a class="btn" style="background: #4f6228; color: white;" href="{% url 'disciplinas' %}" ">Disciplinas</a>
 				</div>
-				<div class="col-md-2 col-sm-4">
+				<div class="col-md-2 col-sm-4 ml-2 align-self-end">
 					<a class="btn" style="background: #4f6228; color: white;" href="{% url 'macros' %}" ">Macros</a>
 				</div>
 				<div class="col-md-5 col-sm-8">
@@ -77,4 +76,5 @@
 {% block js %}
 <script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'configuracion/js/actividades.js' %}"></script>
+
 {% endblock %}
