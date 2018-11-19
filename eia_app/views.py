@@ -8,11 +8,11 @@ from django.views.generic import (CreateView, DetailView,
 from django.urls import reverse_lazy
 from .models import (
     Organizacion, Responsable, Solicitante,
-    DatosProyecto, DatosDocumento
+    DatosProyecto, DatosDocumento, DescripcionProyecto
 )
 from .forms import (
     OrganizacionCreateForm, SolicitanteCreateForm,
-    ResponsableCreateForm, DatosDocumentoCreateForm
+    ResponsableCreateForm, DatosDocumentoCreateForm, DescripcionProyectoCreateForm
 )
 
 
@@ -215,6 +215,44 @@ class DatosDocumentoDelete(DeleteView):  # pylint: disable=too-many-ancestors
     template_name = 'eia_app/datos_documentos/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-documentos')
 
+class DescripcionProyectoList(ListView):  # pylint: disable=too-many-ancestors
+    '''Listar las DescripcionProyecto'''
+    model = DescripcionProyecto
+    template_name = 'eia_app/descripcion_proyecto/list.html'
+
+
+class DescripcionProyectoDetail(DetailView):  # pylint: disable=too-many-ancestors
+    '''Detalles de un DescripcionProyecto'''
+    model = DescripcionProyecto
+    template_name = 'eia_app/descripcion_proyecto/detail.html'
+
+
+class DescripcionProyectoCreate(CreateView):  # pylint: disable=too-many-ancestors
+    '''Crear una DescripcionProyecto'''
+    model = DescripcionProyecto
+    form_class = DescripcionProyectoCreateForm
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(DescripcionProyectoCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Detalles de un documento"
+        return context
+
+
+class DescripcionProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+    '''Actualizar una DescripcionProyecto'''
+    model = DescripcionProyecto
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
+    fields = '__all__'
+
+
+class DescripcionProyectoDelete(DeleteView):  # pylint: disable=too-many-ancestors
+    '''Eliminar una DescripcionProyecto'''
+    model = DescripcionProyecto
+    template_name = 'eia_app/descripcion_proyecto/delete.html'
+    success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
 
 def consultor_index(request):
     '''Index de la vista del consultor'''
