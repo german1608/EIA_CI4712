@@ -6,15 +6,18 @@
 
 {% block content %}
 
-<h3>Lista de marcos {{tipo_marco}}s</h3>
+<div class="card">
+  <h3 style="padding-top: 10px; padding-bottom: 10px; padding-left: 20px; color: gray;">Lista de marcos {{tipo_marco}}s</h3>
+</div>
 <p>
-    <a href="{% url 'eia_app:crear-marco' tipo %}">Agregar marco {{tipo_marco}}</a>
+    <a href="{% url 'eia_app:crear-marco' tipo %}" style="color: gray;"><i class="fa fa-plus"></i> Agregar marco {{tipo_marco}}</a>
 </p>
-<div class="container" style="width:90% !important">
+<br>
+<div id="datos_documento" class="container" style="width:90% !important">
     {% if object_list.count > 0 %}
       <table id="datos_documento" class="display">
         <thead>
-            <tr>
+            <tr style="color: gray">
                 <th>Proyecto</th>
                 <th>Acciones</th>
             </tr>
@@ -52,12 +55,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/b-1.5.4/b-html5-1.5.4/b-print-1.5.4/kt-2.5.0/r-2.2.2/datatables.min.js"></script>
 <script>
-  $(document).ready( function () {
-    $('#datos_documento').DataTable({
-      "language": {
-        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-      }
-    });
-  });
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
 </script>
 {% endblock %}

@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load materializecss %}
 {% block content %}
 <div class="container">
   <div class="row justify-content-center">
@@ -9,7 +8,7 @@
       <hr class="mt-0 mb-4">
       <form method="post">
           {% csrf_token %}
-          {{  form|materializecss }}
+          {{  form }}
           <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
     </div>

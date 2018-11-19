@@ -8,19 +8,23 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-8">
-      <h3 class="mt-2">{% if edicion %}Editar{% else %}Agregar{% endif %} marco {{tipo_marco}}</h3>
-      <hr class="mt-0 mb-4">
-      <form method="post">
-        {% csrf_token %}
-        {% bootstrap_field form.proyecto %}
-        {{form.contenido.as_hidden}}
-        {{form.contenido.errors}}
-        <div class="form-group">
-          <label for="exampleInputEmail1">{{form.contenido.label}}</label>
-          <div id="editor"></div>
+      <div class="card">
+        <div class="card-body">                       
+          <h3 class="mt-2" style="color: gray;">{% if edicion %}Editar{% else %}Agregar{% endif %} marco {{tipo_marco}}</h3>
+          <hr class="mt-0 mb-4">
+          <form method="post" style="color:gray;">
+            {% csrf_token %}
+            {% bootstrap_field form.proyecto %}
+            {{form.contenido.as_hidden}}
+            {{form.contenido.errors}}
+            <div class="form-group">
+              <label for="exampleInputEmail1">{{form.contenido.label}}</label>
+              <div id="editor"></div>
+            </div>
+            <button type="submit" class="btn btn-success">Guardar</button>
+          </form>
         </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-      </form>
+      </div>
     </div>
   </div>
 </div>
