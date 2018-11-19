@@ -311,9 +311,9 @@ class ActividadForm(forms.ModelForm):
             'amenazas':'Posibles amenazas o vulnerabilidades'
         }
         widgets = {
-            'nombre':forms.TextInput(attrs={'class':'form-control', 'required':''}),
-            'descripcion':forms.Textarea(attrs={'class':'form-control', 'required':''}),
-            'disciplina': forms.Select(attrs={'class':'form-control'}),
-            'macro': forms.Select(attrs={'class':'form-control', 'required':''}),
-            'amenazas':forms.Textarea(attrs={'class':'form-control'}),
+            'nombre':forms.TextInput(attrs={'class':'form-control mb-3', 'required':''}),
+            'descripcion':forms.Textarea(attrs={'class':'form-control mb-3', 'required':''}),
+            'disciplina': forms.Select(attrs={'class':'form-control mb-3'}),
+            'macro': forms.Select(attrs={'class':'form-control mb-3', 'required':''}),
+            'amenazas':forms.Textarea(attrs={'class':'form-control mb-3'}),
         }
