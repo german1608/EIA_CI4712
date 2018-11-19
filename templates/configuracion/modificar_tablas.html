@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/bootstrap.min.css' %}">
+
 <link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 {% endblock %}
 {% block content %}
 
-<div class="no_m row justify-content-center p-3">
+<div class="row justify-content-center p-3">
 	<div class="col-sm-1">
 		<div class="col-md-6 offset-m2" align="center">
 			<div class="">
@@ -22,7 +22,7 @@
 </div>
 <form method="post" id="">
 {% csrf_token %}
-<div class="no_m row justify-content-center px-3">
+<div class="row justify-content-center px-3">
 	<div class="col-md-6 col-sm-12 px-3">
 		<table class="indicador">
 			<caption>Criterios de clasificación de la importancia del efecto</caption>
@@ -114,7 +114,7 @@
 		</table>
 	</div>
 </div>
-<div class="no_m row justify-content-center px-3">
+<div class="row justify-content-center px-3">
 	<div class="col-md-6 col-sm-12">
 		<table class="indicador">
 			<caption>Valoración de la duración</caption>
@@ -180,7 +180,7 @@
 		</table>
 	</div>
 </div>
-<div class="no_m row justify-content-center px-3">
+<div class="row justify-content-center px-3">
 	<div class="col-md-6 col-sm-12">
 		<table class="indicador">
 			<caption>Probabilidades</caption>
@@ -272,7 +272,7 @@
 		</table>
 	</div>
 </div>
-<div class="no_m row justify-content-center">
+<div class="row justify-content-center">
 	<input class="btn" type='submit' name='submit' style="background: #4f6228; color: white; width: 50%" value="Guardar Cambios">
 </div>
 </form>

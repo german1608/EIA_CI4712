@@ -1,12 +1,11 @@
 {% extends '../base.html' %}
 {% load static %}
 {% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/bootstrap.min.css' %}">
+
 <link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="container">
 	<div class="row justify-content-center p-3">
 		<div class="col-sm-1 col-md-1">
 			<a class="btn menu" style="color: gray" href="{% url 'actividades' %}">Volver</a>
@@ -17,7 +16,7 @@
 	</div>
 	<div class="row justify-content-center">
 		<div class="col-md-8 col-sm-12" align="center">
-			<div class="row justify-content-end">
+			<div class="row justify-content-end mb-3">
 				<div class="col-md-5 col-sm-8">
 					<input type="text" id="busqueda" placeholder="Buscar">
 				</div>
@@ -52,8 +51,6 @@
 			<a class="btn rounded" style="background: #4f6228; color: white;" href="{% url 'agregar_macro' %}">Agregar Actividad Macro</a>
 		</div>
 	</div>
-
-</div>
 {% endblock %}
 
 {% block js %}

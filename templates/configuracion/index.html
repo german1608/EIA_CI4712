@@ -1,100 +1,56 @@
 {% extends '../base.html' %}
 {% load static %}
 {% block css %}
-<script src="{% static 'configuracion/js/jquery-3.3.1.min.js' %}"></script>
-<script src="{% static 'configuracion/js/datatable.js' %}"></script>
 
-
-
-<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/bootstrap.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
-
-
 {% endblock %}
 
 {% block content %}
 
-<div class="container h-100">
+<div class="h-100">
 	<div class="row justify-content-center pt-3">
-		<table id="tabk" class="n_tab col-sm-11">
-			<thead>
-				<tr class="no_m row cabecera">
-					<td class="col-sm-12" colspan="3">Elementos Ambientales</td>
-				</tr>
-				<tr class="no_m cabecera_2 row">
-					<td class="no_all col-sm-3 b_r">Medios Físico</td>
-					<td class="no_all col-sm-3">Medios Biológicos</td>
-					<td class="no_all col-sm-3 b_l">Medios Socio-Cultural</td>
-				</tr>
-			</thead>
-			<tbody>
+		<table class="table">
+			<tr class="cabecera">
+				<td colspan="3">Elementos Ambientales</td>
+			</tr>
+			<tr class="cabecera_2">
+				<td>Medios Físico</td>
+				<td>Medios Biológicos</td>
+				<td>Medios Socio-Cultural</td>
+			</tr>
 			{% if lista %}
 			{% for estudio in lista %}
-			<tr class="no_m row">
+			<tr class=""></td>
 				{% for x in estudio %}
 				{% if x%}
-				<td class="no_all col-sm-3" > <a name="{{x.id}}"href="{% url 'editar_estudio' x.id %}">{{x.nombre}}</a> </td>
+				<td> <a name="{{x.id}}"href="{% url 'editar_estudio' x.id %}">{{x.nombre}}</a> </td>
 				{% else %}
-				<td class="no_all col-sm-3"> </td>
+				<td> </td>
 				{% endif %}
 				{% endfor %}
 			</tr>
 			{% endfor %}
 			{% endif %}
-			</tbody>
 		</table>
-		
-		<div class="col-sm-2 justify-content-center">
-			<a class="btn btn_agregar" href="{% url 'agregar_estudio' %}">Agregar Estudio</a>
-
+		<div class="justify-content-center">
+			<a class="btn" style="background: #4f6228; color: white" href="{% url 'agregar_estudio' %}">Agregar Estudio</a>
 		</div>
-
 	</div>
 </div>
 {%endblock%}
 
 {% block js %}
 <script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
- <script>$(document).ready(function () {
-    $.noConflict();
-		 
-
-
-    // Used when bJQueryUI is false
-		 
-		 
-    var table = $('#tabk').DataTable({    
-		initComplete : function() {
-        	$("#tabk_filter > label > input").addClass('search_t');
-			$(".dataTables_wrapper").addClass('col-sm-9')
-   		 },
-		    "bLengthChange": false,
-      "language": {
-        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-      }
-    });
-	
-
-
-});</script>
 {% if messages %}
 <script>
-
 window.onload = function() {
-	
-
-
-
 {% for message in messages %}
 M.toast({html: '{{ message }}'})
-
-
 
 {% endfor %}
 };
 
 
 </script>
-
 {% endif %}
 {% endblock %}
