@@ -1,7 +1,7 @@
 {% extends '../base.html' %}
 {% load static %}
 {% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/bootstrap.min.css' %}">
+
 <link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 {% endblock %}
 
@@ -18,37 +18,24 @@
 		<form method="post" id="formulario">
 			{% csrf_token %}
 			
-			<div class="row">
+			<div class="row justify-content-center mb-3">
 				<div class="col-md-3 offset-md-2">
 							<label for="">{{form.nombre.label}}</label>
 							{{form.nombre}}
 				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-3 offset-md-2">
 						<label for="tipo">{{form.descripcion.label}}</label>
 						{{form.descripcion}}
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-3 offset-md-2">
-						<label for="tipo">{{form.proyecto.label}}</label>
-						{{form.proyecto}}
-				</div>
-			</div>
-			<div class="row">
+
+			<div class="row justify-content-center mb-3">
 				<div class="col-md-3 offset-md-2">
 						<label for="tipo">{{form.macro.label}}</label>
 						{{form.macro}}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3 offset-md-2">
 						<label for="tipo">{{form.disciplina.label}}</label>
 						{{form.disciplina}}
 				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-3 offset-md-2">
 						<label for="tipo">{{form.amenazas.label}}</label>
 						{{form.amenazas}}

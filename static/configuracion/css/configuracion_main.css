@@ -52,15 +52,12 @@ h1{
   background-color: #4f6228;
   color: #fff;
   text-align: center;
-  border-bottom: solid 3px #6f883d;
-  margin-bottom: 3px;
 }     
 
 .cabecera_2{
   background-color: #86a742;
   color: #fff;
   text-align: center;
-  border-bottom: solid 3px #6f883d;
   margin-bottom: 3px;
   margin-top: 3px;
 }
@@ -103,39 +100,15 @@ h1{
 }
 
 .btn_agregar{
-	background: #4f6228; 
-	color: white;
-	margin-bottom:5px;
+  background: #4f6228; 
+  color: white;
+  margin-bottom:5px;
 }
 
-.search_t{
-	padding: 0px !important;
-    width: 106px !important;
-    height: 22px !important;
-    margin-left: 9px !important;
-    border-radius: 0px !important;
-    margin-right: 0px !important;
+.tabla-actividades {
+  width: 100%;
 }
 
-.no_all{
-	margin: 10px !important;
-	text-align: center !important;
-}
-
-.n_tab{
-	margin-right:8px;
-	border-bottom:solid 1px #6e883d !important;
-}
-
-.b_r{
-	border-right:solid 1px #6e883d;
-}
-
-.b_l{
-	border-left:solid 1px #6e883d;
-}
-
-.no_m{
-	margin-left:0px;
-	margin-right:0px;
+.tabla-actividades tr {
+  border-bottom: 1px solid #000;
 }
