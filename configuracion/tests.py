@@ -660,7 +660,7 @@ class PruebaFormularioEstudio(SeleniumTestCase):
         self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
 
         # Volvemos a agregar otro elemento pero ahora de tipo Biologico
-        self.selenium.find_element_by_css_selector('#agregar-estudio').click()
+        self.selenium.find_element_by_id('agregar-estudio').click()
         nombre = "Impacto F"
         self.selenium.find_element_by_name('nombre').send_keys(nombre) #agregamos el nombre
         select_tipo = Select(self.selenium.find_element_by_name('tipo'))
@@ -685,7 +685,7 @@ class PruebaFormularioEstudio(SeleniumTestCase):
 
         # Volvemos a agregar otro elemento pero ahora de tipo Biologico
         # Hacemos click en agregar
-        self.selenium.find_element_by_css_selector('#agregar-estudio').click()
+        self.selenium.find_element_by_id('agregar-estudio').click()
         nombre = "Impacto B"
         #agregamos el nombre
         self.selenium.find_element_by_name('nombre').send_keys(nombre)
@@ -710,7 +710,7 @@ class PruebaFormularioEstudio(SeleniumTestCase):
         self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
 
         # Volvemos a agregar otro elemento pero ahora de tipo Socio-Cultural
-        self.selenium.find_element_by_css_selector('#agregar-estudio').click()
+        self.selenium.find_element_by_id('agregar-estudio').click()
         nombre = "Impacto SC"
         self.selenium.find_element_by_name('nombre').send_keys(nombre) #agregamos el nombre
         select_tipo = Select(self.selenium.find_element_by_name('tipo'))
@@ -735,7 +735,7 @@ class PruebaFormularioEstudio(SeleniumTestCase):
         self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
 
         #Intentamos agregar un impacto que ya se encuentra registrado
-        self.selenium.find_element_by_css_selector('#agregar-estudio').click()
+        self.selenium.find_element_by_id('agregar-estudio').click()
         #agregamos el nombre Impacto SC
         self.selenium.find_element_by_name('nombre').send_keys(nombre)
         self.selenium.execute_script("window.scrollTo(0, 720)") # movemos el scroll un poco
