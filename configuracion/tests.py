@@ -12,7 +12,8 @@ from configuracion.models import NIVEL_IMPORTANCIA, PROBABILIDAD, MEDIOS
 from configuracion.views import _calcular_via
 from configuracion.forms import EstudioForm
 from configuracion.models import Intensidad, Probabilidad, Extension, Reversibilidad
-from configuracion.models import Duracion, Importancia, Estudio
+from configuracion.models import Duracion, Importancia, Estudio, Macro,Disciplina
+from configuracion.models import Actividad
 from utils.testutils import SeleniumTestCase
 
 class KaraotaTests(TestCase): # pylint: disable=too-many-public-methods
@@ -567,10 +568,40 @@ class TestsIntegridadDatosTablasEstudio(TestCase):
         """
         self.assertTrue(self.probabilidad[0].valor >= 0 and self.probabilidad[3].valor <= 100)
 
-class TestsEstudio(TestCase):
-    """
+
+    def test_insertar_macro(self):
+        """
         aa
-    """
+        """
+	
+        mac = Macro.objects.create(nombre="test_macro",descripcion="test_descripcion",proyecto="test_proyecto")
+	 
+        mac2 = Macro.objects.filter(nombre="test_macro").first()
+
+        self.assertEqual(mac.id, mac2.id)
+		
+    def test_insertar_disciplina(self):
+        """
+        aa
+        """
+	
+
+        dis = Disciplina.objects.create(nombre="test_disciplina",descripcion="test_descripcion",proyecto="test_proyecto")
+        dis2 = Disciplina.objects.filter(nombre="test_disciplina").first()	 
+        self.assertEqual(dis.id, dis2.id)
+	
+    def test_insertar_actividad(self):
+        """
+        aa
+        """
+        mac = Macro.objects.create(nombre="test_macro",descripcion="test_descripcion",proyecto="test_proyecto")
+        mac2 = Macro.objects.filter(nombre="test_macro").first()	
+        dis = Disciplina.objects.create(nombre="test_disciplina",descripcion="test_descripcion",proyecto="test_proyecto")
+        dis2 = Disciplina.objects.filter(nombre="test_disciplina").first()
+        act = Actividad.objects.create(nombre="test_actividad",descripcion="test_descripcion",disciplina=dis2,macro=mac2,amenazas="Test amenaza")
+        act2 = Actividad.objects.filter(nombre="test_actividad").first()	 
+        self.assertEqual(act.id, act2.id)
+	
     def test_insertar_estudio(self):
         """
             aa
@@ -611,245 +642,3 @@ class TestsEstudio(TestCase):
         est2 = Estudio.objects.filter(nombre="test_estudio").first()
 
         self.assertEqual(est.id, est2.id)
-
-class PruebaFormularioEstudio(SeleniumTestCase):
-    """
-    Prueba Formulario Estudio
-    """
-    fixtures = ['users-and-groups.json']
-
-    def test_navegador(self): #pylint: disable=too-many-statements
-        """
-        test del navegador
-        """
-        self.selenium.get('{}{}'.format(self.live_server_url, reverse('dashboard:index')))
-        self.selenium.find_element_by_id('id_username').send_keys('admin')
-        self.selenium.find_element_by_id('id_password').send_keys('jaja1234')
-        self.selenium.find_element_by_id('id_submit').click()
-
-        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-
-        # Volvemos a agregar otro elemento pero ahora de tipo Biologico
-        self.selenium.find_element_by_css_selector('#agregar-estudio').click()
-        nombre = "Impacto F"
-        self.selenium.find_element_by_name('nombre').send_keys(nombre) #agregamos el nombre
-        select_tipo = Select(self.selenium.find_element_by_name('tipo'))
-        select_tipo.select_by_visible_text('Fisico')
-        self.selenium.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
-        #agregamos la ponderacion de la intensidad
-        self.selenium.find_element_by_name('pondIntensidad').send_keys(20)
-        #agregamos la ponderacion de la extension
-        self.selenium.find_element_by_name('pondExtension').send_keys(20)
-        #agregamos la ponderacion de la duracion
-        self.selenium.find_element_by_name('pondDuracion').send_keys(30)
-        #agregamos la ponderacion de la reversibilidad
-        self.selenium.find_element_by_name('pondReversibilidad').send_keys(10)
-        #agregamos la ponderacion de la probabilidad
-        self.selenium.find_element_by_name('pondProbabilidad').send_keys(20)
-        # Hacemos click en agregar
-        self.selenium.find_element_by_name('editar').click()
-        #para las alertas del navegador
-        confirmacion = self.selenium.switch_to.alert
-        confirmacion.accept()
-        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-
-        # Volvemos a agregar otro elemento pero ahora de tipo Biologico
-        # Hacemos click en agregar
-        self.selenium.find_element_by_css_selector('#agregar-estudio').click()
-        nombre = "Impacto B"
-        #agregamos el nombre
-        self.selenium.find_element_by_name('nombre').send_keys(nombre)
-        select_tipo = Select(self.selenium.find_element_by_name('tipo'))
-        # select_tipo.select_by_visible_text('Biologico')
-        #movemos el scroll un poco
-        self.selenium.execute_script("window.scrollTo(0, 720)")
-        #agregamos la ponderacion de la intensidad
-        self.selenium.find_element_by_name('pondIntensidad').send_keys(20)
-        #agregamos la ponderacion de la extension
-        self.selenium.find_element_by_name('pondExtension').send_keys(20)
-        #agregamos la ponderacion de la duracion
-        self.selenium.find_element_by_name('pondDuracion').send_keys(30)
-        #agregamos la ponderacion de la reversibilidad
-        self.selenium.find_element_by_name('pondReversibilidad').send_keys(10)
-
-        # agregamos la ponderacion de la probabilidad
-        self.selenium.find_element_by_name('pondProbabilidad').send_keys(20)
-        self.selenium.find_element_by_name('editar').click() # Hacemos click en agregar
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-
-        # Volvemos a agregar otro elemento pero ahora de tipo Socio-Cultural
-        self.selenium.find_element_by_css_selector('#agregar-estudio').click()
-        nombre = "Impacto SC"
-        self.selenium.find_element_by_name('nombre').send_keys(nombre) #agregamos el nombre
-        select_tipo = Select(self.selenium.find_element_by_name('tipo'))
-        # select_tipo.select_by_visible_text('Socio-Cultural')
-        #movemos el scroll un poco
-        self.selenium.execute_script("window.scrollTo(0, 720)")
-        #agregamos la ponderacion de la intensidad
-        self.selenium.find_element_by_name('pondIntensidad').send_keys(20)
-        #agregamos la ponderacion de la extension
-        self.selenium.find_element_by_name('pondExtension').send_keys(20)
-        #agregamos la ponderacion de la duracion
-        self.selenium.find_element_by_name('pondDuracion').send_keys(30)
-        #agregamos la ponderacion de la reversibilidad
-        self.selenium.find_element_by_name('pondReversibilidad').send_keys(10)
-        #agregamos la ponderacion de la probabilidad
-        self.selenium.find_element_by_name('pondProbabilidad').send_keys(20)
-        # Hacemos click en agregar
-        self.selenium.find_element_by_name('editar').click()
-        #para las alertas del navegador
-        confirmacion = self.selenium.switch_to.alert
-        confirmacion.accept()
-        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-
-        #Intentamos agregar un impacto que ya se encuentra registrado
-        self.selenium.find_element_by_css_selector('#agregar-estudio').click()
-        #agregamos el nombre Impacto SC
-        self.selenium.find_element_by_name('nombre').send_keys(nombre)
-        self.selenium.execute_script("window.scrollTo(0, 720)") # movemos el scroll un poco
-
-        # agregamos la ponderacion de la intensidad
-        self.selenium.find_element_by_name('pondIntensidad').send_keys(20)
-
-        # agregamos la ponderacion de la extension
-        self.selenium.find_element_by_name('pondExtension').send_keys(20)
-
-        # agregamos la ponderacion de la duracion
-        self.selenium.find_element_by_name('pondDuracion').send_keys(30)
-
-        # agregamos la ponderacion de la reversibilidad
-        self.selenium.find_element_by_name('pondReversibilidad').send_keys(10)
-
-        # agregamos la ponderacion de la probabilidad
-        self.selenium.find_element_by_name('pondProbabilidad').send_keys(20)
-
-
-        self.selenium.find_element_by_name('editar').click() # Hacemos click en agregar
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        time.sleep(2)
-        self.selenium.find_element_by_name('nombre').clear()
-
-        # agregamos el nombre no repetido
-        self.selenium.find_element_by_name('nombre').send_keys('Impacto 5')
-        self.selenium.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
-        self.selenium.find_element_by_name('editar').click() # Hacemos click en agregar
-        confirmacion.accept()
-        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-
-        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-
-        #Visualizando los datos del impacto SC y modificandolos
-        consulta = Estudio.objects.get(nombre=nombre)
-        self.selenium.find_element_by_name(str(consulta.id)).click() # Hacemos click para consultar
-        self.selenium.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
-        self.selenium.execute_script("window.scrollTo(0, 0)") #movemos el scroll un poco
-        self.selenium.find_element_by_name('nombre').clear()
-
-        #agregamos el nombre
-        self.selenium.find_element_by_name('nombre').send_keys("Este es un nuevo nombre")
-        self.selenium.execute_script("window.scrollTo(0, 1080)") #movemos el scroll un poco
-        self.selenium.find_element_by_name('pondExtension').clear()
-
-        #agregamos la ponderacion de la extension
-        self.selenium.find_element_by_name('pondExtension').send_keys(0)
-        self.selenium.find_element_by_name('pondDuracion').clear()
-
-        #agregamos la ponderacion de la duracion
-        self.selenium.find_element_by_name('pondDuracion').send_keys(20)
-        self.selenium.find_element_by_name('pondReversibilidad').clear()
-
-        #agregamos la ponderacion de la reversibilidad
-        self.selenium.find_element_by_name('pondReversibilidad').send_keys(40)
-        self.selenium.find_element_by_name('editar').click() # Hacemos click en agregar
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-        self.selenium.find_element_by_name(str(consulta.id)).click() # Hacemos click para consultar
-        self.selenium.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
-        self.selenium.execute_script("window.scrollTo(0, 0)") #movemos el scroll un poco
-
-        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-
-        #Consultando los datos y Eliminando el impacto F cambiado
-        nombre = "Impacto F"
-        consulta = Estudio.objects.get(nombre=nombre)
-        self.selenium.find_element_by_name(str(consulta.id)).click() # Hacemos click para consultar
-        self.selenium.execute_script("window.scrollTo(0, 1080)") #movemos el scroll un poco
-        self.selenium.find_element_by_name('eliminar').click() # Hacemos click en agregar
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-
-        ### Prueba a bases de calculo ###
-        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/modificar_tablas/'))
-        self.selenium.execute_script("window.scrollTo(0, 1080)") #movemos el scroll un poco
-
-        self.selenium.find_element_by_name('valor1').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor1').send_keys("9.0")
-        self.selenium.find_element_by_name('valor2').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor2').send_keys("6.0")
-        self.selenium.find_element_by_name('valor6').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor6').send_keys("6.0")
-        self.selenium.find_element_by_name('valor8').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor8').send_keys("1.0")
-        self.selenium.find_element_by_name('valor9').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor9').send_keys("4.0")
-        self.selenium.find_element_by_name('valor12').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor12').send_keys("0.0")
-        self.selenium.find_element_by_name('valor13').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor13').send_keys("9.0")
-        self.selenium.find_element_by_name('valor14').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor14').send_keys("6.0")
-        self.selenium.find_element_by_name('valor15').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor15').send_keys("4.0")
-        self.selenium.find_element_by_name('valor16').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor16').send_keys("1.0")
-        self.selenium.find_element_by_name('valor17').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor17').send_keys("1.0")
-        self.selenium.find_element_by_name('valor19').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor19').send_keys("8.0")
-        self.selenium.find_element_by_name('valor21').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor21').send_keys("9.0")
-        self.selenium.find_element_by_name('valor24').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor24').send_keys("0.0")
-        self.selenium.find_element_by_name('valor27').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor27').send_keys("2.0")
-        self.selenium.find_element_by_name('valor32').clear()
-        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
-        confirmacion.accept()
-        #self.selenium.find_element_by_name('valor32').send_keys("1.0")
-        self.selenium.find_element_by_name('submit').click()
-        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/tablas/'))
