@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'dashboard',
     'configuracion',
     'materializecssform',
+    'medidas',
     'crispy_forms',
 ]
 
