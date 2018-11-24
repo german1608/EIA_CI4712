@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'configuracion',
     'materializecssform',
     'crispy_forms',
+    'behave_django'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
