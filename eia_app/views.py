@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from .models import (
     Organizacion, Responsable, Solicitante,
     DatosProyecto, DatosDocumento, DescripcionProyecto,
-    CaracteristicaMedio
+    CaracteristicaMedio, MedioFisico
 )
 from .forms import (
     OrganizacionCreateForm, SolicitanteCreateForm,
@@ -260,10 +260,22 @@ def consultor_index(request):
     template_name = 'eia_app/consultor-crud_index.html'
     return render(request, template_name)
 
-def CaracterizacionMedios(request):
-    ''' Index de los distintos medios físicos'''
+class MedioFisicoList(ListView):
+    ''' Index de los distintos medios'''
+    model = MedioFisico
     template_name = 'eia_app/caracterizacion_medio/medios_index.html'
-    return render(request, template_name)
+
+class MedioFisicoCreate(CreateView):  # pylint: disable=too-many-ancestors
+    '''Crear una MedioFisico'''
+    model = MedioFisico
+    fields = "__all__"
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-medios')
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(MedioFisicoCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Detalles de un medio ambiental"
+        return context
 
 class CaracteristicaMedioList(ListView):
     '''Ver caracteristicas de un medio fisico'''
