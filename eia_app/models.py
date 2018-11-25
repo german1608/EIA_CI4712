@@ -302,15 +302,15 @@ class DescripcionProyecto(models.Model):
         '''Devuelve el tipo de modelo'''
         return "Descripcion_Proyecto"
 
-class MedioFisico(models.Model):
-    """ Tabla para almacenar la informacion de un medio fisico de un proyecto.
+class Medio(models.Model):
+    """ Tabla para almacenar la informacion del medio de un proyecto.
     Parametros:
-        models.Model (MedioFisico): Instancia sobre la que se crea la tabla.
+        models.Model (Medio): Instancia sobre la que se crea la tabla.
     Atributos:
-        tipo: Tipo de medio fisico
+        tipo: Tipo de medio 
         proyecto: Proyecto asociado
-        descripcion: Descripcion del medio fisico
-        conclusiones: Conclusiones sobre el medio fisico
+        descripcion: Descripcion del medio
+        conclusiones: Conclusiones sobre el medio
     """
 
     class Meta:  # pylint: disable=too-few-public-methods
@@ -327,7 +327,7 @@ class MedioFisico(models.Model):
 
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
-        return "MedioFisico"
+        return "Medio"
 
 class CaracteristicaMedio(models.Model):
     """ Tabla para almacenar las caracteristicas de un medio fisico de un proyecto.
@@ -342,7 +342,8 @@ class CaracteristicaMedio(models.Model):
         unique_together = (('caracteristica', 'medio'))
 
     caracteristica = models.CharField(max_length=100)
-    medio = models.ForeignKey(MedioFisico, on_delete=models.CASCADE)
+    medio = models.ForeignKey(Medio, on_delete=models.CASCADE)
+    descripcion = models.TextField(default="")
 
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
