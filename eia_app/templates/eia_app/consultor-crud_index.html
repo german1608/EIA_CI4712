@@ -36,13 +36,20 @@ img.icon {
                       Ver organizaciones
                   </h5>
               </div>
+              <!--
+              <div>
+                Icons made by <a href="https://www.flaticon.com/authors/geotatah" title="geotatah">geotatah</a>
+                from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+                is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+              </div>
+              -->
           </div>
       </a>
       </div> 
   </div> 
   <div class="col s4">
   <div class="card">
-    <a href="{% url "consultor-crud:lista-datos-proyectos" %}">   
+    <a id="datos-proyectos" href="{% url "consultor-crud:lista-datos-proyectos" %}">   
         <div class="card"  > 
             <img class="icon" src="{% static 'img/infographic.png' %}" height="100" width="150">
             <div class="card-title">
@@ -51,6 +58,13 @@ img.icon {
                     Ver datos del proyectos 
                 </h5>
             </div>
+            <!--
+            <div>
+              Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> 
+              from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 
+              is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+            </div>
+            -->
         </div>
     </a>
   </div>
@@ -58,7 +72,7 @@ img.icon {
 
   <div class="col s4">
   <div class="card">  
-  <a href="{% url "consultor-crud:lista-responsables" %}">   
+  <a id="responsables" href="{% url "consultor-crud:lista-responsables" %}">   
         <div class="card"  > 
             <img class="icon"  src="{% static 'img/group.png' %}" height="100" width="150">
             <div class="card-title">
@@ -67,6 +81,13 @@ img.icon {
                     Responsables del proyecto
                 </h5>
             </div>
+            <!--
+            <div>
+              Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> 
+              from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 
+              is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+            </div>
+            -->
         </div>
     </a>
   </div>
@@ -76,7 +97,7 @@ img.icon {
 <div class="row">
   <div class="col s4">
   <div class="card">  
-  <a href="{% url "consultor-crud:lista-datos-documentos" %}">   
+  <a id="datos-documentos" href="{% url "consultor-crud:lista-datos-documentos" %}">   
         <div class="card"  > 
             <img class="icon" src="{% static 'img/folder.png' %}" height="100" width="150">
             <div class="card-title">
@@ -85,6 +106,13 @@ img.icon {
                     Ver datos del documento
                 </h5>
             </div>
+            <!--
+            <div>
+              Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> 
+              from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 
+              is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+            </div>
+            -->
         </div>
     </a>
   </div>
@@ -92,7 +120,7 @@ img.icon {
 
   <div class="col s4">
   <div class="card">  
-  <a href="{% url "consultor-crud:lista-solicitantes" %}">   
+  <a id="solicitantes" href="{% url "consultor-crud:lista-solicitantes" %}">   
       <div class="card"  > 
           <img class="icon"  src="{% static 'img/solicitante.png' %}" height="100" width="150">
           <div class="card-title">
@@ -105,6 +133,30 @@ img.icon {
   </a>
   </div>
   </div>
+
+  <div class="col s4">
+    <div class="card">  
+    <a id="detalles-proyecto" href="{% url "consultor-crud:lista-detalles-proyecto" %}">   
+        <div class="card"  > 
+            <img class="icon"  src="{% static 'img/profiles.png' %}" height="100" width="150">
+            <div class="card-title">
+    
+                <h5>
+                    Ver detalles del Proyecto
+                </h5>
+            </div>
+            <!--
+            <div>
+              Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a>
+               from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 
+               is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+            </div>
+            -->
+        </div>
+    </a>
+    </div>
+    </div>
+
 </div>
 
 

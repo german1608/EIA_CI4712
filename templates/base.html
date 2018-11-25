@@ -8,7 +8,6 @@
   <meta charset="UTF-8">
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
   <link href="{% static 'fonts/material-icons/material-icons.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/custom.css' %}">
   <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/all.css' %}" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
@@ -71,7 +70,7 @@
           </a>
         </li>
         <li>
-          <a href="{% url "consultor-crud-index" %}"><i class="fas fa-edit"></i>
+          <a href="{% url "consultor-crud-index" %}" id="consultor-crud"><i class="fas fa-edit"></i>
             <span class="white-text name">Consultor ambiental</span>
           </a>
         </li>
@@ -125,7 +124,7 @@
 
 
   <!-- COMIENZO DEL JS -->
-  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
   <script>
     $(document).ready(function () {
