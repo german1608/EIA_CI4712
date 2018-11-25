@@ -66,4 +66,8 @@ urlpatterns = [ #pylint: disable=invalid-name
             name='editar-detalles-proyecto'),
     re_path(r'^descripcion_proyecto/borrar/(?P<pk>\d+)/$', DescripcionProyectoDelete.as_view(),
             name='borrar-detalles-proyecto'),
+    path('caracteristicas_medio/', CaracterizacionMedios,
+         name='lista-medios'),
+    path('caracteristicas_medio/<slug:medio>/', CaracteristicaMedioList.as_view(),
+         name='detalles-medio'),
 ]

@@ -8,7 +8,8 @@ from django.views.generic import (CreateView, DetailView,
 from django.urls import reverse_lazy
 from .models import (
     Organizacion, Responsable, Solicitante,
-    DatosProyecto, DatosDocumento, DescripcionProyecto
+    DatosProyecto, DatosDocumento, DescripcionProyecto,
+    CaracteristicaMedio
 )
 from .forms import (
     OrganizacionCreateForm, SolicitanteCreateForm,
@@ -258,3 +259,23 @@ def consultor_index(request):
     '''Index de la vista del consultor'''
     template_name = 'eia_app/consultor-crud_index.html'
     return render(request, template_name)
+
+def CaracterizacionMedios(request):
+    ''' Index de los distintos medios físicos'''
+    template_name = 'eia_app/caracterizacion_medio/medios_index.html'
+    return render(request, template_name)
+
+class CaracteristicaMedioList(ListView):
+    '''Ver caracteristicas de un medio fisico'''
+    model = CaracteristicaMedio
+    template_name = 'eia_app/caracterizacion_medio/list.html'
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CaracteristicaMedioList, self).get_context_data(**kwargs)
+        if self.kwargs['medio'] == 'fisico':
+            context['medio'] = 'medio físico'
+        elif self.kwargs['medio'] == 'biologico':
+            context['medio'] = 'medio biológico'
+        elif self.kwargs['medio'] == 'socio':
+            context['medio'] = 'medio socio-cultural'
+        return context

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="wrap">
+        <h1>Caracterización del medio ambiental</h1>
+</div>
+
+
+<style>
+    a {
+    text-decoration: none; 
+    color: black; 
+}
+h5{
+  text-align: center
+}
+img.icon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto 
+}
+</style>
+
+<div class="row">
+  <div class="col s4">
+    <div class="card">
+    <a href="{% url "consultor-crud:detalles-medio" "fisico" %}">   
+          <div class="card"> 
+              <img class="icon"  src="{% static 'img/enterprise.png' %}" height="100" width="150" style="margin-left:auto; margin-right:auto">
+      
+              <div class="card-title text-center">
+      
+                  <h5>
+                      Medio Físico
+                  </h5>
+              </div>
+              <!--
+              <div>
+                Icons made by <a href="https://www.flaticon.com/authors/geotatah" title="geotatah">geotatah</a>
+                from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+                is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+              </div>
+              -->
+          </div>
+      </a>
+      </div> 
+  </div> 
+  <div class="col s4">
+  <div class="card">
+    <a id="datos-proyectos" href="{% url "consultor-crud:detalles-medio" "biologico" %}">   
+        <div class="card"  > 
+            <img class="icon" src="{% static 'img/infographic.png' %}" height="100" width="150">
+            <div class="card-title">
+    
+                <h5>
+                    Medio Biológico 
+                </h5>
+            </div>
+            <!--
+            <div>
+              Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> 
+              from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 
+              is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+            </div>
+            -->
+        </div>
+    </a>
+  </div>
+  </div>
+
+  <div class="col s4">
+  <div class="card">  
+  <a id="responsables" href="{% url "consultor-crud:detalles-medio" "fisico" %}">   
+        <div class="card"  > 
+            <img class="icon"  src="{% static 'img/group.png' %}" height="100" width="150">
+            <div class="card-title">
+    
+                <h5>
+                    Medio Socio-Cultural
+                </h5>
+            </div>
+            <!--
+            <div>
+              Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> 
+              from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 
+              is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+            </div>
+            -->
+        </div>
+    </a>
+  </div>
+  </div>
+</div>
+
+{% endblock %}
