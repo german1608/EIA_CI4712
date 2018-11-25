@@ -13,7 +13,7 @@ from django.utils.translation import gettext_lazy as _  # pylint: disable=unused
 class DatosProyecto(models.Model):
     """ Tabla para almacenar la informacion general de un proyecto.
     Parametros:
-        models.Model (Datos_Proyecto): Instancia sobre la que se crea la tabla.
+        models.Model (DatosProyecto): Instancia sobre la que se crea la tabla.
     Atributos:
         titulo: Titulo del proyecto
         ubicacion: ubicacion geografica donde se desarrollara el proyecto
@@ -301,3 +301,72 @@ class DescripcionProyecto(models.Model):
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "Descripcion_Proyecto"
+
+class MedioFisico(models.Model):
+    """ Tabla para almacenar la informacion de un medio fisico de un proyecto.
+    Parametros:
+        models.Model (MedioFisico): Instancia sobre la que se crea la tabla.
+    Atributos:
+        tipo: Tipo de medio fisico
+        proyecto: Proyecto asociado
+        descripcion: Descripcion del medio fisico
+        conclusiones: Conclusiones sobre el medio fisico
+    """
+
+    class Meta:  # pylint: disable=too-few-public-methods
+        '''Hacer unica la combinacion entre tipo y proyecto'''
+        unique_together = (('tipo', 'proyecto'))
+
+    TYPE_CHOICES = (('fisico', 'Medio físico'),
+                    ('biologico', 'Medio biológico'),
+                    ('socio', 'Medio sociocultural'))
+    tipo = models.CharField(max_length=100, choices=TYPE_CHOICES)
+    proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
+    descripcion = models.TextField()
+    conclusiones = models.TextField()
+
+    def get_model_type(self):  # pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
+        return "MedioFisico"
+
+class CaracteristicaMedio(models.Model):
+    """ Tabla para almacenar las caracteristicas de un medio fisico de un proyecto.
+    Parametros:
+        models.Model (CaracteristicaMedio): Instancia sobre la que se crea la tabla.
+    Atributos:
+        tipo: Nombre de la caracteristica asociada al medio fisico
+        proyecto: Proyecto asociado
+    """
+    class Meta:  # pylint: disable=too-few-public-methods
+        '''Hacer unica la combinacion entre tipo y proyecto'''
+        unique_together = (('caracteristica', 'medio'))
+
+    caracteristica = models.CharField(max_length=100)
+    medio = models.ForeignKey(MedioFisico, on_delete=models.CASCADE)
+
+    def get_model_type(self):  # pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
+        return "CaracteristicaMedio"
+
+class SubaracteristicaMedio(models.Model):
+    """ Tabla para almacenar las caracteristicas de un medio fisico de un proyecto.
+    Parametros:
+        models.Model (SubaracteristicaMedio): Instancia sobre la que se crea la tabla.
+    Atributos:
+        nombreSub: Nombre de la subcaracteristica asociada a la caracteristica
+        caracteristica: caracteristica asociada
+        atributo: especificaciones de la subcaracteristica
+        comentario: comentarios adicionales de la subcaracteristica
+    """
+    class Meta:  # pylint: disable=too-few-public-methods
+        '''Hacer unica la combinacion entre tipo y proyecto'''
+        unique_together = (('nombreSub', 'caracteristica'))
+
+    nombreSub = models.CharField(max_length=100)
+    caracteristica = models.ForeignKey(CaracteristicaMedio, on_delete=models.CASCADE)
+    atributo = models.TextField()
+    comentario = models.TextField()
+
+    def get_model_type(self):  # pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
+        return "SubaracteristicaMedio"
