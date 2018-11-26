@@ -37,9 +37,9 @@
           <tr>
               <th>Característica</th>
               <th>Descripción</th>
-{% comment %}               <th style="text-align:center;">Ver detalles</th>
+              <th style="text-align:center;">Ver detalles</th>
               <th style="text-align:center;">Editar</th>
-              <th style="text-align:center;">Borrar</th> {% endcomment %}
+              <th style="text-align:center;">Borrar</th>
           </tr>
       </thead>
       <tbody>
@@ -47,9 +47,9 @@
           <tr>
               <td>{{ caracteristica.caracteristica }}</td>
               <td>{{ caracteristica.descripcion }}</td>
-              {% comment %} <td style="text-align:center;"> <a id="detalles{{proyecto.id}}" href="{% url "consultor-crud:detalles-medio"  medio.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
-              <td style="text-align:center;"><a id="editar{{proyecto.id}}" href="{% url "consultor-crud:editar-detalles-medio" medio.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
-              <td style="text-align:center;"><a id="borrar{{proyecto.id}}" href="{% url "consultor-crud:borrar-detalles-medio" medio.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td> {% endcomment %}
+              <td style="text-align:center;"> <a id="detalles{{caracteristica.id}}" href="{% url "consultor-crud:detalles-caracteristica"  caracteristica.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+              <td style="text-align:center;"><a id="editar{{caracteristica.id}}" href="{% url "consultor-crud:editar-detalles-caracteristica" caracteristica.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+              <td style="text-align:center;"><a id="borrar{{caracteristica.id}}" href="{% url "consultor-crud:borrar-detalles-caracteristica" caracteristica.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
           </tr>
         {% endfor %}
       </tbody>
