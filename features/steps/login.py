@@ -8,6 +8,7 @@ def step_impl(context):
     context.browser.find_element_by_id('id_username').send_keys('admin')
     context.browser.find_element_by_id('id_password').send_keys('jaja1234')
     context.browser.find_element_by_id('id_submit').click()
+    
 @given('Usuario registrado')
 def step_impl(context):
     from django.contrib.auth.models import User
