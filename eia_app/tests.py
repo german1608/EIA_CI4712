@@ -1,5 +1,5 @@
 '''Test para el crud del consultor '''
-from django.test import TestCase, RequestFactory
+from django.test import TestCase, Client
 from .forms import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .models import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .views import MarcoListView
@@ -895,7 +895,7 @@ class MarcoListViewTestCase(TestCase):
 
     def setUp(self):
         ''' Crea data inicial para cada prueba '''
-        self.factory = RequestFactory()
+        self.client = Client()
         DatosProyecto.objects.create(
             titulo='Proyecto 1',
             ubicacion='Ubicacion',
