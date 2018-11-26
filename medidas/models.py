@@ -1,8 +1,11 @@
 """
 Modelos para el modulo de medidas
 """
+import re
 from django.db import models
+from django.core.validators import MinValueValidator
 from django.core.validators import RegexValidator
+from django.utils.translation import gettext_lazy as _  # pylint: disable=unused-import
 
 # Create your models here.
 class Medida(models.Model):
@@ -35,11 +38,12 @@ class Medida(models.Model):
         max_digits=5,
         decimal_places=4)
     ci_responsable = models.CharField(
-        max_length=10, verbose_name='Cédula del Responsable',
-        validators=[RegexValidator(
-            r'/^[V|E|J|P][0-9]{5,9}$/',
-            'Cédula incorrecta',
-            'invalid')])
+        max_length=9,
+        validators=[
+            RegexValidator(
+                re.compile('^[V|E|J|P][0-9]{5,9}$'),
+                _('Cédula incorrecta'),
+                'invalid')])
 
 class Impacto(models.Model):
     """ Tabla de Impactos que sirve de atributo multivalor para las medidas """

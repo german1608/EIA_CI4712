@@ -31,6 +31,11 @@ urlpatterns = [
         include(
             'eia_app.urls',
             namespace='consultor-crud')),
+    path(
+        'medidas/',
+        include(
+            'medidas.urls',
+            namespace='medidas')),
     path('users/', include("users.urls")),
     path('', include('dashboard.urls')),
     path('configuracion/', include("configuracion.urls")),
