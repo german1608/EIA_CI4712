@@ -794,3 +794,31 @@ class DatosDocumentoTestCase(TestCase):
             DatosDocumento.objects.get(fecha="2006-10-25")
         except BaseException:
             pass
+
+
+class MarcoFormTestCase(TestCase):
+    """ Caso de pruebas para el formulario de marcos """
+    def setUp(self):
+        ''' Crea data inicial para cada prueba '''
+        self.proyecto = DatosProyecto.objects.create(
+            titulo='Proyecto 1',
+            ubicacion='Ubicacion',
+            area='Area',
+            tipo='Tipo',
+            url='https://url.com'
+        )
+
+    def test_form_existence(self):
+        ''' Prueba la existencia del formulario '''
+        MarcoForm()
+
+    def test_form_proyecto_field(self):
+        ''' Prueba que el campo proyecto tenga como opciones los proyectos del sistema '''
+        form = MarcoForm()
+        empty_label = form.fields['proyecto'].empty_label
+        actual = list(form.fields['proyecto'].choices)
+        expected = [
+            ('', empty_label),
+            (self.proyecto.pk, self.proyecto.__str__())
+            ]
+        self.assertEqual(actual, expected, 'Las opciones de MarcoForm.proyecto no son correctas')
