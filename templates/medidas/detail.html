@@ -44,7 +44,7 @@
 
       <h3 class="title">Impactos afectados: </h3>
       <ul>
-        {% for impacto in medida.impacto_set.all %}
+        {% for impacto in medida.impactos.all %}
           <li>
             <p>{{impacto.descripcion}}</p>
           </li>
@@ -53,7 +53,7 @@
 
       <h3 class="title">Objetivo de la medida: </h3>
       <ul>
-        {% for objetivo in medida.objetivo_set.all %}
+        {% for objetivo in medida.objetivos.all %}
           <li>
             <p>{{objetivo.descripcion}}</p>
           </li>
@@ -62,7 +62,7 @@
 
       <h3 class="title">Indicadores de cumplimiento: </h3>
       <ul>
-        {% for indicador in medida.indicadordecumplimiento_set.all %}
+        {% for indicador in medida.indicadoresdecumplimientos.all %}
           <li>
             <p>{{indicador.descripcion}}</p>
           </li>
