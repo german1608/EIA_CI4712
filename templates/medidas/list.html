@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h3>Lista de medidas</h3>
+<p>
+    <a href="{% url "medidas:nueva-medida" %}">Agregar medida</a>
+</p>
+<div class="container" style="width:90% !important">
+    {%if object_list.count > 0%}
+      <table id="medidas" class="display">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Medio</th>
+                <th style="text-align:center;">Ver detalles</th>
+                <th style="text-align:center;">Editar</th>
+                <th style="text-align:center;">Borrar</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for medida in object_list %}
+            <tr>
+                <td>{{ medida.nombre }}</td>
+                <td>{{ medida.tipo }}</td>
+                <td>{{ medida.medio }}</td>
+                <td style="text-align:center;"><a href="{% url "medidas:detalles-medida"  medida.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+                <td style="text-align:center;"><a href="{% url "medidas:editar-medida" medida.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+                <td style="text-align:center;"><a href="{% url "medidas:borrar-medida" medida.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No existen medidas agregadas a la base de datos</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+<!--BLOQUE DE JS-->
+
+{% block js %}
+<script src="{% static 'js/jquery.dataTables.js' %}"></script>
+<script>
+  $(document).ready( function () {
+    $('#organizacion').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      }
+    });
+  });
+</script>
+{% endblock %}

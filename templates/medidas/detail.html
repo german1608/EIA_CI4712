@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock %}
+{% block content %}
+
+<h3> Detalles de la medida: {{medida.nombre}}</h3>
+<br>
+<div class="container" style="margin-left:10%">
+  <h3 class="title">Nombre: </h3>
+  <p>{{ medida.nombre}} </p>
+  
+  <h3 class="title">Tipo: </h3>
+  <p>{{ tipo.nombre}} </p>
+  
+  <h3 class="title">Medio: </h3>
+  <p>{{ medida.medio}} </p>
+
+  <h3 class="title">Descripcion: </h3>
+  <p>{{ medida.descripcion}} </p>
+
+  <h3 class="title">Marco juridico: </h3>
+  <p>{{ medida.marco_juridico}} </p>
+
+  <h3 class="title">Area: </h3>
+  <p>{{ medida.area}} </p>
+
+  <h3 class="title">Nombre del responsable: </h3>
+  <p>{{ medida.nombre_responsable}} </p>
+
+  <h3 class="title">Apellido del responsable: </h3>
+  <p>{{ medida.apellido_responsable}} </p>
+
+
+  <h3 class="title">CI del responsable: </h3>
+  <p>{{ medida.ci_responsable}} </p>
+
+  <h3 class="title">Nivel academico del responsable: </h3>
+  <p>{{ medida.nivel_academico_responsable}} </p>
+
+  <h3 class="title">Impactos afectados: </h3>
+  <ul>
+    {% for impacto in medida.impacto_set.all %}
+      <li>
+        <p>{{impacto.descripcion}}</p>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h3 class="title">Objetivo de la medida: </h3>
+  <ul>
+    {% for objetivo in medida.objetivo_set.all %}
+      <li>
+        <p>{{objetivo.descripcion}}</p>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h3 class="title">Indicadores de cumplimiento: </h3>
+  <ul>
+    {% for indicador in medida.indicador_set.all %}
+      <li>
+        <p>{{indicador.descripcion}}</p>
+      </li>
+    {% endfor %}
+  </ul>
+
+</div>
+
+{% endblock %}
