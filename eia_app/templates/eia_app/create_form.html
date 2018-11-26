@@ -17,3 +17,14 @@
   </div>
 </div>
 {% endblock %}
+
+{% block js %}
+{% if medio %}
+<script>
+    $(document).ready( function () {
+        $('#id_medio').val("{{medio}}")
+        $('#div_id_medio').hide()
+    });
+</script>
+{% endif %}
+{% endblock %}

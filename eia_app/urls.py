@@ -66,8 +66,16 @@ urlpatterns = [ #pylint: disable=invalid-name
             name='editar-detalles-proyecto'),
     re_path(r'^descripcion_proyecto/borrar/(?P<pk>\d+)/$', DescripcionProyectoDelete.as_view(),
             name='borrar-detalles-proyecto'),
-    path('caracteristicas_medio/', MedioFisicoList.as_view(),
+    path('caracteristicas_medio/', MedioList.as_view(),
          name='lista-medios'),
-    path('caracteristicas_medio/nuevo/', MedioFisicoCreate.as_view(),
+    path('caracteristicas_medio/nuevo/', MedioCreate.as_view(),
          name='nuevo-medio'),
+    re_path(r'^caracteristica_medio/(?P<pk>\d+)/$', MedioDetail.as_view(),
+            name='detalles-medio'),
+    re_path(r'^caracteristica_medio/editar/(?P<pk>\d+)/$', MedioUpdate.as_view(),
+            name='editar-detalles-medio'),
+    re_path(r'^caracteristica_medio/borrar/(?P<pk>\d+)/$', MedioDelete.as_view(),
+            name='borrar-detalles-medio'),
+    path('caracteristica_medio/<int:pk>/nueva_caracteristica/', CaracteristicaMedioCreate.as_view(),
+         name='nueva-caracteristica')
 ]

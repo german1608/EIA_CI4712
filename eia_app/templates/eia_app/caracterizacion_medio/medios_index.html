@@ -28,10 +28,10 @@
           <tr>
               <td>{{ medio.proyecto }}</td>
               <td>{{ medio.get_tipo_display }}</td>
-              <td>{{ medio.decripcion }}</td>
-              <td style="text-align:center;"> <a id="detalles{{proyecto.id}}" href="{% url "consultor-crud:detalles-datos-proyecto"  proyecto.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
-              <td style="text-align:center;"><a id="editar{{proyecto.id}}" href="{% url "consultor-crud:editar-datos-proyecto" proyecto.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
-              <td style="text-align:center;"><a id="borrar{{proyecto.id}}" href="{% url "consultor-crud:borrar-datos-proyecto" proyecto.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+              <td>{{ medio.descripcion }}</td>
+              <td style="text-align:center;"> <a id="detalles{{proyecto.id}}" href="{% url "consultor-crud:detalles-medio"  medio.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+              <td style="text-align:center;"><a id="editar{{proyecto.id}}" href="{% url "consultor-crud:editar-detalles-medio" medio.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+              <td style="text-align:center;"><a id="borrar{{proyecto.id}}" href="{% url "consultor-crud:borrar-detalles-medio" medio.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
           </tr>
         {% endfor %}
       </tbody>
@@ -49,7 +49,7 @@
 <script src="{% static 'js/jquery.dataTables.js' %}"></script>
 <script>
   $(document).ready( function () {
-    $('#datos_proyecto').DataTable({
+    $('#medios-ambientales').DataTable({
       "language": {
         "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
       }

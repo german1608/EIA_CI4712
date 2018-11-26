@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from .models import (
     Organizacion, Responsable, Solicitante,
     DatosProyecto, DatosDocumento, DescripcionProyecto,
-    CaracteristicaMedio, MedioFisico
+    CaracteristicaMedio, Medio
 )
 from .forms import (
     OrganizacionCreateForm, SolicitanteCreateForm,
@@ -260,22 +260,47 @@ def consultor_index(request):
     template_name = 'eia_app/consultor-crud_index.html'
     return render(request, template_name)
 
-class MedioFisicoList(ListView):
+class MedioList(ListView):
     ''' Index de los distintos medios'''
-    model = MedioFisico
+    model = Medio
     template_name = 'eia_app/caracterizacion_medio/medios_index.html'
 
-class MedioFisicoCreate(CreateView):  # pylint: disable=too-many-ancestors
-    '''Crear una MedioFisico'''
-    model = MedioFisico
+class MedioCreate(CreateView):  # pylint: disable=too-many-ancestors
+    '''Crear una Medio'''
+    model = Medio
     fields = "__all__"
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-medios')
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
-        context = super(MedioFisicoCreate, self).get_context_data(**kwargs)
+        context = super(MedioCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Detalles de un medio ambiental"
         return context
+
+class MedioDetail(DetailView):  # pylint: disable=too-many-ancestors
+    '''Detalles de un Medio'''
+    model = Medio
+    template_name = 'eia_app/caracterizacion_medio/detail.html'
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(MedioDetail, self).get_context_data(**kwargs)
+        caracteristicas = CaracteristicaMedio.objects.filter(medio=self.kwargs['pk'])
+        context["caracteristicas"] = caracteristicas
+        return context
+
+class MedioUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+    '''Actualizar una Medio'''
+    model = Medio
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
+    fields = '__all__'
+
+
+class MedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
+    '''Eliminar una Medio'''
+    model = Medio
+    template_name = 'eia_app/descripcion_proyecto/delete.html'
+    success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
 
 class CaracteristicaMedioList(ListView):
     '''Ver caracteristicas de un medio fisico'''
@@ -290,4 +315,18 @@ class CaracteristicaMedioList(ListView):
             context['medio'] = 'medio biológico'
         elif self.kwargs['medio'] == 'socio':
             context['medio'] = 'medio socio-cultural'
+        return context
+
+class CaracteristicaMedioCreate(CreateView):  # pylint: disable=too-many-ancestors
+    '''Crear una Medio'''
+    model = CaracteristicaMedio
+    fields = "__all__"
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-medios')
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CaracteristicaMedioCreate, self).get_context_data(**kwargs)
+        medio = Medio.objects.get(pk=self.kwargs['pk'])
+        context["nombre"] = "características del proyecto " + str(medio.proyecto) + " del medio " + str(medio.tipo)
+        context["medio"] = medio.pk
         return context

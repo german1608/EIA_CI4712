@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
+<link rel="stylesheet" href="{% static 'css/medios_detail.css' %}">
+{% endblock %}
+{% block content %}
+
+<h4> Detalles del proyecto {{ medio.proyecto }} y el medio {{ medio.tipo }}</h4>
+<hr>
+<div class="grid-container-medio" style="margin-left:10%">
+
+
+                <div class="grid-item-medio">
+                        <div class="text-col">
+                            <p class="title">Descripción</p>
+                            <p>{{ medio.descripcion }}</p>
+                        </div>
+                </div>
+
+                <div class="grid-item-medio">
+                        <div class="text-col">
+                            <p class="title">Conclusiones</p>
+                            <p>{{ medio.conclusiones }}</p>
+                        </div>
+                </div>
+</div>
+<hr>
+<h3>Características</h3>
+<p>
+    <a id="add" href="{% url "consultor-crud:nueva-caracteristica" view.kwargs.pk %}">Añadir una característica</a>
+</p>
+<div class="container" style="width:90% !important">
+  {%if caracteristicas.count > 0%}
+  <table id="caracteristicas-table" class="display">
+      <thead>
+          <tr>
+              <th>Característica</th>
+              <th>Descripción</th>
+{% comment %}               <th style="text-align:center;">Ver detalles</th>
+              <th style="text-align:center;">Editar</th>
+              <th style="text-align:center;">Borrar</th> {% endcomment %}
+          </tr>
+      </thead>
+      <tbody>
+        {% for caracteristica in caracteristicas %}
+          <tr>
+              <td>{{ caracteristica.caracteristica }}</td>
+              <td>{{ caracteristica.descripcion }}</td>
+              {% comment %} <td style="text-align:center;"> <a id="detalles{{proyecto.id}}" href="{% url "consultor-crud:detalles-medio"  medio.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+              <td style="text-align:center;"><a id="editar{{proyecto.id}}" href="{% url "consultor-crud:editar-detalles-medio" medio.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+              <td style="text-align:center;"><a id="borrar{{proyecto.id}}" href="{% url "consultor-crud:borrar-detalles-medio" medio.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td> {% endcomment %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No existen características para este medio agregadas a la base de datos</p>
+  {% endif %}
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/jquery.dataTables.js' %}"></script>
+<script>
+  $(document).ready( function () {
+    $('#caracteristicas-table').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      }
+    });
+  });
+</script>
+{% endblock %}
