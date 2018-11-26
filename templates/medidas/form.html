@@ -36,23 +36,25 @@
             {% endfor %}
             <div class="w-100"></div>
             {{ impacto_formset.management_form }}
-            {% for form in impacto_formset %}
             <div class="col">
+              {% for form in impacto_formset %}
               <div class="row formset-row">
                 <div class="col">
                   {{form.id}}
                   {{form.medida}}
                   <div class="form-group">
                     {{form.descripcion.errors}}
+                    {% if form.instance.pk %}{{ form.DELETE }}{% endif %}
                     {% render_field form.descripcion class="form-control" placeholder=form.descripcion.label required="required" %}
                   </div>
                   <div class="w-100"></div>
                 </div>
               </div>
+              {% endfor %}
             </div>
-            {% endfor %}
           </div>
           <br>
+
           <!-- Formulario de objetivos -->
           <div id="{{objetivo_formset.prefix}}" class="row">
             <div class="col">
@@ -63,49 +65,51 @@
             {% endfor %}
             <div class="w-100"></div>
             {{ objetivo_formset.management_form }}
-            {% for form in objetivo_formset %}
             <div class="col">
+              {% for form in objetivo_formset %}
               <div class="row formset-row">
                 <div class="col">
                   {{form.id}}
                   {{form.medida}}
                   <div class="form-group">
+                    {% if form.instance.pk %}{{ form.DELETE }}{% endif %}
                     {{form.descripcion.errors}}
                     {% render_field form.descripcion class="form-control" placeholder=form.descripcion.label required="required" %}
                   </div>
                   <div class="w-100"></div>
                 </div>
               </div>
+              {% endfor %}
             </div>
-            {% endfor %}
           </div>
           <br>
+
           <!-- Formulario de indicadores -->
           <div id="{{indicador_formset.prefix}}" class="row">
             <div class="col">
-              <h3>Indicadores de Cumplimiento</h3>
+              <h3>Indicadores</h3>
             </div>
             {% for error in indicador_formset.non_field_errors %}
             {{error}}
             {% endfor %}
             <div class="w-100"></div>
             {{ indicador_formset.management_form }}
-            {% for form in indicador_formset %}
             <div class="col">
+              {% for form in indicador_formset %}
               <div class="row formset-row">
                 <div class="col">
                   {{form.id}}
                   {{form.medida}}
                   <div class="form-group">
                     {{form.descripcion.errors}}
+                    {% if form.instance.pk %}{{ form.DELETE }}{% endif %}
                     {% render_field form.descripcion class="form-control" placeholder=form.descripcion.label required="required" %}
                   </div>
                   <div class="w-100"></div>
                 </div>
-                <!-- <div class="w-100"></div> -->
               </div>
+              {% endfor %}
             </div>
-            {% endfor %}
           </div>
           <br>
 
