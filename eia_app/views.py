@@ -299,8 +299,8 @@ class MedioUpdate(UpdateView):  # pylint: disable=too-many-ancestors
 class MedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una Medio'''
     model = Medio
-    template_name = 'eia_app/descripcion_proyecto/delete.html'
-    success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
+    template_name = 'eia_app/caracterizacion_medio/delete_medio.html'
+    success_url = reverse_lazy('consultor-crud:lista-medios')
 
 class CaracteristicaMedioDetail(DetailView):
     '''Ver caracteristicas de un medio fisico'''
@@ -327,8 +327,10 @@ class CaracteristicaMedioUpdate(UpdateView):  # pylint: disable=too-many-ancesto
 class CaracteristicaMedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una CaracteristicaMedio'''
     model = CaracteristicaMedio
-    template_name = 'eia_app/descripcion_proyecto/delete.html'
-    success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
+    template_name = 'eia_app/descripcion_proyecto/delete_categoria.html'
+
+    def get_success_url(self):
+        return reverse_lazy('consultor-crud:detalles-medio', kwargs={'pk': self.kwargs['pk']})
 
 class CaracteristicaMedioCreate(CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una Medio'''
@@ -375,5 +377,8 @@ class SubaracteristicaMedioUpdate(UpdateView):  # pylint: disable=too-many-ances
 class SubaracteristicaMedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una SubaracteristicaMedio'''
     model = SubaracteristicaMedio
-    template_name = 'eia_app/descripcion_proyecto/delete.html'
-    success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
+    template_name = 'eia_app/descripcion_proyecto/delete_subcategoria.html'
+
+    def get_success_url(self):
+        subcaracteristica = SubaracteristicaMedio.objects.get(pk=self.kwargs['pk'])
+        return reverse_lazy('consultor-crud:detalles-caracteristica', kwargs={'pk': subcaracteristica.caracteristica.pk})
