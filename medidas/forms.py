@@ -15,7 +15,10 @@ class MedidaForm(forms.ModelForm):
         fields = '__all__'
 
 # pylint: disable=invalid-name
-ImpactoFormSet = inlineformset_factory(Medida, Impacto, can_delete=True)
-ObjetivoFormSet = inlineformset_factory(Medida, Objetivo, can_delete=True)
+ImpactoFormSet = inlineformset_factory(
+    Medida, Impacto, can_delete=True, fields=('descripcion',), extra=0, min_num=1)
+ObjetivoFormSet = inlineformset_factory(
+    Medida, Objetivo, can_delete=True, fields=('descripcion',), extra=0, min_num=1)
 IndicadorDeCumplimientoFormSet = inlineformset_factory(
-    Medida, IndicadorDeCumplimiento, can_delete=True)
+    Medida, IndicadorDeCumplimiento, can_delete=True, fields=('descripcion',),
+    extra=0, min_num=1)
