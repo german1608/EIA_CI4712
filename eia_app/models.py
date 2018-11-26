@@ -282,3 +282,25 @@ class DatosDocumento(models.Model):
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "Datos_Documento"
+
+
+class DescripcionProyecto(models.Model):
+    """ Tabla para almacenar la informacion de la descripcion de un proyecto.
+    Parametros:
+        models.Model (DescripcionProyecto): Instancia sobre la que se crea la tabla.
+    Atributos:
+        proyecto: Proyecto al que pertenencen los datos del documento.
+        objGeneral: objetivo general del estudio
+        objEspecifico: objetivos especificos del estudio
+        justificacion: azones por las que se realiza el estudio
+        area: mapa del sitio o espacio donde se realiza el estudio
+    """
+    proyecto = models.OneToOneField(DatosProyecto, on_delete=models.CASCADE)
+    obj_general = models.TextField()
+    obj_especifico = models.TextField()
+    justificacion = models.TextField()
+    area = models.ImageField()
+
+    def get_model_type(self):  # pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
+        return "Descripcion_Proyecto"

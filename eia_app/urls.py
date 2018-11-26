@@ -68,4 +68,14 @@ urlpatterns = [ #pylint: disable=invalid-name
     re_path(r'^marco-(?P<tipo>metodologico|juridico|teorico)/editar/(?P<pk>\d+)/$',
             MarcoFormView.as_view(), name='editar-marco'),
 
+    path('descripcion_proyecto/', DescripcionProyectoList.as_view(),
+         name='lista-detalles-proyecto'),
+    path('descripcion_proyecto/nuevo/', DescripcionProyectoCreate.as_view(),
+         name='nuevo-detalles-proyecto'),
+    re_path(r'^descripcion_proyecto/(?P<pk>\d+)/$', DescripcionProyectoDetail.as_view(),
+            name='detalles-proyecto'),
+    re_path(r'^descripcion_proyecto/editar/(?P<pk>\d+)/$', DescripcionProyectoUpdate.as_view(),
+            name='editar-detalles-proyecto'),
+    re_path(r'^descripcion_proyecto/borrar/(?P<pk>\d+)/$', DescripcionProyectoDelete.as_view(),
+            name='borrar-detalles-proyecto'),
 ]

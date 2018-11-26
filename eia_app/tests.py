@@ -805,7 +805,7 @@ class MarcoFormTestCase(TestCase):
     fixtures = ['proyectos.json']
     def setUp(self):
         ''' Crea data inicial para cada prueba '''
-        self.proyecto = DatosProyecto.objects.get(pk=1)
+        self.proyecto = DatosProyecto.objects.get(pk=2)
 
     def test_form_existence(self): # pylint: disable=no-self-use
         ''' Prueba la existencia del formulario '''
@@ -818,8 +818,7 @@ class MarcoFormTestCase(TestCase):
         actual = list(form.fields['proyecto'].choices)
         expected = [
             ('', empty_label),
-            (self.proyecto.pk, self.proyecto.__str__())
-            ]
+        ] + list(map(lambda p: (p.pk, p.__str__()), DatosProyecto.objects.all()))
         self.assertEqual(actual, expected, 'Las opciones de MarcoForm.proyecto no son correctas')
 
     def test_empty_form_validity(self):
