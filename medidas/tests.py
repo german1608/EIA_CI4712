@@ -37,3 +37,10 @@ class MedidaFormTestCase(TestCase):
         form = MedidaForm(self.medida_dict)
         self.assertFalse(
             form.is_valid(), 'El formulario no debe estar valido sin el nombre')
+
+    def test_form_nombre_max_length(self):
+        ''' Prueba para validar la longitud maxima del nombre '''
+        self.medida_dict['nombre'] = 'f' * 101
+        form = MedidaForm(self.medida_dict)
+        self.assertFalse(
+            form.is_valid(), 'El nombre debe ser maximo 100 caracteres')
