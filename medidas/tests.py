@@ -44,3 +44,10 @@ class MedidaFormTestCase(TestCase):
         form = MedidaForm(self.medida_dict)
         self.assertFalse(
             form.is_valid(), 'El nombre debe ser maximo 100 caracteres')
+
+    def test_form_tipo_not_empty(self):
+        ''' Prueba para validar que especifiquen un tipo '''
+        self.medida_dict['tipo']  = ''
+        form = MedidaForm(self.medida_dict)
+        self.assertFalse(
+            form.is_valid(), 'El tipo debe ser no vacio')
