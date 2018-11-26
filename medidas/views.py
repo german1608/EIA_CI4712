@@ -1,6 +1,5 @@
 '''Views del crud del consultor'''
 
-from django.shortcuts import render
 from django.views.generic import (CreateView, DetailView,
                                   ListView,
                                   UpdateView,
@@ -10,7 +9,7 @@ from .models import (
     Medida
 )
 from .forms import (
-    MedidaCreateForm
+    MedidaForm
 )
 
 class MedidaList(ListView):  # pylint: disable=too-many-ancestors
@@ -21,7 +20,7 @@ class MedidaList(ListView):  # pylint: disable=too-many-ancestors
 class MedidaCreate(CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una organizacion'''
     model = Medida
-    form_class = MedidaCreateForm
+    form_class = MedidaForm
     template_name = 'medidas/create_form.html'
     success_url = reverse_lazy('medidas:lista-medidas')
 
@@ -40,7 +39,7 @@ class MedidaUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     model = Medida
     template_name = 'medidas/create_form.html'
     success_url = reverse_lazy('medidas:lista-medidas')
-    fields = '__all__'
+    form_class = MedidaForm
 
 class MedidaDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una medida'''
