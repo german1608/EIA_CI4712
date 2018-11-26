@@ -8,7 +8,7 @@
 
 <h3>Lista de medidas</h3>
 <p>
-    <a href="{% url "medidas:nueva-medida" %}">Agregar medida</a>
+  <button type="button" class="btn btn-info"> <a href="{% url "medidas:nueva-medida" %}">Agregar medida</a></button>
 </p>
 <div class="container" style="width:90% !important">
     {%if object_list.count > 0%}
