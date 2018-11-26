@@ -42,6 +42,19 @@
                     <a href="{% url 'users_list' %}"><i class="menu-icon fa fa-user"></i>Control de Usuarios</a>
                 </li>
 
+                <li>
+                    <a href="{% url 'medidas:lista-medidas' %}" id="medidas"><i class="menu-icon fas fa-edit"></i>Listado de Medidas</a>
+                </li>
+
+                <li>
+                    <a href="{% url 'tablas' %}"><i class="menu-icon fa fa-cog"></i>Configuración</a>
+                </li>
+
+                <li>
+                    <a href="{% url 'logout' %}"><i class="menu-icon fa fa-power-off"></i>Cerrar Sesión</a>
+                </li>
+
+
             </ul>
         </div>
     </nav>
@@ -51,8 +64,8 @@
       <header id="header" class="header">
           <div class="top-left">
               <div class="navbar-header">
-                  <a class="navbar-brand" href="./"><img src="" alt="Logo"></a>
-                  <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+                  <a class="navbar-brand" href="./"><img src="#"></a>
+                  
               </div>
           </div>
           <div class="top-right">
@@ -65,11 +78,6 @@
                           <img class="user-avatar rounded-circle" src="{% static 'img/germanbb.jpg' %}" alt="User Avatar">
                       </a>
 
-                      <div class="user-menu dropdown-menu">
-                          <a class="nav-link" href="{% url 'tablas' %}"><i class="fa fa -cog"></i>Configuración</a>
-
-                          <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-power -off"></i>Cerrar Sesión</a>
-                      </div>
                   </div>
 
               </div>
@@ -106,10 +114,8 @@
   
 
   <script src="{% static 'js/jquery.min.js' %}"></script>
-  <script src="{% static 'js/popper.min.js' %}"></script>
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
   <script src="{% static 'js/jquery.matchHeight.min.js' %}"></script>
-  <script src="{% static 'js/custom.js' %}"></script>
 
   {% block js %}
   {% endblock %}

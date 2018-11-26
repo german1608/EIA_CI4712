@@ -2,14 +2,26 @@
 {% load static %}
 
 {% block content %}
-<h6>¿Estás seguro que deseas borrar el marco {{tipo_marco}} del proyecto "{{ object.titulo }}"?</h6>
-<div class="container">
-  <div id="editor"></div>
+<div class="row justify-content-center">
+  <div class="col-5">
+    <div class="card">
+      <div class="card-body"> 
+
+
+        <h5 style="color: gray;">¿Estás seguro que deseas borrar el marco {{tipo_marco}} del proyecto "{{ object.titulo }}"?</h5>
+        <div class="container">
+          <div id="editor"></div>
+        </div>
+        <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger" style="display: block; margin: 0 auto;">Aceptar</button>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
 </div>
-<form method="post">
-  {% csrf_token %}
-  <button type="submit" class="btn btn-success">Aceptar</button>
-</form>
 {% endblock %}
 
 

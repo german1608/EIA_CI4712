@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="card">
+  <h3 style="padding-top: 10px; padding-bottom: 10px; padding-left: 20px; color: gray;">Lista de Medidas</h3>
+</div>
+
+<p>
+  <a href="{% url 'medidas:nueva-medida' %}" class="btn btn-info">Agregar medida</a>
+</p>
+
+<br>
+<div class="container" style="width:90% !important">
+    {%if object_list.count > 0%}
+      <table id="tablamedidas" class="display">
+        <thead>
+            <tr style="color: white;">
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Medio</th>
+                <th style="text-align:center;">Ver detalles</th>
+                <th style="text-align:center;">Editar</th>
+                <th style="text-align:center;">Borrar</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for medida in object_list %}
+            <tr>
+                <td>{{ medida.nombre }}</td>
+                <td>{{ medida.get_tipo_display }}</td>
+                <td>{{ medida.get_medio_display }}</td>
+                <td style="text-align:center;"><a href="{% url "medidas:detalles-medida"  medida.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+                <td style="text-align:center;"><a href="{% url "medidas:editar-medida" medida.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+                <td style="text-align:center;"><a href="{% url "medidas:borrar-medida" medida.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No existen medidas agregadas a la base de datos</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+<!--BLOQUE DE JS-->
+
+{% block js %}
+<script src="{% static 'js/jquery.dataTables.js' %}"></script>
+<script>
+  $(document).ready( function () {
+    $('#tablamedidas').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      }
+    });
+  });
+</script>
+{% endblock %}

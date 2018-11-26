@@ -2,14 +2,18 @@
 {% load static %}
 
 {% block content %}
-  <h1>Listado de Usuarios</h1>
+
+  <div class="card">
+    <h3 style="padding-top: 10px; padding-bottom: 10px; padding-left: 20px; color: gray;">Listado de Usuarios</h3>
+  </div>
+  
   <!--Comienzo del dataTable para los usuarios-->
   <div class="row">
     <div class="col">
       <!--Tabla de usuarios-->
       <table id="t_usuarios">
         <thead>
-          <tr>
+          <tr style="color: white;">
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Correo</th>

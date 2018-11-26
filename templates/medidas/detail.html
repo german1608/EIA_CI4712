@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock %}
+{% block content %}
+
+
+<div class="card">
+  <h3 style="padding-top: 10px; padding-bottom: 10px; padding-left: 20px; color: gray;">Detalles de la medida: {{medida.nombre}}</h3>
+</div>
+
+
+<br>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+
+          <h5 class="title">Nombre:</h5><p class="p">{{ medida.nombre }}</p>
+          <br>
+          <h5 class="title">Tipo: </h5><p class="p">{{ medida.get_tipo_display }}</p>
+          <br>
+          <h5 class="title">Medio:</h5><p class="p">{{ medida.get_medio_display }}</p>
+          <br>
+          <h5 class="title">Descripción:</h5><p class="p">{{ medida.descripcion }}</p>
+          <br>
+          <h5 class="title">Marco jurídico:</h5><p class="p">{{ medida.marco_juridico }}</p>
+          <br>
+          <h5 class="title">Área:</h5><p class="p">{{ medida.area }}</p>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          
+          <h5 class="title">Nombre del responsable:</h5><p class="p">{{ medida.nombre_responsable }}</p>
+          <br>
+          <h5 class="title">Apellido del responsable:</h5><p class="p">{{ medida.apellido_responsable }}</p>
+          <br>
+          <h5 class="title">CI del responsable:</h5><p class="p">{{ medida.ci_responsable }}</p>
+          <br>
+          <h5 class="title">Nivel académico del responsable:</h5><p class="p">{{ medida.nivel_academico_responsable }}</p>
+          <br>
+          <h5 class="title">Impactos afectados:</h5>
+          <ul class="l">
+            {% for impacto in medida.impactos.all %}
+              <li>
+                <p>{{impacto.descripcion}}</p>
+              </li>
+            {% endfor %}
+          </ul>
+          <h5 class="title">Objetivo de la medida: </h5>
+          <ul  class="l">
+            {% for objetivo in medida.objetivos.all %}
+              <li>
+                <p>{{objetivo.descripcion}}</p>
+              </li>
+            {% endfor %}
+          </ul>
+          <h5 class="title">Indicadores de cumplimiento: </h5>
+          <ul class="l">
+            {% for indicador in medida.indicadoresdecumplimientos.all %}
+              <li>
+                <p>{{indicador.descripcion}}</p>
+              </li>
+            {% endfor %}
+          </ul>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

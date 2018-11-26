@@ -10,14 +10,14 @@
   <h3 style="padding-top: 10px; padding-bottom: 10px; padding-left: 20px; color: gray;">Lista de marcos {{tipo_marco}}s</h3>
 </div>
 <p>
-    <a href="{% url 'eia_app:crear-marco' tipo %}" style="color: gray;"><i class="fa fa-plus"></i> Agregar marco {{tipo_marco}}</a>
+    <a href="{% url 'eia_app:crear-marco' tipo %}" class="btn btn-info"><i class="fa fa-plus"></i> Agregar Marco </a>
 </p>
 <br>
-<div id="datos_documento" class="container" style="width:90% !important">
+<div class="container" style="width:90% !important">
     {% if object_list.count > 0 %}
       <table id="datos_documento" class="display">
         <thead>
-            <tr style="color: gray">
+            <tr style="color: white">
                 <th>Proyecto</th>
                 <th>Acciones</th>
             </tr>
@@ -51,12 +51,14 @@
 <!--BLOQUE DE JS-->
 
 {% block js %}
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/b-1.5.4/b-html5-1.5.4/b-print-1.5.4/kt-2.5.0/r-2.2.2/datatables.min.js"></script>
+<script src="{% static 'js/jquery.dataTables.js' %}"></script>
 <script>
-$(document).ready(function() {
-    $('#example').DataTable();
-} );
+  $(document).ready( function () {
+    $('#datos_documento').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      }
+    });
+  });
 </script>
 {% endblock %}
