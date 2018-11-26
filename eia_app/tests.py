@@ -800,15 +800,10 @@ class DatosDocumentoTestCase(TestCase):
 
 class MarcoFormTestCase(TestCase):
     """ Caso de pruebas para el formulario de marcos """
+    fixtures = ['proyectos.json']
     def setUp(self):
         ''' Crea data inicial para cada prueba '''
-        self.proyecto = DatosProyecto.objects.create(
-            titulo='Proyecto 1',
-            ubicacion='Ubicacion',
-            area='Area',
-            tipo='Tipo',
-            url='https://url.com'
-        )
+        self.proyecto = DatosProyecto.objects.get(pk=1)
 
     def test_form_existence(self): # pylint: disable=no-self-use
         ''' Prueba la existencia del formulario '''
@@ -893,34 +888,12 @@ class MarcoListViewTestCase(TestCase):
     '''
     Prueba la vista de listado de los marcos.
     '''
+    fixtures = ['users-and-groups.json', 'proyectos.json']
 
     def setUp(self):
         ''' Crea data inicial para cada prueba '''
         self.client = Client()
-        DatosProyecto.objects.create(
-            titulo='Proyecto 1',
-            ubicacion='Ubicacion',
-            area='Area',
-            tipo='Tipo',
-            url='https://url.com',
-            marco_metodologico='Marco metodologico',
-        )
-        DatosProyecto.objects.create(
-            titulo='Proyecto 2',
-            ubicacion='Ubicacion',
-            area='Area',
-            tipo='Tipo',
-            url='https://url.com',
-            marco_juridico='Marco juridico',
-        )
-        DatosProyecto.objects.create(
-            titulo='Proyecto 3',
-            ubicacion='Ubicacion',
-            area='Area',
-            tipo='Tipo',
-            url='https://url.com',
-            marco_teorico='Marco teorico',
-        )
+        super().setUp()
 
     def test_view_existence(self): # pylint: disable=self-no-use
         ''' Prueba existencia de la vista que va a listar los marcos '''
