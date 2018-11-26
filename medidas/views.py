@@ -67,11 +67,12 @@ def medida_form_view(request, pk=None):
     indicador_formset = IndicadorDeCumplimientoFormSet(instance=medida)
     if request.method == 'POST':
         medida_form = MedidaForm(request.POST, instance=medida)
+        impacto_formset = ImpactoFormSet(request.POST, instance=medida)
+        objetivo_formset = ObjetivoFormSet(request.POST, instance=medida)
+        indicador_formset = IndicadorDeCumplimientoFormSet(
+            request.POST, instance=medida)
         if medida_form.is_valid():
             medida_form.save()
-            impacto_formset = ImpactoFormSet(request.POST, instance=medida)
-            objetivo_formset = ObjetivoFormSet(request.POST, instance=medida)
-            indicador_formset = IndicadorDeCumplimientoFormSet(request.POST, instance=medida)
 
             if impacto_formset.is_valid() and objetivo_formset.is_valid() and\
                 indicador_formset.is_valid():
