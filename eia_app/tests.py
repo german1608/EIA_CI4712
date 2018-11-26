@@ -808,7 +808,7 @@ class MarcoFormTestCase(TestCase):
             url='https://url.com'
         )
 
-    def test_form_existence(self):
+    def test_form_existence(self): # pylint: disable=no-self-use
         ''' Prueba la existencia del formulario '''
         MarcoForm()
 
@@ -862,10 +862,10 @@ class MarcoFormTestCase(TestCase):
     def test_form_proyecto_invalid_choice(self):
         ''' Prueba que el form sea invalido cuando se le pase un proyecto que no exista '''
         # Guardamos el pk y lo eliminamos
-        pk = self.proyecto.pk
+        proyecto_key = self.proyecto.pk
         self.proyecto.delete()
         form = MarcoForm({
-            'proyecto': str(pk),
+            'proyecto': str(proyecto_key),
             'contenido': 'contenido'
         })
         # Prueba invalidez
