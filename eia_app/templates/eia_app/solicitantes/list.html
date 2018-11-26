@@ -9,7 +9,7 @@
 <div class="wrap">
         <h3>Lista de solicitantes</h3>
         <p>
-            <a href="{% url "consultor-crud:nuevo-solicitante" %}">Agregar datos de un solicitante</a>
+            <a id="add" href="{% url "consultor-crud:nuevo-solicitante" %}">Agregar datos de un solicitante</a>
         </p>
 
 </div>
@@ -35,9 +35,9 @@
               <td>{{ solicitante.nombre }}</td>
               <td>{{ solicitante.cedula }}</td>
               <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  solicitante.proyecto.id %}">{{ solicitante.proyecto }}</a></td>
-              <td style="text-align:center;"><a href="{% url "consultor-crud:detalles-solicitante"  solicitante.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
-              <td style="text-align:center;"><a href="{% url "consultor-crud:editar-solicitante" solicitante.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
-              <td style="text-align:center;"><a href="{% url "consultor-crud:borrar-solicitante" solicitante.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+              <td style="text-align:center;"><a id="detalles{{solicitante.id}}" href="{% url "consultor-crud:detalles-solicitante"  solicitante.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+              <td style="text-align:center;"><a id="editar{{solicitante.id}}" href="{% url "consultor-crud:editar-solicitante" solicitante.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+              <td style="text-align:center;"><a id="borrar{{solicitante.id}}" href="{% url "consultor-crud:borrar-solicitante" solicitante.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
           </tr>
         {% endfor %}
       </tbody>

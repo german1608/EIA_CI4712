@@ -8,7 +8,7 @@
 
 <h3>Lista de organizaciones</h3>
 <p>
-    <a href="{% url "consultor-crud:nueva-organizacion" %}">Agregar organizacion</a>
+    <a id="add" href="{% url "consultor-crud:nueva-organizacion" %}">Agregar organizacion</a>
 </p>
 <div class="container" style="width:90% !important">
     {%if object_list.count > 0%}
@@ -29,9 +29,9 @@
                 <td>{{ organizacion.nombre }}</td>
                 <td>{{ organizacion.rif }}</td>
                 <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  organizacion.proyecto.id %}">{{ organizacion.proyecto }}</a></td>
-                <td style="text-align:center;"><a href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
-                <td style="text-align:center;"><a href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
-                <td style="text-align:center;"><a href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+                <td style="text-align:center;"><a id="detalles{{organizacion.id}}" href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+                <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+                <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
             </tr>
           {% endfor %}
         </tbody>
