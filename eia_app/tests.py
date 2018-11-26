@@ -858,3 +858,20 @@ class MarcoFormTestCase(TestCase):
         # Prueba que la razon de que haya fallado no haya sido por el contenido
         with self.assertRaises(KeyError):
             print(form.errors['contenido'])
+
+    def test_form_proyecto_invalid_choice(self):
+        ''' Prueba que el form sea invalido cuando se le pase un proyecto que no exista '''
+        # Guardamos el pk y lo eliminamos
+        pk = self.proyecto.pk
+        self.proyecto.delete()
+        form = MarcoForm({
+            'proyecto': str(pk),
+            'contenido': 'contenido'
+        })
+        # Prueba invalidez
+        self.assertFalse(
+            form.is_valid(), 'El formulario esta valido cuando no lo esta (el proyecto no existe)')
+        )
+        # Prueba que la razon de que haya fallado no haya sido por el contenido
+        with self.assertRaises(KeyError):
+            print(form.errors['contenido'])
