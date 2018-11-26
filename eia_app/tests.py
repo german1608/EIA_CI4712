@@ -871,7 +871,17 @@ class MarcoFormTestCase(TestCase):
         # Prueba invalidez
         self.assertFalse(
             form.is_valid(), 'El formulario esta valido cuando no lo esta (el proyecto no existe)')
-        )
         # Prueba que la razon de que haya fallado no haya sido por el contenido
         with self.assertRaises(KeyError):
             print(form.errors['contenido'])
+
+    def test_form_proyecto_valido(self):
+        ''' Prueba que el form sea valido cuando se le pasen todos los datos obligatorios '''
+        form = MarcoForm({
+            'proyecto': self.proyecto.pk,
+            'contenido': 'Contenido'
+        })
+        # Prueba validez
+        self.assertTrue(
+            form.is_valid(), 'El formulario esta invalido cuando debe estar valido'
+        )
