@@ -907,6 +907,22 @@ class MarcoListViewTestCase(TestCase):
         ''' Prueba existencia de la vista que va a listar los marcos '''
         MarcoListView()
 
+    def test_view_url_correspondence(self):
+        ''' Prueba que la vista que maneja el url de listado de marcos sea el dispatch() de MarcoListView '''
+        # Primero nos logueamos
+        self.login_util()
+
+        # Probamos cada posible url
+        for tipo_marco in ['metodologico', 'teorico', 'juridico']:
+            with self.subTest(tipo_marco=tipo_marco):
+                target_url = reverse('eia_app:lista-marcos', kwargs={
+                    'tipo': tipo_marco
+                })
+                response = self.client.get(target_url)
+                actual = response.resolver_match.func.__name__
+                expected = MarcoListView.as_view().__name__
+                self.assertEqual(actual, expected, 'La vista no corresponde al url')
+
     def test_vista_redirige_cuando_no_esta_autenticado(self):
         ''' Prueba que la vista rediriga al login si el usuario no esta autenticado '''
         # Hacemos get del url que lista
