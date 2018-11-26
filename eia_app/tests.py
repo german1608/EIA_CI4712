@@ -903,7 +903,7 @@ class MarcoListViewTestCase(TestCase):
             marco_metodologico='Marco metodologico',
         )
         DatosProyecto.objects.create(
-            titulo='Proyecto 1',
+            titulo='Proyecto 2',
             ubicacion='Ubicacion',
             area='Area',
             tipo='Tipo',
@@ -911,7 +911,7 @@ class MarcoListViewTestCase(TestCase):
             marco_juridico='Marco juridico',
         )
         DatosProyecto.objects.create(
-            titulo='Proyecto 1',
+            titulo='Proyecto 3',
             ubicacion='Ubicacion',
             area='Area',
             tipo='Tipo',
