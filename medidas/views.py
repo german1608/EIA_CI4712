@@ -21,7 +21,7 @@ class MedidaCreate(CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una organizacion'''
     model = Medida
     form_class = MedidaForm
-    template_name = 'medidas/create_form.html'
+    template_name = 'medidas/form.html'
     success_url = reverse_lazy('medidas:lista-medidas')
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
@@ -37,7 +37,7 @@ class MedidaDetail(DetailView):  # pylint: disable=too-many-ancestors
 class MedidaUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una medida'''
     model = Medida
-    template_name = 'medidas/create_form.html'
+    template_name = 'medidas/form.html'
     success_url = reverse_lazy('medidas:lista-medidas')
     form_class = MedidaForm
 
