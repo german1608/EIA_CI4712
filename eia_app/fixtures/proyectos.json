@@ -1,0 +1,44 @@
+[
+{
+  "model": "eia_app.datosproyecto",
+  "pk": 2,
+  "fields": {
+    "titulo": "Proyecto 1",
+    "ubicacion": "Ubicacion",
+    "area": "Area",
+    "tipo": "Tipo",
+    "url": "https://url.com",
+    "marco_metodologico": "Marco metodologico",
+    "marco_juridico": null,
+    "marco_teorico": null
+  }
+},
+{
+  "model": "eia_app.datosproyecto",
+  "pk": 3,
+  "fields": {
+    "titulo": "Proyecto 2",
+    "ubicacion": "Ubicacion",
+    "area": "Area",
+    "tipo": "Tipo",
+    "url": "https://url.com",
+    "marco_metodologico": null,
+    "marco_juridico": "Marco juridico",
+    "marco_teorico": null
+  }
+},
+{
+  "model": "eia_app.datosproyecto",
+  "pk": 4,
+  "fields": {
+    "titulo": "Proyecto 3",
+    "ubicacion": "Ubicacion",
+    "area": "Area",
+    "tipo": "Tipo",
+    "url": "https://url.com",
+    "marco_metodologico": null,
+    "marco_juridico": null,
+    "marco_teorico": "Marco teorico"
+  }
+}
+]
