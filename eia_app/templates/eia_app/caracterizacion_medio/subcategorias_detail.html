@@ -38,9 +38,8 @@
               <th>Sub-Característica</th>
               <th>Atributo</th>
               <th>Comentario</th>
-{% comment %}               <th style="text-align:center;">Ver detalles</th>
               <th style="text-align:center;">Editar</th>
-              <th style="text-align:center;">Borrar</th> {% endcomment %}
+              <th style="text-align:center;">Borrar</th>
           </tr>
       </thead>
       <tbody>
@@ -49,9 +48,8 @@
               <td>{{ subcaracteristica.nombre_sub }}</td>
               <td>{{ subcaracteristica.atributo }}</td>
               <td>{{ subcaracteristica.comentario }}</td>
-            {% comment %}   <td style="text-align:center;"> <a id="detalles{{caracteristica.id}}" href="{% url "consultor-crud:detalles-caracteristica"  caracteristica.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
-              <td style="text-align:center;"><a id="editar{{caracteristica.id}}" href="{% url "consultor-crud:editar-detalles-caracteristica" caracteristica.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
-              <td style="text-align:center;"><a id="borrar{{caracteristica.id}}" href="{% url "consultor-crud:borrar-detalles-caracteristica" caracteristica.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td> {% endcomment %}
+              <td style="text-align:center;"><a id="editar{{subcaracteristica.id}}" href="{% url "consultor-crud:editar-detalles-subcaracteristica" subcaracteristica.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+              <td style="text-align:center;"><a id="borrar{{subcaracteristicaid}}" href="{% url "consultor-crud:borrar-detalles-subcaracteristica" subcaracteristica.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
           </tr>
         {% endfor %}
       </tbody>

@@ -79,12 +79,16 @@ urlpatterns = [ #pylint: disable=invalid-name
     path('caracteristica_medio/<int:pk>/nueva_caracteristica/', CaracteristicaMedioCreate.as_view(),
          name='nueva-caracteristica'),
     path('caracteristica_medio/editar/caracteristica/<int:pk>/', CaracteristicaMedioUpdate.as_view(),
-            name='editar-detalles-caracteristica'),
+         name='editar-detalles-caracteristica'),
     path('caracteristica_medio/borrar/caracteristica/<int:pk>/', CaracteristicaMedioDelete.as_view(),
-            name='borrar-detalles-caracteristica'),  
+         name='borrar-detalles-caracteristica'),  
     path('caracteristica_medio/detalles/caracteristica/<int:pk>/', CaracteristicaMedioDetail.as_view(),
-            name='detalles-caracteristica'),
+         name='detalles-caracteristica'),
     path('caracteristica_medio/<int:pk>/nueva_subcaracteristica/', SubaracteristicaMedioCreate.as_view(),
-         name='nueva-subcaracteristica')    
+         name='nueva-subcaracteristica'),
+    path('caracteristica_medio/editar/subcaracteristica/<int:pk>/', SubaracteristicaMedioUpdate.as_view(),
+         name='editar-detalles-subcaracteristica'),
+    path('caracteristica_medio/borrar/subcaracteristica/<int:pk>/', SubaracteristicaMedioDelete.as_view(),
+         name='borrar-detalles-subcaracteristica'),     
         
 ]
