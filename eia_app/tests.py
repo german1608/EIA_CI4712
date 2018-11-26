@@ -2,6 +2,7 @@
 from django.test import TestCase
 from .forms import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .models import *  # pylint: disable=wildcard-import, unused-wildcard-import
+from .views import MarcoListView
 
 # Create your tests here.
 
@@ -918,3 +919,6 @@ class MarcoListViewTestCase(TestCase):
             url='https://url.com',
             marco_teorico='Marco teorico',
         )
+
+    def test_view_existence(self): # pylint: disable=self-no-use
+        MarcoListView
