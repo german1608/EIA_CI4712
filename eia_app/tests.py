@@ -1,5 +1,6 @@
 '''Test para el crud del consultor '''
 from django.test import TestCase, Client
+from django.shortcuts import reverse
 from .forms import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .models import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .views import MarcoListView
@@ -924,3 +925,13 @@ class MarcoListViewTestCase(TestCase):
     def test_view_existence(self): # pylint: disable=self-no-use
         ''' Prueba existencia de la vista que va a listar los marcos '''
         MarcoListView()
+
+    def test_vista_redirige_cuando_no_esta_autenticado(self):
+        ''' Prueba que la vista rediriga al login si el usuario no esta autenticado '''
+        # Hacemos get del url que lista
+        for tipo_marco in ['metodologico', 'teorico', 'juridico']:
+            with self.subTest(tipo_marco=tipo_marco):
+                response = self.client.get(reverse('eia_app:lista-marcos', kwargs={
+                    'tipo': tipo_marco
+                }))
+                self.assertRedirects(response, reverse('login'))
