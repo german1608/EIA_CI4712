@@ -30,3 +30,10 @@ class MedidaFormTestCase(TestCase):
         self.medida_dict['nomenclatura'] = 'f' * 11
         form = MedidaForm(self.medida_dict)
         self.assertFalse(form.is_valid(), 'La nomenclatura debe ser maximo 10 caracteres')
+
+    def test_form_nombre_not_empty(self):
+        ''' Prueba para validar que el nombre no sea vacio '''
+        self.medida_dict['nombre'] = ''
+        form = MedidaForm(self.medida_dict)
+        self.assertFalse(
+            form.is_valid(), 'El formulario no debe estar valido sin el nombre')
