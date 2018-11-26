@@ -1,6 +1,8 @@
 '''Test para el crud del consultor '''
 from django.test import TestCase, Client
 from django.shortcuts import reverse
+from django.contrib.auth import get_user_model
+from django.db.models import Q
 from .forms import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .models import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .views import MarcoListView
@@ -909,3 +911,22 @@ class MarcoListViewTestCase(TestCase):
                 })
                 response = self.client.get(target_url)
                 self.assertRedirects(response, '{}?next={}'.format(reverse('login'), target_url))
+
+    def test_vista_muestra_listado_correcto(self):
+        ''' Prueba que primero autentica al usuario y luego lo redirige a '''
+        # Nos logueamos
+        consultor_ambiental = get_user_model().objects.get(username='especialistaesia')
+        self.client.login(username=consultor_ambiental.username, password='jaja1234')
+
+        # Verificamos el listado de cada marco
+        for tipo_marco in ['metodologico', 'teorico', 'juridico']:
+            with self.subTest(tipo_marco=tipo_marco):
+                target_url = reverse('eia_app:lista-marcos', kwargs={
+                    'tipo': tipo_marco
+                })
+                response = self.client.get(target_url)
+                actual = response.context['object_list']
+                expected = DatosProyecto.objects.filter(~Q(**{
+                    'marco_{}'.format(tipo_marco): None
+                }))
+                self.assertEqual(list(actual), list(expected), 'El filtro de la vista de listado de marcos no esta funcionando')
