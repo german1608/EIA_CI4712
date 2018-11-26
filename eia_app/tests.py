@@ -885,3 +885,36 @@ class MarcoFormTestCase(TestCase):
         self.assertTrue(
             form.is_valid(), 'El formulario esta invalido cuando debe estar valido'
         )
+
+
+class MarcoListViewTestCase(TestCase):
+    '''
+    Prueba la vista de listado de los marcos.
+    '''
+
+    def setUp(self):
+        ''' Crea data inicial para cada prueba '''
+        DatosProyecto.objects.create(
+            titulo='Proyecto 1',
+            ubicacion='Ubicacion',
+            area='Area',
+            tipo='Tipo',
+            url='https://url.com',
+            marco_metodologico='Marco metodologico',
+        )
+        DatosProyecto.objects.create(
+            titulo='Proyecto 1',
+            ubicacion='Ubicacion',
+            area='Area',
+            tipo='Tipo',
+            url='https://url.com',
+            marco_juridico='Marco juridico',
+        )
+        DatosProyecto.objects.create(
+            titulo='Proyecto 1',
+            ubicacion='Ubicacion',
+            area='Area',
+            tipo='Tipo',
+            url='https://url.com',
+            marco_teorico='Marco teorico',
+        )
