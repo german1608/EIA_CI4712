@@ -897,6 +897,12 @@ class MarcoListViewTestCase(TestCase):
         self.client = Client()
         super().setUp()
 
+    def login_util(self):
+        ''' Utility para loguearnos en las pruebas que lo requieran '''
+        consultor_ambiental = get_user_model().objects.get(username='especialistaesia')
+        self.client.login(username=consultor_ambiental.username, password='jaja1234')
+        return consultor_ambiental
+
     def test_view_existence(self): # pylint: disable=self-no-use
         ''' Prueba existencia de la vista que va a listar los marcos '''
         MarcoListView()
@@ -915,8 +921,7 @@ class MarcoListViewTestCase(TestCase):
     def test_vista_muestra_listado_correcto(self):
         ''' Prueba que primero autentica al usuario y luego lo redirige a '''
         # Nos logueamos
-        consultor_ambiental = get_user_model().objects.get(username='especialistaesia')
-        self.client.login(username=consultor_ambiental.username, password='jaja1234')
+        self.login_util()
 
         # Verificamos el listado de cada marco
         for tipo_marco in ['metodologico', 'teorico', 'juridico']:
