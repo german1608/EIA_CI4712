@@ -3,7 +3,6 @@ Modelos para el modulo de medidas
 """
 import re
 from django.db import models
-from django.core.validators import MinValueValidator
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _  # pylint: disable=unused-import
 

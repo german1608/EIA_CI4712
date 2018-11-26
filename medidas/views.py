@@ -16,7 +16,7 @@ from .forms import (
 class MedidaList(ListView):  # pylint: disable=too-many-ancestors
     '''Listar las medidas'''
     model = Medida
-    template_name =  'medidas/list.html'
+    template_name = 'medidas/list.html'
 
 class MedidaCreate(CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una organizacion'''
