@@ -302,12 +302,13 @@ class DescripcionProyecto(models.Model):
         '''Devuelve el tipo de modelo'''
         return "Descripcion_Proyecto"
 
+
 class Medio(models.Model):
     """ Tabla para almacenar la informacion del medio de un proyecto.
     Parametros:
         models.Model (Medio): Instancia sobre la que se crea la tabla.
     Atributos:
-        tipo: Tipo de medio 
+        tipo: Tipo de medio
         proyecto: Proyecto asociado
         descripcion: Descripcion del medio
         conclusiones: Conclusiones sobre el medio
@@ -329,6 +330,7 @@ class Medio(models.Model):
         '''Devuelve el tipo de modelo'''
         return "Medio"
 
+
 class CaracteristicaMedio(models.Model):
     """ Tabla para almacenar las caracteristicas de un medio fisico de un proyecto.
     Parametros:
@@ -349,6 +351,7 @@ class CaracteristicaMedio(models.Model):
         '''Devuelve el tipo de modelo'''
         return "CaracteristicaMedio"
 
+
 class SubaracteristicaMedio(models.Model):
     """ Tabla para almacenar las caracteristicas de un medio fisico de un proyecto.
     Parametros:
@@ -364,7 +367,8 @@ class SubaracteristicaMedio(models.Model):
         unique_together = (('nombre_sub', 'caracteristica'))
 
     nombre_sub = models.CharField(max_length=100)
-    caracteristica = models.ForeignKey(CaracteristicaMedio, on_delete=models.CASCADE)
+    caracteristica = models.ForeignKey(
+        CaracteristicaMedio, on_delete=models.CASCADE)
     atributo = models.TextField()
     comentario = models.TextField()
 
