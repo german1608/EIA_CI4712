@@ -8,7 +8,7 @@
 
 <h3>Lista de marcos {{tipo_marco}}s</h3>
 <p>
-    <a href="{% url 'eia_app:crear-marco' tipo %}">Agregar marco {{tipo_marco}}</a>
+  <button type="button" class="btn btn-info"><a href="{% url 'eia_app:crear-marco' tipo %}">Agregar marco {{tipo_marco}}</a></button>
 </p>
 <div class="container" style="width:90% !important">
     {% if object_list.count > 0 %}
