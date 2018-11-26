@@ -8,7 +8,7 @@
     "area": "Area",
     "tipo": "Tipo",
     "url": "https://url.com",
-    "marco_metodologico": "Marco metodologico",
+    "marco_metodologico": "{\"ops\":[{\"insert\":\"Mi \"},{\"attributes\":{\"italic\":true},\"insert\":\"super\"},{\"insert\":\" \"},{\"attributes\":{\"underline\":true},\"insert\":\"marco\"},{\"insert\":\" \"},{\"attributes\":{\"bold\":true},\"insert\":\"metodologico\"},{\"insert\":\"\\n\"}]}",
     "marco_juridico": null,
     "marco_teorico": null
   }
@@ -23,8 +23,8 @@
     "tipo": "Tipo",
     "url": "https://url.com",
     "marco_metodologico": null,
-    "marco_juridico": "Marco juridico",
-    "marco_teorico": null
+    "marco_juridico": null,
+    "marco_teorico": "{\"ops\":[{\"insert\":\"Mi \"},{\"attributes\":{\"italic\":true},\"insert\":\"super\"},{\"insert\":\" \"},{\"attributes\":{\"underline\":true},\"insert\":\"marco\"},{\"insert\":\" \"},{\"attributes\":{\"bold\":true},\"insert\":\"teorico\"},{\"insert\":\"\\n\"}]}"
   }
 },
 {
@@ -37,8 +37,8 @@
     "tipo": "Tipo",
     "url": "https://url.com",
     "marco_metodologico": null,
-    "marco_juridico": null,
-    "marco_teorico": "Marco teorico"
+    "marco_juridico": "{\"ops\":[{\"insert\":\"Mi \"},{\"attributes\":{\"italic\":true},\"insert\":\"super\"},{\"insert\":\" \"},{\"attributes\":{\"underline\":true},\"insert\":\"marco\"},{\"insert\":\" \"},{\"attributes\":{\"bold\":true},\"insert\":\"juridico\"},{\"insert\":\"\\n\"}]}",
+    "marco_teorico": null
   }
 }
 ]
