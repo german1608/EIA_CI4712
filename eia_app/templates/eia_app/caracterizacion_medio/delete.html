@@ -2,15 +2,17 @@
 {% load static %}
 
 {% block content %}
-<form method="post">
+<hr>
+<form method="post" style="width:90%">
   {% csrf_token %}
-  {% if medio %}
-    <p>¿Estás seguro que deseas borrar los datos del {{ object.get_tipo_display }} del proyecto {{ object.proyecto }}?</p>
-  {% elif caracteristica %}
-    <p>¿Estás seguro que deseas borrar los datos de la característica {{ object.caracteristica }} del {{ object.medio.get_tipo_display }} 
-    del proyecto {{ object.medio.proyecto }}?</p>
-  {% else %}
-    <p></p>
+    {% if medio %}
+        <p>¿Estás seguro que deseas borrar los datos del "{{ object.get_tipo_display }}" del proyecto "{{ object.proyecto }}"?</p>
+    {% elif caracteristica %}
+        <p>¿Estás seguro que deseas borrar los datos de la característica "{{ object.caracteristica }}" del "{{ object.medio.get_tipo_display }}" 
+        del proyecto {{ object.medio.proyecto }}?</p>
+    {% else %}
+        <p>¿Estás seguro que deseas borrar los datos de la subcaracterística "{{ object.nombre_sub }}" de la característica "{{ object.caracteristica.caracteristica }}" 
+        del medio "{{ object.caracteristica.medio.get_tipo_display }}" del proyecto "{{ object.caracteristica.medio.proyecto }}"?</p>
     {% endif %}
   <button type="submit" class="btn btn-primary">Aceptar</button>
 </form>

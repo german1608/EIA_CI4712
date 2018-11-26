@@ -389,7 +389,7 @@ class SubaracteristicaMedioUpdate(UpdateView):  # pylint: disable=too-many-ances
 class SubaracteristicaMedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una SubaracteristicaMedio'''
     model = SubaracteristicaMedio
-    template_name = 'eia_app/descripcion_proyecto/delete_subcategoria.html'
+    template_name = 'eia_app/caracterizacion_medio/delete.html'
 
     def get_success_url(self):
         subcaracteristica = SubaracteristicaMedio.objects.get(pk=self.kwargs['pk'])

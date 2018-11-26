@@ -6,7 +6,7 @@
 {% endblock %}
 {% block content %}
 
-<h4> Detalle de característica del medio {{ caracteristicamedio.medio.tipo }}</h4>
+<h4> Detalle de característica del {{ caracteristicamedio.medio.get_tipo_display }} del proyecto {{ caracteristicamedio.medio.proyecto }}</h4>
 <hr>
 <div class="grid-container-medio" style="margin-left:10%">
 
