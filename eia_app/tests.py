@@ -922,4 +922,5 @@ class MarcoListViewTestCase(TestCase):
         )
 
     def test_view_existence(self): # pylint: disable=self-no-use
-        MarcoListView
+        ''' Prueba existencia de la vista que va a listar los marcos '''
+        MarcoListView()
