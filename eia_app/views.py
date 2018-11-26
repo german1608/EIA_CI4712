@@ -254,7 +254,7 @@ class MarcoListView(CargaContextoMarcoMixin, ListView): # pylint: disable=too-ma
         return self.model.objects.filter(~Q(**query))
 
 
-class MarcoCreateView(CargaContextoMarcoMixin, FormView):
+class MarcoFormView(CargaContextoMarcoMixin, FormView):
     """ Vista que permite crear un marco metodologico a un proyecto """
     form_class = MarcoForm
     template_name = 'eia_app/marco/form.html'
