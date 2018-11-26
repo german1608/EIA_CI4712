@@ -931,7 +931,8 @@ class MarcoListViewTestCase(TestCase):
         # Hacemos get del url que lista
         for tipo_marco in ['metodologico', 'teorico', 'juridico']:
             with self.subTest(tipo_marco=tipo_marco):
-                response = self.client.get(reverse('eia_app:lista-marcos', kwargs={
+                target_url = reverse('eia_app:lista-marcos', kwargs={
                     'tipo': tipo_marco
-                }))
-                self.assertRedirects(response, reverse('login'))
+                })
+                response = self.client.get(target_url)
+                self.assertRedirects(response, '{}?next={}'.format(reverse('login'), target_url))
