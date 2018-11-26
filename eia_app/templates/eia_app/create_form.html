@@ -27,4 +27,12 @@
     });
 </script>
 {% endif %}
+{% if caracteristica %}
+<script>
+    $(document).ready( function () {
+        $('#id_caracteristica').val("{{caracteristica}}")
+        $('#div_id_caracteristica').hide()
+    });
+</script>
+{% endif %}
 {% endblock %}

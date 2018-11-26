@@ -354,16 +354,16 @@ class SubaracteristicaMedio(models.Model):
     Parametros:
         models.Model (SubaracteristicaMedio): Instancia sobre la que se crea la tabla.
     Atributos:
-        nombreSub: Nombre de la subcaracteristica asociada a la caracteristica
+        nombre_sub: Nombre de la subcaracteristica asociada a la caracteristica
         caracteristica: caracteristica asociada
         atributo: especificaciones de la subcaracteristica
         comentario: comentarios adicionales de la subcaracteristica
     """
     class Meta:  # pylint: disable=too-few-public-methods
         '''Hacer unica la combinacion entre tipo y proyecto'''
-        unique_together = (('nombreSub', 'caracteristica'))
+        unique_together = (('nombre_sub', 'caracteristica'))
 
-    nombreSub = models.CharField(max_length=100)
+    nombre_sub = models.CharField(max_length=100)
     caracteristica = models.ForeignKey(CaracteristicaMedio, on_delete=models.CASCADE)
     atributo = models.TextField()
     comentario = models.TextField()

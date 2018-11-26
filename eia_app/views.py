@@ -9,11 +9,11 @@ from django.urls import reverse_lazy
 from .models import (
     Organizacion, Responsable, Solicitante,
     DatosProyecto, DatosDocumento, DescripcionProyecto,
-    CaracteristicaMedio, Medio
+    CaracteristicaMedio, Medio, SubaracteristicaMedio,
 )
 from .forms import (
     OrganizacionCreateForm, SolicitanteCreateForm,
-    ResponsableCreateForm, DatosDocumentoCreateForm, DescripcionProyectoCreateForm
+    ResponsableCreateForm, DatosDocumentoCreateForm, DescripcionProyectoCreateForm,
 )
 
 
@@ -309,7 +309,8 @@ class CaracteristicaMedioDetail(DetailView):
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CaracteristicaMedioDetail, self).get_context_data(**kwargs)
-        print(context)
+        subcaracteristicas = SubaracteristicaMedio.objects.filter(caracteristica=self.kwargs['pk'])
+        context["subcaracteristicas"] = subcaracteristicas
         return context
 
 class CaracteristicaMedioUpdate(UpdateView):  # pylint: disable=too-many-ancestors
@@ -345,3 +346,19 @@ class CaracteristicaMedioCreate(CreateView):  # pylint: disable=too-many-ancesto
 
     def get_success_url(self):
         return reverse_lazy('consultor-crud:detalles-medio', kwargs={'pk': self.kwargs['pk']})
+
+class SubaracteristicaMedioCreate(CreateView):  # pylint: disable=too-many-ancestors
+    '''Crear una Medio'''
+    model = SubaracteristicaMedio
+    fields = "__all__"
+    template_name = 'eia_app/create_form.html'
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(SubaracteristicaMedioCreate, self).get_context_data(**kwargs)
+        caracteristica = CaracteristicaMedio.objects.get(pk=self.kwargs['pk'])
+        context["nombre"] = "sub-característica de la característica " + str(caracteristica.caracteristica) + " del medio " + str(caracteristica.medio.tipo) + " del proyecto " + str(caracteristica.medio.proyecto)
+        context["caracteristica"] = caracteristica.pk
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('consultor-crud:detalles-caracteristica', kwargs={'pk': self.kwargs['pk']})

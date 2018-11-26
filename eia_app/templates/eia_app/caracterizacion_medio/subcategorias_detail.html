@@ -6,7 +6,7 @@
 {% endblock %}
 {% block content %}
 
-<h4> Detalle de categoría del medio {{ caracteristicamedio.medio.tipo }}</h4>
+<h4> Detalle de característica del medio {{ caracteristicamedio.medio.tipo }}</h4>
 <hr>
 <div class="grid-container-medio" style="margin-left:10%">
 
@@ -25,38 +25,39 @@
                         </div>
                 </div>
 </div>
-{% endblock %}
-{% comment %} <hr>
-<h3>Características</h3>
+<hr>
+<h3>Sub-Características</h3>
 <p>
-    <a id="add" href="{% url "consultor-crud:nueva-caracteristica" view.kwargs.pk %}">Añadir una característica</a>
+    <a id="add" href="{% url "consultor-crud:nueva-subcaracteristica" view.kwargs.pk %}">Añadir una sub-característica</a>
 </p>
 <div class="container" style="width:90% !important">
-  {%if caracteristicas.count > 0%}
-  <table id="caracteristicas-table" class="display">
+  {%if subcaracteristicas.count > 0%}
+  <table id="subcaracteristicas-table" class="display">
       <thead>
           <tr>
-              <th>Característica</th>
-              <th>Descripción</th>
-              <th style="text-align:center;">Ver detalles</th>
+              <th>Sub-Característica</th>
+              <th>Atributo</th>
+              <th>Comentario</th>
+{% comment %}               <th style="text-align:center;">Ver detalles</th>
               <th style="text-align:center;">Editar</th>
-              <th style="text-align:center;">Borrar</th>
+              <th style="text-align:center;">Borrar</th> {% endcomment %}
           </tr>
       </thead>
       <tbody>
-        {% for caracteristica in caracteristicas %}
+        {% for subcaracteristica in subcaracteristicas %}
           <tr>
-              <td>{{ caracteristica.caracteristica }}</td>
-              <td>{{ caracteristica.descripcion }}</td>
-              <td style="text-align:center;"> <a id="detalles{{caracteristica.id}}" href="{% url "consultor-crud:detalles-caracteristica"  caracteristica.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+              <td>{{ subcaracteristica.nombre_sub }}</td>
+              <td>{{ subcaracteristica.atributo }}</td>
+              <td>{{ subcaracteristica.comentario }}</td>
+            {% comment %}   <td style="text-align:center;"> <a id="detalles{{caracteristica.id}}" href="{% url "consultor-crud:detalles-caracteristica"  caracteristica.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
               <td style="text-align:center;"><a id="editar{{caracteristica.id}}" href="{% url "consultor-crud:editar-detalles-caracteristica" caracteristica.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
-              <td style="text-align:center;"><a id="borrar{{caracteristica.id}}" href="{% url "consultor-crud:borrar-detalles-caracteristica" caracteristica.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+              <td style="text-align:center;"><a id="borrar{{caracteristica.id}}" href="{% url "consultor-crud:borrar-detalles-caracteristica" caracteristica.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td> {% endcomment %}
           </tr>
         {% endfor %}
       </tbody>
     </table>
     {% else %}
-    <p>No existen características para este medio agregadas a la base de datos</p>
+    <p>No existen subcaracterísticas para esta categoria agregadas a la base de datos</p>
   {% endif %}
 </div>
 
@@ -66,11 +67,11 @@
 <script src="{% static 'js/jquery.dataTables.js' %}"></script>
 <script>
   $(document).ready( function () {
-    $('#caracteristicas-table').DataTable({
+    $('#subcaracteristicas-table').DataTable({
       "language": {
         "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
       }
     });
   });
 </script>
-{% endblock %} {% endcomment %}
+{% endblock %}
