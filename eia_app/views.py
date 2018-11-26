@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView, DeleteView,
                                   FormView)
 from django.views.generic.base import ContextMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.db.models import Q
 from .models import (
@@ -216,7 +217,7 @@ class DatosDocumentoDelete(DeleteView):  # pylint: disable=too-many-ancestors
     template_name = 'eia_app/datos_documentos/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-documentos')
 
-class CargaContextoMarcoMixin(ContextMixin): # pylint: disable=too-few-public-methods
+class CargaContextoMarcoMixin(LoginRequiredMixin, ContextMixin): # pylint: disable=too-few-public-methods
     '''
     Mixin que anade contexto adicional a las vistas de marcos.
     Anade el tipo de marco a editar acentuado (para mostrarlo al usuario)
