@@ -302,19 +302,14 @@ class MedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
     template_name = 'eia_app/descripcion_proyecto/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
 
-class CaracteristicaMedioDetail(ListView):
+class CaracteristicaMedioDetail(DetailView):
     '''Ver caracteristicas de un medio fisico'''
     model = CaracteristicaMedio
-    template_name = 'eia_app/caracterizacion_medio/list.html'
+    template_name = 'eia_app/caracterizacion_medio/subcategorias_detail.html'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
-        context = super(CaracteristicaMedioList, self).get_context_data(**kwargs)
-        if self.kwargs['medio'] == 'fisico':
-            context['medio'] = 'medio físico'
-        elif self.kwargs['medio'] == 'biologico':
-            context['medio'] = 'medio biológico'
-        elif self.kwargs['medio'] == 'socio':
-            context['medio'] = 'medio socio-cultural'
+        context = super(CaracteristicaMedioDetail, self).get_context_data(**kwargs)
+        print(context)
         return context
 
 class CaracteristicaMedioUpdate(UpdateView):  # pylint: disable=too-many-ancestors
