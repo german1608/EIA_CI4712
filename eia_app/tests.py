@@ -822,3 +822,11 @@ class MarcoFormTestCase(TestCase):
             (self.proyecto.pk, self.proyecto.__str__())
             ]
         self.assertEqual(actual, expected, 'Las opciones de MarcoForm.proyecto no son correctas')
+
+    def test_empty_form_validity(self):
+        ''' Prueba que el form no sea valido cuando no se le especifica ningun campo '''
+        form = MarcoForm(initial={
+            'proyecto': '',
+            'descripcion': ''
+        })
+        self.assertFalse(form.is_valid(), 'El formulario esta valido cuando no lo esta')
