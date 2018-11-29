@@ -81,3 +81,10 @@ class MedidaFormTestCase(TestCase):
         form = MedidaForm(self.medida_dict)
         self.assertFalse(
             form.is_valid(), 'El medio no esta en el rango valido')
+
+    def test_descripcion_not_empty(self):
+        ''' Prueba que la descripcion no sea vacia '''
+        self.medida_dict['descripcion'] = ''
+        form = MedidaForm(self.medida_dict)
+        self.assertFalse(
+            form.is_valid(), 'La descripcion no puede ser vacia')
