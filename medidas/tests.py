@@ -88,3 +88,17 @@ class MedidaFormTestCase(TestCase):
         form = MedidaForm(self.medida_dict)
         self.assertFalse(
             form.is_valid(), 'La descripcion no puede ser vacia')
+
+    def test_marco_juridico_not_empty(self):
+        ''' Prueba que el marco_juridico no sea vacia '''
+        self.medida_dict['marco_juridico'] = ''
+        form = MedidaForm(self.medida_dict)
+        self.assertFalse(
+            form.is_valid(), 'El marco_juridico no puede ser vacia')
+
+    def test_area_not_empty(self):
+        ''' Prueba que el area no sea vacia '''
+        self.medida_dict['area'] = ''
+        form = MedidaForm(self.medida_dict)
+        self.assertFalse(
+            form.is_valid(), 'El area no puede ser vacia')
