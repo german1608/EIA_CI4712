@@ -47,7 +47,7 @@ class MedidaFormTestCase(TestCase):
 
     def test_form_tipo_not_empty(self):
         ''' Prueba para validar que especifiquen un tipo '''
-        self.medida_dict['tipo']  = ''
+        self.medida_dict['tipo'] = ''
         form = MedidaForm(self.medida_dict)
         self.assertFalse(
             form.is_valid(), 'El tipo debe ser no vacio')
@@ -58,3 +58,26 @@ class MedidaFormTestCase(TestCase):
         form = MedidaForm(self.medida_dict)
         self.assertFalse(
             form.is_valid(), 'El tipo no esta en el rango valido [1,1]')
+        self.medida_dict['tipo'] = 1
+        form = MedidaForm(self.medida_dict)
+        self.assertFalse(
+            form.is_valid(), 'El tipo no esta en el rango valido [1,1]')
+
+
+    def test_form_medio_not_empty(self):
+        ''' Prueba para validar que especifiquen un medio '''
+        self.medida_dict['medio'] = ''
+        form = MedidaForm(self.medida_dict)
+        self.assertFalse(
+            form.is_valid(), 'El medio debe ser no vacio')
+
+    def test_form_medio_not_in_choices(self):
+        ''' Prueba que solo especifiquen los valores adecuados para el medio '''
+        self.medida_dict['medio'] = -1
+        form = MedidaForm(self.medida_dict)
+        self.assertFalse(
+            form.is_valid(), 'El medio no esta en el rango valido')
+        self.medida_dict['medio'] = 3
+        form = MedidaForm(self.medida_dict)
+        self.assertFalse(
+            form.is_valid(), 'El medio no esta en el rango valido')
