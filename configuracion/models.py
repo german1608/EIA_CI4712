@@ -359,6 +359,10 @@ class Actividad(models.Model):
         max_length=500,
         default=""
         )
+    vulnerabilidades = models.CharField(
+        max_length=500,
+        default=""
+        )
 
     class Meta:
         """
@@ -370,4 +374,82 @@ class Actividad(models.Model):
              'macro',
              'disciplina'),
             )
-        
+
+class Plan(models.Model):
+    """
+        aaaa
+    """
+    nombre = models.CharField(
+        max_length=40,
+        default="",
+        )
+    medidas = models.CharField(
+        max_length=500,
+        default=""
+        )
+    objetivo_general = models.CharField(
+        max_length=200,
+        default="",
+        )
+    objetivo_especifico = models.CharField(
+        max_length=500,
+        default=""
+        )
+    alcance = models.CharField(
+        max_length=200,
+        default="",
+        )
+    metodologia = models.CharField(
+        max_length=400,
+        default="",
+        )
+    cronograma = models.CharField(
+        max_length=300,
+        default="",
+        )
+    responsable = models.CharField(
+        max_length=200,
+        default="",
+        )
+    costo = models.FloatField(
+        )
+    proyecto = models.CharField(
+        max_length=40,
+        default=""
+        )
+
+    def __str__(self):
+        """
+            formato de aparicion en frontend
+        """
+        return '{}'.format(self.nombre)
+
+class SubPlan(models.Model):
+    """
+        aaa
+    """
+    actividad = models.CharField(
+        max_length=200,
+        default="",
+        )
+    accion = models.CharField(
+        max_length=200,
+        default="",
+        )
+    plan = models.CharField(
+        max_length=200,
+        default="",
+        )
+    monto = models.FloatField(
+        )
+    plan_principal = models.ForeignKey(
+        Plan,
+        default='',
+        on_delete=models.PROTECT
+        )
+
+    def __str__(self):
+        """
+            formato de aparicion en frontend
+        """
+        return '{}'.format(self.actividad)

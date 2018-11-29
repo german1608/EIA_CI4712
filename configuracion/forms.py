@@ -4,7 +4,7 @@
 from django import forms
 from configuracion.models import Estudio, Intensidad, Duracion, Extension
 from configuracion.models import Reversibilidad, Probabilidad, Importancia
-from configuracion.models import Macro, Disciplina, Actividad
+from configuracion.models import Macro, Disciplina, Actividad, Plan, SubPlan
 
 class EstudioForm(forms.ModelForm):
     """
@@ -301,14 +301,16 @@ class ActividadForm(forms.ModelForm):
             'descripcion',
             'disciplina',
             'macro',
-            'amenazas'
+            'amenazas',
+            'vulnerabilidades'
         ]
         labels = {
             'nombre':'Nombre',
             'descripcion':'Descripcion',
             'disciplina':'Disciplina',
             'macro':'Actividad Macro',
-            'amenazas':'Posibles amenazas o vulnerabilidades'
+            'amenazas':'Posibles amenazas',
+            'vulnerabilidades':'Posibles vulnerabilidades'
         }
         widgets = {
             'nombre':forms.TextInput(attrs={'class':'form-control mb-3', 'required':''}),
@@ -316,4 +318,95 @@ class ActividadForm(forms.ModelForm):
             'disciplina': forms.Select(attrs={'class':'form-control mb-3'}),
             'macro': forms.Select(attrs={'class':'form-control mb-3', 'required':''}),
             'amenazas':forms.Textarea(attrs={'class':'form-control mb-3'}),
+            'vulnerabilidades':forms.Textarea(attrs={'class':'form-control mb-3'}),
+        }
+
+class PlanForm(forms.ModelForm):
+    """
+       Clase donde se crea el formulario de Plan
+    """
+    class Meta:
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Plan
+        """
+        model = Plan
+        fields = [
+            'nombre',
+            'medidas',
+            'objetivo_general',
+            'objetivo_especifico',
+            'alcance',
+            'metodologia',
+            'cronograma',
+            'responsable',
+            'costo',
+            'proyecto'
+        ]
+        labels = {
+            'nombre':'Nombre',
+            'medidas':'Medidas',
+            'objetivo_general':'Objectivo General',
+            'objetivo_especifico':'Objetivos Especificos',
+            'alcance':'Alcance',
+            'metodologia':'Metodologia a utilizar',
+            'cronograma':'Cronograma',
+            'responsable':'Responsable(s)',
+            'costo':'Costo estimado',
+            'proyecto':'Proyecto'
+        }
+        widgets = {
+            'nombre':forms.TextInput(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'medidas':forms.Textarea(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'objetivo_general':forms.TextInput(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'objetivo_especifico':forms.Textarea(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'alcance':forms.Textarea(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'metodologia':forms.Textarea(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'cronograma':forms.Textarea(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'responsable':forms.TextInput(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'costo':forms.TextInput(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'proyecto':forms.TextInput(
+                attrs={'class':'form-control mb-3', 'required':''}),
+        }
+
+class SubPlanForm(forms.ModelForm):
+    """
+       Clase donde se crea el formulario de SubPlan
+    """
+    class Meta:
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de SubPLan
+        """
+        model = SubPlan
+        fields = [
+            'actividad',
+            'accion',
+            'plan',
+            'monto',
+        ]
+        labels = {
+            'actividad':'Actividad a realizar',
+            'accion':'Accion a implementar',
+            'plan':'Plan de trabajo',
+            'monto':'Monto estimado'
+        }
+        widgets = {
+            'actividad':forms.TextInput(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'accion':forms.Textarea(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'plan':forms.Textarea(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'monto':forms.TextInput(
+                attrs={'class':'form-control mb-3', 'required':''}),
         }

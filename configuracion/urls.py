@@ -18,6 +18,7 @@ from configuracion.views import EstudioUpdate, EstudioCreate
 from configuracion.views import ActividadCreate, ActividadUpdate
 from configuracion.views import DisciplinaCreate, DisciplinaUpdate
 from configuracion.views import MacroCreate, MacroUpdate
+from configuracion.views import PlanCreate, PlanUpdate, SubPlanCreate, SubPlanUpdate
 from . import views
 
 urlpatterns = [
@@ -41,4 +42,12 @@ urlpatterns = [
     path('actividades/', views.actividades, name='actividades'),
     path('macros/', views.macros, name='macros'),
     path('disciplinas/', views.disciplinas, name='disciplinas'),
+    path('agregar_plan/', PlanCreate.as_view(), name="agregar_plan"),
+    path('editar_plan/', PlanUpdate.as_view(), name="editar_plan"),
+    path('eliminar_plan<int:pk_id>/', views.eliminar_plan, name="eliminar_plan"),
+    path('planes/', views.planes, name="planes"),
+    path('agregar_subplan/', SubPlanCreate.as_view(), name="agregar_subplan"),
+    path('editar_subplan/', SubPlanUpdate.as_view(), name="editar_subplan"),
+    path('eliminar_subplan<int:pk_id>/', views.eliminar_subplan, name="eliminar_subplan"),
+    path('subplanes/', views.subplanes, name="subplanes"),
 ]

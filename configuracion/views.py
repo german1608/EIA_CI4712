@@ -8,9 +8,10 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from configuracion.forms import EstudioForm, ActividadForm, MacroForm, DisciplinaForm
+from configuracion.forms import PlanForm, SubPlanForm
 from configuracion.models import Estudio, Intensidad, Duracion, Extension
 from configuracion.models import Reversibilidad, Probabilidad, Importancia
-from configuracion.models import Actividad, Macro, Disciplina
+from configuracion.models import Actividad, Macro, Disciplina, Plan, SubPlan
 from configuracion.models import GRADO_PERTUBACION
 from configuracion.models import VALOR_SA, EXT_CLASIFICACION, DUR_CRITERIOS
 from configuracion.models import REV_CLASIFICACION, PROBABILIDAD
@@ -821,3 +822,123 @@ def disciplinas(request):
         'disciplinas': discipli,
     }
     return render(request, 'configuracion/disciplinas.html', context)
+
+class PlanCreate(CreateView): # pylint: disable=too-many-ancestors
+    """
+       Clase que permite registrar un plan
+    """
+    model = Plan
+    form_class = PlanForm
+    template_name = 'configuracion/agregar_plan.html'
+    success_url = reverse_lazy('planes')
+
+    def form_valid(self, form):
+        """
+           aaaa
+        """
+        # pylint: disable=attribute-defined-outside-init
+
+        messages.success(self.request, "Plan agregado exitosamente", extra_tags='alert')
+        return super().form_valid(form)
+
+class PlanUpdate(UpdateView): # pylint: disable=too-many-ancestors
+    """
+        Clase que permite modificar los datos de los planes
+    """
+    model = Plan
+    form_class = PlanForm
+    template_name = 'configuracion/agregar_plan.html'
+    success_url = reverse_lazy('planes')
+
+    def form_valid(self, form):
+        """
+           Funcion llamada cuando los campos para actualizar el formulario
+           se llenan correctamente. Retorna un HttpResponse
+        """
+        if self.request.POST.get('editar'):
+            # pylint: disable=attribute-defined-outside-init
+
+            messages.success(
+                self.request,
+                "Datos del plan modificados exitosamente",
+                extra_tags='alert'
+                )
+        return super().form_valid(form)
+
+def eliminar_plan(request, pk_id):
+    """
+        Funcion que permite eliminar un plan
+    """
+    Plan.objects.get(id=pk_id).delete()
+    messages.success(request, "Plan eliminado exitosamente", extra_tags='alert')
+    return HttpResponseRedirect(reverse('planes'))
+
+def planes(request):
+    """
+        Lista de planes
+    """
+    planes_actuales = Plan.objects.all()
+    context = {
+        'planes': planes_actuales,
+    }
+    return render(request, 'configuracion/planes.html', context)
+
+class SubPlanCreate(CreateView): # pylint: disable=too-many-ancestors
+    """
+       Clase que permite registrar un subplan
+    """
+    model = SubPlan
+    form_class = SubPlanForm
+    template_name = 'configuracion/agregar_subplan.html'
+    success_url = reverse_lazy('subplanes')
+
+    def form_valid(self, form):
+        """
+           aaaa
+        """
+        # pylint: disable=attribute-defined-outside-init
+
+        messages.success(self.request, "Plan subyacente agregado exitosamente", extra_tags='alert')
+        return super().form_valid(form)
+
+class SubPlanUpdate(UpdateView): # pylint: disable=too-many-ancestors
+    """
+        Clase que permite modificar los datos de los subplanes
+    """
+    model = SubPlan
+    form_class = SubPlanForm
+    template_name = 'configuracion/agregar_subplan.html'
+    success_url = reverse_lazy('subplanes')
+
+    def form_valid(self, form):
+        """
+           Funcion llamada cuando los campos para actualizar el formulario
+           se llenan correctamente. Retorna un HttpResponse
+        """
+        if self.request.POST.get('editar'):
+            # pylint: disable=attribute-defined-outside-init
+
+            messages.success(
+                self.request,
+                "Datos del plan subyacente modificados exitosamente",
+                extra_tags='alert'
+                )
+        return super().form_valid(form)
+
+def eliminar_subplan(request, pk_id):
+    """
+        Funcion que permite eliminar un sub plan
+    """
+    SubPlan.objects.get(id=pk_id).delete()
+    messages.success(request, "SubPlan subyacente eliminado exitosamente", extra_tags='alert')
+    return HttpResponseRedirect(reverse('subplanes'))
+
+def subplanes(request):
+    """
+        Lista de subplanes
+    """
+    subplanes_actuales = SubPlan.objects.all()
+    context = {
+        'subplanes': subplanes_actuales,
+    }
+    return render(request, 'configuracion/subplanes.html', context)
