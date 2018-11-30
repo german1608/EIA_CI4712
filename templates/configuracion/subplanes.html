@@ -1,1 +1,106 @@
-Lista de subplanes
+{% extends '../base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center p-3">
+	<h1>Planes de Accion</h1>
+</div>
+
+<div class="row justify-content-center mb-3">
+	<div class="col-md-10">
+		<input type="tex" name="buscar" class="" style="float: right;" />
+	</div>
+	<div class="col-md-2">
+		<a class="btn" href="" style="background: #4f6228; color: white;"><i class="material-icons">search</i></a>
+	</div>
+</div>
+
+<div class="row justify-content-center mb-3">
+	<div class="col-md-10">
+		<!-- <table id="planes" class="tabla-plan">
+			<thead>
+				<tr class="">
+					<th>ID</th>
+					<th>Actividad</th>
+					<th>Accion</th>
+					<th>Plan</th>
+					<th>Tiempo</th>
+					<th>Monto</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody id="contenido">
+				<tr>
+					{% for sp in subplanes %}
+					<td>{{sp.id}}</td>
+					<td>{{sp.actividad}}</td>
+					<td>{{sp.accion}}</td>
+					<td>{{sp.plan}}</td>
+					<td>{{sp.tiempo}}</td>
+					<td>{{sp.monto}}</td>
+					<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href=""><i class="material-icons">edit</i></a></td>
+					<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href=""><i class="material-icons">delete</i></a></td>
+					{% endfor %}
+				</tr>
+			</tbody>
+		</table> -->
+		<table id="planes" class="tabla-plan">
+			<thead>
+				<tr class="">
+					<th>ID</th>
+					<th>Actividad</th>
+					<th>Accion</th>
+					<th>Plan</th>
+					<th>Tiempo</th>
+					<th>Monto</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody id="contenido">
+				<tr>
+					
+					<td>1</td>
+					<td>Actividad 1</td>
+					<td>Accion 1</td>
+					<td>Plan 1</td>
+					<td>Tiempo 1</td>
+					<td>Monto 1</td>
+					<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href=""><i class="material-icons">edit</i></a></td>
+					<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href=""><i class="material-icons">delete</i></a></td>
+					
+				</tr>
+				<tr>
+					
+					<td>2</td>
+					<td>Actividad 2</td>
+					<td>Accion 2</td>
+					<td>Plan 2</td>
+					<td>Tiempo 2</td>
+					<td>Monto 2</td>
+					<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href=""><i class="material-icons">edit</i></a></td>
+					<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href=""><i class="material-icons">delete</i></a></td>
+					
+				</tr>
+			</tbody>
+		</table>
+		<div class="row justify-content-end">
+			<div class="col-md-3">
+				<p style="text-align: right;">Monto Total: </p>
+			</div>
+			<div class="col-md-3" >
+				<input type="text" name="total" style="float: right; width: 100%" disabled />
+			</div>
+		</div>
+		
+	</div>
+	<div class="col-md-2">
+		<a class="btn rounded" href="" style="background: #4f6228; color: white;"><i class="material-icons">add</i></a>
+	</div>
+</div>
+
+{% endblock %}

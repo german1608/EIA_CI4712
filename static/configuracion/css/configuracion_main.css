@@ -13,6 +13,7 @@ input{
 td, th{
   border-radius:0px;
   text-align: center;
+  padding: 3px;
 }
 h1{
   font-size: 3rem;
@@ -20,6 +21,9 @@ h1{
 
 .total_height{
   height:100%;
+}
+i{
+  vertical-align: middle;
 }
 
 .banner{
@@ -112,4 +116,25 @@ h1{
 
 .tabla-actividades tr {
   border-bottom: 1px solid #000;
+}
+
+.tabla-plan{
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+  border-color: white; 
+}
+
+.tabla-plan thead tr th{
+  background-color: #4f6228;
+  color: #fff;
+  border: solid 1px white;
+}
+.tabla-plan tbody tr td{
+  background-color: #ECF0DF;
+  border: solid 1px white;  
+}
+.tabla-plan tbody tr td a:hover{
+  text-decoration: underline;
 }
