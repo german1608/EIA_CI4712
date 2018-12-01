@@ -6,6 +6,10 @@
 {% endblock %}
 
 	{% block content %}
+
+
+
+
 		<div class="row p-3">
 			<div class="col-md-1 col-sm-1">
 				<a class="btn menu" style="color: gray" href="{% url 'macros' %}">Volver</a>
@@ -36,6 +40,8 @@
 						{{form.disciplina}}
 						<label for="tipo">{{form.amenazas.label}}</label>
 						{{form.amenazas}}
+						<label for="tipo">{{form.vulnerabilidades.label}}</label>
+						{{form.vulnerabilidades}}
 				</div>
 			</div>
 

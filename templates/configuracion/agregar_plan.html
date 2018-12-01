@@ -1,1 +1,75 @@
-agregar plan
+{% extends '../base.html' %}
+{% load static %}
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
+{% endblock %}
+
+	{% block content %}
+
+		<div class="row p-3">
+			<div class="col-md-1 col-sm-1">
+				<a class="btn menu" style="color: gray" href="{% url 'macros' %}">Volver</a>
+			</div>
+			<div class="col-md-9 col-sm-11 text-center">
+				<h1>Agregar nuevo plan</h1>
+			</div>
+		</div>
+
+		<form method="post" id="formulario">
+			{% csrf_token %}
+			
+			<div class="row justify-content-center mb-3">
+				<div class="col-md-3 offset-md-2">
+					<label for="">{{form.nombre.label}}</label>
+					{{form.nombre}}
+
+					<label for="tipo">{{form.objetivo_general.label}}</label>
+					{{form.objetivo_general}}
+					
+					<label for="tipo">{{form.objetivo_especifico.label}}</label>
+					{{form.objetivo_especifico}}
+					
+					<label for="tipo">{{form.alcance.label}}</label>
+					{{form.alcance}}
+					<label for="tipo">{{form.metodologia.label}}</label>
+					{{form.metodologia}}
+				</div>
+
+				<div class="col-md-3 offset-md-2">
+					<label for="">{{form.cronograma.label}}</label>
+					{{form.cronograma}}
+					<label for="">{{form.medidas.label}}</label>
+					{{form.medidas}}
+					<label for="tipo">{{form.responsable.label}}</label>
+					{{form.responsable}}
+
+					<label for="tipo">{{form.costo.label}}</label>
+					{{form.costo}}
+					<label for="tipo">{{form.proyecto.label}}</label>
+					{{form.proyecto}}
+				</div>
+			</div>
+
+			<div class="row justify-content-center p-3">
+				<div class="col-md-6" align="center">
+					<div class="">
+							<input id="editar" name="editar" class="btn" onclick = "return confirm('¿Está seguro de los datos introducidos?')" style="background: #4f6228; color: white; width: 50%" value="Guardar" type="submit">
+					</div>
+				</div>
+				{% if object %}
+				<div class="col-md-6" align="center">
+					<div class="">
+						<a class="btn" name="eliminar" style="background: #4f6228; color: white; width: 50%" onclick = "return confirm('¿Está seguro de eliminar esta actividad?')" href="{% url 'eliminar_actividad' object.id %}">Eliminar</a>
+					</div>
+				{% endif %}
+				</div>
+			</div>
+		</form>
+	</div>
+	{%endblock%}
+
+	{% block js %}
+	<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
+
+	{% endblock %}
