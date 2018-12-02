@@ -13,7 +13,7 @@ from configuracion.views import _calcular_via
 from configuracion.forms import EstudioForm
 from configuracion.models import Intensidad, Probabilidad, Extension, Reversibilidad
 from configuracion.models import Duracion, Importancia, Estudio, Macro,Disciplina
-from configuracion.models import Actividad
+from configuracion.models import Actividad,Plan
 from utils.testutils import SeleniumTestCase
 
 class KaraotaTests(TestCase): # pylint: disable=too-many-public-methods
@@ -642,6 +642,54 @@ class TestsIntegridadDatosTablasEstudio(TestCase):
         est2 = Estudio.objects.filter(nombre="test_estudio").first()
 
         self.assertEqual(est.id, est2.id)
+        
+    def test_insertar_plan(self):
+        """
+        aa
+        """
+        plan = Plan.objects.create(
+            nombre="Test plan",
+            medidas="Test medidas",
+            objetivo_general="Objetivo general test",
+            objetivo_especifico="Objetivo especficio test",
+            alcance="alto",
+            metodologia="metodologia",
+            cronograma="crono",
+            responsable="responsable",
+            costo="1",
+            proyecto="p2"
+        )
+        
+        plan2 = Plan.objects.filter(nombre="Test plan").first()
+        self.assertEqual(plan.id,plan2.id)
+       
+    def test_insertar_mal_plan(self):
+        """
+        aa
+        """
+        try:
+            plan = Plan.objects.create(
+                nombre="Test plan_2",
+                medidas="Test medidas",
+                objetivo_general="Objetivo general test",
+                objetivo_especifico="Objetivo especficio test",
+                alcance="alto",
+                metodologia="metodologia",
+                cronograma="crono",
+                responsable="responsable",
+                costo="wadawd",
+                proyecto="p2"
+            )
+        except:
+            pass
+            #Deberia fallar porque el costo no es un flotante
+            
+        se_creo = True
+        if (not ( "plan" in locals() )):
+            se_creo=False
+        self.assertFalse(se_creo)        
+        
+        
 class PruebaFormularioEstudio(SeleniumTestCase):
     """
     Prueba Formulario Estudio
@@ -883,3 +931,9 @@ class PruebaFormularioEstudio(SeleniumTestCase):
         #self.selenium.find_element_by_name('valor32').send_keys("1.0")
         self.selenium.find_element_by_name('submit').click()
         self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/tablas/'))
+        
+        
+        
+        
+        
+        
