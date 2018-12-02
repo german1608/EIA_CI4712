@@ -1,7 +1,7 @@
 """
    Funcionalidades de Configuracion
 """
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
@@ -873,6 +873,16 @@ def eliminar_plan(request, pk_id):
     Plan.objects.get(id=pk_id).delete()
     messages.success(request, "Plan eliminado exitosamente", extra_tags='alert')
     return HttpResponseRedirect(reverse('planes'))
+
+def detalles_plan(request, nombre):
+    """
+        Funcion que permite ver los detalles un plan
+    """
+    plan = get_object_or_404(Plan, nombre=nombre)
+    context = {
+        'plan': plan
+    }
+    return render(request, 'configuracion/detalles_plan.html', context)
 
 def planes(request):
     """

@@ -25,6 +25,13 @@ h1{
 i{
   vertical-align: middle;
 }
+dl dt{
+  font-size: 1.5rem;
+}
+dl dd{
+  font-size: 1.2rem;
+  margin-left: 25px;
+}
 
 .banner{
   background-color: rgb(79, 98, 40);
@@ -137,4 +144,17 @@ i{
 }
 .tabla-plan tbody tr td a:hover{
   text-decoration: underline;
+}
+.monto-total{
+  float: right;
+  width: 100%;
+  background-color: #ECF0DF;
+  border: 2px solid #4f6228;
+  border-radius: 5px;
+}
+.buscar-p-sp{
+  float: right;
+  background-color: #ECF0DF;
+  border: 2px solid #4f6228;
+  border-radius: 5px;  
 }

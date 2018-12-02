@@ -11,10 +11,10 @@
 
 <div class="row justify-content-center mb-3">
 	<div class="col-md-10">
-		<input type="tex" name="buscar" class="" style="float: right;" />
+		<input type="text" id="buscar-plan" onkeypress="teclado()" name="buscar" class="buscar-p-sp" />
 	</div>
 	<div class="col-md-1">
-		<a class="btn" href="" style="background: #4f6228; color: white;"><i class="material-icons">search</i></a>
+		<a class="btn" onclick="buscar()" style="background: #4f6228; color: white;"><i class="material-icons">search</i></a>
 	</div>
 </div>
 
@@ -31,21 +31,25 @@
 				</tr>
 			</thead>
 			<tbody id="contenido">
+				{% for p in planes %}
 				<tr>
-					{% for p in planes %}
 					<td>{{p.id}}</td>
-					<td><a href="">{{p.nombre}}</a></td>
+					<td><a href="{% url 'detalles_plan' p.nombre %}">{{p.nombre}}</a></td>
 					<td>{{p.medidas}}</td>
-					<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href=""><i class="material-icons">edit</i></a></td>
-					<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href=""><i class="material-icons">delete</i></a></td>
-					{% endfor %}
+					<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href="{% url 'editar_plan' p.id %}"><i class="material-icons">edit</i></a></td>
+					<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" onclick="return confirm('¿Está seguro de eliminar este plan?')" href="{% url 'eliminar_plan' p.id %}"><i class="material-icons">delete</i></a></td>
 				</tr>
+				{% endfor %}
 			</tbody>
 		</table>
 	
 	</div>
 	<div class="col-md-1">
-		<a class="btn rounded" href="" style="background: #4f6228; color: white;"><i class="material-icons">add</i></a>
+		<a class="btn rounded" href="{% url 'agregar_plan' %}" style="background: #4f6228; color: white;"><i class="material-icons">add</i></a>
 	</div>
 </div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'configuracion/js/buscar-plan.js' %}"></script>
 {% endblock %}

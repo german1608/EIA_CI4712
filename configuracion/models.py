@@ -436,7 +436,11 @@ class SubPlan(models.Model):
         max_length=200,
         default="",
         )
-    plan = models.CharField(
+    # plan = models.CharField(
+    #     max_length=200,
+    #     default="",
+    #     )
+    tiempo = models.CharField(
         max_length=200,
         default="",
         )

@@ -391,13 +391,15 @@ class SubPlanForm(forms.ModelForm):
         fields = [
             'actividad',
             'accion',
-            'plan',
+            'plan_principal',
+            'tiempo',
             'monto',
         ]
         labels = {
             'actividad':'Actividad a realizar',
             'accion':'Accion a implementar',
-            'plan':'Plan de trabajo',
+            'plan_principal':'Plan de trabajo',
+            'tiempo': 'Duracion',
             'monto':'Monto estimado'
         }
         widgets = {
@@ -405,7 +407,9 @@ class SubPlanForm(forms.ModelForm):
                 attrs={'class':'form-control mb-3', 'required':''}),
             'accion':forms.Textarea(
                 attrs={'class':'form-control mb-3', 'required':''}),
-            'plan':forms.Textarea(
+            'plan_principal':forms.Select(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'tiempo':forms.TextInput(
                 attrs={'class':'form-control mb-3', 'required':''}),
             'monto':forms.TextInput(
                 attrs={'class':'form-control mb-3', 'required':''}),
