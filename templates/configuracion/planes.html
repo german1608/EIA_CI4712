@@ -34,7 +34,7 @@
 				{% for p in planes %}
 				<tr>
 					<td>{{p.id}}</td>
-					<td><a href="{% url 'detalles_plan' p.nombre %}">{{p.nombre}}</a></td>
+					<td><a name="{{p.nombre}}" href="{% url 'detalles_plan' p.nombre %}">{{p.nombre}}</a></td>
 					<td>{{p.medidas}}</td>
 					<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href="{% url 'editar_plan' p.id %}"><i class="material-icons">edit</i></a></td>
 					<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" onclick="return confirm('¿Está seguro de eliminar este plan?')" href="{% url 'eliminar_plan' p.id %}"><i class="material-icons">delete</i></a></td>
@@ -45,7 +45,7 @@
 	
 	</div>
 	<div class="col-md-1">
-		<a class="btn rounded" href="{% url 'agregar_plan' %}" style="background: #4f6228; color: white;"><i class="material-icons">add</i></a>
+		<a class="btn rounded" id="agregar_plan" href="{% url 'agregar_plan' %}" style="background: #4f6228; color: white;"><i class="material-icons">add</i></a>
 	</div>
 </div>
 {% endblock %}

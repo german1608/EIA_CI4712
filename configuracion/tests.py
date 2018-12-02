@@ -932,8 +932,123 @@ class PruebaFormularioEstudio(SeleniumTestCase):
         self.selenium.find_element_by_name('submit').click()
         self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/tablas/'))
         
+        ### Prueba a los planes de desarrollo ###
+        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/planes/'))
+        self.selenium.find_element_by_id('agregar_plan').click()
+        self.selenium.find_element_by_name('nombre').send_keys('Prueba')
+        self.selenium.find_element_by_name('objetivo_general').send_keys('OB prueba')
+        self.selenium.find_element_by_name('objetivo_especifico').send_keys('OE prueba')
+        self.selenium.find_element_by_name('medidas').send_keys('Varias medidas')
+        self.selenium.find_element_by_name('alcance').send_keys('Alcance Prueba')
+        self.selenium.find_element_by_name('metodologia').send_keys('metodologia Prueba')
+        self.selenium.find_element_by_name('proyecto').send_keys('Proyecto Prueba')
+        self.selenium.find_element_by_name('responsable').send_keys('responsables Prueba')
+        self.selenium.find_element_by_name('costo').send_keys(1000)
+        self.selenium.find_element_by_name('cronograma').send_keys('cronograma Prueba')
+        #Guarda los datos
+        self.selenium.find_element_by_id('editar').click()
+        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
+        confirmacion.accept()
+
+        ## Agregar otro plan
+        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/planes/'))
+        self.selenium.find_element_by_id('agregar_plan').click()
+        self.selenium.find_element_by_name('nombre').send_keys('Prueba S')
+        self.selenium.find_element_by_name('objetivo_general').send_keys('OB prueba S')
+        self.selenium.find_element_by_name('objetivo_especifico').send_keys('OE prueba S')
+        self.selenium.find_element_by_name('medidas').send_keys('Varias medidas S')
+        self.selenium.find_element_by_name('alcance').send_keys('Alcance Prueba S')
+        self.selenium.find_element_by_name('metodologia').send_keys('metodologia Prueba S')
+        self.selenium.find_element_by_name('proyecto').send_keys('Proyecto Prueba S')
+        self.selenium.find_element_by_name('responsable').send_keys('responsables Prueba S')
+        self.selenium.find_element_by_name('costo').send_keys(1000)
+        self.selenium.find_element_by_name('cronograma').send_keys('cronograma Prueba S')
+        #Guarda los datos
+        self.selenium.find_element_by_id('editar').click()
+        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
+        confirmacion.accept()
+
+        ## Se edita el plan
+        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/planes/'))
+        self.selenium.find_element_by_name('Prueba S').click()
+        self.selenium.find_element_by_id('editar').click()
+        self.selenium.find_element_by_name('nombre').clear()
+        self.selenium.find_element_by_name('nombre').send_keys('Prueba modificada')
+        self.selenium.find_element_by_name('objetivo_general').send_keys('OB prueba S')
+        self.selenium.find_element_by_name('objetivo_especifico').send_keys('OE prueba S')
+        self.selenium.find_element_by_name('medidas').send_keys('Varias medidas S')
+        self.selenium.find_element_by_name('alcance').send_keys('Alcance Prueba S')
+        self.selenium.find_element_by_name('metodologia').send_keys('metodologia Prueba S')
+        self.selenium.find_element_by_name('proyecto').send_keys('Proyecto Prueba S')
+        self.selenium.find_element_by_name('responsable').send_keys('responsables Prueba S')
+        self.selenium.find_element_by_name('costo').send_keys(1000)
+        self.selenium.find_element_by_name('cronograma').send_keys('cronograma Prueba S')
+        #Guarda los datos
+        self.selenium.find_element_by_id('editar').click()
+        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
+        confirmacion.accept()
+
+        ## Se elimina un plan
+        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/planes/'))
+        self.selenium.find_element_by_name('Prueba modificada').click()
+        self.selenium.find_element_by_name('eliminar').click()
+        #Guarda los datos
+        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
+        confirmacion.accept()
         
-        
-        
-        
-        
+        ### Prueba a los subplanes ###
+        ## Agregar subplan
+        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/subplanes/'))
+        self.selenium.find_element_by_id('agregar_subplan').click()
+        self.selenium.find_element_by_name('actividad').send_keys('Actividad 1')
+        self.selenium.find_element_by_name('accion').send_keys('Acciones 1')
+        # select = Select(self.selenium.find_element_by_name('plan_principal'))
+        # select.select_by_visible_text('')
+        self.selenium.find_element_by_name('tiempo').send_keys('Tres (3) semanas')
+        self.selenium.find_element_by_name('monto').send_keys(510)
+        self.selenium.find_element_by_id('editar').click()
+        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
+        confirmacion.accept()
+
+        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/subplanes/'))
+        self.selenium.find_element_by_id('agregar_subplan').click()
+        self.selenium.find_element_by_name('actividad').send_keys('Actividad 2')
+        self.selenium.find_element_by_name('accion').send_keys('Acciones 2')
+        # select = Select(self.selenium.find_element_by_name('plan_principal'))
+        # select.select_by_visible_text('')
+        self.selenium.find_element_by_name('tiempo').send_keys('Tres (4) semanas')
+        self.selenium.find_element_by_name('monto').send_keys(1200)
+        self.selenium.find_element_by_id('editar').click()
+        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
+        confirmacion.accept()
+
+        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/subplanes/'))
+        self.selenium.find_element_by_id('agregar_subplan').click()
+        self.selenium.find_element_by_name('actividad').send_keys('Actividad M')
+        self.selenium.find_element_by_name('accion').send_keys('Acciones M')
+        # select = Select(self.selenium.find_element_by_name('plan_principal'))
+        # select.select_by_visible_text('')
+        self.selenium.find_element_by_name('tiempo').send_keys('Tres (5) semanas')
+        self.selenium.find_element_by_name('monto').send_keys(5100)
+        self.selenium.find_element_by_id('editar').click()
+        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
+        confirmacion.accept()
+
+        ## Modificar un subplan
+        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/subplanes/'))
+        self.selenium.find_element_by_name('editar-Actividad M').click()
+        self.selenium.find_element_by_name('actividad').send_keys('Modificado plan')
+        self.selenium.find_element_by_name('accion').send_keys('Modificado acciones')
+        # select = Select(self.selenium.find_element_by_name('plan_principal'))
+        # select.select_by_visible_text('')
+        self.selenium.find_element_by_name('tiempo').send_keys('Un mes')
+        self.selenium.find_element_by_name('monto').send_keys(1100)
+        self.selenium.find_element_by_id('editar').click()
+        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
+        confirmacion.accept()
+
+        ## Eliminar un subplan
+        self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/subplanes/'))
+        self.selenium.find_element_by_name('eliminar-Actividad 2').click()
+        confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
+        confirmacion.accept()
