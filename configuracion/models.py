@@ -449,7 +449,7 @@ class SubPlan(models.Model):
     plan_principal = models.ForeignKey(
         Plan,
         default='',
-        on_delete=models.PROTECT
+        on_delete=models.CASCADE
         )
 
     def __str__(self):
