@@ -1,0 +1,131 @@
+"""
+class DescripcionProyectoTestCase(TestCase):
+    ''' Pruebas para la tabla de Descripcion proyecto '''
+
+    def setUp(self):
+        '''Se crean instancias de responsables para realizar pruebas'''
+        # pylint: disable=no-member
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.img_path = os.path.join(BASE_DIR, 'static', 'img','germanbb.jpg')
+        self.proyecto = DatosProyecto.objects.create(
+            titulo="hola",
+            ubicacion="caracas",
+            area="area de prueba",
+            tipo="prueba",
+            url="www.google.com")
+
+    def test_DescripcionProyecto_crear(self):
+        '''Prueba para crear una instancia de descripcion proyecto'''
+        img = SimpleUploadedFile(name='german.jpg', content=open(self.img_path, 'rb').read(), content_type='image/jpeg')
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'obj_general' : 'ObjGeneral',
+            'obj_especifico' : 'ObjEspecifico',
+            'justificacion' : 'Porque quise'}
+        file_data = {'area':SimpleUploadedFile('germanbb.jpg', 'area')}
+        form_datos = DescripcionProyectoCreateForm(form_data,file_data)
+        form_datos.save()
+        # pylint: disable=no-member
+        datos = DescripcionProyecto.objects.get(
+            proyecto=self.proyecto.id)
+        self.assertEqual(datos.obj_general, "ObjGeneral")
+
+    def test_DescripcionProyecto_sin_objetivo_general(self):
+        '''Prueba para crear una instancia sin objetivo general'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'obj_general' : '',
+            'obj_especifico' : 'ObjEspecifico',
+            'justificacion' : 'Porque quise',
+            'area' : SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')}
+        form_datos = DescripcionProyectoCreateForm(data=form_data)
+        self.assertFalse(form_datos.is_valid())
+
+    def test_DescripcionProyecto_sin_objetivo_especifico(self):
+        '''Prueba para crear una instancia sin objetivo especifico'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'obj_general' : 'ObjGeneral',
+            'obj_especifico' : '',
+            'justificacion' : 'Porque quise',
+            'area' : SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')}
+        form_datos = DescripcionProyectoCreateForm(data=form_data)
+        self.assertFalse(form_datos.is_valid())
+
+    def test_DescripcionProyecto_sin_justificacion(self):
+        '''Prueba para crear una instancia sin justificacion'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'obj_general' : 'ObjGeneral',
+            'obj_especifico' : 'ObjEspecifico',
+            'justificacion' : '',
+            'area' : SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')}
+        form_datos = DescripcionProyectoCreateForm(data=form_data)
+        self.assertFalse(form_datos.is_valid())
+
+    def test_DescripcionProyecto_sin_area(self):
+        '''Prueba para crear una instancia sin area'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'obj_general' : 'ObjGeneral',
+            'obj_especifico' : 'ObjEspecifico',
+            'justificacion' : 'Porque quise',
+            'area' : None}
+        form_datos = DescripcionProyectoCreateForm(data=form_data)
+        self.assertFalse(form_datos.is_valid())
+
+    # pylint: disable=invalid-name
+    def test_DescripcionProyecto_editar_obj_general(self):
+        '''Prueba para editar el objetivo general de un documento'''
+        # pylint: disable=no-member
+        datos = DescripcionProyecto.objects.get(
+            proyecto=self.proyecto.id)
+        datos.obj_general = "Ya basta wei"
+        datos.save()
+        # pylint: disable=no-member
+        datos = DescripcionProyecto.objects.get(
+            proyecto=self.proyecto.id)
+        self.assertEqual(datos.obj_general, "Ya basta wei")
+
+    # pylint: disable=invalid-name
+    def test_DescripcionProyecto_editar_obj_especifico(self):
+        '''Prueba para editar el objetivo especifico de un documento'''
+        # pylint: disable=no-member
+        datos = DescripcionProyecto.objects.get(
+            proyecto=self.proyecto.id)
+        datos.obj_especifico = "Ya basta wei"
+        datos.save()
+        # pylint: disable=no-member
+        datos = DescripcionProyecto.objects.get(
+            proyecto=self.proyecto.id)
+        self.assertEqual(datos.obj_especifico, "Ya basta wei")
+
+    # pylint: disable=invalid-name
+    def test_DescripcionProyecto_editar_justificacion(self):
+        '''Prueba para editar la justificacion'''
+        # pylint: disable=no-member
+        datos = DescripcionProyecto.objects.get(
+            proyecto=self.proyecto.id)
+        datos.justificacion = "Ya basta wei"
+        datos.save()
+        # pylint: disable=no-member
+        datos = DescripcionProyecto.objects.get(
+            proyecto=self.proyecto.id)
+        self.assertEqual(datos.justificacion, "Ya basta wei")
+
+    def test_DescripcionProyecto_eliminar(self):
+        '''Prueba para eliminar una instancia'''
+        form_data = {
+            'proyecto': self.proyecto.id,
+            'obj_general' : 'ObjGeneral',
+            'obj_especifico' : 'ObjEspecifico',
+            'justificacion' : 'Porque quise',
+            'area' : SimpleUploadedFile(name='test_image.jpg', content=open(image_path, 'rb').read(), content_type='image/jpeg')}
+        form_datos = DescripcionProyectoCreateForm(data=form_data)
+        form_datos.save()
+        # pylint: disable=no-member
+        DescripcionProyecto.objects.get(proyecto=self.proyecto.id).delete()
+        try:
+            DescripcionProyecto.objects.get(proyecto=self.proyecto.id)
+        except BaseException:
+            pass """

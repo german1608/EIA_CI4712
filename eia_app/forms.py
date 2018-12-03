@@ -4,7 +4,7 @@ from django import forms
 from .models import (
     Organizacion, Responsable, Solicitante,
     DatosProyecto, DatosDocumento, DescripcionProyecto,
-    Medio,CaracteristicaMedio,SubaracteristicaMedio
+    Medio, CaracteristicaMedio, SubaracteristicaMedio
 )
 
 
@@ -75,4 +75,3 @@ class SubaracteristicaMedioCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = SubaracteristicaMedio
         fields = '__all__'
-

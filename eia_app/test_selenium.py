@@ -1,10 +1,11 @@
 """
     Archivo para las pruebas realizadas en selenium
 """
-
+import os
 from django.urls import reverse
 from utils.testutils import SeleniumTestCase
-from .models import DatosProyecto, Organizacion, Responsable, DatosDocumento, Solicitante, DescripcionProyecto
+from .models import *  # pylint: disable=wildcard-import, unused-wildcard-import
+
 
 
 class ViewsTest(SeleniumTestCase):
@@ -85,6 +86,7 @@ class ViewsTest(SeleniumTestCase):
             '#borrar' + str(self.proyecto.id)).click()
         self.selenium.find_element_by_xpath("//button[@type='submit']").click()
 
+
 class TestOrganizaciones(SeleniumTestCase):
     """
         Clase para probar las organizaciones del crud del consultor ambiental.
@@ -101,15 +103,15 @@ class TestOrganizaciones(SeleniumTestCase):
 
         self.organizacion = Organizacion.objects.create(
             proyecto=self.proyecto,
-            razon_social = "natural",
-            nombre = "Nombre",
-            direccion = "Direccion",
-            rif= "V-25872052-5",
-            nombre_representante_legal = "NombreR",
-            apellido_representante_legal = "Apellido",
-            cedula_representante_legal = "V25991612",
-            pasaporte_representante_legal = 25872061,
-            telefono = "04141234567",
+            razon_social="natural",
+            nombre="Nombre",
+            direccion="Direccion",
+            rif="V-25872052-5",
+            nombre_representante_legal="NombreR",
+            apellido_representante_legal="Apellido",
+            cedula_representante_legal="V25991612",
+            pasaporte_representante_legal=25872061,
+            telefono="04141234567",
             email="prueba@gmail.ve")
 
         # Se inicia sesion en cada prueba de forma automatica
@@ -126,12 +128,14 @@ class TestOrganizaciones(SeleniumTestCase):
             Test para anadir datos de una organizacion.
         """
         self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
-        self.selenium.find_element_by_css_selector('#datos-organizaciones').click()
+        self.selenium.find_element_by_css_selector(
+            '#datos-organizaciones').click()
         self.selenium.find_element_by_css_selector('#add').click()
-        proy=self.proyecto.titulo
+        proy = self.proyecto.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proy)
         razon_social = "natural"
-        self.selenium.find_element_by_name('razon_social').send_keys(razon_social)
+        self.selenium.find_element_by_name(
+            'razon_social').send_keys(razon_social)
         nombre = "Nombre"
         self.selenium.find_element_by_name('nombre').send_keys(nombre)
         rif = "V-25972062-4"
@@ -139,13 +143,17 @@ class TestOrganizaciones(SeleniumTestCase):
         direccion = "Direccion"
         self.selenium.find_element_by_name('direccion').send_keys(direccion)
         representante = "Representante"
-        self.selenium.find_element_by_name('nombre_representante_legal').send_keys(representante)
+        self.selenium.find_element_by_name(
+            'nombre_representante_legal').send_keys(representante)
         apellido_representante = "ApellidoRepresentante"
-        self.selenium.find_element_by_name('apellido_representante_legal').send_keys(apellido_representante)
+        self.selenium.find_element_by_name(
+            'apellido_representante_legal').send_keys(apellido_representante)
         cedula_representante = "V25872062"
-        self.selenium.find_element_by_name('cedula_representante_legal').send_keys(cedula_representante)
+        self.selenium.find_element_by_name(
+            'cedula_representante_legal').send_keys(cedula_representante)
         pasaporte = 25872061
-        self.selenium.find_element_by_name('pasaporte_representante_legal').send_keys(pasaporte)
+        self.selenium.find_element_by_name(
+            'pasaporte_representante_legal').send_keys(pasaporte)
         telefono = "04141633960"
         self.selenium.find_element_by_name('telefono').send_keys(telefono)
         email = "prueba@gmail.ve"
@@ -188,6 +196,7 @@ class TestOrganizaciones(SeleniumTestCase):
             '#borrar' + str(self.organizacion.id)).click()
         self.selenium.find_element_by_xpath("//button[@type='submit']").click()
 
+
 class TestResponsable(SeleniumTestCase):
     """
         Clase para probar los responsables del crud del consultor ambiental.
@@ -205,12 +214,12 @@ class TestResponsable(SeleniumTestCase):
         # Se crea un responsable para editar y eliminar
         self.responsable = Responsable.objects.create(
             proyecto=self.proyecto,
-            nombre = "Nombre",
-            apellido = "Apellido",
-            cedula = "V25991612",
-            pasaporte = 25872061,
-            nivel_academico = "Licenciado",
-            tipo_responsable = "EsIA")
+            nombre="Nombre",
+            apellido="Apellido",
+            cedula="V25991612",
+            pasaporte=25872061,
+            nivel_academico="Licenciado",
+            tipo_responsable="EsIA")
 
         # Se inicia sesion en cada prueba de forma automatica
         self.selenium.get(
@@ -228,7 +237,7 @@ class TestResponsable(SeleniumTestCase):
         self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
         self.selenium.find_element_by_css_selector('#responsables').click()
         self.selenium.find_element_by_css_selector('#add').click()
-        proy=self.proyecto.titulo
+        proy = self.proyecto.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proy)
         nombre = "Nombre1"
         self.selenium.find_element_by_name('nombre').send_keys(nombre)
@@ -239,9 +248,11 @@ class TestResponsable(SeleniumTestCase):
         pasaporte = 25872062
         self.selenium.find_element_by_name('pasaporte').send_keys(pasaporte)
         nivel_academico = "Licenciado"
-        self.selenium.find_element_by_name('nivel_academico').send_keys(nivel_academico)
+        self.selenium.find_element_by_name(
+            'nivel_academico').send_keys(nivel_academico)
         tipo_responsable = "EsIA"
-        self.selenium.find_element_by_name('tipo_responsable').send_keys(tipo_responsable)
+        self.selenium.find_element_by_name(
+            'tipo_responsable').send_keys(tipo_responsable)
 
     def test_ver_detalles_responsable(self):
         """
@@ -280,6 +291,7 @@ class TestResponsable(SeleniumTestCase):
             '#borrar' + str(self.responsable.id)).click()
         self.selenium.find_element_by_xpath("//button[@type='submit']").click()
 
+
 class TestDatosDocumento(SeleniumTestCase):
     """
         Clase para probar los datos de documentos del crud del consultor ambiental.
@@ -297,10 +309,10 @@ class TestDatosDocumento(SeleniumTestCase):
         # Se crea un documento para editar y eliminar
         self.documento = DatosDocumento.objects.create(
             proyecto=self.proyecto,
-            fecha = "2007-10-25",
-            ciudad = "Ciudad",
-            estado = "Estado",
-            pais = "Pais")
+            fecha="2007-10-25",
+            ciudad="Ciudad",
+            estado="Estado",
+            pais="Pais")
 
         # Se inicia sesion en cada prueba de forma automatica
         self.selenium.get(
@@ -318,7 +330,7 @@ class TestDatosDocumento(SeleniumTestCase):
         self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
         self.selenium.find_element_by_css_selector('#datos-documentos').click()
         self.selenium.find_element_by_css_selector('#add').click()
-        proy=self.proyecto.titulo
+        proy = self.proyecto.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proy)
         fecha = "2007-10-25"
         self.selenium.find_element_by_name('fecha').send_keys(fecha)
@@ -366,6 +378,7 @@ class TestDatosDocumento(SeleniumTestCase):
             '#borrar' + str(self.documento.id)).click()
         self.selenium.find_element_by_xpath("//button[@type='submit']").click()
 
+
 class TestSolicitante(SeleniumTestCase):
     """
         Clase para probar los solicitantes del crud del consultor ambiental.
@@ -383,12 +396,12 @@ class TestSolicitante(SeleniumTestCase):
         # Se crea un solicitante para editar y eliminar
         self.solicitante = Solicitante.objects.create(
             proyecto=self.proyecto,
-            nombre = "Nombre",
-            apellido = "Apellido",
-            cedula = "V25991612",
-            pasaporte = 25872061,
-            telefono = "04241234567",
-            email = "email@gmail.com")
+            nombre="Nombre",
+            apellido="Apellido",
+            cedula="V25991612",
+            pasaporte=25872061,
+            telefono="04241234567",
+            email="email@gmail.com")
 
         # Se inicia sesion en cada prueba de forma automatica
         self.selenium.get(
@@ -406,7 +419,7 @@ class TestSolicitante(SeleniumTestCase):
         self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
         self.selenium.find_element_by_css_selector('#solicitantes').click()
         self.selenium.find_element_by_css_selector('#add').click()
-        proy=self.proyecto.titulo
+        proy = self.proyecto.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proy)
         nombre = "Nombre1"
         self.selenium.find_element_by_name('nombre').send_keys(nombre)
@@ -458,6 +471,7 @@ class TestSolicitante(SeleniumTestCase):
             '#borrar' + str(self.solicitante.id)).click()
         self.selenium.find_element_by_xpath("//button[@type='submit']").click()
 
+
 class TestDescripcionProyecto(SeleniumTestCase):
     """
         Clase para probar las descripciones de proyectos del crud del consultor ambiental.
@@ -465,6 +479,8 @@ class TestDescripcionProyecto(SeleniumTestCase):
 
     def setUp(self):
         # Se crea un proyecto para editar y eliminar
+        self.base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.image_path = os.path.join(self.base_dir, 'static', 'img', 'germanbb.jpg')
         self.proyecto = DatosProyecto.objects.create(
             titulo="prueba de detalles",
             ubicacion="caracas, venezuela",
@@ -482,10 +498,10 @@ class TestDescripcionProyecto(SeleniumTestCase):
         # Se crea una descripcion de un proyecto para editar y eliminar
         self.descripcion = DescripcionProyecto.objects.create(
             proyecto=self.proyecto,
-            obj_general = "Obj General",
-            obj_especifico = "Obj Especifico",
-            justificacion = "Justificacion",
-            area = "/home/sandra/Documents/Ing de Software/Software2/EIA_CI4712/static/img/germanbb.jpg")
+            obj_general="Obj General",
+            obj_especifico="Obj Especifico",
+            justificacion="Justificacion",
+            area=self.image_path)
 
         # Se inicia sesion en cada prueba de forma automatica
         self.selenium.get(
@@ -501,17 +517,21 @@ class TestDescripcionProyecto(SeleniumTestCase):
             Test para anadir descripcion de un proyecto.
         """
         self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
-        self.selenium.find_element_by_css_selector('#detalles-proyecto').click()
+        self.selenium.find_element_by_css_selector(
+            '#detalles-proyecto').click()
         self.selenium.find_element_by_css_selector('#add').click()
-        proy=self.proyecto1.titulo
+        proy = self.proyecto1.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proy)
         obj_general = "Obj General"
-        self.selenium.find_element_by_name('obj_general').send_keys(obj_general)
+        self.selenium.find_element_by_name(
+            'obj_general').send_keys(obj_general)
         obj_especifico = "Obj Especifico"
-        self.selenium.find_element_by_name('obj_especifico').send_keys(obj_especifico)
+        self.selenium.find_element_by_name(
+            'obj_especifico').send_keys(obj_especifico)
         justificacion = "Justificacion"
-        self.selenium.find_element_by_name('justificacion').send_keys(justificacion)
-        area = "/home/sandra/Documents/Ing de Software/Software2/EIA_CI4712/static/img/germanbb.jpg"
+        self.selenium.find_element_by_name(
+            'justificacion').send_keys(justificacion)
+        area = self.image_path
         self.selenium.find_element_by_name('area').send_keys(area)
 
     def test_ver_detalles_descripcion(self):
@@ -536,7 +556,8 @@ class TestDescripcionProyecto(SeleniumTestCase):
         self.selenium.find_element_by_css_selector(
             '#editar' + str(self.descripcion.id)).click()
         obj_general = "Edicion de prueba"
-        self.selenium.find_element_by_name('obj_general').send_keys(obj_general)
+        self.selenium.find_element_by_name(
+            'obj_general').send_keys(obj_general)
         self.selenium.find_element_by_xpath("//button[@type='submit']").click()
 
     def test_eliminar_descripcion(self):
@@ -550,4 +571,3 @@ class TestDescripcionProyecto(SeleniumTestCase):
         self.selenium.find_element_by_css_selector(
             '#borrar' + str(self.descripcion.id)).click()
         self.selenium.find_element_by_xpath("//button[@type='submit']").click()
-
