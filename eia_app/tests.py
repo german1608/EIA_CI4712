@@ -890,6 +890,8 @@ class MarcoHelper:
     '''
     Helper para los tests de marcos
     '''
+    tipo_marcos = ['metodologico', 'teorico', 'juridico']
+
     def login_util(self):
         ''' Utility para loguearnos en las pruebas que lo requieran '''
         consultor_ambiental = get_user_model().objects.get(username='especialistaesia')
@@ -904,6 +906,21 @@ class MarcoListViewTestCase(MarcoHelper, TestCase):
     '''
     fixtures = ['users-and-groups.json', 'proyectos.json']
 
+    def test_login_required(self):
+        '''
+        Prueba que la vista tenga sus restricciones de autenticidad
+        '''
+        login_url = reverse('login')
+        for tipo_marco in self.tipo_marcos:
+            target_url = reverse('eia_app:lista-marcos', kwargs={
+                'tipo': tipo_marco
+            })
+            response = self.client.post(target_url)
+            actual = response
+            expected = login_url + '?next=' + target_url
+            self.assertRedirects(actual, expected)
+
+
     def test_view_existence(self): # pylint: disable=self-no-use
         ''' Prueba existencia de la vista que va a listar los marcos '''
         MarcoListView()
@@ -914,7 +931,7 @@ class MarcoListViewTestCase(MarcoHelper, TestCase):
         self.login_util()
 
         # Probamos cada posible url
-        for tipo_marco in ['metodologico', 'teorico', 'juridico']:
+        for tipo_marco in self.tipo_marcos:
             with self.subTest(tipo_marco=tipo_marco):
                 target_url = reverse('eia_app:lista-marcos', kwargs={
                     'tipo': tipo_marco
@@ -927,7 +944,7 @@ class MarcoListViewTestCase(MarcoHelper, TestCase):
     def test_vista_redirige_cuando_no_esta_autenticado(self):
         ''' Prueba que la vista rediriga al login si el usuario no esta autenticado '''
         # Hacemos get del url que lista
-        for tipo_marco in ['metodologico', 'teorico', 'juridico']:
+        for tipo_marco in self.tipo_marcos:
             with self.subTest(tipo_marco=tipo_marco):
                 target_url = reverse('eia_app:lista-marcos', kwargs={
                     'tipo': tipo_marco
@@ -941,7 +958,7 @@ class MarcoListViewTestCase(MarcoHelper, TestCase):
         self.login_util()
 
         # Verificamos el listado de cada marco
-        for tipo_marco in ['metodologico', 'teorico', 'juridico']:
+        for tipo_marco in self.tipo_marcos:
             with self.subTest(tipo_marco=tipo_marco):
                 target_url = reverse('eia_app:lista-marcos', kwargs={
                     'tipo': tipo_marco
@@ -958,7 +975,6 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
     Prueba la vista de eliminacion de marcos.
     '''
     fixtures = ['users-and-groups.json', 'proyectos.json']
-    tipo_marcos = ['metodologico', 'teorico', 'juridico']
 
     def test_login_required(self):
         '''
