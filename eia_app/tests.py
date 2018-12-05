@@ -1,5 +1,5 @@
 '''Test para el crud del consultor '''
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.shortcuts import reverse
 from django.contrib.auth import get_user_model
 from django.db.models import Q
@@ -801,6 +801,7 @@ class DatosDocumentoTestCase(TestCase):
             pass
 
 
+@tags('marco')
 class MarcoFormTestCase(TestCase):
     """ Caso de pruebas para el formulario de marcos """
     fixtures = ['proyectos.json']
@@ -900,6 +901,7 @@ class MarcoHelper:
         return consultor_ambiental
 
 
+@tags('marco')
 class MarcoListViewTestCase(MarcoHelper, TestCase):
     '''
     Prueba la vista de listado de los marcos.
@@ -970,6 +972,7 @@ class MarcoListViewTestCase(MarcoHelper, TestCase):
                 }))
                 self.assertEqual(list(actual), list(expected), 'El filtro de la vista de listado de marcos no esta funcionando')
 
+@tags('marco')
 class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
     '''
     Prueba la vista de eliminacion de marcos.
@@ -992,7 +995,7 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
             })
             response = self.client.post(target_url)
             actual = response
-            expected = login_url
+            expected = login_url + '?next=' + target_url
             self.assertRedirects(actual, expected)
 
     def test_view_url_correspondence(self):
@@ -1144,3 +1147,10 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
                 'tipo': tipo_marco
             })
             self.assertRedirects(response, expected)
+
+
+@tags('marco')
+class MarcoDetailViewTestCase(MarcoHelper, TestCase):
+    '''
+    Suite de pruebas para la vista de detalles de marcos
+    '''
