@@ -1061,8 +1061,8 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
 
     def test_view_marco_post_correct(self):
         '''
-        Prueba que la vista de eliminacion de marcos rediriga a la vista
-        de listado de marco correspondiente
+        Prueba que la vista de eliminacion de marcos elimine
+        marcos correctamente cuando se haga el post
         '''
         # Nos logueamos
         self.login_util()
@@ -1073,7 +1073,7 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
             })).first()
             # Verificamos que el marco escogido no sea None, es decir
             # que tenga.
-            # self.assertIsNotNone(getattr(marco, 'marco_' + tipo_marco))
+            self.assertIsNotNone(getattr(marco, 'marco_' + tipo_marco))
             target_url = reverse('eia_app:eliminar-marco', kwargs={
                 'tipo': tipo_marco,
                 'pk': marco.pk
@@ -1083,3 +1083,29 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
             marco.refresh_from_db()
             # Verificamos que sea none ahora
             self.assertIsNone(getattr(marco, 'marco_' + tipo_marco))
+
+    def test_view_marco_post_redirects_to_list(self):
+        '''
+        Prueba que la vista de eliminacion rediriga a la de listado
+        cuando el marco sea eliminado correctamente
+        '''
+        # Nos logueamos
+        self.login_util()
+        # Probamos para cada marco
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+            # Verificamos que el marco escogido no sea None, es decir
+            # que tenga.
+            target_url = reverse('eia_app:eliminar-marco', kwargs={
+                'tipo': tipo_marco,
+                'pk': marco.pk
+            })
+            # Hacemos el post para eliminar
+            response = self.client.post(target_url)
+            actual = response
+            expected = reverse('eia_app:lista-marcos', kwargs={
+                'tipo': tipo_marco
+            })
+            self.assertRedirects(response, expected)
