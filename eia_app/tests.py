@@ -1154,3 +1154,23 @@ class MarcoDetailViewTestCase(MarcoHelper, TestCase):
     '''
     Suite de pruebas para la vista de detalles de marcos
     '''
+    fixtures = ['users-and-groups.json', 'proyectos.json']
+
+    def test_login_required(self):
+        '''
+        Prueba que la vista sea accedible solamente por usuarios autenticados
+        '''
+        login_url = reverse('login')
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+
+            target_url = reverse('eia_app:detalles-marco', kwargs={
+                'tipo': tipo_marco,
+                'pk': marco.pk
+            })
+            response = self.client.post(target_url)
+            actual = response
+            expected = login_url + '?next=' + target_url
+            self.assertRedirects(actual, expected)
