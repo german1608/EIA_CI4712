@@ -1059,3 +1059,27 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
                 self.assertEqual(actual, expected, 'La vista de eliminacion no retorna codigo 200 '
                                                    'cuando el mismo existe y tiene marco asociado')
 
+    def test_view_marco_post_correct(self):
+        '''
+        Prueba que la vista de eliminacion de marcos rediriga a la vista
+        de listado de marco correspondiente
+        '''
+        # Nos logueamos
+        self.login_util()
+        # Probamos para cada marco
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+            # Verificamos que el marco escogido no sea None, es decir
+            # que tenga.
+            # self.assertIsNotNone(getattr(marco, 'marco_' + tipo_marco))
+            target_url = reverse('eia_app:eliminar-marco', kwargs={
+                'tipo': tipo_marco,
+                'pk': marco.pk
+            })
+            # Hacemos el post para eliminar
+            response = self.client.post(target_url)
+            marco.refresh_from_db()
+            # Verificamos que sea none ahora
+            self.assertIsNone(getattr(marco, 'marco_' + tipo_marco))
