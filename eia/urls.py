@@ -25,6 +25,7 @@ urlpatterns = [
     path('users/', include("users.urls")),
     path('', include('dashboard.urls')),
     path('configuracion/', include("configuracion.urls")),
+    path('medidas/', include("medidas.urls")),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, },
             name='media'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
