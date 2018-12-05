@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  <p>¿Estás seguro que deseas borrar la medida "{{ object.nombre }}"?</p>
+  <button id='id_aceptar' type="submit" class="btn btn-primary">Aceptar</button>
+</form>
+{% endblock %}

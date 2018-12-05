@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h3>Lista de recomendaciones de proyectos</h3>
+<p>
+    <a id="add" href="{% url "consultor-crud:nuevo-recomendaciones-proyecto" %}">Agregar recomendaciones de un proyecto</a>
+</p>
+<div class="container" style="width:90% !important">
+  {%if object_list.count > 0%}
+  <table id="datos_proyecto" class="display">
+      <thead>
+          <tr>
+              <th>Proyecto</th>
+              <th style="text-align:center;">Ver detalles</th>
+              <th style="text-align:center;">Editar</th>
+              <th style="text-align:center;">Borrar</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for proyecto in object_list %}
+          <tr>
+              <td>{{ proyecto.proyecto }}</td>
+              <td style="text-align:center;"> <a id="detalles{{proyecto.id}}" href="{% url "consultor-crud:recomendaciones-proyecto"  proyecto.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+              <td style="text-align:center;"><a id="editar{{proyecto.id}}" href="{% url "consultor-crud:editar-recomendaciones-proyecto" proyecto.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+              <td style="text-align:center;"><a id="borrar{{proyecto.id}}" href="{% url "consultor-crud:borrar-recomendaciones-proyecto" proyecto.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No existen datos de proyectos agregadas a la base de datos</p>
+  {% endif %}
+</div>
+
+{% endblock %}
+
+<!--BLOQUE DE JS-->
+
+{% block js %}
+<script src="{% static 'js/jquery.dataTables.js' %}"></script>
+<script>
+  $(document).ready( function () {
+    $('#datos_proyecto').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      }
+    });
+  });
+</script>
+{% endblock %}
