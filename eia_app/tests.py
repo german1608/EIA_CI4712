@@ -885,22 +885,23 @@ class MarcoFormTestCase(TestCase):
         )
 
 
-class MarcoListViewTestCase(TestCase):
+class MarcoHelper:
+    '''
+    Helper para los tests de marcos
+    '''
+    def login_util(self):
+        ''' Utility para loguearnos en las pruebas que lo requieran '''
+        consultor_ambiental = get_user_model().objects.get(username='especialistaesia')
+        self.client.login(
+            username=consultor_ambiental.username, password='jaja1234')
+        return consultor_ambiental
+
+
+class MarcoListViewTestCase(MarcoHelper, TestCase):
     '''
     Prueba la vista de listado de los marcos.
     '''
     fixtures = ['users-and-groups.json', 'proyectos.json']
-
-    def setUp(self):
-        ''' Crea data inicial para cada prueba '''
-        self.client = Client()
-        super().setUp()
-
-    def login_util(self):
-        ''' Utility para loguearnos en las pruebas que lo requieran '''
-        consultor_ambiental = get_user_model().objects.get(username='especialistaesia')
-        self.client.login(username=consultor_ambiental.username, password='jaja1234')
-        return consultor_ambiental
 
     def test_view_existence(self): # pylint: disable=self-no-use
         ''' Prueba existencia de la vista que va a listar los marcos '''
