@@ -1035,3 +1035,27 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
                 response = self.client.get(target_url)
                 self.assertEqual(response.status_code, 404, 'El proyecto no existe, pero la vista'
                                                             'de eliminar no retorno 404')
+
+    def test_view_marco_proyecto_existe_marco_tambien(self):
+        '''
+        Prueba que la vista de eliminacion retorne codigo 200 cuando
+        el proyecto que se le pase tenga un marco asociado
+        '''
+        # Nos logueamos
+        self.login_util()
+        # Probamos con cada tipo de marco
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+            target_url = reverse('eia_app:eliminar-marco', kwargs={
+                'tipo': tipo_marco,
+                'pk': marco.pk
+            })
+            response = self.client.get(target_url)
+            actual = response.status_code
+            expected = 200
+            with self.subTest(tipo_marco=tipo_marco):
+                self.assertEqual(actual, expected, 'La vista de eliminacion no retorna codigo 200 '
+                                                   'cuando el mismo existe y tiene marco asociado')
+
