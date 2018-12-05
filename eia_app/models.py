@@ -301,3 +301,8 @@ class DescripcionProyecto(models.Model):
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "Descripcion_Proyecto"
+
+class RecomendacionProyecto(models.Model):
+    """ Tabla para almacenar la informacion de las recomendaciones de un proyecto"""
+    proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
+    recomendaciones = models.TextField()

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock %}
+{% block content %}
+
+<h4> Recomendaciones del proyecto: {{recomendacionproyecto.proyecto}}</h4>
+<div class="grid-container" style="margin-left:10%">
+
+                <div class="grid-item">
+                            <p class="title">Recomendaciones</p>
+                            <p>{{ recomendacionproyecto.recomendaciones}}</p>
+                </div>
+</div>
+
+{% endblock %}
