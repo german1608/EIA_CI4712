@@ -7,6 +7,7 @@ from django.views.generic.base import ContextMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.db.models import Q
+from django.http import Http404
 from .models import (
     Organizacion, Responsable, Solicitante,
     DatosProyecto, DatosDocumento, DescripcionProyecto,
@@ -338,7 +339,7 @@ def delete_marco_view(request, tipo, pk): # pylint: disable=invalid-name
             contenido = proyecto.marco_juridico
             tipo_marco = 'jurídico'
         if contenido is None:
-            return redirect('dashboard:index')
+            raise Http404('El proyecto escogido no tiene marco {} asociado'.format(tipo))
         return render(request, 'eia_app/marco/delete.html',
                       {'object':proyecto, 'contenido': contenido, 'tipo_marco': tipo_marco})
 
