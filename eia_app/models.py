@@ -306,3 +306,8 @@ class RecomendacionProyecto(models.Model):
     """ Tabla para almacenar la informacion de las recomendaciones de un proyecto"""
     proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
     recomendaciones = models.TextField()
+
+class ConclusionProyecto(models.Model):
+    """ Tabla para alamacenar la informacion de las conclusiones de un proyecto """
+    proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
+    conclusiones = models.TextField()
