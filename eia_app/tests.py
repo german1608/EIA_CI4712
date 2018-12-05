@@ -6,6 +6,7 @@ from django.db.models import Q
 from .forms import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .models import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .views import MarcoListView, delete_marco_view
+from itertools import count
 
 # Create your tests here.
 
@@ -957,6 +958,7 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
     Prueba la vista de eliminacion de marcos.
     '''
     fixtures = ['users-and-groups.json', 'proyectos.json']
+    tipo_marcos = ['metodologico', 'teorico', 'juridico']
 
     def test_view_url_correspondence(self):
         '''
@@ -966,7 +968,7 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
         # Primero nos logueamos
         self.login_util()
         # Probamos cada posible url
-        for tipo_marco in ['metodologico', 'teorico', 'juridico']:
+        for tipo_marco in self.tipo_marcos:
             marco = DatosProyecto.objects.filter(~Q(**{
                 'marco_{}'.format(tipo_marco): None
             })).first()
@@ -979,3 +981,29 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
                 actual = response.resolver_match.func.__name__
                 expected = delete_marco_view.__name__
                 self.assertEqual(actual, expected, 'La vista no corresponde al url')
+
+    def test_view_marco_proyecto_no_existe(self):
+        '''
+        Prueba que la vista que maneja el url de listado responda
+        con un 404 cuando el proyecto con el marco asociado no exista
+        '''
+        # Priemro nos logueamos
+        self.login_util()
+        # Probamos cada posible url
+        for tipo_marco in self.tipo_marcos:
+            pk_a_eliminar = 0
+            for i in count(0):
+                try:
+                    DatosProyecto.objects.get(pk=i)
+                except DatosProyecto.DoesNotExist:
+                    pk_a_eliminar = i
+                    break
+
+            with self.subTest(tipo_marco=tipo_marco):
+                target_url = reverse('eia_app:eliminar-marco', kwargs={
+                    'tipo': tipo_marco,
+                    'pk': pk_a_eliminar
+                })
+                response = self.client.get(target_url)
+                self.assertEqual(response.status_code, 404, 'El proyecto no existe, pero la vista'
+                                                            'de eliminar no retorno 404')
