@@ -375,3 +375,68 @@ class SubaracteristicaMedio(models.Model):
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "SubaracteristicaMedio"
+
+class TipoCosto(models.Model):
+    """ Tabla para almacenar la informacion del tipo de costo de un proyecto.
+    Parametros:
+        models.Model (TipoCosto): Instancia sobre la que se crea la tabla.
+    Atributos:
+        tipo: Tipo de costo
+    """
+    TYPE_CHOICES = (('humano', 'Talento Humano'),
+                    ('profesionales', 'Servicios Profesionales y Técnicos'),
+                    ('hospedaje', 'Pasajes y Hospedaje'),
+                    ('materiales', 'Recursos Materiales'),
+                    ('oficina','Materiales de Oficina'), 
+                    ('insumos', 'Insumos'))
+    tipo = models.CharField(max_length=100, choices=TYPE_CHOICES, unique=True)
+
+    def get_model_type(self):  # pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
+        return "TipoCosto"
+
+class CostoHumano(models.Model):
+    """ Tabla para almacenar los detalles de los costos humanos de un proyecto.
+    Parametros:
+        models.Model (CostoHumano): Instancia sobre la que se crea la tabla.
+    Atributos:
+        proyecto: Proyecto asociado
+        tipo: Tipo de costo
+        actividad: Descripcion de la actividad realizada
+        cantidad: Cantidad de personas o equipos requeridos
+        tiempo: Lapso durante el cual se realizó la actividad
+        monto: Monto total de la actividad
+    """
+    proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
+    tipo = models.ForeignKey(TipoCosto, on_delete=models.CASCADE)
+    actividad = models.TextField()
+    cantidad = models.TextField()
+    tiempo = models.CharField(max_length=100)
+    monto = models.FloatField(validators=[MinValueValidator(0)])
+
+    def get_model_type(self):  # pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
+        return "CostoHumano"
+
+class CostoMateriales(models.Model):
+    """ Tabla para almacenar los detalles de los costos de materiales de un proyecto.
+    Parametros:
+        models.Model (CostoMateriales): Instancia sobre la que se crea la tabla.
+    Atributos:
+        proyecto: Proyecto asociado
+        tipo: Tipo de costo
+        material: Materiales utilizados
+        cantidad: Cantidad de materiales utilizados
+        costo_unidad: Costo por unidad de los materiales
+        monto: Monto total de los materiales
+    """
+    proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
+    tipo = models.ForeignKey(TipoCosto, on_delete=models.CASCADE)
+    material = models.CharField(max_length=100)
+    cantidad = models.IntegerField(validators=[MinValueValidator(0)])
+    costo_unidad = models.FloatField(validators=[MinValueValidator(0)])
+    monto = models.FloatField(validators=[MinValueValidator(0)])
+
+    def get_model_type(self):  # pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
+        return "CostoMateriales"
