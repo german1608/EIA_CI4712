@@ -960,6 +960,25 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
     fixtures = ['users-and-groups.json', 'proyectos.json']
     tipo_marcos = ['metodologico', 'teorico', 'juridico']
 
+    def test_login_required(self):
+        '''
+        Prueba que la vista tenga sus restricciones de autenticidad
+        '''
+        login_url = reverse('login')
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+
+            target_url = reverse('eia_app:eliminar-marco', kwargs={
+                'tipo': tipo_marco,
+                'pk': marco.pk
+            })
+            response = self.client.post(target_url)
+            actual = response
+            expected = login_url
+            self.assertRedirects(actual, expected)
+
     def test_view_url_correspondence(self):
         '''
         Prueba que la vista que maneja el url de listao de marcos sea
