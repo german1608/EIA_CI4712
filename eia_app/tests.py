@@ -1,11 +1,11 @@
 '''Test para el crud del consultor '''
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.shortcuts import reverse
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from .forms import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .models import *  # pylint: disable=wildcard-import, unused-wildcard-import
-from .views import MarcoListView
+from .views import MarcoListView, delete_marco_view
 
 # Create your tests here.
 
@@ -951,3 +951,31 @@ class MarcoListViewTestCase(MarcoHelper, TestCase):
                     'marco_{}'.format(tipo_marco): None
                 }))
                 self.assertEqual(list(actual), list(expected), 'El filtro de la vista de listado de marcos no esta funcionando')
+
+class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
+    '''
+    Prueba la vista de eliminacion de marcos.
+    '''
+    fixtures = ['users-and-groups.json', 'proyectos.json']
+
+    def test_view_url_correspondence(self):
+        '''
+        Prueba que la vista que maneja el url de listao de marcos sea
+        delete_marco_view
+        '''
+        # Primero nos logueamos
+        self.login_util()
+        # Probamos cada posible url
+        for tipo_marco in ['metodologico', 'teorico', 'juridico']:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+            with self.subTest(tipo_marco=tipo_marco):
+                target_url = reverse('eia_app:eliminar-marco', kwargs={
+                    'tipo': tipo_marco,
+                    'pk': marco.pk
+                })
+                response = self.client.get(target_url)
+                actual = response.resolver_match.func.__name__
+                expected = delete_marco_view.__name__
+                self.assertEqual(actual, expected, 'La vista no corresponde al url')
