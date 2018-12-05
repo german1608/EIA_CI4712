@@ -801,7 +801,7 @@ class DatosDocumentoTestCase(TestCase):
             pass
 
 
-@tags('marco')
+@tag('marco')
 class MarcoFormTestCase(TestCase):
     """ Caso de pruebas para el formulario de marcos """
     fixtures = ['proyectos.json']
@@ -901,7 +901,7 @@ class MarcoHelper:
         return consultor_ambiental
 
 
-@tags('marco')
+@tag('marco')
 class MarcoListViewTestCase(MarcoHelper, TestCase):
     '''
     Prueba la vista de listado de los marcos.
@@ -972,7 +972,7 @@ class MarcoListViewTestCase(MarcoHelper, TestCase):
                 }))
                 self.assertEqual(list(actual), list(expected), 'El filtro de la vista de listado de marcos no esta funcionando')
 
-@tags('marco')
+@tag('marco')
 class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
     '''
     Prueba la vista de eliminacion de marcos.
@@ -1149,7 +1149,7 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
             self.assertRedirects(response, expected)
 
 
-@tags('marco')
+@tag('marco')
 class MarcoDetailViewTestCase(MarcoHelper, TestCase):
     '''
     Suite de pruebas para la vista de detalles de marcos
