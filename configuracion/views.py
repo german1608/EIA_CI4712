@@ -650,7 +650,7 @@ class ActividadCreate(CreateView): # pylint: disable=too-many-ancestors
 
         messages.success(self.request, "Actividad agregado exitosamente", extra_tags='alert')
         return super().form_valid(form)
-	
+
 
 class ActividadUpdate(UpdateView): # pylint: disable=too-many-ancestors
     """
@@ -833,7 +833,7 @@ class PlanCreate(CreateView): # pylint: disable=too-many-ancestors
     form_class = PlanForm
     template_name = 'configuracion/agregar_plan.html'
     success_url = reverse_lazy('planes')
-		
+
     def form_valid(self, form):
         """
            aaaa

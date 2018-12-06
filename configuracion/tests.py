@@ -1,6 +1,7 @@
 """
 Pruebas Unitarias
 """
+# pylint: disable=too-many-lines
 import time
 from django.test import Client
 from django.test import TestCase
@@ -12,8 +13,8 @@ from configuracion.models import NIVEL_IMPORTANCIA, PROBABILIDAD, MEDIOS
 from configuracion.views import _calcular_via
 from configuracion.forms import EstudioForm
 from configuracion.models import Intensidad, Probabilidad, Extension, Reversibilidad
-from configuracion.models import Duracion, Importancia, Estudio, Macro,Disciplina
-from configuracion.models import Actividad,Plan
+from configuracion.models import Duracion, Importancia, Estudio, Macro, Disciplina
+from configuracion.models import Actividad, Plan
 from utils.testutils import SeleniumTestCase
 
 class KaraotaTests(TestCase): # pylint: disable=too-many-public-methods
@@ -353,7 +354,7 @@ class KaraotaTests(TestCase): # pylint: disable=too-many-public-methods
         self.assertTemplateUsed(response, 'configuracion/modificar_tablas.html')
         self.assertTemplateUsed(response, 'base.html')
 
-class TestsIntegridadDatosTablasEstudio(TestCase):
+class TestsIntegridadDatosTablasEstudio(TestCase): # pylint: disable=too-many-public-methods
     '''
         Test de las bases de calculo
     '''
@@ -361,7 +362,6 @@ class TestsIntegridadDatosTablasEstudio(TestCase):
         '''
         Se crean instancias para las pruebas
         '''
-
         #Intensidad
         self.intensidad = [[None, None, None],
                            [None, None, None],
@@ -573,35 +573,49 @@ class TestsIntegridadDatosTablasEstudio(TestCase):
         """
         aa
         """
-	
-        mac = Macro.objects.create(nombre="test_macro",descripcion="test_descripcion",proyecto="test_proyecto")
-	 
+        mac = Macro.objects.create(
+            nombre="test_macro",
+            descripcion="test_descripcion",
+            proyecto="test_proyecto")
+
         mac2 = Macro.objects.filter(nombre="test_macro").first()
 
         self.assertEqual(mac.id, mac2.id)
-		
+
     def test_insertar_disciplina(self):
         """
         aa
         """
-	
-
-        dis = Disciplina.objects.create(nombre="test_disciplina",descripcion="test_descripcion",proyecto="test_proyecto")
-        dis2 = Disciplina.objects.filter(nombre="test_disciplina").first()	 
+        dis = Disciplina.objects.create(
+            nombre="test_disciplina",
+            descripcion="test_descripcion",
+            proyecto="test_proyecto")
+        dis2 = Disciplina.objects.filter(nombre="test_disciplina").first()
         self.assertEqual(dis.id, dis2.id)
-	
+
     def test_insertar_actividad(self):
         """
         aa
         """
-        mac = Macro.objects.create(nombre="test_macro",descripcion="test_descripcion",proyecto="test_proyecto")
-        mac2 = Macro.objects.filter(nombre="test_macro").first()	
-        dis = Disciplina.objects.create(nombre="test_disciplina",descripcion="test_descripcion",proyecto="test_proyecto")
+        # mac = Macro.objects.create(
+        #     nombre="test_macro",
+        #     descripcion="test_descripcion",
+        #     proyecto="test_proyecto")
+        mac2 = Macro.objects.filter(nombre="test_macro").first()
+        # dis = Disciplina.objects.create(
+        #     nombre="test_disciplina",
+        #     descripcion="test_descripcion",
+        #     proyecto="test_proyecto")
         dis2 = Disciplina.objects.filter(nombre="test_disciplina").first()
-        act = Actividad.objects.create(nombre="test_actividad",descripcion="test_descripcion",disciplina=dis2,macro=mac2,amenazas="Test amenaza")
-        act2 = Actividad.objects.filter(nombre="test_actividad").first()	 
+        act = Actividad.objects.create(
+            nombre="test_actividad",
+            descripcion="test_descripcion",
+            disciplina=dis2,
+            macro=mac2,
+            amenazas="Test amenaza")
+        act2 = Actividad.objects.filter(nombre="test_actividad").first()
         self.assertEqual(act.id, act2.id)
-	
+
     def test_insertar_estudio(self):
         """
             aa
@@ -642,7 +656,7 @@ class TestsIntegridadDatosTablasEstudio(TestCase):
         est2 = Estudio.objects.filter(nombre="test_estudio").first()
 
         self.assertEqual(est.id, est2.id)
-        
+
     def test_insertar_plan(self):
         """
         aa
@@ -659,10 +673,10 @@ class TestsIntegridadDatosTablasEstudio(TestCase):
             costo="1",
             proyecto="p2"
         )
-        
+
         plan2 = Plan.objects.filter(nombre="Test plan").first()
-        self.assertEqual(plan.id,plan2.id)
-       
+        self.assertEqual(plan.id, plan2.id)
+
     def test_insertar_mal_plan(self):
         """
         aa
@@ -680,16 +694,15 @@ class TestsIntegridadDatosTablasEstudio(TestCase):
                 costo="wadawd",
                 proyecto="p2"
             )
-        except:
-            pass
+        except ValueError:
+            print("falla: "+str(plan))
             #Deberia fallar porque el costo no es un flotante
-            
+
         se_creo = True
-        if (not ( "plan" in locals() )):
-            se_creo=False
-        self.assertFalse(se_creo)        
-        
-        
+        if not "plan" in locals():
+            se_creo = False
+        self.assertFalse(se_creo)
+
 class PruebaFormularioEstudio(SeleniumTestCase):
     """
     Prueba Formulario Estudio
@@ -931,7 +944,7 @@ class PruebaFormularioEstudio(SeleniumTestCase):
         #self.selenium.find_element_by_name('valor32').send_keys("1.0")
         self.selenium.find_element_by_name('submit').click()
         self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/tablas/'))
-        
+
         ### Prueba a los planes de desarrollo ###
         self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/planes/'))
         self.selenium.find_element_by_id('agregar_plan').click()
@@ -995,7 +1008,7 @@ class PruebaFormularioEstudio(SeleniumTestCase):
         #Guarda los datos
         confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
         confirmacion.accept()
-        
+
         ### Prueba a los subplanes ###
         ## Agregar subplan
         self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/subplanes/'))
