@@ -10,14 +10,14 @@ from django.db.models import Q
 from .models import (
     Organizacion, Responsable, Solicitante,
     DatosProyecto, DatosDocumento, DescripcionProyecto,
-    RecomendacionProyecto
+    RecomendacionProyecto, ConclusionProyecto
 )
 from .forms import (
     OrganizacionCreateForm, SolicitanteCreateForm,
     ResponsableCreateForm, DatosDocumentoCreateForm, DatosProyectoCreateForm,
     MarcoForm, DescripcionProyectoCreateForm,
     ResponsableCreateForm, DatosDocumentoCreateForm,
-    RecomendacionProyectoCreateForm
+    RecomendacionProyectoCreateForm, ConclusionProyectoCreateForm
 )
 
 
@@ -431,3 +431,42 @@ def consultor_index(request):
     '''Index de la vista del consultor'''
     template_name = 'eia_app/consultor-crud_index.html'
     return render(request, template_name)
+
+
+
+class ConclusionesList(ListView):
+    'Lista de las conclusiones de todos los proyectos'
+    model = ConclusionProyecto
+    template_name = 'eia_app/conclusiones/list.html'
+
+class ConclusionesCreate(CreateView):
+    'Crear una conclusión para un proyecto'
+    model = ConclusionProyecto
+    form_class = ConclusionProyectoCreateForm
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-conclusiones')
+
+    def get_context_data(self, **kwargs):
+        context = super(ConclusionesCreate, self).get_context_data(**kwargs)
+        context['nombre'] = 'Datos de un documento'
+        return context
+
+class ConclusionUpdate(UpdateView):  
+    'Actualizar datos de una conclusión'
+    model = ConclusionProyecto
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-conclusiones')
+    form_class = ConclusionProyectoCreateForm
+
+class ConclusionDelete(DeleteView):  
+    'Eliminar una conclusión de un proyecto'
+    model = ConclusionProyecto
+    template_name = 'eia_app/conclusiones/delete.html'
+    success_url = reverse_lazy('consultor-crud:lista-conclusiones')
+
+class ConclusionDetail(DetailView): 
+    'Detalles acerca de una conclusión de un proyecto'
+    model = ConclusionProyecto
+    template_name = 'eia_app/conclusiones/detail.html'
+
+
