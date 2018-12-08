@@ -49,7 +49,7 @@
               <td>{{ subcaracteristica.atributo }}</td>
               <td>{{ subcaracteristica.comentario }}</td>
               <td style="text-align:center;"><a id="editar{{subcaracteristica.id}}" href="{% url "consultor-crud:editar-detalles-subcaracteristica" subcaracteristica.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
-              <td style="text-align:center;"><a id="borrar{{subcaracteristicaid}}" href="{% url "consultor-crud:borrar-detalles-subcaracteristica" subcaracteristica.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+              <td style="text-align:center;"><a id="borrar{{subcaracteristica.id}}" href="{% url "consultor-crud:borrar-detalles-subcaracteristica" subcaracteristica.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
           </tr>
         {% endfor %}
       </tbody>
