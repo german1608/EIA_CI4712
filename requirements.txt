@@ -11,6 +11,7 @@ cssselect2==0.2.1
 defusedxml==0.5.0
 dj-database-url==0.5.0
 Django==2.1.2
+django-bootstrap4==0.0.7
 django-crispy-forms==1.7.2
 django-materializecss-form==1.1.10
 django-weasyprint==0.5.4
