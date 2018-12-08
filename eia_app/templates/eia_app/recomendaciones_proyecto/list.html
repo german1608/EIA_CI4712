@@ -8,7 +8,7 @@
 
 <h3>Lista de recomendaciones de proyectos</h3>
 <p>
-    <a id="add" href="{% url "consultor-crud:nuevo-recomendaciones-proyecto" %}">Agregar recomendaciones de un proyecto</a>
+  <button type="button" class="btn btn-info"><a id="add" href="{% url "consultor-crud:nuevo-recomendaciones-proyecto" %}">Agregar recomendaciones de un proyecto</a></button>
 </p>
 <div class="container" style="width:90% !important">
   {%if object_list.count > 0%}
