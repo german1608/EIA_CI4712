@@ -13,6 +13,7 @@ dj-database-url==0.5.0
 Django==2.1.2
 django-crispy-forms==1.7.2
 django-materializecss-form==1.1.10
+django-weasyprint==0.5.4
 django-widget-tweaks==1.4.3
 gunicorn==19.9.0
 html5lib==1.0.1
