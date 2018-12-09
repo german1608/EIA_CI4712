@@ -7,6 +7,10 @@ from django.views.generic.base import ContextMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.db.models import Q
+from django.conf import settings
+
+from django_weasyprint import WeasyTemplateResponseMixin
+
 from .models import (
     Organizacion, Responsable, Solicitante,
     DatosProyecto, DatosDocumento, DescripcionProyecto,
@@ -99,6 +103,17 @@ class DatosProyectoDetail(DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de los datos de un proyecto'''
     model = DatosProyecto
     template_name = 'eia_app/datos_proyectos/detail.html'
+
+class GenerarPDFView(DetailView): # pylint: disable=too-many-ancestors
+    '''Vista que se encarga de conectar con el html que servira de modelo de pdf'''
+    model = DatosProyecto
+    template_name = 'eia_app/datos_proyectos/imprimir.html'
+
+class ImprimirDatosDelProyecto(WeasyTemplateResponseMixin, GenerarPDFView): # pylint: disable=too-many-ancestors
+    '''Con esta vista se generara el pdf con los detalles del proyect'''
+    pdf_stylesheets = [
+        'static/css/generacion_pdf.css',
+    ]
 
 
 class ResponsableList(ListView):  # pylint: disable=too-many-ancestors
@@ -468,5 +483,3 @@ class ConclusionDetail(DetailView):
     'Detalles acerca de una conclusión de un proyecto'
     model = ConclusionProyecto
     template_name = 'eia_app/conclusiones/detail.html'
-
-
