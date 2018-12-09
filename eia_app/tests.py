@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import Q
 from .forms import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .models import *  # pylint: disable=wildcard-import, unused-wildcard-import
-from .views import MarcoListView, delete_marco_view, MarcoDetailView
+from .views import MarcoListView, delete_marco_view, MarcoDetailView, MarcoFormView
 from itertools import count
 
 # Create your tests here.
@@ -1293,3 +1293,41 @@ class MarcoDetailViewTestCase(MarcoHelper, TestCase):
             with self.subTest(tipo_marco=tipo_marco):
                 self.assertContains(response, contenido)
                 self.assertContains(response, marco.titulo)
+
+@tag('marco')
+class MarcoFormViewTestCase(MarcoHelper, TestCase):
+    '''
+    Pruebas unitarias para para la vista de creacion y edicion
+    de marcos de proyectos
+    '''
+    fixtures = ['users-and-groups.json', 'proyectos.json']
+
+    def test_url_correspondence_agregar(self):
+        '''
+        Prueba que el url de la vista de form de marco use la vista
+        MarcoFormView
+        '''
+        self.login_util()
+        for tipo_marco in self.tipo_marcos:
+            target_url = reverse('eia_app:crear-marco', kwargs={
+                'tipo': tipo_marco
+            })
+            response = self.client.get(target_url)
+            actual = response.resolver_match.func.__name__
+            expected = MarcoFormView.as_view().__name__
+            self.assertEqual(actual, expected, 'La vista de crear marco no es MarcoFormView')
+
+    def test_login_required_agregar(self):
+        '''
+        Prueba que la vista de form de marco requiera autenticacion
+        '''
+        login_url = reverse('login')
+        for tipo_marco in self.tipo_marcos:
+            target_url = reverse('eia_app:crear-marco', kwargs={
+                'tipo': tipo_marco
+            })
+            response = self.client.get(target_url)
+            actual = response
+            expected = login_url + '?next=' + target_url
+            with self.subTest(tipo_marco=tipo_marco):
+                self.assertRedirects(actual, expected)
