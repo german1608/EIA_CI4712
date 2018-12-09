@@ -320,6 +320,15 @@ class MarcoDetailView(CargaContextoMarcoMixin, DetailView): # pylint: disable=to
         context['contenido'] = contenido
         return context
 
+    def get(self, request, *a, **kw):
+        response = super().get(request, *a, **kw)
+        proyecto = self.object
+        tipo = kw.get('tipo')
+        marco = getattr(proyecto, 'marco_' + tipo)
+        if marco is None:
+            raise Http404('El proyecto no tiene marco ' + tipo + ' asociado')
+        return response
+
 @login_required
 def delete_marco_view(request, tipo, pk): # pylint: disable=invalid-name
     '''
