@@ -1248,3 +1248,25 @@ class MarcoDetailViewTestCase(MarcoHelper, TestCase):
             with self.subTest(tipo_marco=tipo_marco):
                 self.assertEqual(actual, expected, 'La vista de detalles no retorna codigo 200 '
                                                    'cuando el mismo existe y tiene marco asociado')
+
+    def test_marco_content(self):
+        '''
+        Prueba que la vista de detalles tenga el contenido del marco y
+        el tipo de marco correspondiente
+        '''
+        # Nos logueamos
+        self.login_util()
+        # Probamos con cada tipo de marco
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+            target_url = reverse('eia_app:eliminar-marco', kwargs={
+                'tipo': tipo_marco,
+                'pk': marco.pk
+            })
+            response = self.client.get(target_url)
+            contenido = getattr(marco, 'marco_' + tipo_marco)
+            with self.subTest(tipo_marco=tipo_marco):
+                self.assertContains(response, contenido)
+                self.assertContains(response, marco.titulo)
