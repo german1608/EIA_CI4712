@@ -1174,3 +1174,26 @@ class MarcoDetailViewTestCase(MarcoHelper, TestCase):
             actual = response
             expected = login_url + '?next=' + target_url
             self.assertRedirects(actual, expected)
+
+    def test_proyecto_no_existe(self):
+        '''
+        Prueba que la vista retorne 404 cuando el proyecto no exista
+        '''
+        # Primero nos logueamos
+        self.login_util()
+        for tipo_marco in self.tipo_marcos:
+            pk_a_eliminar = 0
+            for i in count(0):
+                try:
+                    DatosProyecto.objects.get(pk=i)
+                except DatosProyecto.DoesNotExist:
+                    pk_a_eliminar = i
+                    break
+            with self.subTest(tipo_marco=tipo_marco):
+                target_url = reverse('eia_app:detalles-marco', kwargs={
+                    'tipo': tipo_marco,
+                    'pk': pk_a_eliminar
+                })
+                response = self.client.get(target_url)
+                self.assertEqual(response.status_code, 404, 'El proyecto no existe, pero la vista'
+                                                            'de detalles no retorno 404')
