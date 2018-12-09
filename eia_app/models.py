@@ -394,6 +394,11 @@ class TipoCosto(models.Model):
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "TipoCosto"
+    
+    def __str__(self):       # pylint: disable=no-self-use
+        '''Devuelve el modelo en tipo String'''
+        return self.tipo
+
 
 class CostoHumano(models.Model):
     """ Tabla para almacenar los detalles de los costos humanos de un proyecto.
@@ -417,6 +422,7 @@ class CostoHumano(models.Model):
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "CostoHumano"
+
 
 class CostoMateriales(models.Model):
     """ Tabla para almacenar los detalles de los costos de materiales de un proyecto.

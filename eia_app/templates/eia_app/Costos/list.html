@@ -1,0 +1,394 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+
+
+<div class="container">
+    <h2>Plan de Costos</h2>
+    <br>
+    <!-- Nav pills -->
+    <ul class="nav nav-pills nav-justified" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="pill" href="#humano">Talento Humano</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#serviciosProf">Servicios Profesionales y técnicos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#pasaje">Pasaje y Hospedaje</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#recursos">Recursos Materiales</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#oficina">Materiales de Oficina</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#insumor">Insumos</a>
+      </li>
+    </ul>
+  
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div id="humano" class="container tab-pane active"><br>
+        <br><br>
+
+
+        <a id="add" href="{% url "consultor-crud:nuevo-costo" %}">        
+            <button type="button" class="btn btn-success btn-block">
+                Agregar Costo
+            </button>
+        </a>
+
+        <br>
+
+        <div class="container" style="width:90% !important">
+            {%if object_list.count > 0%}
+              <table id="organizacion" class="display">
+                <thead>
+                    <tr>
+                        <th>Actividad</th>
+                        
+                        <th>Cantidad</th>
+                        <th>Proyecto</th>
+                        <th>Tiempo</th>
+                        <th>Monto</th>
+                        <th style="text-align:center;">Ver detalles</th>
+                        <th style="text-align:center;">Editar</th>
+                        <th style="text-align:center;">Borrar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for organizacion in humanos %}
+                    {% if organizacion.tipo.id == 1 %} <!-- 1 es por Talento Humano -->
+                    <tr>
+                        <td>{{ organizacion.actividad }}</td>
+        
+        
+                        <td>{{ organizacion.cantidad }}</td>
+                        <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  organizacion.proyecto.id %}">{{ organizacion.proyecto }}</a></td>
+                        <td>{{ organizacion.tiempo }}</td>
+                        <td>{{ organizacion.monto }}</td>
+        
+                        <td style="text-align:center;"><a id="detalles{{organizacion.id}}" href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+                        <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+                        <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+                    </tr>
+                    {%endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+              <p>No existen costos agregadas a la base de datos</p>
+            {% endif %}
+        </div>
+      </div>
+
+
+      <div id="serviciosProf" class="container tab-pane fade"><br>
+        <a id="add" href="{% url "consultor-crud:nuevo-costo-servicios" %}">        
+                <button type="button" class="btn btn-success btn-block">
+                    Agregar Costo
+                </button>
+            </a>
+        <br>
+        <div class="container" style="width:90% !important">
+            {%if object_list.count > 0%}
+              <table id="Servicios" class="display">
+                <thead>
+                    <tr>
+                        <th>Actividad</th>
+                        
+                        <th>Cantidad</th>
+                        <th>Proyecto</th>
+                        <th>Tiempo</th>
+                        <th>Monto</th>
+                        <th style="text-align:center;">Ver detalles</th>
+                        <th style="text-align:center;">Editar</th>
+                        <th style="text-align:center;">Borrar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for organizacion in servicios %}
+                    {% if organizacion.tipo.id == 2 %} <!-- 1 es por Talento Humano -->
+                    <tr>
+                        <td>{{ organizacion.actividad }}</td>
+                        <td>{{ organizacion.cantidad }}</td>
+                        <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  organizacion.proyecto.id %}">{{ organizacion.proyecto }}</a></td>
+                        <td>{{ organizacion.tiempo }}</td>
+                        <td>{{ organizacion.monto }}</td>
+        
+                        <td style="text-align:center;"><a id="detalles{{organizacion.id}}" href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+                        <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+                        <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+                    </tr>
+                    {%endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+              <p>No existen organizaciones agregadas a la base de datos</p>
+            {% endif %}
+        </div>
+      </div>
+
+
+
+      <div id="pasaje" class="container tab-pane fade"><br>
+
+        <a id="add" href="{% url "consultor-crud:nuevo-costo-pasaje" %}">        
+                <button type="button" class="btn btn-success btn-block">
+                    Agregar Costo
+                </button>
+            </a>
+        <br>
+        <div class="container" style="width:90% !important">
+            {%if object_list.count > 0%}
+              <table id="hospedaje" class="display">
+                <thead>
+                    <tr>
+                        <th>Actividad</th>
+                        
+                        <th>Cantidad</th>
+                        <th>Proyecto</th>
+                        <th>Tiempo</th>
+                        <th>Monto</th>
+                        <th style="text-align:center;">Ver detalles</th>
+                        <th style="text-align:center;">Editar</th>
+                        <th style="text-align:center;">Borrar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for organizacion in pasajes %}
+                    {% if organizacion.tipo.id == 3 %} <!-- 3 es por Hospedaje -->
+                    <tr>
+                        <td>{{ organizacion.actividad }}</td>
+                        <td>{{ organizacion.cantidad }}</td>
+                        <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  organizacion.proyecto.id %}">{{ organizacion.proyecto }}</a></td>
+                        <td>{{ organizacion.tiempo }}</td>
+                        <td>{{ organizacion.monto }}</td>
+        
+                        <td style="text-align:center;"><a id="detalles{{organizacion.id}}" href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+                        <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+                        <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+                    </tr>
+                    {%endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+              <p>No existen organizaciones agregadas a la base de datos</p>
+            {% endif %}
+        </div>
+      </div>
+
+      <div id="recursos" class="container tab-pane fade"><br>
+        <a id="add" href="{% url "consultor-crud:nuevo-costo-recursos" %}">        
+                <button type="button" class="btn btn-success btn-block">
+                    Agregar Costo
+                </button>
+            </a>
+        <br>
+        <div class="container" style="width:90% !important">
+            {%if object_list.count > 0%}
+              <table id="Recursos" class="display">
+                <thead>
+                    <tr>
+                        <th>Actividad</th>
+                        
+                        <th>Cantidad</th>
+                        <th>Proyecto</th>
+                        <th>C/U</th>
+                        <th>Monto</th>
+                        <th style="text-align:center;">Ver detalles</th>
+                        <th style="text-align:center;">Editar</th>
+                        <th style="text-align:center;">Borrar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for organizacion in recursos %}
+                    {% if organizacion.tipo.id == 4 %} <!-- 3 es por Hospedaje -->
+                    <tr>
+                        <td>{{ organizacion.actividad }}</td>
+                        <td>{{ organizacion.cantidad }}</td>
+                        <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  organizacion.proyecto.id %}">{{ organizacion.proyecto }}</a></td>
+                        <td>{{ organizacion.costo_unidad }}</td>
+                        <td>{{ organizacion.monto }}</td>
+        
+                        <td style="text-align:center;"><a id="detalles{{organizacion.id}}" href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+                        <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+                        <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+                    </tr>
+                    {%endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+              <p>No existen organizaciones agregadas a la base de datos</p>
+            {% endif %}
+        </div>
+      </div>
+
+      <div id="oficina" class="container tab-pane fade"><br>
+        <a id="add" href="{% url "consultor-crud:nuevo-costo-oficina" %}">        
+                <button type="button" class="btn btn-success btn-block">
+                    Agregar Costo
+                </button>
+            </a>
+        <br>
+        <div class="container" style="width:90% !important">
+            {%if object_list.count > 0%}
+              <table id="Oficina" class="display">
+                <thead>
+                    <tr>
+                        <th>Actividad</th>
+                        
+                        <th>Cantidad</th>
+                        <th>Proyecto</th>
+                        <th>C/U</th>
+                        <th>Monto</th>
+                        <th style="text-align:center;">Ver detalles</th>
+                        <th style="text-align:center;">Editar</th>
+                        <th style="text-align:center;">Borrar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for organizacion in recursos %}
+                    {% if organizacion.tipo.id == 4 %} <!-- 3 es por Hospedaje -->
+                    <tr>
+                        <td>{{ organizacion.actividad }}</td>
+                        <td>{{ organizacion.cantidad }}</td>
+                        <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  organizacion.proyecto.id %}">{{ organizacion.proyecto }}</a></td>
+                        <td>{{ organizacion.costo_unidad }}</td>
+                        <td>{{ organizacion.monto }}</td>
+        
+                        <td style="text-align:center;"><a id="detalles{{organizacion.id}}" href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+                        <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+                        <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+                    </tr>
+                    {%endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+              <p>No existen organizaciones agregadas a la base de datos</p>
+            {% endif %}
+        </div>
+      </div>
+
+      <div id="insumos" class="container tab-pane fade"><br>
+        <a id="add" href="{% url "consultor-crud:nuevo-costo-insumos" %}">        
+                <button type="button" class="btn btn-success btn-block">
+                    Agregar Costo
+                </button>
+            </a>
+        <br>
+        <div class="container" style="width:90% !important">
+            {%if object_list.count > 0%}
+              <table id="Insumos" class="display">
+                <thead>
+                    <tr>
+                        <th>Actividad</th>
+                        
+                        <th>Cantidad</th>
+                        <th>Proyecto</th>
+                        <th>C/U</th>
+                        <th>Monto</th>
+                        <th style="text-align:center;">Ver detalles</th>
+                        <th style="text-align:center;">Editar</th>
+                        <th style="text-align:center;">Borrar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for organizacion in recursos %}
+                    {% if organizacion.tipo.id == 4 %} <!-- 3 es por Hospedaje -->
+                    <tr>
+                        <td>{{ organizacion.actividad }}</td>
+                        <td>{{ organizacion.cantidad }}</td>
+                        <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  organizacion.proyecto.id %}">{{ organizacion.proyecto }}</a></td>
+                        <td>{{ organizacion.costo_unidad }}</td>
+                        <td>{{ organizacion.monto }}</td>
+        
+                        <td style="text-align:center;"><a id="detalles{{organizacion.id}}" href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+                        <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+                        <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+                    </tr>
+                    {%endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+              <p>No existen organizaciones agregadas a la base de datos</p>
+            {% endif %}
+        </div>
+      </div>
+
+
+
+    </div>
+</div>
+
+{% endblock %}
+
+<!--BLOQUE DE JS-->
+
+{% block js %}
+<script src="{% static 'js/jquery.dataTables.js' %}"></script>
+<script>
+  $(document).ready( function () {
+    $('#organizacion').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      }
+    });
+  });
+
+    $(document).ready( function () {
+    $('#Servicios').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      }
+    });
+  });
+
+    $(document).ready( function () {
+    $('#hospedaje').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      }
+    });
+  });
+
+    $(document).ready( function () {
+    $('#Recursos').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      }
+    });
+  });
+
+    $(document).ready( function () {
+    $('#Oficina').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      }
+    });
+  });
+
+    $(document).ready( function () {
+    $('#Insumos').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      }
+    });
+  });
+</script>
+{% endblock %}

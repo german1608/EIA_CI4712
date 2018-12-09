@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from .models import (
     Organizacion, Responsable, Solicitante,
     DatosProyecto, DatosDocumento, DescripcionProyecto,
-    CaracteristicaMedio, Medio, SubaracteristicaMedio,
+    CaracteristicaMedio, Medio, SubaracteristicaMedio, CostoHumano, CostoMateriales, TipoCosto
 )
 from .forms import (
     OrganizacionCreateForm, SolicitanteCreateForm,
@@ -429,3 +429,123 @@ class SubaracteristicaMedioDelete(DeleteView):  # pylint: disable=too-many-ances
             pk=self.kwargs['pk'])
         return reverse_lazy('consultor-crud:detalles-caracteristica',
                             kwargs={'pk': subcaracteristica.caracteristica.pk})
+
+class CostoHumanoList(ListView): # pylint: disable=too-many-ancestors
+    ''' Index de los distintos medios'''
+    model = CostoHumano
+    #context_object_name = 'CostoHumano_list'
+    template_name = 'eia_app/Costos/list.html'
+
+    def get_context_data(self, **kwargs): # pylint: disable=too-many-ancestors
+        context = super(CostoHumanoList, self).get_context_data(**kwargs)
+        context.update({
+            'CostoMateriales': CostoMateriales.objects.order_by('proyecto'),
+            'pasajes': CostoHumano.objects.filter(tipo=3),
+            'servicios': CostoHumano.objects.filter(tipo=2),
+            'humanos': CostoHumano.objects.filter(tipo=1),
+            'recursos': CostoMateriales.objects.filter(tipo=4),
+            'oficina': CostoMateriales.objects.filter(tipo=5),
+            'insumos': CostoMateriales.objects.filter(tipo=6),
+            
+            
+
+            
+        })
+        return context
+
+class CostoHumanoCreate(CreateView): # pylint: disable=too-many-ancestors
+    ''' Index de los distintos medios'''
+    model = CostoHumano
+    fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos')
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoHumanoCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Costo"
+        return context
+
+    def form_valid(self, form):
+        form.instance.tipo = TipoCosto.objects.filter(id=1)[0]
+        return super().form_valid(form)
+
+
+class CostoHumano_ServiciosCreate(CreateView): # pylint: disable=too-many-ancestors
+    ''' Index de los distintos medios'''
+    model = CostoHumano
+    fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos')
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoHumano_ServiciosCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Costo"
+        return context
+
+    def form_valid(self, form):
+        form.instance.tipo = TipoCosto.objects.filter(id=2)[0]
+        return super().form_valid(form)
+
+class CostoHumano_PasajeCreate(CreateView): # pylint: disable=too-many-ancestors
+    ''' Index de los distintos medios'''
+    model = CostoHumano
+    fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos')
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoHumano_PasajeCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Costo"
+        return context
+
+    def form_valid(self, form):
+        form.instance.tipo = TipoCosto.objects.filter(id=3)[0]
+        return super().form_valid(form)
+
+class CostoMaterial_RecursosCreate(CreateView): # pylint: disable=too-many-ancestors
+    ''' Index de los distintos medios'''
+    model = CostoMateriales
+    fields = ['proyecto', 'material', 'cantidad', 'costo_unidad', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos')
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoMaterial_RecursosCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Costo"
+        return context
+
+    def form_valid(self, form):
+        form.instance.tipo = TipoCosto.objects.filter(id=4)[0]
+        return super().form_valid(form)
+
+class CostoMaterial_OficinaCreate(CreateView): # pylint: disable=too-many-ancestors
+    ''' Index de los distintos medios'''
+    model = CostoMateriales
+    fields = ['proyecto', 'material', 'cantidad', 'costo_unidad', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos')
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoMaterial_OficinaCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Costo"
+        return context
+
+    def form_valid(self, form):
+        form.instance.tipo = TipoCosto.objects.filter(id=5)[0]
+        return super().form_valid(form)
+
+class CostoMaterial_InsumosCreate(CreateView): # pylint: disable=too-many-ancestors
+    ''' Index de los distintos medios'''
+    model = CostoMateriales
+    fields = ['proyecto', 'material', 'cantidad', 'costo_unidad', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos')
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoMaterial_InsumosCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Costo"
+        return context
+
+    def form_valid(self, form):
+        form.instance.tipo = TipoCosto.objects.filter(id=5)[0]
+        return super().form_valid(form)
