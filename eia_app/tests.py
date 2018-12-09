@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import Q
 from .forms import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .models import *  # pylint: disable=wildcard-import, unused-wildcard-import
-from .views import MarcoListView, delete_marco_view
+from .views import MarcoListView, delete_marco_view, MarcoDetailView
 from itertools import count
 
 # Create your tests here.
@@ -1174,6 +1174,29 @@ class MarcoDetailViewTestCase(MarcoHelper, TestCase):
             actual = response
             expected = login_url + '?next=' + target_url
             self.assertRedirects(actual, expected)
+
+    def test_view_url_correspondence(self):
+        '''
+        Prueba que la vista que maneja el url de edicion de marcos sea
+        MarcoDetailView
+        '''
+        # Primero nos logueamos
+        self.login_util()
+        # Probamos cada posible url
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+            with self.subTest(tipo_marco=tipo_marco):
+                target_url = reverse('eia_app:detalles-marco', kwargs={
+                    'tipo': tipo_marco,
+                    'pk': marco.pk
+                })
+                response = self.client.get(target_url)
+                actual = response.resolver_match.func.__name__
+                expected = MarcoDetailView.as_view().__name__
+                self.assertEqual(actual, expected,
+                                 'La vista no corresponde al url')
 
     def test_proyecto_no_existe(self):
         '''
