@@ -5,6 +5,7 @@ from django.views.generic import (CreateView, DetailView, ListView, UpdateView, 
                                   FormView)
 from django.views.generic.base import ContextMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.http import Http404
@@ -319,6 +320,7 @@ class MarcoDetailView(CargaContextoMarcoMixin, DetailView): # pylint: disable=to
         context['contenido'] = contenido
         return context
 
+@login_required
 def delete_marco_view(request, tipo, pk): # pylint: disable=invalid-name
     '''
     Maneja la eliminacion de marcos. La eliminacion de marcos consiste
