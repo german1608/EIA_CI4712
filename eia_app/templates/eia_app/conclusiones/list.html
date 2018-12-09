@@ -16,24 +16,31 @@
         <thead>
             <tr>
                 <th>Proyecto</th>
-                <th>Acciones</th>
+                <th style="text-align:center;">Ver detalles</th>
+                <th style="text-align:center;">Editar</th>
+                <th style="text-align:center;">Borrar</th>
             </tr>
         </thead>
         <tbody>
           {% for proyecto in object_list %}
             <tr>
                 <td>{{ proyecto.proyecto }}</td>
-                <td colspan="3" style="text-align:center;">
+                <td style="text-align:center;">
                   <a id="detalles{{proyecto.id}}" href="{% url "consultor-crud:conclusiones-proyecto"  proyecto.id %}">
                     <i class="material-icons" style="color: #77933c">info</i>
                   </a>
+                </td>
+                <td style="text-align:center;">
                   <a id="editar{{proyecto.id}}" href="{% url "consultor-crud:editar-conclusiones-proyecto" proyecto.id %}">
                     <i class="material-icons" style="color: #77933c">edit</i>
                   </a>
+                </td>
+                <td style="text-align:center;">
                   <a id="borrar{{proyecto.id}}" href="{% url "consultor-crud:borrar-conclusiones-proyecto" proyecto.id %}">
                     <i class="material-icons" style="color: #77933c">delete</i>
                   </a>
                 </td>
+
             </tr>
           {% endfor %}
         </tbody>
