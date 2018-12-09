@@ -1197,3 +1197,31 @@ class MarcoDetailViewTestCase(MarcoHelper, TestCase):
                 response = self.client.get(target_url)
                 self.assertEqual(response.status_code, 404, 'El proyecto no existe, pero la vista'
                                                             'de detalles no retorno 404')
+
+    def test_proyecto_existe_pero_no_marco(self):
+        '''
+        Prueba que la vista de detalles arroje 404 cuando el proyecto exista
+        pero este no tenga marco (de cada tipo) a eliminar
+        '''
+        # Nos logueamos
+        self.login_util()
+        # Probamos con cada tipo de marco
+        for tipo_marco in self.tipo_marcos:
+            pk_a_eliminar = 0
+            for i in count(0):
+                try:
+                    proyecto = DatosProyecto.objects.get(pk=i)
+                    marco = getattr(proyecto, 'marco_' + tipo_marco)
+                    if marco is None:
+                        pk_a_eliminar = i
+                        break
+                except DatosProyecto.DoesNotExist:
+                    pass
+            with self.subTest(tipo_marco=tipo_marco):
+                target_url = reverse('eia_app:detalles-marco', kwargs={
+                    'tipo': tipo_marco,
+                    'pk': pk_a_eliminar
+                })
+                response = self.client.get(target_url)
+                self.assertEqual(response.status_code, 404, 'El proyecto no existe, pero la vista'
+                                                            'de eliminar no retorno 404')
