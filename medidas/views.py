@@ -34,7 +34,7 @@ class MedidaCreate(LoginRequiredMixin, CreateView):  # pylint: disable=too-many-
         return context
 
 
-class MedidaDetail(LoginRequiredMixin, DetailView):  # pylint: disable=too-many-ancestors
+class MedidaDetailView(LoginRequiredMixin, DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de una medida'''
     model = Medida
     template_name = 'medidas/detail.html'

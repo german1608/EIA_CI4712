@@ -4,7 +4,7 @@ Pruebas unitarias de las vistas del modulo de medidas
 from django.shortcuts import reverse
 from django.test import TestCase, tag
 from medidas.models import Medida
-from medidas.views import MedidaListView
+from medidas.views import MedidaListView, MedidaDetailView
 
 
 class MedidaViewHelper(TestCase):
@@ -68,4 +68,20 @@ class MedidaListViewTestCase(MedidaViewHelper):
         actual = response
         expected = 'medidas/list.html'
         self.assertTemplateUsed(actual, expected)
+
+@tag('medida')
+class MedidaDetailViewTestCase(MedidaViewHelper):
+    '''
+    Pruebas unitarias para la vista de detalles de medidas
+    '''
+    def test_url_view_correspondence(self):
+        ''' Prueba que el url para los detalles tenga como vista MedidaDetailView '''
+        self.login()
+        medida = Medida.objects.get(nomenclatura='MED-1')
+        target_url = reverse('medidas:detalles-medida', kwargs={'pk': medida.pk})
+        response = self.client.get(target_url)
+        actual = response.resolver_match.func.__name__
+        expected = MedidaDetailView.as_view().__name__
+        self.assertEqual(actual, expected, 'La vista de detalles de medidas'
+                                           'no es MedidaDetailView')
 
