@@ -785,3 +785,221 @@ class TestCaracteristicaMedio(SeleniumTestCase):
         self.selenium.find_element_by_css_selector(
             '#borrar' + str(self.subcaracteristica1.id)).click()
         self.selenium.find_element_by_xpath("//button[@type='submit']").click()
+
+class TestTipoCosto(SeleniumTestCase):
+    """
+        Clase para probar las vistas del crud del consultor ambiental.
+    """
+
+    def setUp(self):
+        # Se crea un proyecto para editar y eliminar
+        self.base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.image_path = os.path.join(self.base_dir, 'static', 'img', 'germanbb.jpg')
+        self.proyecto = DatosProyecto.objects.create(
+            titulo="prueba de detalles",
+            ubicacion="caracas, venezuela",
+            area="area de prueba, caracas",
+            tipo="prueba selenium",
+            url="www.google.com.ve")
+
+        self.proyecto1 = DatosProyecto.objects.create(
+            titulo="prueba de detalles1",
+            ubicacion="caracas, venezuela1",
+            area="area de prueba, caracas1",
+            tipo="prueba selenium1",
+            url="www.google1.com.ve")
+
+        self.tipoHumano = TipoCosto.objects.create(
+            tipo = "humano")
+
+        self.tipoMateriales = TipoCosto.objects.create(
+            tipo = "materiales")
+
+        self.tipoProfesionales = TipoCosto.objects.create(
+            tipo = "profesionales")
+
+        self.tipoHospedaje = TipoCosto.objects.create(
+            tipo = "hospedaje")
+
+        self.tipoOficina = TipoCosto.objects.create(
+            tipo = "oficina")
+
+        self.tipoInsumos = TipoCosto.objects.create(
+            tipo = "insumos")
+
+        self.costoHumano = CostoHumano.objects.create(
+            proyecto=self.proyecto,
+            tipo=self.tipoHumano,
+            actividad="actividad realizada",
+            cantidad="10 personas",
+            tiempo="dos semanas",
+            monto=100)
+
+        self.costoHospedaje = CostoHumano.objects.create(
+            proyecto=self.proyecto,
+            tipo=self.tipoHospedaje,
+            actividad="actividad realizada",
+            cantidad="10 personas",
+            tiempo="dos semanas",
+            monto=100)
+
+        self.costoServicios = CostoHumano.objects.create(
+            proyecto=self.proyecto,
+            tipo=self.tipoProfesionales,
+            actividad="actividad realizada",
+            cantidad="10 personas",
+            tiempo="dos semanas",
+            monto=100)
+
+        self.costoMateriales = CostoMateriales.objects.create(
+            proyecto=self.proyecto,
+            tipo=self.tipoMateriales,
+            material="material utilizado",
+            cantidad=10,
+            costo_unidad=10,
+            monto=100)
+
+        self.costoOficina = CostoMateriales.objects.create(
+            proyecto=self.proyecto,
+            tipo=self.tipoOficina,
+            material="material utilizado",
+            cantidad=10,
+            costo_unidad=10,
+            monto=100)
+
+        self.costoInsumos = CostoMateriales.objects.create(
+            proyecto=self.proyecto,
+            tipo=self.tipoInsumos,
+            material="material utilizado",
+            cantidad=10,
+            costo_unidad=10,
+            monto=100)
+
+        # Se inicia sesion en cada prueba de forma automatica
+        self.selenium.get(
+            '{}{}'.format(
+                self.live_server_url,
+                reverse('dashboard:index')))
+        self.selenium.find_element_by_id('id_username').send_keys('admin')
+        self.selenium.find_element_by_id('id_password').send_keys('jaja1234')
+        self.selenium.find_element_by_id('id_submit').click()
+
+    def test_anadir_costo_humano(self):
+        """
+            Test para anadir costo humano.
+        """
+        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
+        self.selenium.find_element_by_css_selector('#costos-plan').click()
+        self.selenium.find_element_by_css_selector('#botonHumano').click()
+        self.selenium.find_element_by_css_selector('#botonAdd').click()
+        proyecto = self.proyecto1.titulo
+        self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
+        actividad = "Actividades realizadas"
+        self.selenium.find_element_by_name('actividad').send_keys(actividad)
+        cantidad = "Cantidad de actividades"
+        self.selenium.find_element_by_name('cantidad').send_keys(cantidad)
+        tiempo = "Tiempo que tardaron"
+        self.selenium.find_element_by_name('tiempo').send_keys(tiempo)
+        monto = 10
+        self.selenium.find_element_by_name('monto').send_keys(monto)
+        self.selenium.find_element_by_xpath("//button[@type='submit']").click()
+    
+    def test_anadir_costo_servicios(self):
+        """
+            Test para anadir costo de servicios.
+        """
+        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
+        self.selenium.find_element_by_css_selector('#costos-plan').click()
+        self.selenium.find_element_by_css_selector('#botonServicio').click()
+        self.selenium.find_element_by_css_selector('#botonAdd').click()
+        proyecto = self.proyecto1.titulo
+        self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
+        actividad = "Actividades realizadas"
+        self.selenium.find_element_by_name('actividad').send_keys(actividad)
+        cantidad = "Cantidad de actividades"
+        self.selenium.find_element_by_name('cantidad').send_keys(cantidad)
+        tiempo = "Tiempo que tardaron"
+        self.selenium.find_element_by_name('tiempo').send_keys(tiempo)
+        monto = 20
+        self.selenium.find_element_by_name('monto').send_keys(monto)
+        self.selenium.find_element_by_xpath("//button[@type='submit']").click()
+    
+    def test_anadir_costo_pasaje(self):
+        """
+            Test para anadir costo de pasaje.
+        """
+        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
+        self.selenium.find_element_by_css_selector('#costos-plan').click()
+        self.selenium.find_element_by_css_selector('#botonPasaje').click()
+        self.selenium.find_element_by_css_selector('#botonAdd').click()
+        proyecto = self.proyecto1.titulo
+        self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
+        actividad = "Actividades realizadas"
+        self.selenium.find_element_by_name('actividad').send_keys(actividad)
+        cantidad = "Cantidad de actividades"
+        self.selenium.find_element_by_name('cantidad').send_keys(cantidad)
+        tiempo = "Tiempo que tardaron"
+        self.selenium.find_element_by_name('tiempo').send_keys(tiempo)
+        monto = 30
+        self.selenium.find_element_by_name('monto').send_keys(monto)
+        self.selenium.find_element_by_xpath("//button[@type='submit']").click()
+
+    def test_anadir_costo_recurso(self):
+        """
+            Test para anadir costo de recursos.
+        """
+        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
+        self.selenium.find_element_by_css_selector('#costos-plan').click()
+        self.selenium.find_element_by_css_selector('#botonRecursos').click()
+        self.selenium.find_element_by_css_selector('#botonAdd').click()
+        proyecto = self.proyecto1.titulo
+        self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
+        material = "Materiales usados"
+        self.selenium.find_element_by_name('actividad').send_keys(actividad)
+        cantidad = 10
+        self.selenium.find_element_by_name('cantidad').send_keys(cantidad)
+        costo_unidad = 10
+        self.selenium.find_element_by_name('costo_unidad').send_keys(costo_unidad)
+        monto = 100
+        self.selenium.find_element_by_name('monto').send_keys(monto)
+        self.selenium.find_element_by_xpath("//button[@type='submit']").click()
+
+    def test_anadir_costo_oficina(self):
+        """
+            Test para anadir costo de oficina.
+        """
+        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
+        self.selenium.find_element_by_css_selector('#costos-plan').click()
+        self.selenium.find_element_by_css_selector('#botonOficina').click()
+        self.selenium.find_element_by_css_selector('#botonAdd').click()
+        proyecto = self.proyecto1.titulo
+        self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
+        material = "Materiales usados"
+        self.selenium.find_element_by_name('actividad').send_keys(actividad)
+        cantidad = 20
+        self.selenium.find_element_by_name('cantidad').send_keys(cantidad)
+        costo_unidad = 20
+        self.selenium.find_element_by_name('costo_unidad').send_keys(costo_unidad)
+        monto = 400
+        self.selenium.find_element_by_name('monto').send_keys(monto)
+        self.selenium.find_element_by_xpath("//button[@type='submit']").click()
+
+    def test_anadir_costo_recurso(self):
+        """
+            Test para anadir costo de recursos.
+        """
+        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
+        self.selenium.find_element_by_css_selector('#costos-plan').click()
+        self.selenium.find_element_by_css_selector('#botonInsumos').click()
+        self.selenium.find_element_by_css_selector('#botonAdd').click()
+        proyecto = self.proyecto1.titulo
+        self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
+        material = "Materiales usados"
+        self.selenium.find_element_by_name('actividad').send_keys(actividad)
+        cantidad = 30
+        self.selenium.find_element_by_name('cantidad').send_keys(cantidad)
+        costo_unidad = 30
+        self.selenium.find_element_by_name('costo_unidad').send_keys(costo_unidad)
+        monto = 900
+        self.selenium.find_element_by_name('monto').send_keys(monto)
+        self.selenium.find_element_by_xpath("//button[@type='submit']").click()
