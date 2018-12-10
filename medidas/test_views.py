@@ -5,7 +5,7 @@ from itertools import count
 from django.shortcuts import reverse
 from django.test import TestCase, tag
 from medidas.models import Medida
-from medidas.views import MedidaListView, MedidaDetailView
+from medidas.views import MedidaListView, MedidaDetailView, MedidaDeleteView
 
 
 class MedidaViewHelper(TestCase):
@@ -126,3 +126,23 @@ class MedidaDetailViewTestCase(MedidaViewHelper):
         actual = response.context['object']
         expected = self.medida
         self.assertEqual(actual, expected, 'El objeto mostrado no es correcto')
+
+@tag('medida')
+class MedidaDeleteViewTestCase(MedidaViewHelper):
+    '''
+    Pruebas para la vista de eliminacion de medidas
+    '''
+    def setUp(self):
+        ''' Ambiente para el suite de pruebas '''
+        self.medida = Medida.objects.get(nomenclatura='MED-1')
+        self.target_url = reverse('medidas:borrar-medida', kwargs={'pk': self.medida.pk})
+        super().setUp()
+
+    def test_url_view_correspondence(self):
+        ''' Prueba que el url sea manejado por la vista MedidaDeleteView '''
+        self.login()
+        response = self.client.get(self.target_url)
+        actual = response.resolver_match.func.__name__
+        expected = MedidaDeleteView.as_view().__name__
+        self.assertEqual(actual, expected, 'El url ' + self.target_url + ' no es manejado '
+                                           'por MedidaDeleteView')

@@ -40,7 +40,7 @@ class MedidaDetailView(LoginRequiredMixin, DetailView):  # pylint: disable=too-m
     template_name = 'medidas/detail.html'
 
 
-class MedidaDelete(LoginRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
+class MedidaDeleteView(LoginRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una medida'''
     model = Medida
     template_name = 'medidas/delete.html'
