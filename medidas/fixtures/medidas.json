@@ -1,132 +1,88 @@
 [
 {
   "model": "medidas.medida",
-  "pk": 7,
+  "pk": 1,
   "fields": {
     "nomenclatura": "MED-1",
     "nombre": "Medida 1",
     "tipo": 0,
-    "medio": 0,
-    "descripcion": "Descripcion de la medida 1",
-    "marco_juridico": "Marco jur\u00eddico de la medida 1",
-    "area": "\u00c1rea de la medida 1",
-    "nombre_responsable": "Responsable",
-    "apellido_responsable": "Responsable",
-    "nivel_academico_responsable": "5.0000",
-    "ci_responsable": "V11111"
-  }
-},
-{
-  "model": "medidas.medida",
-  "pk": 8,
-  "fields": {
-    "nomenclatura": "MED-2",
-    "nombre": "Medida 2",
-    "tipo": 0,
     "medio": 1,
-    "descripcion": "Descripci\u00f3n de la medida 2",
-    "marco_juridico": "Marco Jur\u00eddico de la medida 2",
-    "area": "\u00c1rea de la medida 2",
-    "nombre_responsable": "Responsable 1",
-    "apellido_responsable": "Responsable",
-    "nivel_academico_responsable": "4.5000",
-    "ci_responsable": "V222222"
+    "descripcion": "Descripcion medida 1",
+    "marco_juridico": "Marco juridico medida 1",
+    "area": "Area medida 1",
+    "responsable": 4
   }
 },
 {
   "model": "medidas.impacto",
-  "pk": 8,
+  "pk": 1,
   "fields": {
-    "medida": 7,
-    "descripcion": "Impacto1"
-  }
-},
-{
-  "model": "medidas.impacto",
-  "pk": 9,
-  "fields": {
-    "medida": 7,
-    "descripcion": "Impacto2"
-  }
-},
-{
-  "model": "medidas.impacto",
-  "pk": 10,
-  "fields": {
-    "medida": 8,
+    "medida": 1,
     "descripcion": "Impacto 1"
   }
 },
 {
   "model": "medidas.impacto",
-  "pk": 11,
+  "pk": 2,
   "fields": {
-    "medida": 8,
+    "medida": 1,
     "descripcion": "Impacto 2"
   }
 },
 {
   "model": "medidas.impacto",
-  "pk": 12,
+  "pk": 3,
   "fields": {
-    "medida": 8,
+    "medida": 1,
     "descripcion": "Impacto 3"
   }
 },
 {
   "model": "medidas.objetivo",
-  "pk": 5,
+  "pk": 1,
   "fields": {
-    "medida": 7,
+    "medida": 1,
     "descripcion": "Objetivo 1"
   }
 },
 {
   "model": "medidas.objetivo",
-  "pk": 6,
+  "pk": 2,
   "fields": {
-    "medida": 7,
+    "medida": 1,
     "descripcion": "Objetivo 2"
   }
 },
 {
   "model": "medidas.objetivo",
-  "pk": 7,
+  "pk": 3,
   "fields": {
-    "medida": 7,
+    "medida": 1,
     "descripcion": "Objetivo 3"
   }
 },
 {
-  "model": "medidas.objetivo",
-  "pk": 8,
-  "fields": {
-    "medida": 8,
-    "descripcion": "Objetivo 1"
-  }
-},
-{
   "model": "medidas.indicadordecumplimiento",
-  "pk": 7,
+  "pk": 1,
   "fields": {
-    "medida": 7,
+    "medida": 1,
     "descripcion": "Indicador 1"
   }
 },
 {
   "model": "medidas.indicadordecumplimiento",
-  "pk": 8,
+  "pk": 2,
   "fields": {
-    "medida": 8,
-    "descripcion": "Indicador 1"
-  }
-},
-{
-  "model": "medidas.indicadordecumplimiento",
-  "pk": 9,
-  "fields": {
-    "medida": 8,
+    "medida": 1,
     "descripcion": "Indicador 2"
+  }
+},
+{
+  "model": "medidas.indicadordecumplimiento",
+  "pk": 3,
+  "fields": {
+    "medida": 1,
+    "descripcion": "Indicador 3"
   }
 }
 ]
