@@ -3,9 +3,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
-from django.views.generic import (CreateView, DetailView,
+from django.views.generic import (DetailView,
                                   ListView,
-                                  UpdateView,
                                   DeleteView)
 from django.urls import reverse_lazy
 from .models import (
@@ -19,20 +18,6 @@ class MedidaListView(LoginRequiredMixin, ListView):  # pylint: disable=too-many-
     '''Listar las medidas'''
     model = Medida
     template_name = 'medidas/list.html'
-
-
-class MedidaCreate(LoginRequiredMixin, CreateView):  # pylint: disable=too-many-ancestors
-    '''Crear una organizacion'''
-    model = Medida
-    form_class = MedidaForm
-    template_name = 'medidas/form.html'
-    success_url = reverse_lazy('medidas:lista-medidas')
-
-    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
-        context = super(MedidaCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Medida"
-        return context
-
 
 class MedidaDetailView(LoginRequiredMixin, DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de una medida'''

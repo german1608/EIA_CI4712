@@ -3,8 +3,8 @@ Pruebas unitarias de los forms del modulo de medidas
 '''
 from django.test import TestCase, tag
 from django.forms.models import model_to_dict
-from medidas.forms import MedidaForm
-from medidas.models import Medida
+from .forms import MedidaForm
+from .models import Medida
 
 # Create your tests here.
 # pylint: disable=no-self-use
@@ -13,7 +13,7 @@ from medidas.models import Medida
 @tag('medida')
 class MedidaFormTestCase(TestCase):
     ''' Pruebas unitarias para el formulario de medida '''
-    fixtures = ['medidas.json']
+    fixtures = ['users-and-groups.json', 'medidas.json']
 
     def setUp(self):
         self.medida = Medida.objects.get(nombre='Medida 1')

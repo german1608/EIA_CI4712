@@ -4,7 +4,6 @@ Modelos para el modulo de medidas
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _  # pylint: disable=unused-import
-from eia.validators import CI_VALIDATOR
 
 # Create your models here.
 class Medida(models.Model):

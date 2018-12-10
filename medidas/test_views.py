@@ -4,8 +4,8 @@ Pruebas unitarias de las vistas del modulo de medidas
 from itertools import count
 from django.shortcuts import reverse
 from django.test import TestCase, tag
-from medidas.models import Medida
-from medidas.views import MedidaListView, MedidaDetailView, MedidaDeleteView
+from .models import Medida
+from .views import MedidaListView, MedidaDetailView, MedidaDeleteView
 
 
 class MedidaViewHelper(TestCase):
@@ -49,7 +49,8 @@ class MedidaListViewTestCase(MedidaViewHelper):
         response = self.client.get(self.target_url)
         actual = response
         expected = login_url + '?next=' + self.target_url
-        self.assertRedirects(actual, expected, msg_prefix='La vista de listado de medidas no requiered login')
+        self.assertRedirects(actual, expected,
+                             msg_prefix='La vista de listado de medidas no requiered login')
 
     def test_contexto_tiene_lista(self):
         '''
@@ -145,7 +146,7 @@ class MedidaDeleteViewTestCase(MedidaViewHelper):
         actual = response.resolver_match.func.__name__
         expected = MedidaDeleteView.as_view().__name__
         self.assertEqual(actual, expected, 'El url ' + self.target_url + ' no es manejado '
-                                           'por MedidaDeleteView')
+                         'por MedidaDeleteView')
 
     def test_login_required(self):
         ''' Prueba que la vista requiera login para ser usada '''
