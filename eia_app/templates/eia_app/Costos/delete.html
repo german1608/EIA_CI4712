@@ -4,7 +4,11 @@
 {% block content %}
 <form method="post">
   {% csrf_token %}
-  <p>¿Estás seguro que deseas borrar el costo de la actividad "{{ object.actividad }}" del proyecto "{{ object.proyecto }}"?</p>
+    {% if object.actividad %}
+        <p>¿Estás seguro que deseas borrar el costo de la actividad "{{ object.actividad }}" del proyecto "{{ object.proyecto }}"?</p>
+    {% else %}
+        <p>¿Estás seguro que deseas borrar el costo del material "{{ object.material }}" del proyecto "{{ object.proyecto }}"?</p>
+    {% endif %}
   <button type="submit" class="btn btn-primary">Aceptar</button>
 </form>
 {% endblock %}

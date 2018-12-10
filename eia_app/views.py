@@ -568,3 +568,22 @@ class CostoHumanoDelete(DeleteView):  # pylint: disable=too-many-ancestors
     model = CostoHumano
     template_name = 'eia_app/Costos/delete.html'
     success_url = reverse_lazy('consultor-crud:costos')
+
+class CostoMaterialesUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+    '''Actualizar un CostoMateriales'''
+    model = CostoMateriales
+    fields = ['proyecto', 'material', 'cantidad', 'costo_unidad', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos')
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoMaterialesUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Costo"
+        return context
+
+
+class CostoMaterialesDelete(DeleteView):  # pylint: disable=too-many-ancestors
+    '''Eliminar una CostoMateriales'''
+    model = CostoMateriales
+    template_name = 'eia_app/Costos/delete.html'
+    success_url = reverse_lazy('consultor-crud:costos')

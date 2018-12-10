@@ -112,6 +112,8 @@ urlpatterns = [  # pylint: disable=invalid-name
          name='nuevo-costo-oficina'),
     path('costos/nuevo-costo-insumos/', CostoMaterial_InsumosCreate.as_view(),
          name='nuevo-costo-insumos'),
-    path('costos/editar/<int:pk>/', CostoHumanoUpdate.as_view(), name='editar-costohumano'),
-    path('costos/eliminar/<int:pk>/', CostoHumanoDelete.as_view(), name='borrar-costohumano'),
+    path('costoshumano/editar/<int:pk>/', CostoHumanoUpdate.as_view(), name='editar-costohumano'),
+    path('costoshumano/eliminar/<int:pk>/', CostoHumanoDelete.as_view(), name='borrar-costohumano'),
+    path('costosmaterial/editar/<int:pk>/', CostoMaterialesUpdate.as_view(), name='editar-costomaterial'),
+    path('costosmaterial/eliminar/<int:pk>/', CostoMaterialesDelete.as_view(), name='borrar-costomaterial'),
 ]
