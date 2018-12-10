@@ -77,13 +77,13 @@ class MedidaDetailViewTestCase(MedidaViewHelper):
     '''
     def setUp(self):
         self.medida = Medida.objects.get(nomenclatura='MED-1')
+        self.target_url = reverse('medidas:detalles-medida', kwargs={'pk': self.medida.pk})
         super().setUp()
 
     def test_url_view_correspondence(self):
         ''' Prueba que el url para los detalles tenga como vista MedidaDetailView '''
         self.login()
-        target_url = reverse('medidas:detalles-medida', kwargs={'pk': self.medida.pk})
-        response = self.client.get(target_url)
+        response = self.client.get(self.target_url)
         actual = response.resolver_match.func.__name__
         expected = MedidaDetailView.as_view().__name__
         self.assertEqual(actual, expected, 'La vista de detalles de medidas'
@@ -92,10 +92,9 @@ class MedidaDetailViewTestCase(MedidaViewHelper):
     def test_login_required(self):
         ''' Prueba que la vista requiera login para ser usada '''
         login_url = reverse('login')
-        target_url = reverse('medidas:detalles-medida', kwargs={'pk': self.medida.pk})
-        response = self.client.get(target_url)
+        response = self.client.get(self.target_url)
         actual = response
-        expected = login_url + '?next=' + target_url
+        expected = login_url + '?next=' + self.target_url
         self.assertRedirects(actual, expected)
 
     def test_medida_no_existente_404(self):
@@ -113,5 +112,17 @@ class MedidaDetailViewTestCase(MedidaViewHelper):
         actual = response.status_code
         expected = 404
         self.assertEqual(actual, expected, 'La vista de detalles de medidas '
-                                           'retorna 404 cuando el pk no existe')
+                                           'no retorna 404 cuando el pk no existe')
 
+    def test_medida_objeto_existente(self):
+        ''' Prueba que la vista retorne codigo 200 cuando la medida si existe '''
+        self.login()
+        response = self.client.get(self.target_url)
+        actual = response.status_code
+        expected = 200
+        self.assertEqual(actual, expected, 'La vista de detalles de medidas '
+                                           'no retorna 200 cuando el pk existe')
+        # Probamos que el object sea self.medida
+        actual = response.context['object']
+        expected = self.medida
+        self.assertEqual(actual, expected, 'El objeto mostrado no es correcto')
