@@ -59,3 +59,13 @@ class MedidaListViewTestCase(MedidaViewHelper):
         actual = response.context['object_list']
         expected = Medida.objects.all()
         self.assertEqual(list(actual), list(expected), 'La lista de medidas no es correcta')
+
+    def test_template_correcto(self):
+        ''' Prueba que el template usado por el listado sea medidas/list.html '''
+        # Nos logueamos
+        self.login()
+        response = self.client.get(self.target_url)
+        actual = response
+        expected = 'medidas/list.html'
+        self.assertTemplateUsed(actual, expected)
+
