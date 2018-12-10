@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="{% static 'css/generacion_pdf.css' %}">
-
+  <script src="{% static 'js/quill.min.js' %}"></script>
   <title>Imprimir</title>
 </head>
 <body>
@@ -319,10 +319,8 @@
         <h3 class="subtitulo">IX. MARCO METODOLÓGICO </h3>
       </div>
       
-      <div class="contenido tabla">
-        <p>
-          {{ datosproyecto.marco_metodologico }}
-        </p>
+      <div class="contenido tabla" id="marco_metodologico">
+        {{ datosproyecto.marco_metodologico }}
       </div>
     </div>
 
@@ -331,9 +329,9 @@
         <h3 class="subtitulo">X. CONCLUSIONES</h3>
       </div>
       
-      <div class="contenido tabla">
+      <div class="contenido tabla" id="conclusiones">
         <p>
-          {% for conclusion in datosproyecto.conclusionesproyecto_set.all %}
+          {% for conclusion in datosproyecto.conclusionproyecto_set.all %}
           {{ conclusion.conclusiones }}
           {% endfor %}
         </p>
@@ -347,11 +345,12 @@
       
       <div class="contenido tabla">
         <p>
-          {% for recomendacion in datosproyecto.recomendacionesproyecto_set.all %}
+          {% for recomendacion in datosproyecto.recomendacionproyecto_set.all %}
           {{ recomendacion.recomendaciones }}
           {% endfor %}
         </p>
       </div>
     </div>
+
   </body>
 </html>
