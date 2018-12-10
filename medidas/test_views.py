@@ -3,8 +3,6 @@ Pruebas unitarias de las vistas del modulo de medidas
 '''
 from django.shortcuts import reverse
 from django.test import TestCase, tag
-from django.forms.models import model_to_dict
-from medidas.models import Medida
 from medidas.views import MedidaListView
 
 
@@ -39,3 +37,15 @@ class MedidaListViewTestCase(MedidaViewHelper):
         expected = MedidaListView.as_view().__name__
         self.assertEqual(actual, expected, 'La vista de listado de medidas no '
                                            'es MedidaListView')
+
+    def test_login_required(self):
+        '''
+        Prueba que la vista sea solamente accedible por usuarios
+        autenticados
+        '''
+        login_url = reverse('login')
+        target_url = reverse('medidas:lista-medidas')
+        response = self.client.get(target_url)
+        actual = response
+        expected = login_url + '?next=' + target_url
+        self.assertRedirects(actual, expected, msg_prefix='La vista de listado de medidas no requiered login')

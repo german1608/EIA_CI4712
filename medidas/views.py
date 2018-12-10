@@ -1,6 +1,7 @@
 '''Views del crud del consultor'''
 
 from django.shortcuts import render, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.views.generic import (CreateView, DetailView,
                                   ListView,
@@ -14,12 +15,13 @@ from .forms import (
     MedidaForm, ImpactoFormSet, ObjetivoFormSet, IndicadorDeCumplimientoFormSet
 )
 
-class MedidaListView(ListView):  # pylint: disable=too-many-ancestors
+class MedidaListView(LoginRequiredMixin, ListView):  # pylint: disable=too-many-ancestors
     '''Listar las medidas'''
     model = Medida
     template_name = 'medidas/list.html'
 
-class MedidaCreate(CreateView):  # pylint: disable=too-many-ancestors
+
+class MedidaCreate(LoginRequiredMixin, CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una organizacion'''
     model = Medida
     form_class = MedidaForm
@@ -31,19 +33,14 @@ class MedidaCreate(CreateView):  # pylint: disable=too-many-ancestors
         context["nombre"] = "Medida"
         return context
 
-class MedidaDetail(DetailView):  # pylint: disable=too-many-ancestors
+
+class MedidaDetail(LoginRequiredMixin, DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de una medida'''
     model = Medida
     template_name = 'medidas/detail.html'
 
-class MedidaUpdate(UpdateView):  # pylint: disable=too-many-ancestors
-    '''Actualizar una medida'''
-    model = Medida
-    template_name = 'medidas/form.html'
-    success_url = reverse_lazy('medidas:lista-medidas')
-    form_class = MedidaForm
 
-class MedidaDelete(DeleteView):  # pylint: disable=too-many-ancestors
+class MedidaDelete(LoginRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una medida'''
     model = Medida
     template_name = 'medidas/delete.html'
