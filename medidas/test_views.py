@@ -1,6 +1,7 @@
 '''
 Pruebas unitarias de las vistas del modulo de medidas
 '''
+from itertools import count
 from django.shortcuts import reverse
 from django.test import TestCase, tag
 from medidas.models import Medida
@@ -96,3 +97,21 @@ class MedidaDetailViewTestCase(MedidaViewHelper):
         actual = response
         expected = login_url + '?next=' + target_url
         self.assertRedirects(actual, expected)
+
+    def test_medida_no_existente_404(self):
+        ''' Prueba que la vista retorne 404 cuando la medida a consultar no existe '''
+        self.login()
+        medida = None
+        for i in count():
+            try:
+                medida = i
+                Medida.objects.get(pk=medida)
+            except Medida.DoesNotExist:
+                break
+        target_url = reverse('medidas:detalles-medida', kwargs={'pk': medida})
+        response = self.client.get(target_url)
+        actual = response.status_code
+        expected = 404
+        self.assertEqual(actual, expected, 'La vista de detalles de medidas '
+                                           'retorna 404 cuando el pk no existe')
+
