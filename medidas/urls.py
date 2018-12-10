@@ -2,13 +2,13 @@
 
 from django.urls import path, re_path
 from .views import (
-    MedidaList, MedidaDetail, MedidaDelete, medida_form_view
+    MedidaListView, MedidaDetail, MedidaDelete, medida_form_view
 )
 
 app_name = 'medidas' #pylint: disable=invalid-name
 
 urlpatterns = [ #pylint: disable=invalid-name
-    path('', MedidaList.as_view(),
+    path('', MedidaListView.as_view(),
          name='lista-medidas'),
     path('nuevo/', medida_form_view,
          name='nueva-medida'),

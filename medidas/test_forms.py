@@ -1,13 +1,16 @@
 '''
-Pruebas unitarias del modulo de medidas
+Pruebas unitarias de los forms del modulo de medidas
 '''
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.forms.models import model_to_dict
-from .forms import MedidaForm
-from .models import Medida
+from medidas.forms import MedidaForm
+from medidas.models import Medida
 
 # Create your tests here.
 # pylint: disable=no-self-use
+
+
+@tag('medida')
 class MedidaFormTestCase(TestCase):
     ''' Pruebas unitarias para el formulario de medida '''
     fixtures = ['medidas.json']
@@ -24,13 +27,15 @@ class MedidaFormTestCase(TestCase):
         ''' Prueba para validar la nomenclatura requerida '''
         self.medida_dict['nomenclatura'] = ''
         form = MedidaForm(self.medida_dict)
-        self.assertFalse(form.is_valid(), 'El formulario no debe estar valido sin la nomenclatura')
+        self.assertFalse(
+            form.is_valid(), 'El formulario no debe estar valido sin la nomenclatura')
 
     def test_form_nomenclatura_max_length(self):
         ''' Prueba para validar la longitud maxima de la nomenclatura '''
         self.medida_dict['nomenclatura'] = 'f' * 11
         form = MedidaForm(self.medida_dict)
-        self.assertFalse(form.is_valid(), 'La nomenclatura debe ser maximo 10 caracteres')
+        self.assertFalse(
+            form.is_valid(), 'La nomenclatura debe ser maximo 10 caracteres')
 
     def test_form_nombre_not_empty(self):
         ''' Prueba para validar que el nombre no sea vacio '''
@@ -63,7 +68,6 @@ class MedidaFormTestCase(TestCase):
         form = MedidaForm(self.medida_dict)
         self.assertFalse(
             form.is_valid(), 'El tipo no esta en el rango valido [1,1]')
-
 
     def test_form_medio_not_empty(self):
         ''' Prueba para validar que especifiquen un medio '''

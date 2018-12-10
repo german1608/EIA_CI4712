@@ -14,7 +14,7 @@ from .forms import (
     MedidaForm, ImpactoFormSet, ObjetivoFormSet, IndicadorDeCumplimientoFormSet
 )
 
-class MedidaList(ListView):  # pylint: disable=too-many-ancestors
+class MedidaListView(ListView):  # pylint: disable=too-many-ancestors
     '''Listar las medidas'''
     model = Medida
     template_name = 'medidas/list.html'
