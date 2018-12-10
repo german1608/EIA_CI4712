@@ -18,7 +18,7 @@
         <a class="nav-link active" data-toggle="pill" href="#humano">Talento Humano</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="#serviciosProf">Servicios Profesionales y técnicos</a>
+        <a class="nav-link" data-toggle="pill" id="serviciosProf-tab" href="#serviciosProf">Servicios Profesionales y técnicos</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="pill" href="#pasaje">Pasaje y Hospedaje</a>
@@ -32,7 +32,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="#insumor">Insumos</a>
+        <a class="nav-link" data-toggle="pill" href="#insumos">Insumos</a>
       </li>
     </ul>
   
@@ -108,7 +108,6 @@
                         <th>Proyecto</th>
                         <th>Tiempo</th>
                         <th>Monto</th>
-                        <th style="text-align:center;">Ver detalles</th>
                         <th style="text-align:center;">Editar</th>
                         <th style="text-align:center;">Borrar</th>
                     </tr>
@@ -121,11 +120,9 @@
                         <td>{{ organizacion.cantidad }}</td>
                         <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  organizacion.proyecto.id %}">{{ organizacion.proyecto }}</a></td>
                         <td>{{ organizacion.tiempo }}</td>
-                        <td>{{ organizacion.monto }}</td>
-        
-                        <td style="text-align:center;"><a id="detalles{{organizacion.id}}" href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
-                        <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
-                        <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+                        <td>{{ organizacion.monto }}</td>        
+                        <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-costohumano" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+                        <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-costohumano" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
                     </tr>
                     {%endif %}
                   {% endfor %}
@@ -158,7 +155,6 @@
                         <th>Proyecto</th>
                         <th>Tiempo</th>
                         <th>Monto</th>
-                        <th style="text-align:center;">Ver detalles</th>
                         <th style="text-align:center;">Editar</th>
                         <th style="text-align:center;">Borrar</th>
                     </tr>
@@ -172,10 +168,8 @@
                         <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  organizacion.proyecto.id %}">{{ organizacion.proyecto }}</a></td>
                         <td>{{ organizacion.tiempo }}</td>
                         <td>{{ organizacion.monto }}</td>
-        
-                        <td style="text-align:center;"><a id="detalles{{organizacion.id}}" href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
-                        <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
-                        <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+                        <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-costohumano" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+                        <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-costohumano" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
                     </tr>
                     {%endif %}
                   {% endfor %}
@@ -199,13 +193,11 @@
               <table id="Recursos" class="display">
                 <thead>
                     <tr>
-                        <th>Actividad</th>
-                        
+                        <th>Material</th>
                         <th>Cantidad</th>
                         <th>Proyecto</th>
                         <th>C/U</th>
                         <th>Monto</th>
-                        <th style="text-align:center;">Ver detalles</th>
                         <th style="text-align:center;">Editar</th>
                         <th style="text-align:center;">Borrar</th>
                     </tr>
@@ -214,13 +206,11 @@
                   {% for organizacion in recursos %}
                     {% if organizacion.tipo.id == 4 %} <!-- 3 es por Hospedaje -->
                     <tr>
-                        <td>{{ organizacion.actividad }}</td>
+                        <td>{{ organizacion.material }}</td>
                         <td>{{ organizacion.cantidad }}</td>
                         <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  organizacion.proyecto.id %}">{{ organizacion.proyecto }}</a></td>
                         <td>{{ organizacion.costo_unidad }}</td>
                         <td>{{ organizacion.monto }}</td>
-        
-                        <td style="text-align:center;"><a id="detalles{{organizacion.id}}" href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
                         <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
                         <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
                     </tr>
@@ -246,28 +236,25 @@
               <table id="Oficina" class="display">
                 <thead>
                     <tr>
-                        <th>Actividad</th>
+                        <th>Material</th>
                         
                         <th>Cantidad</th>
                         <th>Proyecto</th>
                         <th>C/U</th>
                         <th>Monto</th>
-                        <th style="text-align:center;">Ver detalles</th>
                         <th style="text-align:center;">Editar</th>
                         <th style="text-align:center;">Borrar</th>
                     </tr>
                 </thead>
                 <tbody>
-                  {% for organizacion in recursos %}
-                    {% if organizacion.tipo.id == 4 %} <!-- 3 es por Hospedaje -->
+                  {% for organizacion in oficina %}
+                    {% if organizacion.tipo.id == 5 %} <!-- 3 es por Hospedaje -->
                     <tr>
-                        <td>{{ organizacion.actividad }}</td>
+                        <td>{{ organizacion.material }}</td>
                         <td>{{ organizacion.cantidad }}</td>
                         <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  organizacion.proyecto.id %}">{{ organizacion.proyecto }}</a></td>
                         <td>{{ organizacion.costo_unidad }}</td>
                         <td>{{ organizacion.monto }}</td>
-        
-                        <td style="text-align:center;"><a id="detalles{{organizacion.id}}" href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
                         <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
                         <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
                     </tr>
@@ -293,28 +280,24 @@
               <table id="Insumos" class="display">
                 <thead>
                     <tr>
-                        <th>Actividad</th>
-                        
+                        <th>Material</th>
                         <th>Cantidad</th>
                         <th>Proyecto</th>
                         <th>C/U</th>
                         <th>Monto</th>
-                        <th style="text-align:center;">Ver detalles</th>
                         <th style="text-align:center;">Editar</th>
                         <th style="text-align:center;">Borrar</th>
                     </tr>
                 </thead>
                 <tbody>
-                  {% for organizacion in recursos %}
-                    {% if organizacion.tipo.id == 4 %} <!-- 3 es por Hospedaje -->
+                  {% for organizacion in insumos %}
+                    {% if organizacion.tipo.id == 6 %} <!-- 3 es por Hospedaje -->
                     <tr>
-                        <td>{{ organizacion.actividad }}</td>
+                        <td>{{ organizacion.material }}</td>
                         <td>{{ organizacion.cantidad }}</td>
                         <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  organizacion.proyecto.id %}">{{ organizacion.proyecto }}</a></td>
                         <td>{{ organizacion.costo_unidad }}</td>
                         <td>{{ organizacion.monto }}</td>
-        
-                        <td style="text-align:center;"><a id="detalles{{organizacion.id}}" href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
                         <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
                         <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
                     </tr>
@@ -388,4 +371,12 @@
     });
   });
 </script>
+{% comment %} 
+IMPLEMENTAR QUE DEPENDIENDO DE CREAR O EDITAR SE DEBE ENTRAR A UNA PESTAÑA 
+<script>
+$(document).ready( function () {
+    $('#serviciosProf-tab').tab('show')
+});
+</script> 
+{% endcomment %}
 {% endblock %}

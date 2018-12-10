@@ -413,7 +413,7 @@ class CostoHumano(models.Model):
         monto: Monto total de la actividad
     """
     proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
-    tipo = models.ForeignKey(TipoCosto, on_delete=models.CASCADE)
+    tipo = models.ForeignKey(TipoCosto, on_delete=models.PROTECT)
     actividad = models.TextField()
     cantidad = models.TextField()
     tiempo = models.CharField(max_length=100)
@@ -437,7 +437,7 @@ class CostoMateriales(models.Model):
         monto: Monto total de los materiales
     """
     proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
-    tipo = models.ForeignKey(TipoCosto, on_delete=models.CASCADE)
+    tipo = models.ForeignKey(TipoCosto, on_delete=models.PROTECT)
     material = models.CharField(max_length=100)
     cantidad = models.IntegerField(validators=[MinValueValidator(0)])
     costo_unidad = models.FloatField(validators=[MinValueValidator(0)])

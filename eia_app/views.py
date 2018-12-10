@@ -547,7 +547,7 @@ class CostoMaterial_InsumosCreate(CreateView): # pylint: disable=too-many-ancest
         return context
 
     def form_valid(self, form):
-        form.instance.tipo = TipoCosto.objects.filter(id=5)[0]
+        form.instance.tipo = TipoCosto.objects.filter(id=6)[0]
         return super().form_valid(form)
 
 class CostoHumanoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
