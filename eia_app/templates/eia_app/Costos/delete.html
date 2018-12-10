@@ -4,7 +4,7 @@
 {% block content %}
 <form method="post">
   {% csrf_token %}
-  <p>¿Estás seguro que deseas borrar la organizacion "{{ object.nombre }}"?</p>
+  <p>¿Estás seguro que deseas borrar el costo de la actividad "{{ object.actividad }}" del proyecto "{{ object.proyecto }}"?</p>
   <button type="submit" class="btn btn-primary">Aceptar</button>
 </form>
 {% endblock %}

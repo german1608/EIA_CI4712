@@ -61,7 +61,6 @@
                         <th>Proyecto</th>
                         <th>Tiempo</th>
                         <th>Monto</th>
-                        <th style="text-align:center;">Ver detalles</th>
                         <th style="text-align:center;">Editar</th>
                         <th style="text-align:center;">Borrar</th>
                     </tr>
@@ -77,10 +76,8 @@
                         <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  organizacion.proyecto.id %}">{{ organizacion.proyecto }}</a></td>
                         <td>{{ organizacion.tiempo }}</td>
                         <td>{{ organizacion.monto }}</td>
-        
-                        <td style="text-align:center;"><a id="detalles{{organizacion.id}}" href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
-                        <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
-                        <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+                        <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-costohumano" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+                        <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-costohumano" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
                     </tr>
                     {%endif %}
                   {% endfor %}

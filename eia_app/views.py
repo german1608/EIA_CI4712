@@ -549,3 +549,22 @@ class CostoMaterial_InsumosCreate(CreateView): # pylint: disable=too-many-ancest
     def form_valid(self, form):
         form.instance.tipo = TipoCosto.objects.filter(id=5)[0]
         return super().form_valid(form)
+
+class CostoHumanoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+    '''Actualizar un CostoHumano'''
+    model = CostoHumano
+    fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos')
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoHumanoUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Costo"
+        return context
+
+
+class CostoHumanoDelete(DeleteView):  # pylint: disable=too-many-ancestors
+    '''Eliminar una CostoHumano'''
+    model = CostoHumano
+    template_name = 'eia_app/Costos/delete.html'
+    success_url = reverse_lazy('consultor-crud:costos')
