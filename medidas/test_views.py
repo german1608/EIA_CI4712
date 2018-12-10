@@ -146,3 +146,41 @@ class MedidaDeleteViewTestCase(MedidaViewHelper):
         expected = MedidaDeleteView.as_view().__name__
         self.assertEqual(actual, expected, 'El url ' + self.target_url + ' no es manejado '
                                            'por MedidaDeleteView')
+
+    def test_login_required(self):
+        ''' Prueba que la vista requiera login para ser usada '''
+        login_url = reverse('login')
+        response = self.client.get(self.target_url)
+        actual = response
+        expected = login_url + '?next=' + self.target_url
+        self.assertRedirects(actual, expected)
+
+    def test_medida_no_existente_404(self):
+        ''' Prueba que la vista retorne 404 cuando la medida a eliminar no existe '''
+        self.login()
+        medida = None
+        for i in count():
+            try:
+                medida = i
+                Medida.objects.get(pk=medida)
+            except Medida.DoesNotExist:
+                break
+        target_url = reverse('medidas:borrar-medida', kwargs={'pk': medida})
+        response = self.client.get(target_url)
+        actual = response.status_code
+        expected = 404
+        self.assertEqual(actual, expected, 'La vista de eliminacion de medidas '
+                                           'no retorna 404 cuando el pk no existe')
+
+    def test_medida_objeto_existente(self):
+        ''' Prueba que la vista retorne codigo 200 cuando la medida si existe '''
+        self.login()
+        response = self.client.get(self.target_url)
+        actual = response.status_code
+        expected = 200
+        self.assertEqual(actual, expected, 'La vista de eliminacion de medidas '
+                                           'no retorna 200 cuando el pk existe')
+        # Probamos que el object sea self.medida
+        actual = response.context['object']
+        expected = self.medida
+        self.assertEqual(actual, expected, 'El objeto mostrado no es correcto')
