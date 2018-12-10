@@ -275,7 +275,7 @@ class MarcoListView(CargaContextoMarcoMixin, ListView): # pylint: disable=too-ma
 class MarcoFormView(CargaContextoMarcoMixin, FormView):
     """ Vista que permite crear un marco metodologico a un proyecto """
     form_class = MarcoForm
-    template_name = 'eia_app/marco/form.html'
+    template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-marcos')
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
