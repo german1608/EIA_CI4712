@@ -74,14 +74,25 @@ class MedidaDetailViewTestCase(MedidaViewHelper):
     '''
     Pruebas unitarias para la vista de detalles de medidas
     '''
+    def setUp(self):
+        self.medida = Medida.objects.get(nomenclatura='MED-1')
+        super().setUp()
+
     def test_url_view_correspondence(self):
         ''' Prueba que el url para los detalles tenga como vista MedidaDetailView '''
         self.login()
-        medida = Medida.objects.get(nomenclatura='MED-1')
-        target_url = reverse('medidas:detalles-medida', kwargs={'pk': medida.pk})
+        target_url = reverse('medidas:detalles-medida', kwargs={'pk': self.medida.pk})
         response = self.client.get(target_url)
         actual = response.resolver_match.func.__name__
         expected = MedidaDetailView.as_view().__name__
         self.assertEqual(actual, expected, 'La vista de detalles de medidas'
                                            'no es MedidaDetailView')
 
+    def test_login_required(self):
+        ''' Prueba que la vista requiera login para ser usada '''
+        login_url = reverse('login')
+        target_url = reverse('medidas:detalles-medida', kwargs={'pk': self.medida.pk})
+        response = self.client.get(target_url)
+        actual = response
+        expected = login_url + '?next=' + target_url
+        self.assertRedirects(actual, expected)
