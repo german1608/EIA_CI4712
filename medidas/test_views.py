@@ -184,3 +184,20 @@ class MedidaDeleteViewTestCase(MedidaViewHelper):
         actual = response.context['object']
         expected = self.medida
         self.assertEqual(actual, expected, 'El objeto mostrado no es correcto')
+
+    def test_eliminacion_correcta(self):
+        '''
+        Prueba que la vista de eliminacion al recibir un POST request
+        correcto elimine al objeto
+        '''
+        self.login()
+        pk_medida_eliminada = self.medida.pk
+        response = self.client.post(self.target_url)
+
+        # Verificamos que se elimine
+        with self.assertRaises(Medida.DoesNotExist):
+            Medida.objects.get(pk=pk_medida_eliminada)
+
+        # Aparte de esto, se debe redirigir a la vista de listado
+        expected = reverse('medidas:lista-medidas')
+        self.assertRedirects(response, expected)
