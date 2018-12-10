@@ -14,6 +14,34 @@
   }
 },
 {
+  "model": "medidas.medida",
+  "pk": 2,
+  "fields": {
+    "nomenclatura": "MED-2",
+    "nombre": "Medida 2",
+    "tipo": 0,
+    "medio": 0,
+    "descripcion": "Descripcion medida 2",
+    "marco_juridico": "Marco juridico medida 2",
+    "area": "Area medida 2",
+    "responsable": 3
+  }
+},
+{
+  "model": "medidas.medida",
+  "pk": 3,
+  "fields": {
+    "nomenclatura": "MED-3",
+    "nombre": "Medida 3",
+    "tipo": 0,
+    "medio": 2,
+    "descripcion": "Descripcion medida 3",
+    "marco_juridico": "Marco juridico medida 3",
+    "area": "Area medica 3",
+    "responsable": 4
+  }
+},
+{
   "model": "medidas.impacto",
   "pk": 1,
   "fields": {
@@ -35,6 +63,30 @@
   "fields": {
     "medida": 1,
     "descripcion": "Impacto 3"
+  }
+},
+{
+  "model": "medidas.impacto",
+  "pk": 4,
+  "fields": {
+    "medida": 2,
+    "descripcion": "Impacto 1"
+  }
+},
+{
+  "model": "medidas.impacto",
+  "pk": 5,
+  "fields": {
+    "medida": 3,
+    "descripcion": "Impacto 1"
+  }
+},
+{
+  "model": "medidas.impacto",
+  "pk": 6,
+  "fields": {
+    "medida": 3,
+    "descripcion": "Impacto 2"
   }
 },
 {
@@ -62,6 +114,22 @@
   }
 },
 {
+  "model": "medidas.objetivo",
+  "pk": 4,
+  "fields": {
+    "medida": 2,
+    "descripcion": "Objetivo 1"
+  }
+},
+{
+  "model": "medidas.objetivo",
+  "pk": 5,
+  "fields": {
+    "medida": 3,
+    "descripcion": "Objetivo 1"
+  }
+},
+{
   "model": "medidas.indicadordecumplimiento",
   "pk": 1,
   "fields": {
@@ -83,6 +151,30 @@
   "fields": {
     "medida": 1,
     "descripcion": "Indicador 3"
+  }
+},
+{
+  "model": "medidas.indicadordecumplimiento",
+  "pk": 4,
+  "fields": {
+    "medida": 2,
+    "descripcion": "Indicador 1"
+  }
+},
+{
+  "model": "medidas.indicadordecumplimiento",
+  "pk": 5,
+  "fields": {
+    "medida": 3,
+    "descripcion": "Indicador 1"
+  }
+},
+{
+  "model": "medidas.indicadordecumplimiento",
+  "pk": 6,
+  "fields": {
+    "medida": 3,
+    "descripcion": "Indicador 2"
   }
 }
 ]
