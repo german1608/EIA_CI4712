@@ -7,6 +7,7 @@ from .forms import MedidaForm
 from .models import Medida
 
 # Create your tests here.
+# pylint: disable=no-self-use
 class MedidaFormTestCase(TestCase):
     ''' Pruebas unitarias para el formulario de medida '''
     fixtures = ['medidas.json']

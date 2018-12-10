@@ -1,10 +1,9 @@
 """
 Modelos para el modulo de medidas
 """
-import re
 from django.db import models
-from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _  # pylint: disable=unused-import
+from eia.validators import CI_VALIDATOR
 
 # Create your models here.
 class Medida(models.Model):
@@ -38,11 +37,7 @@ class Medida(models.Model):
         decimal_places=4)
     ci_responsable = models.CharField(
         max_length=9,
-        validators=[
-            RegexValidator(
-                re.compile('^[V|E|J|P][0-9]{5,9}$'),
-                _('Cédula incorrecta'),
-                'invalid')])
+        validators=[CI_VALIDATOR])
 
 class Impacto(models.Model):
     """ Tabla de Impactos que sirve de atributo multivalor para las medidas """

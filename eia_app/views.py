@@ -16,8 +16,7 @@ from .models import (
 )
 from .forms import (
     OrganizacionCreateForm, SolicitanteCreateForm,
-    ResponsableCreateForm, DatosDocumentoCreateForm, DatosProyectoCreateForm,
-    MarcoForm, DescripcionProyectoCreateForm,
+    DatosProyectoCreateForm, MarcoForm, DescripcionProyectoCreateForm,
     ResponsableCreateForm, DatosDocumentoCreateForm,
     RecomendacionProyectoCreateForm
 )
@@ -338,7 +337,7 @@ def delete_marco_view(request, tipo, pk): # pylint: disable=invalid-name
         - tipo: tipo de marco a eliminar (metodologico|juridico|teorico)
         - pk: Primary key del proyecto cuyo marco se eliminara
     '''
-    proyecto = get_object_or_404(DatosProyecto, **{ 'pk': pk })
+    proyecto = get_object_or_404(DatosProyecto, **{'pk': pk})
     if request.method == 'GET':
         if tipo == 'metodologico':
             contenido = proyecto.marco_metodologico

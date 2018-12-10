@@ -1,4 +1,6 @@
 '''Test para el crud del consultor '''
+# pylint: disable=too-many-lines
+from itertools import count
 from django.test import TestCase, tag
 from django.shortcuts import reverse
 from django.contrib.auth import get_user_model
@@ -6,7 +8,6 @@ from django.db.models import Q
 from .forms import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .models import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .views import MarcoListView, delete_marco_view, MarcoDetailView, MarcoFormView
-from itertools import count
 
 # Create your tests here.
 
@@ -887,6 +888,7 @@ class MarcoFormTestCase(TestCase):
         )
 
 
+# pylint: disable=no-member, too-few-public-methods
 class MarcoHelper:
     '''
     Helper para los tests de marcos
@@ -923,12 +925,15 @@ class MarcoListViewTestCase(MarcoHelper, TestCase):
             self.assertRedirects(actual, expected)
 
 
-    def test_view_existence(self): # pylint: disable=self-no-use
+    def test_view_existence(self): # pylint: disable=no-self-use
         ''' Prueba existencia de la vista que va a listar los marcos '''
         MarcoListView()
 
     def test_view_url_correspondence(self):
-        ''' Prueba que la vista que maneja el url de listado de marcos sea el dispatch() de MarcoListView '''
+        '''
+        Prueba que la vista que maneja el url de listado de marcos sea el
+        dispatch() de MarcoListView
+        '''
         # Primero nos logueamos
         self.login_util()
 
@@ -970,7 +975,8 @@ class MarcoListViewTestCase(MarcoHelper, TestCase):
                 expected = DatosProyecto.objects.filter(~Q(**{
                     'marco_{}'.format(tipo_marco): None
                 }))
-                self.assertEqual(list(actual), list(expected), 'El filtro de la vista de listado de marcos no esta funcionando')
+                self.assertEqual(list(actual), list(expected),
+                                 'El filtro de la vista de listado de marcos no esta funcionando')
 
 @tag('marco')
 class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
@@ -1117,7 +1123,7 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
                 'pk': marco.pk
             })
             # Hacemos el post para eliminar
-            response = self.client.post(target_url)
+            self.client.post(target_url)
             marco.refresh_from_db()
             # Verificamos que sea none ahora
             self.assertIsNone(getattr(marco, 'marco_' + tipo_marco))
@@ -1146,7 +1152,7 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
             expected = reverse('eia_app:lista-marcos', kwargs={
                 'tipo': tipo_marco
             })
-            self.assertRedirects(response, expected)
+            self.assertRedirects(actual, expected)
 
 
 @tag('marco')
