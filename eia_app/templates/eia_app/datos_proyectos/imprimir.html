@@ -81,7 +81,7 @@
 
           <tr>
               <td class="slot-izquierda">E-mail </td>
-              <td class="slot-derecha tabla">{{ solicitante.email }}</td>  
+              <td class="slot-derecha tabla">{{ solicitante.email }}</td>
           </tr>
 
         </table>
@@ -121,7 +121,7 @@
           <tr>
             <td class="slot-izquierda">Representante legal: </td>
             <td class="slot-derecha tabla">
-              {{ organizacion.nombre_representante_legal }} {{ organizacion.apellido_representante_legal }}, 
+              {{ organizacion.nombre_representante_legal }} {{ organizacion.apellido_representante_legal }},
               {{ organizacion.cedula_representante_legal }}
             </td>
           </tr>
@@ -181,7 +181,7 @@
                 {% endfor %}
             </td>
           </tr>
-  
+
           <tr>
             <td class="slot-izquierda">Especialista del Medio Socioeconómico: </td>
             <td class="slot-derecha tabla">
@@ -192,7 +192,7 @@
                 {% endfor %}
             </td>
           </tr>
-  
+
           <tr>
             <td class="slot-izquierda">Gerente del Proyecto de desarrollo: </td>
             <td class="slot-derecha tabla">
@@ -294,22 +294,31 @@
       <div class="titulos">
         <h3 class="subtitulo">VII. MARCO TEÓRICO REFERENCIAL</h3>
       </div>
-      
+
       <div class="contenido tabla">
         <p>
-          {{ datosproyecto.marco_teorico }}
+
+          {% autoescape off %}
+          {{ datosproyecto.marco_teorico|default:"" }}
+
+          {% endautoescape %}
+
         </p>
       </div>
     </div>
-    
+
     <div class="bloque">
       <div class="titulos">
         <h3 class="subtitulo">VIII. MARCO LEGAL EN MATERIA AMBIENTAL</h3>
       </div>
-      
+
       <div class="contenido tabla">
         <p>
+
+          {% autoescape off %}
           {{ datosproyecto.marco_juridico }}
+          {% endautoescape %}
+
         </p>
       </div>
     </div>
@@ -318,9 +327,11 @@
       <div class="titulos">
         <h3 class="subtitulo">IX. MARCO METODOLÓGICO </h3>
       </div>
-      
+
       <div class="contenido tabla" id="marco_metodologico">
+        {% autoescape off %}
         {{ datosproyecto.marco_metodologico }}
+        {% endautoescape %}
       </div>
     </div>
 
@@ -328,12 +339,12 @@
       <div class="titulos">
         <h3 class="subtitulo">X. CONCLUSIONES</h3>
       </div>
-      
+
       <div class="contenido tabla" id="conclusiones">
         <p>
-          {% for conclusion in datosproyecto.conclusionproyecto_set.all %}
-          {{ conclusion.conclusiones }}
-          {% endfor %}
+          {% autoescape off %}
+          {{datosproyecto.conclusionproyecto.conclusiones}}
+          {% endautoescape %}
         </p>
       </div>
     </div>
@@ -342,12 +353,12 @@
       <div class="titulos">
         <h3 class="subtitulo">XI. RECOMENDACIONES</h3>
       </div>
-      
+
       <div class="contenido tabla">
         <p>
-          {% for recomendacion in datosproyecto.recomendacionproyecto_set.all %}
-          {{ recomendacion.recomendaciones }}
-          {% endfor %}
+          {% autoescape off %}
+          {{datosproyecto.recomendacionproyecto.recomendaciones}}
+          {% endautoescape %}
         </p>
       </div>
     </div>
