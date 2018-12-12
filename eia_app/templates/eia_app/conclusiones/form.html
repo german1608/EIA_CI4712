@@ -11,11 +11,13 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-8">
-      <h3 class="mt-2">{% if form.instance.pk %}Editar{% else %}Agregar{% endif %} conclusión</h3>
+      <h3 class="mt-2">
+        {% if form.instance.pk %}Editar conclusión del proyecto "{{form.instance.proyecto}}"
+        {% else %}Agregar conclusión{% endif %}</h3>
       <hr class="mt-0 mb-4">
       <form method="post">
         {% csrf_token %}
-        {% bootstrap_field form.proyecto %}
+        {{form.proyecto.as_hidden}}
         {% bootstrap_field form.conclusiones %}
         <button type="submit" class="btn btn-primary">Guardar</button>
       </form>
