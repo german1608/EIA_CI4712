@@ -27,6 +27,8 @@ urlpatterns = [ #pylint: disable=invalid-name
             name='editar-datos-proyecto'),
     re_path(r'^datos_proyectos/borrar/(?P<pk>\d+)/$', DatosProyectoDelete.as_view(),
             name='borrar-datos-proyecto'),
+    re_path(r'^datos_proyectos/generar_pdf/(?P<pk>\d+)/$', ImprimirDatosDelProyecto.as_view(),
+            name='imprimir-datos-proyecto'),
     path('responsables/', ResponsableList.as_view(),
          name='lista-responsables'),
     path('responsables/nuevo/', ResponsableCreate.as_view(),
