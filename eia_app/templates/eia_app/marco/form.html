@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load bootstrap4 %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/quill.min.css' %}">
+<link href="{% static 'css/froala_editor.pkgd.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/froala_style.min.css' %}" rel="stylesheet" type="text/css" />
 {% endblock %}
+
 {% block content %}
 <div class="container">
   <div class="row justify-content-center">
@@ -13,12 +16,7 @@
       <form method="post">
         {% csrf_token %}
         {% bootstrap_field form.proyecto %}
-        {{form.contenido.as_hidden}}
-        {{form.contenido.errors}}
-        <div class="form-group">
-          <label for="exampleInputEmail1">{{form.contenido.label}}</label>
-          <div id="editor"></div>
-        </div>
+        {% bootstrap_field form.contenido %}
         <button type="submit" class="btn btn-primary">Guardar</button>
       </form>
     </div>
@@ -27,32 +25,10 @@
 {% endblock %}
 
 {% block js %}
-<script src="{% static 'js/quill.min.js' %}"></script>
+<script src="{% static 'js/froala_editor.pkgd.min.js' %}"></script>
 <script>
-  $(document).ready(function () {
-
-    // Initialize materialize data picker
-    const quill = new Quill('#editor', {
-      theme: 'snow',
-      placeholder: 'Introduzca su marco...'
-    })
-    {% if edicion %}
-    {% autoescape off %}
-    quill.setContents({{form.initial.contenido}})
-    {% endautoescape %}
-    {% endif %}
-
-    $('form').on('submit', function(e) {
-      console.log(quill.getText() === '\n')
-      if (quill.getText() === '\n') {
-        alert('Llene los datos del marco {{tipo_marco}}')
-        return false
-      }
-      $('#id_contenido').val(JSON.stringify(quill.getContents()))
-      return true
-    })
-  });
-
+  $(function () {
+    $('#id_contenido').froalaEditor()
+  })
 </script>
-
-{% endblock js %}
+{% endblock %}
