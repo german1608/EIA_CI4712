@@ -1,5 +1,5 @@
 '''Views del crud del consultor'''
-
+# pylint: disable=too-many-ancestors,too-few-public-methods
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView, DeleteView,
                                   FormView)
@@ -8,13 +8,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.db.models import Q
-from django.conf import settings
-from django_weasyprint import WeasyTemplateResponseMixin
 from django.http import Http404
+from django_weasyprint import WeasyTemplateResponseMixin
 from .models import (
-    Organizacion, Responsable, Solicitante,
+    Responsable, Solicitante,
     DatosProyecto, DatosDocumento, DescripcionProyecto,
-    RecomendacionProyecto, ConclusionProyecto
+    RecomendacionProyecto, ConclusionProyecto, Organizacion
 )
 from .forms import (
     OrganizacionCreateForm, SolicitanteCreateForm,
@@ -414,7 +413,8 @@ class DescripcionProyectoDelete(DeleteView):  # pylint: disable=too-many-ancesto
     template_name = 'eia_app/descripcion_proyecto/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
 
-class RecomendacionProyectoCreateUpdateBase:
+class RecomendacionProyectoCreateUpdateBase: # pylint: disable=too-few-public-methods
+    ''' Clase base para la creacion y edicion de recomendaciones '''
     model = RecomendacionProyecto
     form_class = RecomendacionProyectoCreateForm
     template_name = 'eia_app/recomendaciones_proyecto/form.html'
