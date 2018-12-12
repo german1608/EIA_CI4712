@@ -8,6 +8,7 @@ from django.db import models
 from django.core.validators import MinValueValidator
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _  # pylint: disable=unused-import
+from eia.validators import CI_VALIDATOR
 
 
 class DatosProyecto(models.Model):
@@ -70,11 +71,7 @@ class DatosPersona(models.Model):
                 'invalid')])
     cedula = models.CharField(
         max_length=8,
-        validators=[
-            RegexValidator(
-                re.compile('/^[V|E|J|P][0-9]{5,9}$/'),
-                _('Cédula incorrecta'),
-                'invalid')])
+        validators=[CI_VALIDATOR])
     pasaporte = models.IntegerField(validators=[MinValueValidator(0)])
 
 
@@ -124,11 +121,7 @@ class Organizacion(models.Model):
                 'invalid')])
     cedula_representante_legal = models.CharField(
         max_length=9,
-        validators=[
-            RegexValidator(
-                re.compile('^[V|E|J|P][0-9]{5,9}$'),
-                _('Cédula incorrecta'),
-                'invalid')])
+        validators=[CI_VALIDATOR])
     pasaporte_representante_legal = models.IntegerField(
         validators=[MinValueValidator(0)], blank=True, null=True)
     telefono = models.CharField(
@@ -180,11 +173,7 @@ class Solicitante(models.Model):
                 'invalid')])
     cedula = models.CharField(
         max_length=9,
-        validators=[
-            RegexValidator(
-                re.compile('^[V|E|J|P][0-9]{5,9}$'),
-                _('Cédula incorrecta'),
-                'invalid')])
+        validators=[CI_VALIDATOR])
     pasaporte = models.IntegerField(
         validators=[
             MinValueValidator(0)],
@@ -239,11 +228,7 @@ class Responsable(models.Model):
                 'invalid')])
     cedula = models.CharField(
         max_length=9,
-        validators=[
-            RegexValidator(
-                re.compile('^[V|E|J|P][0-9]{5,9}$'),
-                _('Cédula incorrecta'),
-                'invalid')])
+        validators=[CI_VALIDATOR])
     pasaporte = models.IntegerField(
         validators=[
             MinValueValidator(0)],

@@ -1,11 +1,13 @@
 '''Test para el crud del consultor '''
-from django.test import TestCase, Client
+# pylint: disable=too-many-lines
+from itertools import count
+from django.test import TestCase, tag
 from django.shortcuts import reverse
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from .forms import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .models import *  # pylint: disable=wildcard-import, unused-wildcard-import
-from .views import MarcoListView
+from .views import MarcoListView, delete_marco_view, MarcoDetailView, MarcoFormView
 
 # Create your tests here.
 
@@ -800,6 +802,7 @@ class DatosDocumentoTestCase(TestCase):
             pass
 
 
+@tag('marco')
 class MarcoFormTestCase(TestCase):
     """ Caso de pruebas para el formulario de marcos """
     fixtures = ['proyectos.json']
@@ -885,34 +888,57 @@ class MarcoFormTestCase(TestCase):
         )
 
 
-class MarcoListViewTestCase(TestCase):
+# pylint: disable=no-member, too-few-public-methods
+class MarcoHelper:
+    '''
+    Helper para los tests de marcos
+    '''
+    tipo_marcos = ['metodologico', 'teorico', 'juridico']
+
+    def login_util(self):
+        ''' Utility para loguearnos en las pruebas que lo requieran '''
+        consultor_ambiental = get_user_model().objects.get(username='especialistaesia')
+        self.client.login(
+            username=consultor_ambiental.username, password='jaja1234')
+        return consultor_ambiental
+
+
+@tag('marco')
+class MarcoListViewTestCase(MarcoHelper, TestCase):
     '''
     Prueba la vista de listado de los marcos.
     '''
     fixtures = ['users-and-groups.json', 'proyectos.json']
 
-    def setUp(self):
-        ''' Crea data inicial para cada prueba '''
-        self.client = Client()
-        super().setUp()
+    def test_login_required(self):
+        '''
+        Prueba que la vista tenga sus restricciones de autenticidad
+        '''
+        login_url = reverse('login')
+        for tipo_marco in self.tipo_marcos:
+            target_url = reverse('eia_app:lista-marcos', kwargs={
+                'tipo': tipo_marco
+            })
+            response = self.client.post(target_url)
+            actual = response
+            expected = login_url + '?next=' + target_url
+            self.assertRedirects(actual, expected)
 
-    def login_util(self):
-        ''' Utility para loguearnos en las pruebas que lo requieran '''
-        consultor_ambiental = get_user_model().objects.get(username='especialistaesia')
-        self.client.login(username=consultor_ambiental.username, password='jaja1234')
-        return consultor_ambiental
 
-    def test_view_existence(self): # pylint: disable=self-no-use
+    def test_view_existence(self): # pylint: disable=no-self-use
         ''' Prueba existencia de la vista que va a listar los marcos '''
         MarcoListView()
 
     def test_view_url_correspondence(self):
-        ''' Prueba que la vista que maneja el url de listado de marcos sea el dispatch() de MarcoListView '''
+        '''
+        Prueba que la vista que maneja el url de listado de marcos sea el
+        dispatch() de MarcoListView
+        '''
         # Primero nos logueamos
         self.login_util()
 
         # Probamos cada posible url
-        for tipo_marco in ['metodologico', 'teorico', 'juridico']:
+        for tipo_marco in self.tipo_marcos:
             with self.subTest(tipo_marco=tipo_marco):
                 target_url = reverse('eia_app:lista-marcos', kwargs={
                     'tipo': tipo_marco
@@ -925,7 +951,7 @@ class MarcoListViewTestCase(TestCase):
     def test_vista_redirige_cuando_no_esta_autenticado(self):
         ''' Prueba que la vista rediriga al login si el usuario no esta autenticado '''
         # Hacemos get del url que lista
-        for tipo_marco in ['metodologico', 'teorico', 'juridico']:
+        for tipo_marco in self.tipo_marcos:
             with self.subTest(tipo_marco=tipo_marco):
                 target_url = reverse('eia_app:lista-marcos', kwargs={
                     'tipo': tipo_marco
@@ -939,7 +965,7 @@ class MarcoListViewTestCase(TestCase):
         self.login_util()
 
         # Verificamos el listado de cada marco
-        for tipo_marco in ['metodologico', 'teorico', 'juridico']:
+        for tipo_marco in self.tipo_marcos:
             with self.subTest(tipo_marco=tipo_marco):
                 target_url = reverse('eia_app:lista-marcos', kwargs={
                     'tipo': tipo_marco
@@ -949,4 +975,365 @@ class MarcoListViewTestCase(TestCase):
                 expected = DatosProyecto.objects.filter(~Q(**{
                     'marco_{}'.format(tipo_marco): None
                 }))
-                self.assertEqual(list(actual), list(expected), 'El filtro de la vista de listado de marcos no esta funcionando')
+                self.assertEqual(list(actual), list(expected),
+                                 'El filtro de la vista de listado de marcos no esta funcionando')
+
+@tag('marco')
+class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
+    '''
+    Prueba la vista de eliminacion de marcos.
+    '''
+    fixtures = ['users-and-groups.json', 'proyectos.json']
+
+    def test_login_required(self):
+        '''
+        Prueba que la vista tenga sus restricciones de autenticidad
+        '''
+        login_url = reverse('login')
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+
+            target_url = reverse('eia_app:eliminar-marco', kwargs={
+                'tipo': tipo_marco,
+                'pk': marco.pk
+            })
+            response = self.client.post(target_url)
+            actual = response
+            expected = login_url + '?next=' + target_url
+            self.assertRedirects(actual, expected)
+
+    def test_view_url_correspondence(self):
+        '''
+        Prueba que la vista que maneja el url de listao de marcos sea
+        delete_marco_view
+        '''
+        # Primero nos logueamos
+        self.login_util()
+        # Probamos cada posible url
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+            with self.subTest(tipo_marco=tipo_marco):
+                target_url = reverse('eia_app:eliminar-marco', kwargs={
+                    'tipo': tipo_marco,
+                    'pk': marco.pk
+                })
+                response = self.client.get(target_url)
+                actual = response.resolver_match.func.__name__
+                expected = delete_marco_view.__name__
+                self.assertEqual(actual, expected, 'La vista no corresponde al url')
+
+    def test_view_marco_proyecto_no_existe(self):
+        '''
+        Prueba que la vista que maneja el url de listado responda
+        con un 404 cuando el proyecto con el marco asociado no exista
+        '''
+        # Priemro nos logueamos
+        self.login_util()
+        # Probamos cada posible url
+        for tipo_marco in self.tipo_marcos:
+            pk_a_eliminar = 0
+            for i in count(0):
+                try:
+                    DatosProyecto.objects.get(pk=i)
+                except DatosProyecto.DoesNotExist:
+                    pk_a_eliminar = i
+                    break
+
+            with self.subTest(tipo_marco=tipo_marco):
+                target_url = reverse('eia_app:eliminar-marco', kwargs={
+                    'tipo': tipo_marco,
+                    'pk': pk_a_eliminar
+                })
+                response = self.client.get(target_url)
+                self.assertEqual(response.status_code, 404, 'El proyecto no existe, pero la vista'
+                                                            'de eliminar no retorno 404')
+
+    def test_view_marco_proyecto_existe_marco_no(self):
+        '''
+        Prueba que la vista de eliminacion arroje 404 cuando el proyecto exista
+        pero este no tenga marco (de cada tipo) a eliminar
+        '''
+        # Nos logueamos
+        self.login_util()
+        # Probamos con cada tipo de marco
+        for tipo_marco in self.tipo_marcos:
+            pk_a_eliminar = 0
+            for i in count(0):
+                try:
+                    proyecto = DatosProyecto.objects.get(pk=i)
+                    marco = getattr(proyecto, 'marco_' + tipo_marco)
+                    if marco is None:
+                        pk_a_eliminar = i
+                        break
+                except DatosProyecto.DoesNotExist:
+                    pass
+            with self.subTest(tipo_marco=tipo_marco):
+                target_url = reverse('eia_app:eliminar-marco', kwargs={
+                    'tipo': tipo_marco,
+                    'pk': pk_a_eliminar
+                })
+                response = self.client.get(target_url)
+                self.assertEqual(response.status_code, 404, 'El proyecto no existe, pero la vista'
+                                                            'de eliminar no retorno 404')
+
+    def test_view_marco_proyecto_existe_marco_tambien(self):
+        '''
+        Prueba que la vista de eliminacion retorne codigo 200 cuando
+        el proyecto que se le pase tenga un marco asociado
+        '''
+        # Nos logueamos
+        self.login_util()
+        # Probamos con cada tipo de marco
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+            target_url = reverse('eia_app:eliminar-marco', kwargs={
+                'tipo': tipo_marco,
+                'pk': marco.pk
+            })
+            response = self.client.get(target_url)
+            actual = response.status_code
+            expected = 200
+            with self.subTest(tipo_marco=tipo_marco):
+                self.assertEqual(actual, expected, 'La vista de eliminacion no retorna codigo 200 '
+                                                   'cuando el mismo existe y tiene marco asociado')
+
+    def test_view_marco_post_correct(self):
+        '''
+        Prueba que la vista de eliminacion de marcos elimine
+        marcos correctamente cuando se haga el post
+        '''
+        # Nos logueamos
+        self.login_util()
+        # Probamos para cada marco
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+            # Verificamos que el marco escogido no sea None, es decir
+            # que tenga.
+            self.assertIsNotNone(getattr(marco, 'marco_' + tipo_marco))
+            target_url = reverse('eia_app:eliminar-marco', kwargs={
+                'tipo': tipo_marco,
+                'pk': marco.pk
+            })
+            # Hacemos el post para eliminar
+            self.client.post(target_url)
+            marco.refresh_from_db()
+            # Verificamos que sea none ahora
+            self.assertIsNone(getattr(marco, 'marco_' + tipo_marco))
+
+    def test_view_marco_post_redirects_to_list(self):
+        '''
+        Prueba que la vista de eliminacion rediriga a la de listado
+        cuando el marco sea eliminado correctamente
+        '''
+        # Nos logueamos
+        self.login_util()
+        # Probamos para cada marco
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+            # Verificamos que el marco escogido no sea None, es decir
+            # que tenga.
+            target_url = reverse('eia_app:eliminar-marco', kwargs={
+                'tipo': tipo_marco,
+                'pk': marco.pk
+            })
+            # Hacemos el post para eliminar
+            response = self.client.post(target_url)
+            actual = response
+            expected = reverse('eia_app:lista-marcos', kwargs={
+                'tipo': tipo_marco
+            })
+            self.assertRedirects(actual, expected)
+
+
+@tag('marco')
+class MarcoDetailViewTestCase(MarcoHelper, TestCase):
+    '''
+    Suite de pruebas para la vista de detalles de marcos
+    '''
+    fixtures = ['users-and-groups.json', 'proyectos.json']
+
+    def test_login_required(self):
+        '''
+        Prueba que la vista sea accedible solamente por usuarios autenticados
+        '''
+        login_url = reverse('login')
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+
+            target_url = reverse('eia_app:detalles-marco', kwargs={
+                'tipo': tipo_marco,
+                'pk': marco.pk
+            })
+            response = self.client.post(target_url)
+            actual = response
+            expected = login_url + '?next=' + target_url
+            self.assertRedirects(actual, expected)
+
+    def test_view_url_correspondence(self):
+        '''
+        Prueba que la vista que maneja el url de edicion de marcos sea
+        MarcoDetailView
+        '''
+        # Primero nos logueamos
+        self.login_util()
+        # Probamos cada posible url
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+            with self.subTest(tipo_marco=tipo_marco):
+                target_url = reverse('eia_app:detalles-marco', kwargs={
+                    'tipo': tipo_marco,
+                    'pk': marco.pk
+                })
+                response = self.client.get(target_url)
+                actual = response.resolver_match.func.__name__
+                expected = MarcoDetailView.as_view().__name__
+                self.assertEqual(actual, expected,
+                                 'La vista no corresponde al url')
+
+    def test_proyecto_no_existe(self):
+        '''
+        Prueba que la vista retorne 404 cuando el proyecto no exista
+        '''
+        # Primero nos logueamos
+        self.login_util()
+        for tipo_marco in self.tipo_marcos:
+            pk_a_eliminar = 0
+            for i in count(0):
+                try:
+                    DatosProyecto.objects.get(pk=i)
+                except DatosProyecto.DoesNotExist:
+                    pk_a_eliminar = i
+                    break
+            with self.subTest(tipo_marco=tipo_marco):
+                target_url = reverse('eia_app:detalles-marco', kwargs={
+                    'tipo': tipo_marco,
+                    'pk': pk_a_eliminar
+                })
+                response = self.client.get(target_url)
+                self.assertEqual(response.status_code, 404, 'El proyecto no existe, pero la vista'
+                                                            'de detalles no retorno 404')
+
+    def test_proyecto_existe_pero_no_marco(self):
+        '''
+        Prueba que la vista de detalles arroje 404 cuando el proyecto exista
+        pero este no tenga marco (de cada tipo) a eliminar
+        '''
+        # Nos logueamos
+        self.login_util()
+        # Probamos con cada tipo de marco
+        for tipo_marco in self.tipo_marcos:
+            pk_a_eliminar = 0
+            for i in count(0):
+                try:
+                    proyecto = DatosProyecto.objects.get(pk=i)
+                    marco = getattr(proyecto, 'marco_' + tipo_marco)
+                    if marco is None:
+                        pk_a_eliminar = i
+                        break
+                except DatosProyecto.DoesNotExist:
+                    pass
+            with self.subTest(tipo_marco=tipo_marco):
+                target_url = reverse('eia_app:detalles-marco', kwargs={
+                    'tipo': tipo_marco,
+                    'pk': pk_a_eliminar
+                })
+                response = self.client.get(target_url)
+                self.assertEqual(response.status_code, 404, 'El proyecto no existe, pero la vista'
+                                                            'de eliminar no retorno 404')
+
+    def test_proyecto_existe_marco_tambien(self):
+        '''
+        Prueba que la vista de detalles retorne codigo 200 cuando
+        el proyecto que se le pase tenga un marco asociado
+        '''
+        # Nos logueamos
+        self.login_util()
+        # Probamos con cada tipo de marco
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+            target_url = reverse('eia_app:detalles-marco', kwargs={
+                'tipo': tipo_marco,
+                'pk': marco.pk
+            })
+            response = self.client.get(target_url)
+            actual = response.status_code
+            expected = 200
+            with self.subTest(tipo_marco=tipo_marco):
+                self.assertEqual(actual, expected, 'La vista de detalles no retorna codigo 200 '
+                                                   'cuando el mismo existe y tiene marco asociado')
+
+    def test_marco_content(self):
+        '''
+        Prueba que la vista de detalles tenga el contenido del marco y
+        el tipo de marco correspondiente
+        '''
+        # Nos logueamos
+        self.login_util()
+        # Probamos con cada tipo de marco
+        for tipo_marco in self.tipo_marcos:
+            marco = DatosProyecto.objects.filter(~Q(**{
+                'marco_{}'.format(tipo_marco): None
+            })).first()
+            target_url = reverse('eia_app:eliminar-marco', kwargs={
+                'tipo': tipo_marco,
+                'pk': marco.pk
+            })
+            response = self.client.get(target_url)
+            contenido = getattr(marco, 'marco_' + tipo_marco)
+            with self.subTest(tipo_marco=tipo_marco):
+                self.assertContains(response, contenido)
+                self.assertContains(response, marco.titulo)
+
+@tag('marco')
+class MarcoFormViewTestCase(MarcoHelper, TestCase):
+    '''
+    Pruebas unitarias para para la vista de creacion y edicion
+    de marcos de proyectos
+    '''
+    fixtures = ['users-and-groups.json', 'proyectos.json']
+
+    def test_url_correspondence_agregar(self):
+        '''
+        Prueba que el url de la vista de form de marco use la vista
+        MarcoFormView
+        '''
+        self.login_util()
+        for tipo_marco in self.tipo_marcos:
+            target_url = reverse('eia_app:crear-marco', kwargs={
+                'tipo': tipo_marco
+            })
+            response = self.client.get(target_url)
+            actual = response.resolver_match.func.__name__
+            expected = MarcoFormView.as_view().__name__
+            self.assertEqual(actual, expected, 'La vista de crear marco no es MarcoFormView')
+
+    def test_login_required_agregar(self):
+        '''
+        Prueba que la vista de form de marco requiera autenticacion
+        '''
+        login_url = reverse('login')
+        for tipo_marco in self.tipo_marcos:
+            target_url = reverse('eia_app:crear-marco', kwargs={
+                'tipo': tipo_marco
+            })
+            response = self.client.get(target_url)
+            actual = response
+            expected = login_url + '?next=' + target_url
+            with self.subTest(tipo_marco=tipo_marco):
+                self.assertRedirects(actual, expected)

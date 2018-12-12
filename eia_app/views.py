@@ -1,16 +1,16 @@
 '''Views del crud del consultor'''
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView, DeleteView,
                                   FormView)
 from django.views.generic.base import ContextMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.conf import settings
-
 from django_weasyprint import WeasyTemplateResponseMixin
-
+from django.http import Http404
 from .models import (
     Organizacion, Responsable, Solicitante,
     DatosProyecto, DatosDocumento, DescripcionProyecto,
@@ -18,8 +18,7 @@ from .models import (
 )
 from .forms import (
     OrganizacionCreateForm, SolicitanteCreateForm,
-    ResponsableCreateForm, DatosDocumentoCreateForm, DatosProyectoCreateForm,
-    MarcoForm, DescripcionProyectoCreateForm,
+    DatosProyectoCreateForm, MarcoForm, DescripcionProyectoCreateForm,
     ResponsableCreateForm, DatosDocumentoCreateForm,
     RecomendacionProyectoCreateForm, ConclusionProyectoCreateForm
 )
@@ -333,6 +332,16 @@ class MarcoDetailView(CargaContextoMarcoMixin, DetailView): # pylint: disable=to
         context['contenido'] = contenido
         return context
 
+    def get(self, request, *a, **kw):
+        response = super().get(request, *a, **kw)
+        proyecto = self.object
+        tipo = kw.get('tipo')
+        marco = getattr(proyecto, 'marco_' + tipo)
+        if marco is None:
+            raise Http404('El proyecto no tiene marco ' + tipo + ' asociado')
+        return response
+
+@login_required
 def delete_marco_view(request, tipo, pk): # pylint: disable=invalid-name
     '''
     Maneja la eliminacion de marcos. La eliminacion de marcos consiste
@@ -341,7 +350,7 @@ def delete_marco_view(request, tipo, pk): # pylint: disable=invalid-name
         - tipo: tipo de marco a eliminar (metodologico|juridico|teorico)
         - pk: Primary key del proyecto cuyo marco se eliminara
     '''
-    proyecto = DatosProyecto.objects.get(pk=pk)
+    proyecto = get_object_or_404(DatosProyecto, **{'pk': pk})
     if request.method == 'GET':
         if tipo == 'metodologico':
             contenido = proyecto.marco_metodologico
@@ -353,7 +362,7 @@ def delete_marco_view(request, tipo, pk): # pylint: disable=invalid-name
             contenido = proyecto.marco_juridico
             tipo_marco = 'jurídico'
         if contenido is None:
-            return redirect('dashboard:index')
+            raise Http404('El proyecto escogido no tiene marco {} asociado'.format(tipo))
         return render(request, 'eia_app/marco/delete.html',
                       {'object':proyecto, 'contenido': contenido, 'tipo_marco': tipo_marco})
 

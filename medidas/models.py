@@ -1,9 +1,8 @@
 """
 Modelos para el modulo de medidas
 """
-import re
 from django.db import models
-from django.core.validators import RegexValidator
+from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _  # pylint: disable=unused-import
 
 # Create your models here.
@@ -30,19 +29,8 @@ class Medida(models.Model):
     descripcion = models.TextField(verbose_name='Descripción')
     marco_juridico = models.TextField(verbose_name='Marco Jurídico')
     area = models.TextField(verbose_name='Área')
-    nombre_responsable = models.CharField(max_length=100, verbose_name='Nombre del Responsable')
-    apellido_responsable = models.CharField(max_length=100, verbose_name='Apellido del Responsable')
-    nivel_academico_responsable = models.DecimalField(
-        verbose_name='Nivel Académico del Responsable',
-        max_digits=5,
-        decimal_places=4)
-    ci_responsable = models.CharField(
-        max_length=9,
-        validators=[
-            RegexValidator(
-                re.compile('^[V|E|J|P][0-9]{5,9}$'),
-                _('Cédula incorrecta'),
-                'invalid')])
+    responsable = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,
+                                    verbose_name='Responsable', null=True)
 
 class Impacto(models.Model):
     """ Tabla de Impactos que sirve de atributo multivalor para las medidas """

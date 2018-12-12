@@ -2,6 +2,7 @@
 # Script que corre las pruebas del proyecto
 find . -path ./env -prune -o \
     -path "*migrations*" -prune -o \
+    -path "*.vscode*" -prune -o \
     -name "*.py" -exec pylint --load-plugins=pylint_django {} + || exit 1
 
 # corremos las pruebas
