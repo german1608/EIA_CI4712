@@ -17,7 +17,11 @@
       <hr class="mt-0 mb-4">
       <form method="post">
         {% csrf_token %}
+        {% if form.instance.pk %}
         {{form.proyecto.as_hidden}}
+        {% else %}
+        {% bootstrap_field form.proyecto %}
+        {% endif %}
         {% bootstrap_field form.conclusiones %}
         <button type="submit" class="btn btn-primary">Guardar</button>
       </form>
