@@ -405,38 +405,31 @@ class DescripcionProyectoDelete(DeleteView):  # pylint: disable=too-many-ancesto
     template_name = 'eia_app/descripcion_proyecto/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
 
-class RecomendacionProyectoCreate(CreateView):  # pylint: disable=too-many-ancestors
-    '''Crear una RecomendacionProyecto'''
+class RecomendacionProyectoCreateUpdateBase:
     model = RecomendacionProyecto
     form_class = RecomendacionProyectoCreateForm
-    template_name = 'eia_app/create_form.html'
+    template_name = 'eia_app/recomendaciones_proyecto/form.html'
     success_url = reverse_lazy('consultor-crud:lista-recomendaciones-proyecto')
 
-    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
-        context = super(RecomendacionProyectoCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Datos de un documento"
-        return context
+class RecomendacionProyectoCreateView(RecomendacionProyectoCreateUpdateBase, CreateView):  # pylint: disable=too-many-ancestors
+    '''Crear una RecomendacionProyecto'''
 
 
-class RecomendacionProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+class RecomendacionProyectoUpdateView(RecomendacionProyectoCreateUpdateBase, UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una RecomendacionProyecto'''
-    model = RecomendacionProyecto
-    template_name = 'eia_app/create_form.html'
-    success_url = reverse_lazy('consultor-crud:lista-recomendaciones-proyecto')
-    fields = '__all__'
 
-class RecomendacionProyectoDetail(DetailView):  # pylint: disable=too-many-ancestors
+class RecomendacionProyectoDetailView(DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de un DescripcionProyecto'''
     model = RecomendacionProyecto
     template_name = 'eia_app/recomendaciones_proyecto/detail.html'
 
-class RecomendacionProyectoDelete(DeleteView):  # pylint: disable=too-many-ancestors
+class RecomendacionProyectoDeleteView(DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una RecomendacionProyecto'''
     model = RecomendacionProyecto
     template_name = 'eia_app/recomendaciones_proyecto/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-recomendaciones-proyecto')
 
-class RecomendacionProyectoList(ListView):  # pylint: disable=too-many-ancestors
+class RecomendacionProyectoListView(ListView):  # pylint: disable=too-many-ancestors
     '''Listar las RecomendacionProyecto'''
     model = RecomendacionProyecto
     template_name = 'eia_app/recomendaciones_proyecto/list.html'
