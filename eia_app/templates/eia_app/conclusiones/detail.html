@@ -1,26 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block css %}
+<link href="{% static 'css/froala_style.min.css' %}" rel="stylesheet" type="text/css" />
 {% endblock %}
+
 {% block content %}
 
-<h4>Detalles de la Conclusión del proyecto "{{object.proyecto}}"</h4>
+<h4>Conclusiones del proyecto "{{object.proyecto}}"</h4>
 <div class="container" style="width: 75%">
-  <div id="editor"></div>
+  <div class="fr-view">
+    {% autoescape off %}
+    {{object.conclusiones}}
+    {% endautoescape %}
+  </div>
 </div>
 {% endblock %}
-
-
-{% block js %}
-<script src="{% static 'js/quill.min.js' %}"></script>
-<script>
-  $(function () {
-    const quill = new Quill('#editor')
-    quill.disable()
-    {% autoescape off %}
-    quill.setContents({{contenido}})
-    {% endautoescape %}
-  })
-</script>
-{% endblock js %}
-  

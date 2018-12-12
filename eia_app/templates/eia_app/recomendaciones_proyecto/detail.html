@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/details.css' %}">
+<link href="{% static 'css/froala_style.min.css' %}" rel="stylesheet" type="text/css" />
 {% endblock %}
+
 {% block content %}
 
-<h4> Recomendaciones del proyecto: {{recomendacionproyecto.proyecto}}</h4>
-<div class="grid-container" style="margin-left:10%">
-
-                <div class="grid-item">
-                            <p class="title">Recomendaciones</p>
-                            <p>{{ recomendacionproyecto.recomendaciones}}</p>
-                </div>
+<h4>Recomendaciones del proyecto "{{object.proyecto}}"</h4>
+<div class="container" style="width: 75%">
+  <div class="fr-view">
+    {% autoescape off %}
+    {{object.recomendaciones}}
+    {% endautoescape %}
+  </div>
 </div>
-
 {% endblock %}
