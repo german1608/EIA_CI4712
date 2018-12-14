@@ -1,0 +1,75 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
+{% endblock %}
+
+{% block content %}
+	{% if form.errors %}
+	{% for fields in form %}
+	{% for error in fields.errors %}
+	<div class="alert alert2 {{ message.tags }} alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	  <span aria-hidden="true">&times;</span>
+	</button>
+	<i class=""><strong>{{ error }}</strong></i>
+	</div>
+	{% endfor %}
+	{% endfor %}
+	{% endif %}
+
+	<div class="row justify-content-center p-3 mb-3 titulo all-rounded">
+		<h1>Actividades</h1>
+	</div>
+
+	<div class="row justify-content-center mb-3">
+		<div class="col-md-10">
+			<input type="text" id="buscar-actividad" onkeypress="teclado()" name="buscar" class="buscar-p-sp" />
+		</div>
+		<div class="col-md-1">
+			<a class="btn btn-crud" onclick="buscar()"><i class="material-icons">search</i></a>
+		</div>
+	</div>
+
+
+	<div class="row justify-content-center mb-3">
+		<div class="col-md-10 col-sm-12" align="center">
+			<table id="actividades" class="tabla-plan">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Descripcion</th>
+						<th>Disciplina</th>
+						<th>Macro</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody id="contenido">
+					{% for m in actividades %}
+					<tr>
+						<td>{{m.nombre}}</td>
+						<td>{{m.descripcion}}</td>
+						<td>{{m.disciplina.nombre}}</td>
+						<td>{{m.macro.nombre}}</td>
+						<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href="{% url 'editar_actividad' m.id %}"><i class="material-icons">edit</i></a>
+							<a class="btn rounded" style="background: #4f6228; color: white;" onclick = "return confirm('¿Está seguro de eliminar esta actividad?')" href="{% url 'eliminar_actividad' m.id %}"><i class="material-icons">delete</i></a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-1">
+			<a class="btn rounded mb-3" id="agregar_plan" href="{% url 'agregar_actividad' %}" style="background: #4f6228; color: white;"><i class="material-icons">add</i></a>
+			<a class="btn rounded mb-3" id="disciplinas" href="{% url 'disciplinas' %}" style="background: #4f6228; color: white;">Disciplinas</a>
+			<a class="btn rounded mb-3" id="macros" href="{% url 'macros' %}" style="background: #4f6228; color: white;">Macros</a>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'configuracion/js/actividades.js' %}"></script>
+
+{% endblock %}

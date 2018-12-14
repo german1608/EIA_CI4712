@@ -4,6 +4,7 @@
 from django import forms
 from configuracion.models import Estudio, Intensidad, Duracion, Extension
 from configuracion.models import Reversibilidad, Probabilidad, Importancia
+from configuracion.models import Macro, Disciplina, Actividad, Plan, SubPlan
 
 class EstudioForm(forms.ModelForm):
     """
@@ -41,7 +42,7 @@ class EstudioForm(forms.ModelForm):
         }
 
         widgets = {
-            'nombre': forms.TextInput(attrs={'class':'browser-default', 'required':''}),
+            'nombre': forms.TextInput(attrs={'class':'form-control', 'required':''}),
             'tipo': forms.Select(attrs={'class':'form-control', 'required':''}),
             'valoracion_relevancia':forms.Select(attrs={'class':'form-control', 'required':''}),
             'tipo_relevancia': forms.Select(attrs={'class':'form-control', 'required':''}),
@@ -232,4 +233,184 @@ class ImportanciaForm(forms.ModelForm):
             'maximo':forms.TextInput(attrs={'class':'form-control', 'required':''}),
             'valor': forms.TextInput(attrs={'class':'form-control', 'required':''}),
         }
-        
+
+class MacroForm(forms.ModelForm):
+    """
+       Clase donde se crea el formulario de Macro
+    """
+    class Meta:
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Macro
+        """
+        model = Macro
+        fields = [
+            'nombre',
+            'descripcion',
+            'proyecto'
+        ]
+        labels = {
+            'nombre':'Nombre',
+            'descripcion':'Descripcion',
+            'proyecto': 'Proyecto'
+        }
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control', 'required':''}),
+            'descripcion':forms.Textarea(attrs={'class':'form-control', 'required':''}),
+            'proyecto':forms.TextInput(attrs={'class':'form-control', 'required':''}),
+        }
+
+class DisciplinaForm(forms.ModelForm):
+    """
+       Clase donde se crea el formulario de Disciplina
+    """
+    class Meta:
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Disciplina
+        """
+        model = Disciplina
+        fields = [
+            'nombre',
+            'descripcion',
+            'proyecto',
+        ]
+        labels = {
+            'nombre':'Nombre',
+            'descripcion':'Descripcion',
+            'proyecto': 'Proyecto'
+        }
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control', 'required':''}),
+            'descripcion':forms.Textarea(attrs={'class':'form-control', 'required':''}),
+            'proyecto':forms.TextInput(attrs={'class':'form-control', 'required':''}),
+        }
+
+class ActividadForm(forms.ModelForm):
+    """
+       Clase donde se crea el formulario de Actividad
+    """
+    class Meta:
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Actividad
+        """
+        model = Actividad
+        fields = [
+            'nombre',
+            'descripcion',
+            'disciplina',
+            'macro',
+            'amenazas',
+            'vulnerabilidades'
+        ]
+        labels = {
+            'nombre':'Nombre',
+            'descripcion':'Descripcion',
+            'disciplina':'Disciplina',
+            'macro':'Actividad Macro',
+            'amenazas':'Posibles amenazas',
+            'vulnerabilidades':'Posibles vulnerabilidades'
+        }
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control mb-3', 'required':''}),
+            'descripcion':forms.Textarea(attrs={'class':'form-control mb-3', 'required':''}),
+            'disciplina': forms.Select(attrs={'class':'form-control mb-3'}),
+            'macro': forms.Select(attrs={'class':'form-control mb-3', 'required':''}),
+            'amenazas':forms.Textarea(attrs={'class':'form-control mb-3'}),
+            'vulnerabilidades':forms.Textarea(attrs={'class':'form-control mb-3'}),
+        }
+
+class PlanForm(forms.ModelForm):
+    """
+       Clase donde se crea el formulario de Plan
+    """
+    class Meta:
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de Plan
+        """
+        model = Plan
+        fields = [
+            'nombre',
+            'medidas',
+            'objetivo_general',
+            'objetivo_especifico',
+            'alcance',
+            'metodologia',
+            'cronograma',
+            'responsable',
+            'costo',
+            'proyecto'
+        ]
+        labels = {
+            'nombre':'Nombre',
+            'medidas':'Medidas',
+            'objetivo_general':'Objectivo General',
+            'objetivo_especifico':'Objetivos Especificos',
+            'alcance':'Alcance',
+            'metodologia':'Metodologia a utilizar',
+            'cronograma':'Cronograma',
+            'responsable':'Responsable(s)',
+            'costo':'Costo estimado',
+            'proyecto':'Proyecto'
+        }
+        widgets = {
+            'nombre':forms.TextInput(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'medidas':forms.Textarea(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'objetivo_general':forms.TextInput(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'objetivo_especifico':forms.Textarea(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'alcance':forms.Textarea(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'metodologia':forms.Textarea(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'cronograma':forms.Textarea(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'responsable':forms.TextInput(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'costo':forms.TextInput(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'proyecto':forms.TextInput(
+                attrs={'class':'form-control mb-3', 'required':''}),
+        }
+
+class SubPlanForm(forms.ModelForm):
+    """
+       Clase donde se crea el formulario de SubPlan
+    """
+    class Meta:
+        """
+           Clase donde se indica el modelo que se quiere usar y se crea el
+           formulario de SubPLan
+        """
+        model = SubPlan
+        fields = [
+            'actividad',
+            'accion',
+            'plan_principal',
+            'tiempo',
+            'monto',
+        ]
+        labels = {
+            'actividad':'Actividad a realizar',
+            'accion':'Accion a implementar',
+            'plan_principal':'Plan de trabajo',
+            'tiempo': 'Duracion',
+            'monto':'Monto estimado'
+        }
+        widgets = {
+            'actividad':forms.TextInput(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'accion':forms.Textarea(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'plan_principal':forms.Select(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'tiempo':forms.TextInput(
+                attrs={'class':'form-control mb-3', 'required':''}),
+            'monto':forms.TextInput(
+                attrs={'class':'form-control mb-3', 'required':''}),
+        }
