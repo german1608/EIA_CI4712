@@ -1,6 +1,6 @@
 function buscar(){
 		//elemento a buscar
-		var texto = document.getElementById("busqueda")
+		var texto = document.getElementById("buscar-actividad")
 		// Validacion de seleccion
 		if (texto.value != ""){
 			var tbody = document.getElementById("contenido")
@@ -18,3 +18,11 @@ function buscar(){
 			}
 		}	
 	}
+
+function teclado(){
+	var input = document.getElementById("buscar-actividad")
+	input.addEventListener('keydown', presionaEnter)
+}
+function presionaEnter(evento){
+	if (evento.keyCode == 13) {buscar()}
+}

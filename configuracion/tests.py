@@ -597,15 +597,15 @@ class TestsIntegridadDatosTablasEstudio(TestCase): # pylint: disable=too-many-pu
         """
         aa
         """
-        # mac = Macro.objects.create(
-        #     nombre="test_macro",
-        #     descripcion="test_descripcion",
-        #     proyecto="test_proyecto")
+        mac = Macro.objects.create(
+            nombre="test_macro",
+            descripcion="test_descripcion",
+            proyecto="test_proyecto")
         mac2 = Macro.objects.filter(nombre="test_macro").first()
-        # dis = Disciplina.objects.create(
-        #     nombre="test_disciplina",
-        #     descripcion="test_descripcion",
-        #     proyecto="test_proyecto")
+        dis = Disciplina.objects.create(
+            nombre="test_disciplina",
+            descripcion="test_descripcion",
+            proyecto="test_proyecto")
         dis2 = Disciplina.objects.filter(nombre="test_disciplina").first()
         act = Actividad.objects.create(
             nombre="test_actividad",
@@ -670,7 +670,7 @@ class TestsIntegridadDatosTablasEstudio(TestCase): # pylint: disable=too-many-pu
             metodologia="metodologia",
             cronograma="crono",
             responsable="responsable",
-            costo="1",
+            costo=1,
             proyecto="p2"
         )
 
@@ -681,6 +681,8 @@ class TestsIntegridadDatosTablasEstudio(TestCase): # pylint: disable=too-many-pu
         """
         aa
         """
+        plan=""
+        se_creo=False
         try:
             plan = Plan.objects.create(
                 nombre="Test plan_2",
@@ -694,11 +696,12 @@ class TestsIntegridadDatosTablasEstudio(TestCase): # pylint: disable=too-many-pu
                 costo="wadawd",
                 proyecto="p2"
             )
+            se_creo=True
         except ValueError:
-            print("falla: "+str(plan))
+            #print("falla: "+str(plan))
             #Deberia fallar porque el costo no es un flotante
+            se_creo=False
 
-        se_creo = True
         if not "plan" in locals():
             se_creo = False
         self.assertFalse(se_creo)

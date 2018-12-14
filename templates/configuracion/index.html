@@ -3,10 +3,6 @@
 {% block css %}
 <script src="{% static 'configuracion/js/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'configuracion/js/datatable.js' %}"></script>
-
-
-
-<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/bootstrap.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 
 
@@ -16,26 +12,26 @@
 
 <div class="container h-100">
 	<div class="row justify-content-center pt-3">
-		<table id="tabk" class="n_tab col-sm-11" style="width: 100%">
+		<table id="tabk" class="col-sm-11" style="width: 100%">
 			<thead>
-				<tr class="no_m row cabecera">
+				<tr class="row cabecera">
 					<td class="col-sm-12" colspan="3">Elementos Ambientales</td>
 				</tr>
-				<tr class="no_m cabecera_2 row">
-					<td class="no_all col-sm-3 b_r">Medios Físico</td>
-					<td class="no_all col-sm-3">Medios Biológicos</td>
-					<td class="no_all col-sm-3 b_l">Medios Socio-Cultural</td>
+				<tr class="cabecera_2 row">
+					<td class="col-sm-3 b_r">Medios Físico</td>
+					<td class="col-sm-3">Medios Biológicos</td>
+					<td class="col-sm-3 b_l">Medios Socio-Cultural</td>
 				</tr>
 			</thead>
 			<tbody>
 			{% if lista %}
 			{% for estudio in lista %}
-			<tr class="no_m row">
+			<tr class="row">
 				{% for x in estudio %}
 				{% if x%}
-				<td class="no_all col-sm-3" > <a name="{{x.id}}"href="{% url 'editar_estudio' x.id %}">{{x.nombre}}</a> </td>
+				<td class="col-sm-3" > <a name="{{x.id}}"href="{% url 'editar_estudio' x.id %}">{{x.nombre}}</a> </td>
 				{% else %}
-				<td class="no_all col-sm-3"> </td>
+				<td class="col-sm-3"> </td>
 				{% endif %}
 				{% endfor %}
 			</tr>
