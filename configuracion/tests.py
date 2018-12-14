@@ -597,12 +597,12 @@ class TestsIntegridadDatosTablasEstudio(TestCase): # pylint: disable=too-many-pu
         """
         aa
         """
-        mac = Macro.objects.create(
+        mac = Macro.objects.create( #pylint: disable=unused-variable
             nombre="test_macro",
             descripcion="test_descripcion",
             proyecto="test_proyecto")
         mac2 = Macro.objects.filter(nombre="test_macro").first()
-        dis = Disciplina.objects.create(
+        dis = Disciplina.objects.create( #pylint: disable=unused-variable
             nombre="test_disciplina",
             descripcion="test_descripcion",
             proyecto="test_proyecto")
@@ -681,8 +681,8 @@ class TestsIntegridadDatosTablasEstudio(TestCase): # pylint: disable=too-many-pu
         """
         aa
         """
-        plan=""
-        se_creo=False
+        plan = "" #pylint: disable=possibly-unused-variable
+        se_creo = False
         try:
             plan = Plan.objects.create(
                 nombre="Test plan_2",
@@ -696,11 +696,11 @@ class TestsIntegridadDatosTablasEstudio(TestCase): # pylint: disable=too-many-pu
                 costo="wadawd",
                 proyecto="p2"
             )
-            se_creo=True
+            se_creo = True
         except ValueError:
             #print("falla: "+str(plan))
             #Deberia fallar porque el costo no es un flotante
-            se_creo=False
+            se_creo = False
 
         if not "plan" in locals():
             se_creo = False
