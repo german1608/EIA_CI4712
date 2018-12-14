@@ -111,188 +111,106 @@ class KaraotaTests(TestCase): # pylint: disable=too-many-public-methods
         """
             se verifica que nadie cambio el nivel de relevancia
         """
-
-        nivel_relevancia_2 = (
+        self.assertEqual(NIVEL_RELEVANCIA, (
             ('A', 'Alto'),
             ('M', 'Medio'),
             ('B', 'Bajo'),
-            )
-
-        self.assertEqual(NIVEL_RELEVANCIA[0][0], nivel_relevancia_2[0][0])
-        self.assertEqual(NIVEL_RELEVANCIA[1][0], nivel_relevancia_2[1][0])
-        self.assertEqual(NIVEL_RELEVANCIA[2][0], nivel_relevancia_2[2][0])
-
-        self.assertEqual(NIVEL_RELEVANCIA[0][1], nivel_relevancia_2[0][1])
-        self.assertEqual(NIVEL_RELEVANCIA[1][1], nivel_relevancia_2[1][1])
-        self.assertEqual(NIVEL_RELEVANCIA[2][1], nivel_relevancia_2[2][1])
+            ))
 
     def test_no_cambiaron_tipo_relevancia(self):
         """
             se verifica que nadie cambio el nivel de relevancia
         """
-        tipo_relevancia_2 = (
+        self.assertEqual(TIPO_RELEVANCIA, (
             ('DI', 'Directo'),
             ('IN', 'Indirecto'),
-        )
-        self.assertEqual(TIPO_RELEVANCIA[0][0], tipo_relevancia_2[0][0])
-        self.assertEqual(TIPO_RELEVANCIA[1][0], tipo_relevancia_2[1][0])
-
-        self.assertEqual(TIPO_RELEVANCIA[0][1], tipo_relevancia_2[0][1])
-        self.assertEqual(TIPO_RELEVANCIA[1][1], tipo_relevancia_2[1][1])
+        ))
 
     def test_no_cambiaron_grado_perturbacion(self):
         """
             se verifica que nadie cambio el nivel de relevancia
         """
-        grado_pertubacion_2 = (
+        self.assertEqual(GRADO_PERTUBACION, (
             ('F', 'Fuerte'),
             ('M', 'Medio'),
             ('S', 'Suave'),
-        )
-        self.assertEqual(GRADO_PERTUBACION[0][0], grado_pertubacion_2[0][0])
-        self.assertEqual(GRADO_PERTUBACION[1][0], grado_pertubacion_2[1][0])
-        self.assertEqual(GRADO_PERTUBACION[2][0], grado_pertubacion_2[2][0])
-
-        self.assertEqual(GRADO_PERTUBACION[0][1], grado_pertubacion_2[0][1])
-        self.assertEqual(GRADO_PERTUBACION[1][1], grado_pertubacion_2[1][1])
-        self.assertEqual(GRADO_PERTUBACION[2][1], grado_pertubacion_2[2][1])
+        ))
 
     def test_no_cambiaron_valor_sa(self):
         """
             se verifica que nadie cambio los valores_sa
         """
-        valor_sa_2 = (
+        self.assertEqual(VALOR_SA, (
             ('MA', 'Muy Alto'),
             ('A', 'Alto'),
             ('M', 'Medio'),
             ('B', 'Bajo'),
-        )
-        self.assertEqual(VALOR_SA[0][0], valor_sa_2[0][0])
-        self.assertEqual(VALOR_SA[1][0], valor_sa_2[1][0])
-        self.assertEqual(VALOR_SA[2][0], valor_sa_2[2][0])
-        self.assertEqual(VALOR_SA[3][0], valor_sa_2[3][0])
-
-        self.assertEqual(VALOR_SA[0][1], valor_sa_2[0][1])
-        self.assertEqual(VALOR_SA[1][1], valor_sa_2[1][1])
-        self.assertEqual(VALOR_SA[2][1], valor_sa_2[2][1])
-        self.assertEqual(VALOR_SA[3][1], valor_sa_2[3][1])
+        ))
 
     def test_no_cambiaron_ext_clasificacion(self):
         """
             se verifica que nadie cambio ext_clasificacion
         """
-        ext = (
+        self.assertEqual(EXT_CLASIFICACION, (
             ('GE', 'Generalizada (>75%)'),
             ('EX', 'Extensiva (35-74%)'),
             ('LO', 'Local (10-34%)'),
             ('PU', 'Puntual (<10%)'),
-            )
-        self.assertEqual(EXT_CLASIFICACION[0][0], ext[0][0])
-        self.assertEqual(EXT_CLASIFICACION[1][0], ext[1][0])
-        self.assertEqual(EXT_CLASIFICACION[2][0], ext[2][0])
-        self.assertEqual(EXT_CLASIFICACION[3][0], ext[3][0])
-
-        self.assertEqual(EXT_CLASIFICACION[0][1], ext[0][1])
-        self.assertEqual(EXT_CLASIFICACION[1][1], ext[1][1])
-        self.assertEqual(EXT_CLASIFICACION[2][1], ext[2][1])
-        self.assertEqual(EXT_CLASIFICACION[3][1], ext[3][1])
+            ))
 
     def test_no_cambiaron_dur_criterios(self):
         """
             se verifica que nadie cambio dur_clasifiacion
         """
-        dur = (
+        self.assertEqual(DUR_CRITERIOS, (
             ('M2', 'Menos de 2 años'),
             ('M2-5', '2 a 5 años'),
             ('M5-10', '5 a 10 años'),
             ('M10', 'Mas de 10 años'),
-            )
-        self.assertEqual(DUR_CRITERIOS[0][0], dur[0][0])
-        self.assertEqual(DUR_CRITERIOS[1][0], dur[1][0])
-        self.assertEqual(DUR_CRITERIOS[2][0], dur[2][0])
-        self.assertEqual(DUR_CRITERIOS[3][0], dur[3][0])
-
-        self.assertEqual(DUR_CRITERIOS[0][1], dur[0][1])
-        self.assertEqual(DUR_CRITERIOS[1][1], dur[1][1])
-        self.assertEqual(DUR_CRITERIOS[2][1], dur[2][1])
-        self.assertEqual(DUR_CRITERIOS[3][1], dur[3][1])
+            ))
 
     def test_no_cambiaron_rev_clasificacion(self):
         """
             se verifica que nadie cambio rev_clasificacion
         """
-        rev = (
+        self.assertEqual(REV_CLASIFICACION, (
             ('IR', 'Irreversible'),
             ('TR', 'Requiere Tratamiento'),
             ('MR', 'Medianamente Reversible'),
             ('RE', 'Reversible'),
-            )
-        self.assertEqual(REV_CLASIFICACION[0][0], rev[0][0])
-        self.assertEqual(REV_CLASIFICACION[1][0], rev[1][0])
-        self.assertEqual(REV_CLASIFICACION[2][0], rev[2][0])
-        self.assertEqual(REV_CLASIFICACION[3][0], rev[3][0])
-
-        self.assertEqual(REV_CLASIFICACION[0][1], rev[0][1])
-        self.assertEqual(REV_CLASIFICACION[1][1], rev[1][1])
-        self.assertEqual(REV_CLASIFICACION[2][1], rev[2][1])
-        self.assertEqual(REV_CLASIFICACION[3][1], rev[3][1])
+            ))
 
     def test_no_cambiaron_probabilidad(self):
         """
             se verifica que nadie cambio rev_clasificacion
         """
-        pro = (
+        self.assertEqual(PROBABILIDAD, (
             ('A', 'Alta'),
             ('M', 'Media'),
             ('B', 'Baja'),
             ('N', 'Nula'),
-            )
-        self.assertEqual(PROBABILIDAD[0][0], pro[0][0])
-        self.assertEqual(PROBABILIDAD[1][0], pro[1][0])
-        self.assertEqual(PROBABILIDAD[2][0], pro[2][0])
-        self.assertEqual(PROBABILIDAD[3][0], pro[3][0])
-
-        self.assertEqual(PROBABILIDAD[0][1], pro[0][1])
-        self.assertEqual(PROBABILIDAD[1][1], pro[1][1])
-        self.assertEqual(PROBABILIDAD[2][1], pro[2][1])
-        self.assertEqual(PROBABILIDAD[3][1], pro[3][1])
+            ))
 
     def test_no_cambiaron_nivel_importancia(self):
         """
             se verifica que nadie cambio rev_clasificacion
         """
-        niv = (
+        self.assertEqual(NIVEL_IMPORTANCIA, (
             ('MA', 'Muy Alta'),
             ('A', 'Alta'),
             ('M', 'Media'),
             ('B', 'Baja'),
-            )
-        self.assertEqual(NIVEL_IMPORTANCIA[0][0], niv[0][0])
-        self.assertEqual(NIVEL_IMPORTANCIA[1][0], niv[1][0])
-        self.assertEqual(NIVEL_IMPORTANCIA[2][0], niv[2][0])
-        self.assertEqual(NIVEL_IMPORTANCIA[3][0], niv[3][0])
-
-        self.assertEqual(NIVEL_IMPORTANCIA[0][1], niv[0][1])
-        self.assertEqual(NIVEL_IMPORTANCIA[1][1], niv[1][1])
-        self.assertEqual(NIVEL_IMPORTANCIA[2][1], niv[2][1])
-        self.assertEqual(NIVEL_IMPORTANCIA[3][1], niv[3][1])
+            ))
 
     def test_no_cambiaron_medios(self):
         """
             se verifica que nadie cambio rev_clasificacion
         """
-        med = (
+        self.assertEqual(MEDIOS, (
             ('FS', 'Fisico'),
             ('BIO', 'Biologico'),
             ('SC', 'Socio-Cultural'),
-            )
-        self.assertEqual(MEDIOS[0][0], med[0][0])
-        self.assertEqual(MEDIOS[1][0], med[1][0])
-        self.assertEqual(MEDIOS[2][0], med[2][0])
-
-        self.assertEqual(MEDIOS[0][1], med[0][1])
-        self.assertEqual(MEDIOS[1][1], med[1][1])
-        self.assertEqual(MEDIOS[2][1], med[2][1])
+            ))
 
     def test_http_reponse_ok_tabla(self):
         """
