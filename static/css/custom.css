@@ -65,7 +65,9 @@ footer{
   left: 0;
   bottom: 0;
   width: 100%;
+  padding-right: 10px;
   text-align: center;
+  position: fixed;
 }
 
 ul>li>a>i{
