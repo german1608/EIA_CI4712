@@ -6,6 +6,7 @@
   display: flex;
   width: 100%;
   align-items: stretch;
+  padding-bottom: 60px;
 }
 
 #sidebar {
