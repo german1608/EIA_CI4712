@@ -1,0 +1,25 @@
+{
+  "name": "Ing_Software_II",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.com/german1608/EIA_CI4712.svg?token=aqTuGezTjtpGskdvd7vs&branch=master)](https://travis-ci.com/german1608/EIA_CI4712)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/german1608/EIA_CI4712.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/german1608/EIA_CI4712/issues"
+  },
+  "homepage": "https://github.com/german1608/EIA_CI4712#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2"
+  },
+  "devDependencies": {}
+}
