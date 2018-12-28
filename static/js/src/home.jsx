@@ -39,37 +39,46 @@ class SeleccionProyectoForm extends React.Component {
     }
 
     render(){
-        const proyectos = ['Proyecto 1', 'Proyecto 2', 'Proyecto 3']
-        const listaProyectos = proyectos.map((proyecto) => 
-            <option value={proyecto}>{proyecto}</option>
+        const proyectosActuales = this.props.listaProyectos
+        const listaProyectos = proyectosActuales.map((proyecto) => 
+            <option value={proyecto.pk}>{proyecto.titulo}</option>
         );
         
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="">
-                        <select className="custom-select" value={this.state.value} onChange={this.handleChange}>
-                            <option value>Proyecto a editar</option>
-                            {listaProyectos}
-                        </select>
-                    </label>
-                    <input className="btn btn-primary botonSeleccionar" type="submit" value="Elegir"/>
-                </form>
-            </div>
+            <form onSubmit={this.handleSubmit}>
+                <label htmlFor="">
+                    <select className="custom-select" value={this.state.value} onChange={this.handleChange}>
+                        <option value>Proyecto a editar</option>
+                        {listaProyectos}
+                    </select>
+                </label>
+                <input className="btn btn-primary botonSeleccionar" type="submit" value="Elegir"/>
+            </form>
         );
     }
 }
 
 // Funcion que renderiza toda la aplicacion
-function App(){
+function App(props){
     return (
         <div className="seleccionarUnProyecto">
             <Welcome nombre="Daniel" proyectoSeleccionado="" />
-            <SeleccionProyectoForm nombreProyecto=""/>
+            <SeleccionProyectoForm nombreProyecto="" listaProyectos={props.contextoProyectos}/>
         </div>
     )
 }
-ReactDOM.render(
-    <App />,
-    document.getElementById('seleccionarProyecto')
-);
+
+
+$.ajax({
+    url: "proyectos/",
+    type: "GET",
+    dataType: "json",
+    contentType: "application/json",
+    success: function(json){
+        const listaProyectos = json["results"];
+        ReactDOM.render(
+            <App contextoProyectos={listaProyectos}/>,
+            document.getElementById('seleccionarProyecto')
+        ); 
+    }
+})

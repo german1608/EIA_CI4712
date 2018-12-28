@@ -72,37 +72,33 @@ var SeleccionProyectoForm = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var proyectos = ['Proyecto 1', 'Proyecto 2', 'Proyecto 3'];
-            var listaProyectos = proyectos.map(function (proyecto) {
+            var proyectosActuales = this.props.listaProyectos;
+            var listaProyectos = proyectosActuales.map(function (proyecto) {
                 return React.createElement(
                     'option',
-                    { value: proyecto },
-                    proyecto
+                    { value: proyecto.pk },
+                    proyecto.titulo
                 );
             });
 
             return React.createElement(
-                'div',
-                null,
+                'form',
+                { onSubmit: this.handleSubmit },
                 React.createElement(
-                    'form',
-                    { onSubmit: this.handleSubmit },
+                    'label',
+                    { htmlFor: '' },
                     React.createElement(
-                        'label',
-                        { htmlFor: '' },
+                        'select',
+                        { className: 'custom-select', value: this.state.value, onChange: this.handleChange },
                         React.createElement(
-                            'select',
-                            { className: 'custom-select', value: this.state.value, onChange: this.handleChange },
-                            React.createElement(
-                                'option',
-                                { value: true },
-                                'Proyecto a editar'
-                            ),
-                            listaProyectos
-                        )
-                    ),
-                    React.createElement('input', { className: 'btn btn-primary botonSeleccionar', type: 'submit', value: 'Elegir' })
-                )
+                            'option',
+                            { value: true },
+                            'Proyecto a editar'
+                        ),
+                        listaProyectos
+                    )
+                ),
+                React.createElement('input', { className: 'btn btn-primary botonSeleccionar', type: 'submit', value: 'Elegir' })
             );
         }
     }]);
@@ -113,12 +109,22 @@ var SeleccionProyectoForm = function (_React$Component) {
 // Funcion que renderiza toda la aplicacion
 
 
-function App() {
+function App(props) {
     return React.createElement(
         'div',
         { className: 'seleccionarUnProyecto' },
         React.createElement(Welcome, { nombre: 'Daniel', proyectoSeleccionado: '' }),
-        React.createElement(SeleccionProyectoForm, { nombreProyecto: '' })
+        React.createElement(SeleccionProyectoForm, { nombreProyecto: '', listaProyectos: props.contextoProyectos })
     );
 }
-ReactDOM.render(React.createElement(App, null), document.getElementById('seleccionarProyecto'));
+
+$.ajax({
+    url: "proyectos/",
+    type: "GET",
+    dataType: "json",
+    contentType: "application/json",
+    success: function success(json) {
+        var listaProyectos = json["results"];
+        ReactDOM.render(React.createElement(App, { contextoProyectos: listaProyectos }), document.getElementById('seleccionarProyecto'));
+    }
+});
