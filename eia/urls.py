@@ -20,10 +20,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve
 from rest_framework import routers
-from dashboard import views 
+from dashboard import views
 
-router = routers.DefaultRouter()
-router.register(r'proyectos', views.DashboardViewSet)
+ROUTER = routers.DefaultRouter()
+ROUTER.register(r'proyectos', views.DashboardViewSet)
 
 
 urlpatterns = [
@@ -33,7 +33,7 @@ urlpatterns = [
     path('', include('dashboard.urls')),
     path('configuracion/', include("configuracion.urls")),
     path('medidas/', include("medidas.urls")),
-    url(r'^', include(router.urls)),
+    url(r'^', include(ROUTER.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, },
             name='media'),
