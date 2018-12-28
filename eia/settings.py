@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'materializecssform',
     'medidas',
     'crispy_forms',
-    'behave_django'
+    'behave_django',
+    'rest_framework',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -153,3 +154,9 @@ LOGOUT_REDIRECT_URL = LOGIN_URL
 
 # Emails
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Tamano de pagina maximo en la paginacion hecha por rest framework
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
