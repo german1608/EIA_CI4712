@@ -362,3 +362,24 @@ div.quick-links a {
     font-size: 32px;
   }
 }
+
+/* Parte del css que estiliza el home donde esta la seleccion de un proyecto */
+.seleccionarUnProyecto {
+  text-align: center;
+  height: 200px;
+  width: 500px;
+  border-style: solid;
+  border-color: #4f6228;
+  border-width: 5px;
+  border-radius: 50px;
+}
+
+.botonSeleccionar {
+  margin-left: 5px;
+  background-color: #3c763d;
+  border-color: #3c763d;
+}
+
+.mensajeEntrada{
+  margin-top: 10px;
+}
