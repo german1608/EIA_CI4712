@@ -47,7 +47,6 @@ urlpatterns = [
     path('users/', include("users.urls")),
     path('', include('dashboard.urls')),
     path('configuracion/', include("configuracion.urls")),
-    path('medidas/', include("medidas.urls")),
     url(r'^', include(ROUTER.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, },

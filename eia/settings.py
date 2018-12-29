@@ -51,11 +51,9 @@ INSTALLED_APPS = [
     'bootstrap4',
     'materializecssform',
     'medidas',
-    'crispy_forms',
     'behave_django',
     'rest_framework',
     'request_middleware',
-    'medidas',
     'crispy_forms',
 ]
 

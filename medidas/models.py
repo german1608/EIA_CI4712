@@ -32,14 +32,16 @@ class Medida(models.Model):
     descripcion = models.TextField(verbose_name='Descripción')
     marco_juridico = models.TextField(verbose_name='Marco Jurídico')
     area = models.TextField(verbose_name='Área')
-    nombre_responsable = models.CharField(max_length=100, verbose_name='Nombre del Responsable')
-    apellido_responsable = models.CharField(max_length=100, verbose_name='Apellido del Responsable')
+    nombre_responsable = models.CharField(max_length=100, null=True, verbose_name='Nombre del Responsable')
+    apellido_responsable = models.CharField(max_length=100, null=True, verbose_name='Apellido del Responsable')
     nivel_academico_responsable = models.DecimalField(
         verbose_name='Nivel Académico del Responsable',
+        null=True,
         max_digits=5,
         decimal_places=4)
     ci_responsable = models.CharField(
         max_length=9,
+        null=True,
         validators=[
             RegexValidator(
                 re.compile('^[V|E|J|P][0-9]{5,9}$'),
