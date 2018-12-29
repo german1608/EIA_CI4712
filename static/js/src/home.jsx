@@ -5,7 +5,7 @@ function Welcome(props) {
     // Condicional que permite dar la bienvenidad si es la primera vez que se loggea
     if (props.proyectoSeleccionado === '') {
         bienvenida = (
-            <div className="mensajeEntrada content">
+            <div className="mensajeEntrada">
                 <h1>Bienvenido, {props.nombre}</h1>
                 <h2>Selecciona un proyecto</h2>
             </div>
@@ -45,7 +45,7 @@ class SeleccionProyectoForm extends React.Component {
         );
         
         return (
-            <form className="content" onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
                 <label htmlFor="">
                     <select className="custom-select" value={this.state.value} onChange={this.handleChange}>
                         <option value>Proyecto a editar</option>

@@ -13,7 +13,7 @@ function Welcome(props) {
     if (props.proyectoSeleccionado === '') {
         bienvenida = React.createElement(
             'div',
-            { className: 'mensajeEntrada content' },
+            { className: 'mensajeEntrada' },
             React.createElement(
                 'h1',
                 null,
@@ -83,7 +83,7 @@ var SeleccionProyectoForm = function (_React$Component) {
 
             return React.createElement(
                 'form',
-                { className: 'content', onSubmit: this.handleSubmit },
+                { onSubmit: this.handleSubmit },
                 React.createElement(
                     'label',
                     { htmlFor: '' },
