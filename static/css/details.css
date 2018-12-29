@@ -16,4 +16,17 @@
 .title{
   font-weight: bold;
   color: #77933c;
+  display: inline-block;
+  padding-right: 2%;
 }
+
+.p{
+  color: gray;
+  display: inline-block;
+}
+
+.l{
+  color: gray;
+  padding-left: 5%;
+}
+

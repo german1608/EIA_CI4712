@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.conf.urls import url
 from django.urls import path, include, re_path
@@ -25,10 +26,24 @@ from dashboard import views
 ROUTER = routers.DefaultRouter()
 ROUTER.register(r'proyectos', views.ProyectosViewSet, basename="DatosProyecto")
 
+from eia_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('consultor-crud/', include('eia_app.urls', namespace='consultor-crud')),
+    path(
+        'consultor-crud/',
+        views.consultor_index,
+        name='consultor-crud-index'),
+    path(
+        'consultor-crud/',
+        include(
+            'eia_app.urls',
+            namespace='consultor-crud')),
+    path(
+        'medidas/',
+        include(
+            'medidas.urls',
+            namespace='medidas')),
     path('users/', include("users.urls")),
     path('', include('dashboard.urls')),
     path('configuracion/', include("configuracion.urls")),
@@ -38,3 +53,4 @@ urlpatterns = [
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, },
             name='media'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

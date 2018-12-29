@@ -6,15 +6,20 @@
 
 {% block content %}
 
-<h3>Lista de medidas</h3>
+<div class="card">
+  <h3 style="padding-top: 10px; padding-bottom: 10px; padding-left: 20px; color: gray;">Lista de Medidas</h3>
+</div>
+
 <p>
-  <button type="button" class="btn btn-info"> <a href="{% url "medidas:nueva-medida" %}">Agregar medida</a></button>
+  <a href="{% url 'medidas:nueva-medida' %}" class="btn btn-info">Agregar medida</a>
 </p>
+
+<br>
 <div class="container" style="width:90% !important">
     {%if object_list.count > 0%}
       <table id="tablamedidas" class="display">
         <thead>
-            <tr>
+            <tr style="color: white;">
                 <th>Nombre</th>
                 <th>Tipo</th>
                 <th>Medio</th>

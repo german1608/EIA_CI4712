@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'behave_django',
     'rest_framework',
     'request_middleware',
+    'medidas',
+    'crispy_forms',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
