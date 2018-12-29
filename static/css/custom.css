@@ -1944,32 +1944,6 @@ header .form-inline {
   }
 }
 
-/* Parte del css que estiliza el home donde esta la seleccion de un proyecto */
-.seleccionarUnProyecto {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  min-height: 200px;
-  width: 500px;
-  border-style: solid;
-  border-color: #4f6228;
-  border-width: 5px;
-  border-radius: 50px;
-}
-
-.botonSeleccionar {
-  margin-left: 5px;
-  background-color: #3c763d;
-  border-color: #3c763d;
-}
-
-.mensajeEntrada{
-  margin-top: 10px;
-}
-
-.content {
-  flex: 1;
-}
 .stat-widget-two .stat-digit {
   font-size: 1.75rem;
   font-weight: 500;
