@@ -23,7 +23,7 @@ from rest_framework import routers
 from dashboard import views
 
 ROUTER = routers.DefaultRouter()
-ROUTER.register(r'proyectos', views.DashboardViewSet)
+ROUTER.register(r'proyectos', views.DashboardViewSet, basename="proyecto")
 
 
 urlpatterns = [
