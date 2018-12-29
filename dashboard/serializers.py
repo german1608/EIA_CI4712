@@ -5,6 +5,16 @@
 """
 from rest_framework import serializers
 from eia_app.models import DatosProyecto
+from users.models import Usuario
+
+class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
+    '''
+    Clase que se encarga de producir el json con la informacion
+    de un usuario
+    '''
+    class Meta:
+        model = Usuario
+        fields = ('first_name', 'last_name')
 
 class DatosProyectoSerializer(serializers.HyperlinkedModelSerializer):
     '''
