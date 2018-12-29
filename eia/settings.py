@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'behave_django',
     'rest_framework',
+    'request_middleware',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -67,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'request_middleware.middleware.RequestMiddleware',
 ]
 
 ROOT_URLCONF = 'eia.urls'
