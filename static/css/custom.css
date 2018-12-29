@@ -365,8 +365,10 @@ div.quick-links a {
 
 /* Parte del css que estiliza el home donde esta la seleccion de un proyecto */
 .seleccionarUnProyecto {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  height: 200px;
+  min-height: 200px;
   width: 500px;
   border-style: solid;
   border-color: #4f6228;
@@ -382,4 +384,8 @@ div.quick-links a {
 
 .mensajeEntrada{
   margin-top: 10px;
+}
+
+.content {
+  flex: 1;
 }

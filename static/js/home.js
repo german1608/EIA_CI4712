@@ -13,7 +13,7 @@ function Welcome(props) {
     if (props.proyectoSeleccionado === '') {
         bienvenida = React.createElement(
             'div',
-            { className: 'mensajeEntrada' },
+            { className: 'mensajeEntrada content' },
             React.createElement(
                 'h1',
                 null,
@@ -83,7 +83,7 @@ var SeleccionProyectoForm = function (_React$Component) {
 
             return React.createElement(
                 'form',
-                { onSubmit: this.handleSubmit },
+                { className: 'content', onSubmit: this.handleSubmit },
                 React.createElement(
                     'label',
                     { htmlFor: '' },
@@ -113,7 +113,7 @@ function App(props) {
     return React.createElement(
         'div',
         { className: 'seleccionarUnProyecto' },
-        React.createElement(Welcome, { nombre: 'Daniel', proyectoSeleccionado: '' }),
+        React.createElement(Welcome, { nombre: props.nombreCompleto, proyectoSeleccionado: '' }),
         React.createElement(SeleccionProyectoForm, { nombreProyecto: '', listaProyectos: props.contextoProyectos })
     );
 }
@@ -126,8 +126,12 @@ $.ajax({
     dataType: "json",
     contentType: "application/json",
     success: function success(json) {
-        console.log(json);
-        var listaProyectos = json;
-        ReactDOM.render(React.createElement(App, { contextoProyectos: listaProyectos }), document.getElementById('seleccionarProyecto'));
+        // Se obtiene la lista de proyectos asociado
+        // al usuario asociado en ese momento
+        var listaProyectos = json['proyectos'];
+        // Se obtiene del json el usuario que esta 
+        // loggeado en el momento
+        var usuarioLoggeado = json['usuario'][0];
+        ReactDOM.render(React.createElement(App, { nombreCompleto: usuarioLoggeado['first_name'], contextoProyectos: listaProyectos }), document.getElementById('seleccionarProyecto'));
     }
 });

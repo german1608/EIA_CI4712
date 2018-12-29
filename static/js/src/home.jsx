@@ -5,7 +5,7 @@ function Welcome(props) {
     // Condicional que permite dar la bienvenidad si es la primera vez que se loggea
     if (props.proyectoSeleccionado === '') {
         bienvenida = (
-            <div className="mensajeEntrada">
+            <div className="mensajeEntrada content">
                 <h1>Bienvenido, {props.nombre}</h1>
                 <h2>Selecciona un proyecto</h2>
             </div>
@@ -45,7 +45,7 @@ class SeleccionProyectoForm extends React.Component {
         );
         
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form className="content" onSubmit={this.handleSubmit}>
                 <label htmlFor="">
                     <select className="custom-select" value={this.state.value} onChange={this.handleChange}>
                         <option value>Proyecto a editar</option>
@@ -62,7 +62,7 @@ class SeleccionProyectoForm extends React.Component {
 function App(props){
     return (
         <div className="seleccionarUnProyecto">
-            <Welcome nombre="Daniel" proyectoSeleccionado="" />
+            <Welcome nombre={props.nombreCompleto} proyectoSeleccionado="" />
             <SeleccionProyectoForm nombreProyecto="" listaProyectos={props.contextoProyectos}/>
         </div>
     )
@@ -76,10 +76,14 @@ $.ajax({
     dataType: "json",
     contentType: "application/json",
     success: function(json){
-        console.log(json);
-        const listaProyectos = json;
+        // Se obtiene la lista de proyectos asociado
+        // al usuario asociado en ese momento
+        const listaProyectos = json['proyectos'];
+        // Se obtiene del json el usuario que esta 
+        // loggeado en el momento
+        const usuarioLoggeado = json['usuario'][0];
         ReactDOM.render(
-            <App contextoProyectos={listaProyectos}/>,
+            <App nombreCompleto={usuarioLoggeado['first_name']} contextoProyectos={listaProyectos}/>,
             document.getElementById('seleccionarProyecto')
         ); 
     }
