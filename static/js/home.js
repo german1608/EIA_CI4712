@@ -23,7 +23,7 @@ function Welcome(props) {
             React.createElement(
                 'h2',
                 null,
-                'Seleccionar un proyecto'
+                'Selecciona un proyecto'
             )
         );
     } else {
@@ -118,6 +118,8 @@ function App(props) {
     );
 }
 
+// Con ajax se obtiene el json que contiene informacion del back 
+// por ejemplo con la lista de proyectos
 $.ajax({
     url: "proyectos/",
     type: "GET",
