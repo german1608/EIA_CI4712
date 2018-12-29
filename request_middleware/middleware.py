@@ -1,5 +1,5 @@
 # request_middleware.middleware.py
-
+# pylint: skip-file
 from threading import current_thread
 
 _REQUESTS = {}

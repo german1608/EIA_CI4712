@@ -10,6 +10,7 @@ from django.urls import reverse_lazy
 from django.db.models import Q
 from django.http import Http404
 from django_weasyprint import WeasyTemplateResponseMixin
+from request_middleware.middleware import get_request
 from .models import (
     Responsable, Solicitante,
     DatosProyecto, DatosDocumento, DescripcionProyecto,
@@ -79,7 +80,22 @@ class DatosProyectoCreate(CreateView):  # pylint: disable=too-many-ancestors
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(DatosProyectoCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Datos de un proyecto"
+        context["usuario"] = get_request().user
         return context
+
+    def form_valid(self, form): # pylint: disable=arguments-differ
+        # Crea el proyecto con la clase Meta del formulario
+        crear_proyecto = super().form_valid(form)
+        # Luego busca atraves del titulo el proyecto recien creado
+        titulo = form.cleaned_data['titulo']
+        proyecto = DatosProyecto.objects.get(titulo=titulo)
+        # Obtiene el usuario actualmente loggeado
+        usuario = get_request().user
+        # Lo agrega al proyecto
+        proyecto.usuario = usuario
+        # Lo guarda
+        proyecto.save()
+        return crear_proyecto
 
 
 class DatosProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
