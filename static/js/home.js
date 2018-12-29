@@ -126,7 +126,8 @@ $.ajax({
     dataType: "json",
     contentType: "application/json",
     success: function success(json) {
-        var listaProyectos = json["results"];
+        console.log(json);
+        var listaProyectos = json;
         ReactDOM.render(React.createElement(App, { contextoProyectos: listaProyectos }), document.getElementById('seleccionarProyecto'));
     }
 });

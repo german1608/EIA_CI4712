@@ -76,7 +76,8 @@ $.ajax({
     dataType: "json",
     contentType: "application/json",
     success: function(json){
-        const listaProyectos = json["results"];
+        console.log(json);
+        const listaProyectos = json;
         ReactDOM.render(
             <App contextoProyectos={listaProyectos}/>,
             document.getElementById('seleccionarProyecto')
