@@ -35,7 +35,20 @@ class SeleccionProyectoForm extends React.Component {
 
     // Maneja el evento cuando se confirma el proyecto
     handleSubmit(event){
-        alert('El proyecto seleccionado fue: ' + this.state.value);
+        event.preventDefault();
+        // Se produce el POST cuando el usuario presiona elegir
+        $.ajax({
+            dataType: 'text',
+            type: "post",
+            url: '',
+            contentType: 'application/x-www-form-urlencoded',
+            data: {'edicion_habilitada': this.state.value},
+            success: function(data){
+                alert('El proyecto fue seleccionado exitosamente');
+                // Redirecciona a la pagina para poder editar el proyecto
+                window.location.href = data;
+            }
+        });
     }
 
     render(){
@@ -46,6 +59,7 @@ class SeleccionProyectoForm extends React.Component {
         
         return (
             <form onSubmit={this.handleSubmit}>
+                <CSRFToken />
                 <label htmlFor="">
                     <select className="custom-select" value={this.state.value} onChange={this.handleChange}>
                         <option value>Proyecto a editar</option>
@@ -71,7 +85,7 @@ function App(props){
 // Con ajax se obtiene el json que contiene informacion del back 
 // por ejemplo con la lista de proyectos
 $.ajax({
-    url: "proyectos/",
+    url: "/proyectos/",
     type: "GET",
     dataType: "json",
     contentType: "application/json",
@@ -88,3 +102,19 @@ $.ajax({
         ); 
     }
 })
+
+// Parte que carga los permisos necesarios para realizar POST
+// desde react. e
+$(document).ready(function(){
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+});

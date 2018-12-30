@@ -67,7 +67,20 @@ var SeleccionProyectoForm = function (_React$Component) {
     }, {
         key: 'handleSubmit',
         value: function handleSubmit(event) {
-            alert('El proyecto seleccionado fue: ' + this.state.value);
+            event.preventDefault();
+            // Se produce el POST cuando el usuario presiona elegir
+            $.ajax({
+                dataType: 'text',
+                type: "post",
+                url: '',
+                contentType: 'application/x-www-form-urlencoded',
+                data: { 'edicion_habilitada': this.state.value },
+                success: function success(data) {
+                    alert('El proyecto fue seleccionado exitosamente');
+                    // Redirecciona a la pagina para poder editar el proyecto
+                    window.location.href = data;
+                }
+            });
         }
     }, {
         key: 'render',
@@ -84,6 +97,7 @@ var SeleccionProyectoForm = function (_React$Component) {
             return React.createElement(
                 'form',
                 { onSubmit: this.handleSubmit },
+                React.createElement(CSRFToken, null),
                 React.createElement(
                     'label',
                     { htmlFor: '' },
@@ -121,7 +135,7 @@ function App(props) {
 // Con ajax se obtiene el json que contiene informacion del back 
 // por ejemplo con la lista de proyectos
 $.ajax({
-    url: "proyectos/",
+    url: "/proyectos/",
     type: "GET",
     dataType: "json",
     contentType: "application/json",
@@ -134,4 +148,21 @@ $.ajax({
         var usuarioLoggeado = json['usuario'][0];
         ReactDOM.render(React.createElement(App, { nombreCompleto: usuarioLoggeado['first_name'], contextoProyectos: listaProyectos }), document.getElementById('seleccionarProyecto'));
     }
+});
+
+// Parte que carga los permisos necesarios para realizar POST
+// desde react. e
+$(document).ready(function () {
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method)
+        );
+    }
+    $.ajaxSetup({
+        beforeSend: function beforeSend(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
 });

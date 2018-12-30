@@ -3,7 +3,7 @@
 
 {% block content %}
 <div id="seleccionarProyecto">
-
+  {% csrf_token %}
 </div>
 {% endblock content %}
 
@@ -11,4 +11,5 @@
 <script src="{% static 'js/react.min.js' %}"></script>
 <script src="{% static 'js/react-dom.min.js' %}"></script>
 <script src="{% static 'js/home.js' %}"></script>
+<script src="{% static 'js/csrftoken.js' %}"></script>
 {% endblock %}
