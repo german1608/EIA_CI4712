@@ -45,4 +45,5 @@ class DashboardView(LoginRequiredMixin, TemplateView):# pylint: disable=too-many
         proyecto_pk = habilitar_edicion["edicion_habilitada"][0]
         proyecto = DatosProyecto.objects.get(pk=proyecto_pk)
         proyecto.edicion_habilitada = True
+        proyecto.save()
         return HttpResponse(self.success_url)

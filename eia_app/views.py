@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.db.models import Q
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django_weasyprint import WeasyTemplateResponseMixin
 from request_middleware.middleware import get_request
 from .models import (
@@ -47,14 +47,24 @@ class OrganizacionCreate(CreateView):  # pylint: disable=too-many-ancestors
         context = super(OrganizacionCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Organización"
         return context
+    
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object)
+        return HttpResponseRedirect(self.success_url)
 
+def agregar_proyecto(objeto):
+    proyecto_seleccionado = DatosProyecto.objects.get(edicion_habilitada=True)
+    objeto.proyecto = proyecto_seleccionado
+    objeto.save()
 
 class OrganizacionUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una organizacion'''
     model = Organizacion
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-organizaciones')
-    fields = '__all__'
+    fields = ('razon_social', 'nombre', 'rif', 'direccion', 'nombre_representante_legal', 'apellido_representante_legal'
+                    , 'cedula_representante_legal', 'pasaporte_representante_legal', 'telefono', 'email')
 
 
 class OrganizacionDelete(DeleteView):  # pylint: disable=too-many-ancestors
@@ -153,7 +163,11 @@ class ResponsableCreate(CreateView):  # pylint: disable=too-many-ancestors
         context = super(ResponsableCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Responsable"
         return context
-
+    
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object)
+        return HttpResponseRedirect(self.success_url)
 
 class ResponsableUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una Responsable'''
@@ -194,6 +208,11 @@ class SolicitanteCreate(CreateView):  # pylint: disable=too-many-ancestors
         context["nombre"] = "Solicitante"
         return context
 
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object)
+        return HttpResponseRedirect(self.success_url)
+
 
 class SolicitanteUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una Solicitante'''
@@ -233,6 +252,11 @@ class DatosDocumentoCreate(CreateView):  # pylint: disable=too-many-ancestors
         context = super(DatosDocumentoCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Datos de un documento"
         return context
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object)
+        return HttpResponseRedirect(self.success_url)
 
 
 class DatosDocumentoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
@@ -413,6 +437,11 @@ class DescripcionProyectoCreate(CreateView):  # pylint: disable=too-many-ancesto
         context = super(DescripcionProyectoCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Detalles de un documento"
         return context
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object)
+        return HttpResponseRedirect(self.success_url)
 
 
 class DescripcionProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancestors

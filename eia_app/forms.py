@@ -13,7 +13,8 @@ class OrganizacionCreateForm(forms.ModelForm):
     class Meta:  # pylint: disable=too-few-public-methods
         '''Clase meta del formulario'''
         model = Organizacion
-        fields = '__all__'
+        fields = ('razon_social', 'nombre', 'rif', 'direccion', 'nombre_representante_legal', 'apellido_representante_legal'
+                    , 'cedula_representante_legal', 'pasaporte_representante_legal', 'telefono', 'email')
 
 
 class SolicitanteCreateForm(forms.ModelForm):
@@ -21,7 +22,7 @@ class SolicitanteCreateForm(forms.ModelForm):
     class Meta:  # pylint: disable=too-few-public-methods
         '''Clase meta del formulario'''
         model = Solicitante
-        fields = '__all__'
+        fields = ('nombre', 'apellido', 'cedula', 'pasaporte', 'telefono', 'email')
 
 
 class ResponsableCreateForm(forms.ModelForm):
@@ -29,7 +30,7 @@ class ResponsableCreateForm(forms.ModelForm):
     class Meta:  # pylint: disable=too-few-public-methods
         '''Clase meta del formulario'''
         model = Responsable
-        fields = '__all__'
+        fields = ('nombre', 'apellido', 'cedula', 'pasaporte', 'nivel_academico', 'tipo_responsable')
 
 
 class DatosProyectoCreateForm(forms.ModelForm):
@@ -44,7 +45,7 @@ class DatosDocumentoCreateForm(forms.ModelForm):
     class Meta:  # pylint: disable=too-few-public-methods
         '''Clase meta del formulario'''
         model = DatosDocumento
-        fields = '__all__'
+        fields = ('fecha', 'ciudad', 'estado', 'pais')
 
 class MarcoForm(forms.Form):
     """Form para el marco (metodologico, juridico o teorico) de un proyecto."""
@@ -56,7 +57,7 @@ class DescripcionProyectoCreateForm(forms.ModelForm):
     class Meta:  # pylint: disable=too-few-public-methods
         '''Clase meta del formulario'''
         model = DescripcionProyecto
-        fields = '__all__'
+        fields = ('obj_general', 'obj_especifico', 'justificacion', 'area')
 
 class RecomendacionProyectoCreateForm(forms.ModelForm):
     '''Form del modelo recomendaciones de proyectos'''
