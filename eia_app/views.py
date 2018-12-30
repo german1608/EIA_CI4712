@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.db.models import Q
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django_weasyprint import WeasyTemplateResponseMixin
 from .models import (
     Responsable, Solicitante,
@@ -80,6 +80,15 @@ class DatosProyectoCreate(CreateView):  # pylint: disable=too-many-ancestors
         context = super(DatosProyectoCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Datos de un proyecto"
         return context
+
+    def form_valid(self, form):
+        usuario_loggeado = self.request.user
+        # Recupero lo que esta guardado del proyecto
+        proyecto = form.save(commit=False)
+        # Le agrego el usuario asociado que es el que esta loggeado
+        proyecto.usuario = usuario_loggeado
+        proyecto.save()
+        return HttpResponseRedirect(self.success_url)
 
 
 class DatosProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
