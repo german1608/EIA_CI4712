@@ -5,7 +5,7 @@ from itertools import count
 from django.shortcuts import reverse
 from django.test import TestCase, tag
 from .models import Medida
-from .views import MedidaListView, MedidaDetailView, MedidaDeleteView
+from .views import MedidaList, MedidaDetail, MedidaDelete
 
 
 class MedidaViewHelper(TestCase):
@@ -31,14 +31,14 @@ class MedidaListViewTestCase(MedidaViewHelper):
     def test_url_view_correspondence(self):
         '''
         Prueba que el url de listado de medidas use la vista
-        MedidaListView
+        MedidaList
         '''
         self.login()
         response = self.client.get(self.target_url)
         actual = response.resolver_match.func.__name__
-        expected = MedidaListView.as_view().__name__
+        expected = MedidaList.as_view().__name__
         self.assertEqual(actual, expected, 'La vista de listado de medidas no '
-                                           'es MedidaListView')
+                                           'es MedidaList')
 
     def test_login_required(self):
         '''
@@ -82,13 +82,13 @@ class MedidaDetailViewTestCase(MedidaViewHelper):
         super().setUp()
 
     def test_url_view_correspondence(self):
-        ''' Prueba que el url para los detalles tenga como vista MedidaDetailView '''
+        ''' Prueba que el url para los detalles tenga como vista MedidaDetail '''
         self.login()
         response = self.client.get(self.target_url)
         actual = response.resolver_match.func.__name__
-        expected = MedidaDetailView.as_view().__name__
+        expected = MedidaDetail.as_view().__name__
         self.assertEqual(actual, expected, 'La vista de detalles de medidas'
-                                           'no es MedidaDetailView')
+                                           'no es MedidaDetail')
 
     def test_login_required(self):
         ''' Prueba que la vista requiera login para ser usada '''
@@ -140,13 +140,13 @@ class MedidaDeleteViewTestCase(MedidaViewHelper):
         super().setUp()
 
     def test_url_view_correspondence(self):
-        ''' Prueba que el url sea manejado por la vista MedidaDeleteView '''
+        ''' Prueba que el url sea manejado por la vista MedidaDelete '''
         self.login()
         response = self.client.get(self.target_url)
         actual = response.resolver_match.func.__name__
-        expected = MedidaDeleteView.as_view().__name__
+        expected = MedidaDelete.as_view().__name__
         self.assertEqual(actual, expected, 'El url ' + self.target_url + ' no es manejado '
-                         'por MedidaDeleteView')
+                         'por MedidaDelete')
 
     def test_login_required(self):
         ''' Prueba que la vista requiera login para ser usada '''

@@ -8,7 +8,6 @@ from rest_framework.response import Response
 from eia_app.models import DatosProyecto
 from users.models import Usuario
 from .serializers import DatosProyectoSerializer, UsuarioSerializer
-from request_middleware.middleware import get_request
 
 # Create your views here.
 
@@ -17,7 +16,7 @@ class ProyectosViewSet(viewsets.ViewSet): # pylint: disable=too-many-ancestors
     Produce la vista con el json que contiene la informacion
     para que el dashboard la muestre
     """
-    def list(self, request):
+    def list(self, request): # pylint: disable=no-self-use
         '''
         Devuelve un json con solo los proyectos del
         usuario loggeado
@@ -25,7 +24,7 @@ class ProyectosViewSet(viewsets.ViewSet): # pylint: disable=too-many-ancestors
         usuario_loggeado = request.user
         queryset = DatosProyecto.objects.filter(usuario=usuario_loggeado)
         serializer = DatosProyectoSerializer(queryset, many=True)
-        
+
         # Aqui se manda al contexto, ademas de los proyectos el usuario loggeado
         queryset_usuario = Usuario.objects.filter(pk=usuario_loggeado.pk)
         serializer_usuario = UsuarioSerializer(queryset_usuario, many=True)

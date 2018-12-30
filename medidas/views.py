@@ -50,7 +50,7 @@ class MedidaDelete(DeleteView):  # pylint: disable=too-many-ancestors
     success_url = reverse_lazy('medidas:lista-medidas')
 
 @transaction.atomic
-def medida_form_view(request, pk=None):
+def medida_form_view(request, pk=None): # pylint: disable=invalid-name
     """
     Vista que maneja la creacion de medidas tomando en cuenta
     las relaciones de sus tablas multivalores. El uso de transaction.atomic
