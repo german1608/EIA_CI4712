@@ -32,6 +32,7 @@ class DatosProyecto(models.Model):
     marco_juridico = models.TextField(null=True)
     marco_teorico = models.TextField(null=True)
     usuario = models.ForeignKey(Usuario, null=True, on_delete=models.CASCADE)
+    edicion_habilitada = models.BooleanField(default=False)
 
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
