@@ -7,6 +7,7 @@ cairocffi==0.9.0
 CairoSVG==2.2.1
 cffi==1.11.5
 Click==7.0
+coverage==4.5.2
 cssselect2==0.2.1
 defusedxml==0.5.0
 dj-database-url==0.5.0
@@ -16,6 +17,7 @@ django-crispy-forms==1.7.2
 django-materializecss-form==1.1.10
 django-weasyprint==0.5.4
 django-widget-tweaks==1.4.3
+djangorestframework==3.9.0
 gunicorn==19.9.0
 html5lib==1.0.1
 isort==4.3.4
@@ -25,7 +27,6 @@ mccabe==0.6.1
 parse==1.9.0
 parse-type==0.4.2
 Pillow==5.3.0
-pkg-resources==0.0.0
 psycopg2-binary==2.7.5
 pycodestyle==2.4.0
 pycparser==2.19
