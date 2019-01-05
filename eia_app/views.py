@@ -38,7 +38,7 @@ class OrganizacionCreate(CreateView):  # pylint: disable=too-many-ancestors
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(OrganizacionCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Organización"
+        context["nombre"] = "Agregar organización"
         return context
 
 
@@ -72,7 +72,7 @@ class DatosProyectoCreate(CreateView):  # pylint: disable=too-many-ancestors
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(DatosProyectoCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Datos de un proyecto"
+        context["nombre"] = "Agregar datos de un proyecto"
         return context
 
 
@@ -118,7 +118,7 @@ class ResponsableCreate(CreateView):  # pylint: disable=too-many-ancestors
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(ResponsableCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Responsable"
+        context["nombre"] = "Agregar responsable"
         return context
 
 
@@ -158,7 +158,7 @@ class SolicitanteCreate(CreateView):  # pylint: disable=too-many-ancestors
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(SolicitanteCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Solicitante"
+        context["nombre"] = "Agregar solicitante"
         return context
 
 
@@ -198,7 +198,7 @@ class DatosDocumentoCreate(CreateView):  # pylint: disable=too-many-ancestors
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(DatosDocumentoCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Datos de un documento"
+        context["nombre"] = "Agregar datos de un documento"
         return context
 
 
@@ -240,7 +240,7 @@ class DescripcionProyectoCreate(CreateView):  # pylint: disable=too-many-ancesto
         context = super(
             DescripcionProyectoCreate,
             self).get_context_data(**kwargs)
-        context["nombre"] = "Detalles de un documento"
+        context["nombre"] = "Agregar detalles de un documento"
         return context
 
 
@@ -280,7 +280,7 @@ class MedioCreate(CreateView):  # pylint: disable=too-many-ancestors
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(MedioCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Detalles de un medio ambiental"
+        context["nombre"] = "Agregar detalles de un medio ambiental"
         return context
 
 
@@ -373,7 +373,7 @@ class CaracteristicaMedioCreate(CreateView):  # pylint: disable=too-many-ancesto
             CaracteristicaMedioCreate,
             self).get_context_data(**kwargs)
         medio = Medio.objects.get(pk=self.kwargs['pk'])
-        context["nombre"] = "características del proyecto " + \
+        context["nombre"] = "Agregar características del proyecto " + \
         str(medio.proyecto) + " del medio " + \
         str(medio.tipo)
         context["medio"] = medio.pk
@@ -395,7 +395,7 @@ class SubaracteristicaMedioCreate(CreateView):  # pylint: disable=too-many-ances
             SubaracteristicaMedioCreate,
             self).get_context_data(**kwargs)
         caracteristica = CaracteristicaMedio.objects.get(pk=self.kwargs['pk'])
-        context["nombre"] = "sub-característica de la característica " + \
+        context["nombre"] = "Agregar sub-característica de la característica " + \
         str(caracteristica.caracteristica) + " del medio " + \
         str(caracteristica.medio.tipo) + " del proyecto " + \
         str(caracteristica.medio.proyecto)
@@ -462,7 +462,7 @@ class CostoHumanoCreate(CreateView): # pylint: disable=too-many-ancestors
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoHumanoCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Costo"
+        context["nombre"] = "Agregar costo de talento humano"
         return context
 
     def form_valid(self, form):
@@ -479,7 +479,7 @@ class CostoHumano_ServiciosCreate(CreateView): # pylint: disable=too-many-ancest
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoHumano_ServiciosCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Costo"
+        context["nombre"] = "Agregar costo de servicios profesionales y técnicos"
         return context
 
     def form_valid(self, form):
@@ -495,7 +495,7 @@ class CostoHumano_PasajeCreate(CreateView): # pylint: disable=too-many-ancestors
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoHumano_PasajeCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Costo"
+        context["nombre"] = "Agregar costos de pasajes y hospedaje"
         return context
 
     def form_valid(self, form):
@@ -511,7 +511,7 @@ class CostoMaterial_RecursosCreate(CreateView): # pylint: disable=too-many-ances
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoMaterial_RecursosCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Costo"
+        context["nombre"] = "Agregar costo de recursos materiales"
         return context
 
     def form_valid(self, form):
@@ -527,7 +527,7 @@ class CostoMaterial_OficinaCreate(CreateView): # pylint: disable=too-many-ancest
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoMaterial_OficinaCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Costo"
+        context["nombre"] = "Agregar costo de materiales de oficina"
         return context
 
     def form_valid(self, form):
@@ -543,7 +543,7 @@ class CostoMaterial_InsumosCreate(CreateView): # pylint: disable=too-many-ancest
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoMaterial_InsumosCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Costo"
+        context["nombre"] = "Agregar costo de insumos"
         return context
 
     def form_valid(self, form):
@@ -559,7 +559,7 @@ class CostoHumanoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoHumanoUpdate, self).get_context_data(**kwargs)
-        context["nombre"] = "Costo"
+        context["nombre"] = "Editar costo humano"
         return context
 
 
@@ -578,7 +578,7 @@ class CostoMaterialesUpdate(UpdateView):  # pylint: disable=too-many-ancestors
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoMaterialesUpdate, self).get_context_data(**kwargs)
-        context["nombre"] = "Costo"
+        context["nombre"] = "Editar costo de materiales"
         return context
 
 
