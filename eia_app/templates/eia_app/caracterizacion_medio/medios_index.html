@@ -1,15 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 <link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
 {% endblock %}
 
 {% block content %}
-
-<h3>Medios ambientales</h3>
-<p>
-    <a id="add" href="{% url "consultor-crud:nuevo-medio" %}">Añadir un nuevo medio</a>
+<div class="row p-3 justify-content-center mb-3 titulo all-rounded">
+		<div class="col-md-9 col-sm-11 text-center">
+			<h3>Lista de medios ambientales</h3>
+		</div>
+</div><p>
+    <div class="col-md-1">
+        <a id ="add" class="btn rounded btn-crud" href="{% url 'consultor-crud:nuevo-medio' %}"><i class="material-icons">add</i></a>
+    </div>
 </p>
+
 <div class="container" style="width:90% !important">
   {%if object_list.count > 0%}
   <table id="medios-ambientales" class="display">
