@@ -14,8 +14,7 @@ class MedioTestCase(TestCase):
             titulo="hola2",
             ubicacion="caracas",
             area="area de prueba",
-            tipo="prueba",
-            url="www.google.com")
+            tipo="prueba")
 
     def test_medio_crear(self):
         '''Prueba para crear una instancia de datos de medio'''
@@ -185,8 +184,7 @@ class CaracteristicaMedioTestCase(TestCase):
             titulo="caracteristicas",
             ubicacion="caracas",
             area="area de prueba",
-            tipo="prueba",
-            url="www.google.ve")
+            tipo="prueba")
         form_data = {
             'tipo': 'fisico',
             'proyecto': proyecto.id,
@@ -307,8 +305,7 @@ class SubaracteristicaMedioTestCase(TestCase):
             titulo="subcaracteristicas",
             ubicacion="caracas",
             area="area de prueba",
-            tipo="prueba",
-            url="www.google.com")
+            tipo="prueba")
         form_data = {
             'tipo': 'fisico',
             'proyecto': proyecto.id,

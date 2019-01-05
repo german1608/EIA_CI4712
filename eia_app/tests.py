@@ -16,8 +16,7 @@ class OrganizacionTestCase(TestCase):
             titulo="organizacion",
             ubicacion="caracas",
             area="area de prueba",
-            tipo="prueba",
-            url="www.google.co.ve")
+            tipo="prueba")
         form_data = {
             'proyecto': self.proyecto.id,
             'razon_social': "natural",
@@ -275,8 +274,7 @@ class SolicitanteTestCase(TestCase):
             titulo="solicitante",
             ubicacion="caracas",
             area="area de prueba",
-            tipo="prueba",
-            url="www.usb.ve")
+            tipo="prueba")
         form_data = {
             'proyecto': self.proyecto.id,
             'nombre': "Nombre Prueba",
@@ -471,8 +469,7 @@ class ResponsableTestCase(TestCase):
             titulo="responsable",
             ubicacion="caracas",
             area="area de prueba",
-            tipo="prueba2",
-            url="www.google.com")
+            tipo="prueba2")
         form_data = {
             'proyecto': self.proyecto.id,
             'nombre': "Nombre Prueba",
@@ -670,8 +667,7 @@ class DatosDocumentoTestCase(TestCase):
             titulo="datosdocumentos",
             ubicacion="caracas",
             area="area de prueba",
-            tipo="prueba",
-            url="www.google.com.ve")
+            tipo="prueba")
         form_data = {
             'proyecto': self.proyecto.id,
             'fecha': "2007-10-25",
