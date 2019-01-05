@@ -25,7 +25,6 @@ class DatosProyecto(models.Model):
     ubicacion = models.TextField()
     area = models.TextField()
     tipo = models.TextField()
-    url = models.URLField()
 
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
