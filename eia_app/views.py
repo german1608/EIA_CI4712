@@ -49,6 +49,10 @@ class OrganizacionUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     success_url = reverse_lazy('consultor-crud:lista-organizaciones')
     fields = '__all__'
 
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(OrganizacionUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar organización"
+        return context
 
 class OrganizacionDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una organizacion'''
@@ -82,6 +86,11 @@ class DatosProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-proyectos')
     fields = '__all__'
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(DatosProyectoUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar datos del proyecto"
+        return context
 
 
 class DatosProyectoDelete(DeleteView):  # pylint: disable=too-many-ancestors
@@ -129,6 +138,11 @@ class ResponsableUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     success_url = reverse_lazy('consultor-crud:lista-responsables')
     fields = '__all__'
 
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(ResponsableUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar responsable"
+        return context
+
 
 class ResponsableDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una Responsable'''
@@ -169,6 +183,11 @@ class SolicitanteUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     success_url = reverse_lazy('consultor-crud:lista-solicitantes')
     fields = '__all__'
 
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(SolicitanteUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar solicitante"
+        return context
+
 
 class SolicitanteDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una Solicitante'''
@@ -208,7 +227,11 @@ class DatosDocumentoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-documentos')
     fields = '__all__'
-
+    
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(DatosDocumentoUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar datos de un documento"
+        return context
 
 class DatosDocumentoDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una DatosDocumento'''
@@ -250,6 +273,13 @@ class DescripcionProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancesto
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
     fields = '__all__'
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(
+            DescripcionProyectoUpdate,
+            self).get_context_data(**kwargs)
+        context["nombre"] = "Editar detalles de un documento"
+        return context
 
 
 class DescripcionProyectoDelete(DeleteView):  # pylint: disable=too-many-ancestors
@@ -304,6 +334,11 @@ class MedioUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     success_url = reverse_lazy('consultor-crud:lista-medios')
     fields = '__all__'
 
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(MedioUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar medio"
+        return context
+
 
 class MedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una Medio'''
@@ -342,6 +377,11 @@ class CaracteristicaMedioUpdate(UpdateView):  # pylint: disable=too-many-ancesto
         caracteristica = CaracteristicaMedio.objects.get(pk=self.kwargs['pk'])
         return reverse_lazy('consultor-crud:detalles-medio',
                             kwargs={'pk': caracteristica.medio.pk})
+    
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CaracteristicaMedioUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar característica de un medio"
+        return context
 
 
 class CaracteristicaMedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
@@ -417,6 +457,11 @@ class SubaracteristicaMedioUpdate(UpdateView):  # pylint: disable=too-many-ances
             pk=self.kwargs['pk'])
         return reverse_lazy('consultor-crud:detalles-caracteristica',
                             kwargs={'pk': subcaracteristica.caracteristica.pk})
+    
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CaracteristicaMedioUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar subcaracterística de un medio"
+        return context
 
 
 class SubaracteristicaMedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
