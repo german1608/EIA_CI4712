@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 <link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
 {% endblock %}
 
@@ -10,7 +11,11 @@
 
 
 <div class="container">
-    <h2>Plan de Costos</h2>
+    <div class="row p-3 justify-content-center mb-3 titulo all-rounded">
+        <div class="col-md-9 col-sm-11 text-center">
+          <h3>Lista de planes de costo</h3>
+        </div>
+    </div>
     <br>
     <!-- Nav pills -->
     <ul class="nav nav-pills nav-justified" role="tablist">
@@ -42,11 +47,11 @@
         <br><br>
 
 
-        <a id="add" href="{% url "consultor-crud:nuevo-costo" %}">        
-            <button id="botonAdd" type="button" class="btn btn-success btn-block">
-                Agregar Costo
-            </button>
-        </a>
+        <p>
+            <div class="col-md-1">
+                <a id ="add" class="btn rounded btn-crud" href="{% url 'consultor-crud:nuevo-costo' %}"><i class="material-icons">add</i></a>
+            </div>
+        </p>
 
         <br>
 
@@ -91,11 +96,11 @@
 
 
       <div id="serviciosProf" class="container tab-pane fade"><br>
-        <a id="add" href="{% url "consultor-crud:nuevo-costo-servicios" %}">        
-                <button id="botonAdd" type="button" class="btn btn-success btn-block">
-                    Agregar Costo
-                </button>
-            </a>
+        <p>
+            <div class="col-md-1">
+                <a id ="add" class="btn rounded btn-crud" href="{% url 'consultor-crud:nuevo-costo-servicios' %}"><i class="material-icons">add</i></a>
+            </div>
+        </p>
         <br>
         <div class="container" style="width:90% !important">
             {%if object_list.count > 0%}
@@ -137,12 +142,11 @@
 
 
       <div id="pasaje" class="container tab-pane fade"><br>
-
-        <a id="add" href="{% url "consultor-crud:nuevo-costo-pasaje" %}">        
-                <button id="botonAdd" type="button" class="btn btn-success btn-block">
-                    Agregar Costo
-                </button>
-            </a>
+        <p>
+            <div class="col-md-1">
+                <a id ="add" class="btn rounded btn-crud" href="{% url 'consultor-crud:nuevo-costo-pasaje' %}"><i class="material-icons">add</i></a>
+            </div>
+        </p>
         <br>
         <div class="container" style="width:90% !important">
             {%if object_list.count > 0%}
@@ -182,11 +186,11 @@
       </div>
 
       <div id="recursos" class="container tab-pane fade"><br>
-        <a id="add" href="{% url "consultor-crud:nuevo-costo-recursos" %}">        
-                <button id="botonAdd" type="button" class="btn btn-success btn-block">
-                    Agregar Costo
-                </button>
-            </a>
+        <p>
+            <div class="col-md-1">
+                <a id ="add" class="btn rounded btn-crud" href="{% url 'consultor-crud:nuevo-costo-recursos' %}"><i class="material-icons">add</i></a>
+            </div>
+        </p>
         <br>
         <div class="container" style="width:90% !important">
             {%if object_list.count > 0%}
@@ -225,11 +229,11 @@
       </div>
 
       <div id="oficina" class="container tab-pane fade"><br>
-        <a id="add" href="{% url "consultor-crud:nuevo-costo-oficina" %}">        
-                <button id="botonAdd" type="button" class="btn btn-success btn-block">
-                    Agregar Costo
-                </button>
-            </a>
+        <p>
+            <div class="col-md-1">
+                <a id ="add" class="btn rounded btn-crud" href="{% url 'consultor-crud:nuevo-costo-oficina' %}"><i class="material-icons">add</i></a>
+            </div>
+        </p>
         <br>
         <div class="container" style="width:90% !important">
             {%if object_list.count > 0%}
@@ -269,11 +273,11 @@
       </div>
 
       <div id="insumos" class="container tab-pane fade"><br>
-        <a id="add" href="{% url "consultor-crud:nuevo-costo-insumos" %}">        
-                <button id="botonAdd" type="button" class="btn btn-success btn-block">
-                    Agregar Costo
-                </button>
-            </a>
+        <p>
+            <div class="col-md-1">
+                <a id ="add" class="btn rounded btn-crud" href="{% url 'consultor-crud:nuevo-costo-insumos' %}"><i class="material-icons">add</i></a>
+            </div>
+        </p>
         <br>
         <div class="container" style="width:90% !important">
             {%if object_list.count > 0%}
