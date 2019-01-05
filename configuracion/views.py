@@ -1,18 +1,21 @@
 """
    Funcionalidades de Configuracion
 """
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
-from configuracion.forms import EstudioForm
+from configuracion.forms import EstudioForm, ActividadForm, MacroForm, DisciplinaForm
+from configuracion.forms import PlanForm, SubPlanForm
 from configuracion.models import Estudio, Intensidad, Duracion, Extension
 from configuracion.models import Reversibilidad, Probabilidad, Importancia
+from configuracion.models import Actividad, Macro, Disciplina, Plan, SubPlan
 from configuracion.models import GRADO_PERTUBACION
 from configuracion.models import VALOR_SA, EXT_CLASIFICACION, DUR_CRITERIOS
 from configuracion.models import REV_CLASIFICACION, PROBABILIDAD
+
 
 def index(request):
     """
@@ -628,3 +631,325 @@ def _conseguir_valor_tabla_importancia(request, importancia):
         else:
             i.valor = request.POST.get('valor32')
             i.save()
+
+class ActividadCreate(CreateView): # pylint: disable=too-many-ancestors
+    """
+       Clase que permite registrar un actividad macro
+    """
+    model = Actividad
+    form_class = ActividadForm
+    template_name = 'configuracion/agregar_actividad.html'
+    success_url = reverse_lazy('actividades')
+    def form_invalid(self, form):
+        print(form.errors)
+    def form_valid(self, form):
+        """
+           aaaa
+        """
+        # pylint: disable=attribute-defined-outside-init
+
+        messages.success(self.request, "Actividad agregado exitosamente", extra_tags='alert')
+        return super().form_valid(form)
+
+
+class ActividadUpdate(UpdateView): # pylint: disable=too-many-ancestors
+    """
+        Clase que permite modificar los datos de los estudios
+    """
+    model = Actividad
+    form_class = ActividadForm
+    template_name = 'configuracion/agregar_actividad.html'
+    success_url = reverse_lazy('actividades')
+
+    def form_valid(self, form):
+        """
+           Funcion llamada cuando los campos para actualizar el formulario
+           se llenan correctamente. Retorna un HttpResponse
+        """
+        if self.request.POST.get('editar'):
+            # pylint: disable=attribute-defined-outside-init
+
+            messages.success(
+                self.request,
+                "Datos de la actividad modificados exitosamente",
+                extra_tags='alert'
+                )
+        return super().form_valid(form)
+
+class DisciplinaCreate(CreateView): # pylint: disable=too-many-ancestors
+    """
+       Clase que permite registrar un actividad macro
+    """
+    model = Disciplina
+    form_class = DisciplinaForm
+    template_name = 'configuracion/agregar_disciplina.html'
+    success_url = reverse_lazy('disciplinas')
+
+    def form_valid(self, form):
+        """
+           aaaa
+        """
+        # pylint: disable=attribute-defined-outside-init
+
+        messages.success(self.request, "Disciplina agregado exitosamente", extra_tags='alert')
+        return super().form_valid(form)
+
+class DisciplinaUpdate(UpdateView): # pylint: disable=too-many-ancestors
+    """
+        Clase que permite modificar los datos de las disciplinas
+    """
+    model = Disciplina
+    form_class = DisciplinaForm
+    template_name = 'configuracion/agregar_disciplina.html'
+    success_url = reverse_lazy('disciplinas')
+
+    def form_valid(self, form):
+        """
+           Funcion llamada cuando los campos para actualizar el formulario
+           se llenan correctamente. Retorna un HttpResponse
+        """
+        if self.request.POST.get('editar'):
+            # pylint: disable=attribute-defined-outside-init
+
+            messages.success(
+                self.request,
+                "Datos de la disciplina modificados exitosamente",
+                extra_tags='alert'
+                )
+        return super().form_valid(form)
+
+class MacroCreate(CreateView): # pylint: disable=too-many-ancestors
+    """
+       Clase que permite registrar un actividad macro
+    """
+    model = Macro
+    form_class = MacroForm
+    template_name = 'configuracion/agregar_macro.html'
+    success_url = reverse_lazy('macros')
+
+    def form_valid(self, form):
+        """
+           aaaa
+        """
+        # pylint: disable=attribute-defined-outside-init
+
+        messages.success(self.request, "Actividad macro agregado exitosamente", extra_tags='alert')
+        return super().form_valid(form)
+
+class MacroUpdate(UpdateView): # pylint: disable=too-many-ancestors
+    """
+        Clase que permite modificar los datos de las actividades macros
+    """
+    model = Macro
+    form_class = MacroForm
+    template_name = 'configuracion/agregar_macro.html'
+    success_url = reverse_lazy('macros')
+
+    def form_valid(self, form):
+        """
+           Funcion llamada cuando los campos para actualizar el formulario
+           se llenan correctamente. Retorna un HttpResponse
+        """
+        if self.request.POST.get('editar'):
+            # pylint: disable=attribute-defined-outside-init
+
+            messages.success(
+                self.request,
+                "Datos de la actividad macro modificados exitosamente",
+                extra_tags='alert'
+                )
+        return super().form_valid(form)
+
+def eliminar_actividad(request, pk_id):
+    """
+        Funcion que permite eliminar una actividad
+    """
+    Actividad.objects.get(id=pk_id).delete()
+    messages.success(request, "Actividad eliminado exitosamente", extra_tags='alert')
+    return HttpResponseRedirect(reverse('actividades'))
+
+def eliminar_macro(request, pk_id):
+    """
+        Funcion que permite eliminar una actividad macro
+    """
+    Macro.objects.get(id=pk_id).delete()
+    messages.success(request, "Actividad Macro eliminado exitosamente", extra_tags='alert')
+    return HttpResponseRedirect(reverse('macros'))
+
+def eliminar_disciplina(request, pk_id):
+    """
+        Funcion que permite eliminar una disciplina
+    """
+    Disciplina.objects.get(id=pk_id).delete()
+    messages.success(request, "Disciplina eliminado exitosamente", extra_tags='alert')
+    return HttpResponseRedirect(reverse('disciplinas'))
+
+def actividades(request):
+    """
+    adad
+    """
+    if Macro.objects.all():
+        actividades_macros = Macro.objects.all()
+        actividades_especificas = Actividad.objects.all()
+        actividades_disciplinas = Disciplina.objects.all()
+        context = {
+            'actividades': actividades_especificas,
+            'macros': actividades_macros,
+            'disciplinas': actividades_disciplinas,
+        }
+        return render(request, 'configuracion/actividades.html', context)
+    messages.success(
+        request,
+        "No existen actividades macros. Debe crear una primero",
+        extra_tags='alert'
+        )
+    return HttpResponseRedirect(reverse('macros'))
+
+def macros(request):
+    """
+    adad
+    """
+    actividades_macros = Macro.objects.all()
+    context = {
+        'macros': actividades_macros,
+    }
+    return render(request, 'configuracion/macros.html', context)
+
+def disciplinas(request):
+    """
+    adad
+    """
+    discipli = Disciplina.objects.all()
+    context = {
+        'disciplinas': discipli,
+    }
+    return render(request, 'configuracion/disciplinas.html', context)
+
+class PlanCreate(CreateView): # pylint: disable=too-many-ancestors
+    """
+       Clase que permite registrar un plan
+    """
+    model = Plan
+    form_class = PlanForm
+    template_name = 'configuracion/agregar_plan.html'
+    success_url = reverse_lazy('planes')
+
+    def form_valid(self, form):
+        """
+           aaaa
+        """
+        # pylint: disable=attribute-defined-outside-init
+        messages.success(self.request, "Plan agregado exitosamente", extra_tags='alert')
+        return super().form_valid(form)
+
+class PlanUpdate(UpdateView): # pylint: disable=too-many-ancestors
+    """
+        Clase que permite modificar los datos de los planes
+    """
+    model = Plan
+    form_class = PlanForm
+    template_name = 'configuracion/agregar_plan.html'
+    success_url = reverse_lazy('planes')
+
+    def form_valid(self, form):
+        """
+           Funcion llamada cuando los campos para actualizar el formulario
+           se llenan correctamente. Retorna un HttpResponse
+        """
+        if self.request.POST.get('editar'):
+            # pylint: disable=attribute-defined-outside-init
+
+            messages.success(
+                self.request,
+                "Datos del plan modificados exitosamente",
+                extra_tags='alert'
+                )
+        return super().form_valid(form)
+
+def eliminar_plan(request, pk_id):
+    """
+        Funcion que permite eliminar un plan
+    """
+    Plan.objects.get(id=pk_id).delete()
+    messages.success(request, "Plan eliminado exitosamente", extra_tags='alert')
+    return HttpResponseRedirect(reverse('planes'))
+
+def detalles_plan(request, nombre):
+    """
+        Funcion que permite ver los detalles un plan
+    """
+    plan = get_object_or_404(Plan, nombre=nombre)
+    context = {
+        'plan': plan
+    }
+    return render(request, 'configuracion/detalles_plan.html', context)
+
+def planes(request):
+    """
+        Lista de planes
+    """
+    planes_actuales = Plan.objects.all()
+    context = {
+        'planes': planes_actuales,
+    }
+    return render(request, 'configuracion/planes.html', context)
+
+class SubPlanCreate(CreateView): # pylint: disable=too-many-ancestors
+    """
+       Clase que permite registrar un subplan
+    """
+    model = SubPlan
+    form_class = SubPlanForm
+    template_name = 'configuracion/agregar_subplan.html'
+    success_url = reverse_lazy('subplanes')
+
+    def form_valid(self, form):
+        """
+           aaaa
+        """
+        # pylint: disable=attribute-defined-outside-init
+
+        messages.success(self.request, "Plan subyacente agregado exitosamente", extra_tags='alert')
+        return super().form_valid(form)
+
+class SubPlanUpdate(UpdateView): # pylint: disable=too-many-ancestors
+    """
+        Clase que permite modificar los datos de los subplanes
+    """
+    model = SubPlan
+    form_class = SubPlanForm
+    template_name = 'configuracion/agregar_subplan.html'
+    success_url = reverse_lazy('subplanes')
+
+    def form_valid(self, form):
+        """
+           Funcion llamada cuando los campos para actualizar el formulario
+           se llenan correctamente. Retorna un HttpResponse
+        """
+        if self.request.POST.get('editar'):
+            # pylint: disable=attribute-defined-outside-init
+
+            messages.success(
+                self.request,
+                "Datos del plan subyacente modificados exitosamente",
+                extra_tags='alert'
+                )
+        return super().form_valid(form)
+
+def eliminar_subplan(request, pk_id):
+    """
+        Funcion que permite eliminar un sub plan
+    """
+    SubPlan.objects.get(id=pk_id).delete()
+    messages.success(request, "SubPlan subyacente eliminado exitosamente", extra_tags='alert')
+    return HttpResponseRedirect(reverse('subplanes'))
+
+def subplanes(request):
+    """
+        Lista de subplanes
+    """
+    subplanes_actuales = SubPlan.objects.all()
+    context = {
+        'subplanes': subplanes_actuales,
+    }
+    return render(request, 'configuracion/subplanes.html', context)

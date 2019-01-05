@@ -1,3 +1,11 @@
+function toFloatZ(number){
+	return parseFloat(number.toString().replace(",", "."))
+}
+
+function repairTheErrorOfCommas(input){
+	input.value = toFloatZ(input.value);
+}
+
 //Funcionalidad de validacion
 function validar(){
 	//Constantes
@@ -39,8 +47,9 @@ function validar(){
 		}else if(i==constantes.limites[5]){	
 			type = "importancia";	
 		}
-
-		constantes.inputs[type].push(document.getElementsByName("valor"+i)[0])
+		el = document.getElementsByName("valor"+i)[0]
+		repairTheErrorOfCommas(el)
+		constantes.inputs[type].push(el)
 	}
 	
 	//Funciones para validacion de tipos

@@ -1,0 +1,70 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mb-3 pt-3 titulo all-rounded">
+	<h1>Planes de Accion</h1>
+</div>
+
+<div class="row justify-content-center mb-3">
+	<div class="col-md-10">
+		<input type="text" id="buscar-plan" onkeypress="teclado()" name="buscar" class="buscar-p-sp" />
+	</div>
+	<div class="col-md-2">
+		<a class="btn" onclick="buscar()" style="background: #4f6228; color: white;"><i class="material-icons">search</i></a>
+	</div>
+</div>
+
+<div class="row justify-content-center mb-3">
+	<div class="col-md-10">
+		<table id="planes" class="tabla-plan">
+			<thead>
+				<tr class="">
+					<th>ID</th>
+					<th>Actividad</th>
+					<th>Accion</th>
+					<th>Plan</th>
+					<th>Tiempo</th>
+					<th>Monto</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody id="contenido">
+				{% for sp in subplanes %}
+				<tr>
+					<td>{{sp.id}}</td>
+					<td>{{sp.actividad}}</td>
+					<td>{{sp.accion}}</td>
+					<td>{{sp.plan_principal.nombre}}</td>
+					<td>{{sp.tiempo}}</td>
+					<td>{{sp.monto}}</td>
+					<td><a class="btn rounded pl-3" name="editar-{{sp.actividad}}" style="background: #4f6228; color: white;" href="{% url 'editar_subplan' sp.id %}"><i class="material-icons">edit</i></a></td>
+					<td><a class="btn rounded pl-3" name="eliminar-{{sp.actividad}}" style="background: #4f6228; color: white;" onclick="return confirm('¿Está seguro de eliminar este subplan?')" href="{% url 'eliminar_subplan' sp.id %}"><i class="material-icons">delete</i></a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="row justify-content-end">
+			<div class="col-md-3">
+				<p style="text-align: right;">Monto Total: </p>
+			</div>
+			<div class="col-md-3" >
+				<input type="text" id="total" class="monto-total" disabled />
+			</div>
+		</div>
+		
+	</div>
+	<div class="col-md-2">
+		<a class="btn rounded" id="agregar_subplan" href="{% url 'agregar_subplan' %}" style="background: #4f6228; color: white;"><i class="material-icons">add</i></a>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'configuracion/js/buscar-subplan.js' %}"></script>
+{% endblock %}

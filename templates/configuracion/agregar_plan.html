@@ -1,0 +1,95 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
+{% endblock %}
+
+	{% block content %}
+	<div class="row p-3 justify-content-center titulo top-rounded">
+		<div class="col-md-1 col-sm-1">
+			<a class="btn menu" href="{% url 'planes' %}"><i class="material-icons">arrow_back</i></a>
+		</div>
+		<div class="col-md-9 col-sm-11 text-center">
+			{% if object %}
+			<h1>Editar plan</h1>
+			{% else %}
+			<h1>Agregar nuevo plan</h1>
+			{% endif %}
+		</div>
+	</div>
+
+	<div class="row p-3 justify-content-center fondo-form bottom-rounded">
+		<div class="col-md-10">
+			<form method="post" id="formulario" class="fondo-form">
+				{% csrf_token %}
+				
+				<div class="row justify-content-around mb-3">
+					<div class="col-md-3">
+						<label for="{{form.nombre.label}}">{{form.nombre.label}}</label>
+						{{form.nombre}}
+
+						<label for="{{form.medidas.label}}">{{form.medidas.label}}</label>
+							{{form.medidas}}
+					</div>
+					<div class="col-md-3">
+						<label for="">{{form.objetivo_general.label}}</label>
+						{{form.objetivo_general}}
+						
+						<label for="">{{form.objetivo_especifico.label}}</label>
+							{{form.objetivo_especifico}}
+					</div>
+				</div>
+
+				<div class="row justify-content-around mb-3">
+					<div class="col-md-3">
+						<label for="">{{form.alcance.label}}</label>
+							{{form.alcance}}
+					</div>
+					<div class="col-md-3">
+						<label for="">{{form.metodologia.label}}</label>
+							{{form.metodologia}}
+					</div>
+				</div>
+
+				<div class="row justify-content-around mb-3">
+					<div class="col-md-3">
+						<label for="">{{form.proyecto.label}}</label>
+						{{form.proyecto}}
+
+						<label for="">{{form.responsable.label}}</label>
+						{{form.responsable}}
+
+						<label for="">{{form.costo.label}}</label>
+						{{form.costo}}
+					</div>
+					<div class="col-md-3">
+						<label for="">{{form.cronograma.label}}</label>
+						{{form.cronograma}}
+					</div>
+				</div>
+
+				<div class="row justify-content-center p-3">
+					<div class="col-md-6" align="center">
+						<div class="">
+								<button id="editar" name="editar" class="btn btn-crud" onclick = "return confirm('¿Está seguro de los datos introducidos?')" style="width: 50%" type="submit"><i class="material-icons">save</i></button>
+						</div>
+					</div>
+					{% if object %}
+					<div class="col-md-6" align="center">
+						<div class="">
+							<a class="btn btn-crud" name="eliminar" style="width: 50%" onclick="return confirm('¿Está seguro de eliminar esta actividad?')" href="{% url 'eliminar_plan' object.id %}">Eliminar</a>
+						</div>
+					{% endif %}
+					</div>
+				</div>
+			</form>	
+		</div>
+		
+	</div>
+	{%endblock%}
+
+	{% block js %}
+	<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
+
+	{% endblock %}
