@@ -66,8 +66,8 @@ dl dd{
   text-align: center;
 }     
 
-.cabecera_2{
-  background-color: #86a742;
+.cabecera_2 th{
+  background-color: #86a742 !important;
   color: #fff;
   text-align: center;
   margin-bottom: 3px;
@@ -97,6 +97,9 @@ dl dd{
   text-align: center;
   width: 100%;
   margin-bottom: 10px;
+}
+.indicador tr td{
+  border: solid 1px white;
 }
 
 .boton-form{
@@ -130,7 +133,8 @@ dl dd{
   text-align: center;
   width: 100%;
   margin-bottom: 10px;
-  border-color: white; 
+  border-color: white;
+  table-layout: fixed;
 }
 
 .tabla-plan thead tr th{

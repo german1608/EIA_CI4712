@@ -18,7 +18,7 @@
 	{% endfor %}
 	{% endif %}
 
-	<div class="row justify-content-center p-3 mb-3 titulo all-rounded">
+	<div class="row justify-content-center pt-3 mb-3 titulo all-rounded">
 		<h1>Actividades</h1>
 	</div>
 
@@ -27,7 +27,7 @@
 			<input type="text" id="buscar-actividad" onkeypress="teclado()" name="buscar" class="buscar-p-sp" />
 		</div>
 		<div class="col-md-1">
-			<a class="btn btn-crud" onclick="buscar()"><i class="material-icons">search</i></a>
+			<a class="btn btn-crud" onclick="buscar()" data-toggle="tooltip" title="Buscar"><i class="material-icons">search</i></a>
 		</div>
 	</div>
 
@@ -51,8 +51,8 @@
 						<td>{{m.descripcion}}</td>
 						<td>{{m.disciplina.nombre}}</td>
 						<td>{{m.macro.nombre}}</td>
-						<td><a class="btn rounded pl-3" style="background: #4f6228; color: white;" href="{% url 'editar_actividad' m.id %}"><i class="material-icons">edit</i></a>
-							<a class="btn rounded" style="background: #4f6228; color: white;" onclick = "return confirm('¿Está seguro de eliminar esta actividad?')" href="{% url 'eliminar_actividad' m.id %}"><i class="material-icons">delete</i></a>
+						<td><a class="btn rounded pl-3 btn-crud" href="{% url 'editar_actividad' m.id %}" data-toggle="tooltip" title="Editar actividad"><i class="material-icons">edit</i></a>
+							<a class="btn rounded btn-crud" onclick = "return confirm('¿Está seguro de eliminar esta actividad?')" href="{% url 'eliminar_actividad' m.id %}" data-toggle="tooltip" title="Eliminar actividad"><i class="material-icons">delete</i></a>
 						</td>
 					</tr>
 					{% endfor %}
@@ -60,16 +60,20 @@
 			</table>
 		</div>
 		<div class="col-md-1">
-			<a class="btn rounded mb-3" id="agregar_plan" href="{% url 'agregar_actividad' %}" style="background: #4f6228; color: white;"><i class="material-icons">add</i></a>
-			<a class="btn rounded mb-3" id="disciplinas" href="{% url 'disciplinas' %}" style="background: #4f6228; color: white;">Disciplinas</a>
-			<a class="btn rounded mb-3" id="macros" href="{% url 'macros' %}" style="background: #4f6228; color: white;">Macros</a>
+			<a class="btn rounded mb-3 btn-crud" id="agregar_plan" href="{% url 'agregar_actividad' %}" data-toggle="tooltip" title="Agregar actividad"><i class="material-icons">add</i></a>
+			<a class="btn rounded mb-3 btn-crud" id="disciplinas" href="{% url 'disciplinas' %}" data-toggle="tooltip" title="Lista de disciplinas">Disciplinas</a>
+			<a class="btn rounded mb-3 btn-crud" id="macros" href="{% url 'macros' %}" data-toggle="tooltip" title="Actividades macros">Macros</a>
 		</div>
 	</div>
 
 {% endblock %}
 
 {% block js %}
-<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'configuracion/js/actividades.js' %}"></script>
-
+<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.bundle.min.js' %}"></script>
+<script type="text/javascript">
+	$(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+	})
+</script>
 {% endblock %}

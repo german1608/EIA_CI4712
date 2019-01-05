@@ -6,98 +6,97 @@
 {% endblock %}
 
 	{% block content %}
-
-		<div class="row p-3">
-			<div class="col-md-1 col-sm-1">
-				<a class="btn menu" style="color: gray" href="{% url 'planes' %}">Volver</a>
-			</div>
-			<div class="col-md-9 col-sm-11 text-center">
-				<h1>{{plan.nombre}}</h1>
-			</div>
+	<div class="row pt-3 justify-content-center titulo top-rounded">
+		<div class="col-md-1 col-sm-1">
+			<a class="btn menu" href="{% url 'planes' %}" data-toggle="tooltip" title="Volver"><i class="material-icons">arrow_back</i></a>
 		</div>
-			
-		<div class="container">
-			<div class="row justify-content-start mb-3">
-				<dl>
-					<dt>Medidas satisfechas por el plan: </dt>
-					<dd>{{plan.medidas}}</dd>
-				</dl>
-			</div>
+		<div class="col-md-9 col-sm-11 text-center">
+			<h1>{{plan.nombre}}</h1>
+		</div>
+	</div>
 
-			<div class="row justify-content-start mb-3">
-				<dl>
-					<dt>Objetivos:</dt>
-					<dd>
-						<dl>
-							<dt>Objetivo General: </dt>
-							<dd>{{plan.objetivo_general}}</dd>
-
-							<dt>Objetivos Especificos</dt>
-							<dd>{{plan.objetivo_especifico}}</dd>
-						</dl>
-					</dd>	
-				</dl>
-			</div>
-
-			<div class="row justify-content-start mb-3">
-				<dl>
-					<dt>Alcance:</dt>
-					<dd>{{plan.alcance}}</dd>
-				</dl>
-			</div>
-
-			<div class="row justify-content-start mb-3">
-				<dl>
-					<dt>Metodologia: </dt>
-					<dd>{{plan.metodologia}}</dd>
-				</dl>
-			</div>
-
-			<div class="row justify-content-start mb-3">
-				<dl>
-					<dt>Proyecto: </dt>
-					<dd>{{plan.proyecto}}</dd>
-				</dl>
-			</div>
-
-			<div class="row justify-content-start mb-3">
-				<dl>
-					<dt>Responsable(s): </dt>
-					<dd>{{plan.responsable}}</dd>
-				</dl>
-			</div>
-
-			<div class="row justify-content-start mb-3">
-				<dl>
-					<dt>Costos del Plan: </dt>
-					<dd>{{plan.costo}}</dd>
-				</dl>
-			</div>
-
-			<div class="row justify-content-start mb-3">
-				<dl>
-					<dt>Cronograma de Actividades: </dt>
-					<dd>{{plan.cronograma}}</dd>
-				</dl>
-			</div>
-
-			<div class="row justify-content-center p-3">
-				<div class="col-md-6" align="center">
-					<div class="">
-							<a id="editar" name="editar" class="btn" href="{% url 'editar_plan' plan.id %}" style="background: #4f6228; color: white; width: 50%">Editar</a>
+	<div class="row p-3 justify-content-center fondo-form bottom-rounded">
+		<div class="col-md-10">
+				
+				<div class="row justify-content-around mb-3">
+					<div class="col-md-3">
+						<label for="{{plan.medidas.label}}">Medidas:</label>
+							{{plan.medidas}}
+					</div>
+					<div class="col-md-3">
+						<label for="">Objetivo general:</label>
+						{{plan.objetivo_general}}
 					</div>
 				</div>
-				<div class="col-md-6" align="center">
-					<div class="">
-						<a class="btn" name="eliminar" style="background: #4f6228; color: white; width: 50%" onclick="return confirm('¿Está seguro de eliminar esta actividad?')" href="{% url 'eliminar_plan' plan.id %}">Eliminar</a>
+
+				<div class="row justify-content-around mb-3">
+					<div class="col-md-3">
+						<label for="">Alcance:</label>
+							{{plan.alcance}}
+					</div>
+					<div class="col-md-3">
+						<label for="">Objetivo especificos:</label>
+							{{plan.objetivo_especifico}}
 					</div>
 				</div>
-			</div>
+
+				<div class="row justify-content-around mb-3">
+					<div class="col-md-3">
+						<label for="">Alcance:</label>
+							{{plan.alcance}}
+					</div>
+					<div class="col-md-3">
+						<label for="">Metodologia:</label>
+							{{plan.metodologia}}
+					</div>
+				</div>
+
+				<div class="row justify-content-around">
+					<div class="col-md-3">
+						<label for="">Responsable(s):</label>
+						{{plan.responsable}}
+					</div>
+					<div class="col-md-3">
+						<label for="">Costo:</label>
+						{{plan.costo}}
+					</div>
+				</div>
+
+				<div class="row justify-content-around mb-3">
+					<div class="col-md-3">
+						<label for="">Proyecto:</label>
+						{{plan.proyecto}}
+					</div>
+					<div class="col-md-3">
+						<label for="">Cronograma:</label>
+						{{plan.cronograma}}
+					</div>
+				</div>
+
+				<div class="row justify-content-center p-3">
+					<div class="col-md-6" align="center">
+						<div class="">
+								<a id="editar" name="editar" href="{% url 'editar_plan' plan.id %}" class="btn btn-crud" style="width: 50%" type="submit" data-toggle="tooltip" title="Editar plan"><i class="material-icons">edit</i></a>
+						</div>
+					</div>
+					<div class="col-md-6" align="center">
+						<div class="">
+							<a class="btn btn-crud" name="eliminar" style="width: 50%" onclick="return confirm('¿Está seguro de eliminar esta actividad?')" href="{% url 'eliminar_plan' plan.id %}" data-toggle="tooltip" title="Eliminar plan"><i class="material-icons">delete</i></a>
+						</div>
+
+					</div>
+				</div>
+
 		</div>
+		
 	</div>
 	{%endblock%}
 
 	{% block js %}
-	<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
-
+	<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.bundle.min.js' %}"></script>
+	<script type="text/javascript">
+	$(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+	})
+	</script>
 	{% endblock %}

@@ -16,7 +16,18 @@ function buscar(){
 					tr[i].style.display = "none";
 				}
 			}
-		}	
+		}
+		else{
+			var tbody = document.getElementById("contenido")
+			var tr = tbody.getElementsByTagName("tr")
+			//Iteracion sobre la tabla
+			for (var i = tr.length - 1; i >= 0; i--) {
+				var td = tr[i].getElementsByTagName("td")
+				//match
+				tr[i].style.display = "";
+
+			}
+		}
 	}
 
 function teclado(){

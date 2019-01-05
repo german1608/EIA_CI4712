@@ -5,71 +5,75 @@
 <link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 {% endblock %}
 
-	{% block content %}
+{% block content %}
 
-		<div class="row p-3 justify-content-center titulo top-rounded">
-			<div class="col-md-1 col-sm-1">
-				<a class="btn menu" href="{% url 'actividades' %}"><i class="material-icons">arrow_back</i></a>
-			</div>
-			<div class="col-md-9 col-sm-11 text-center">
-				{% if object %}
-				<h1>Editar Actividad</h1>
-				{% else %}
-				<h1>Agregar nueva actividad</h1>
-				{% endif %}
-			</div>
+	<div class="row pt-3 justify-content-center titulo top-rounded">
+		<div class="col-md-1 col-sm-1">
+			<a class="btn menu" href="{% url 'actividades' %}" data-toggle="tooltip" title="Volver"><i class="material-icons">arrow_back</i></a>
 		</div>
+		<div class="col-md-9 col-sm-11 text-center">
+			{% if object %}
+			<h1>Editar Actividad</h1>
+			{% else %}
+			<h1>Agregar nueva actividad</h1>
+			{% endif %}
+		</div>
+	</div>
 
 
-		<div class="row p-3 justify-content-center fondo-form bottom-rounded">
-			<div class="col-md-10">
-				<form method="post" id="formulario">
-					{% csrf_token %}
-					
-					<div class="row justify-content-around mb-3">
-						<div class="col-md-3">
-							<label for="">{{form.nombre.label}}</label>
-							{{form.nombre}}
+	<div class="row p-3 justify-content-center fondo-form bottom-rounded">
+		<div class="col-md-10">
+			<form method="post" id="formulario">
+				{% csrf_token %}
+				
+				<div class="row justify-content-around mb-3">
+					<div class="col-md-3">
+						<label for="">{{form.nombre.label}}</label>
+						{{form.nombre}}
 
-							<label for="tipo">{{form.descripcion.label}}</label>
-							{{form.descripcion}}
+						<label for="tipo">{{form.descripcion.label}}</label>
+						{{form.descripcion}}
 
-							<label for="tipo">{{form.macro.label}}</label>
-							{{form.macro}}
-						</div>
-
-						<div class="col-md-3">
-								
-								<label for="tipo">{{form.disciplina.label}}</label>
-								{{form.disciplina}}
-								<label for="tipo">{{form.amenazas.label}}</label>
-								{{form.amenazas}}
-								<label for="tipo">{{form.vulnerabilidades.label}}</label>
-								{{form.vulnerabilidades}}
-						</div>
+						<label for="tipo">{{form.macro.label}}</label>
+						{{form.macro}}
 					</div>
 
-					<div class="row justify-content-center p-3">
-						<div class="col-md-6" align="center">
-							<div class="">
-									<button id="editar" name="editar" class="btn btn-crud" onclick = "return confirm('¿Está seguro de los datos introducidos?')" style="width: 50%" value="Guardar" type="submit"><i class="material-icons">save</i></button>
-							</div>
-						</div>
-						{% if object %}
-						<div class="col-md-6" align="center">
-							<div class="">
-								<a class="btn btn-crud" name="eliminar" style="width: 50%" onclick = "return confirm('¿Está seguro de eliminar esta actividad?')" href="{% url 'eliminar_actividad' object.id %}"><i class="material-icons">delete</i></a>
-							</div>
-						{% endif %}
+					<div class="col-md-3">
+							
+							<label for="tipo">{{form.disciplina.label}}</label>
+							{{form.disciplina}}
+							<label for="tipo">{{form.amenazas.label}}</label>
+							{{form.amenazas}}
+							<label for="tipo">{{form.vulnerabilidades.label}}</label>
+							{{form.vulnerabilidades}}
+					</div>
+				</div>
+
+				<div class="row justify-content-center p-3">
+					<div class="col-md-6" align="center">
+						<div class="">
+								<button id="editar" name="editar" class="btn btn-crud" onclick = "return confirm('¿Está seguro de los datos introducidos?')" style="width: 50%" value="Guardar" type="submit" data-toggle="tooltip" title="Guardar cambios"><i class="material-icons">save</i></button>
 						</div>
 					</div>
-				</form>
-			</div>
+					{% if object %}
+					<div class="col-md-6" align="center">
+						<div class="">
+							<a class="btn btn-crud" name="eliminar" style="width: 50%" onclick = "return confirm('¿Está seguro de eliminar esta actividad?')" href="{% url 'eliminar_actividad' object.id %}" data-toggle="tooltip" title="Eliminar actividad"><i class="material-icons">delete</i></a>
+						</div>
+					{% endif %}
+					</div>
+				</div>
+			</form>
 		</div>
-	
-	{%endblock%}
+	</div>
 
-	{% block js %}
-	<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
+{%endblock%}
 
-	{% endblock %}
+{% block js %}
+<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.bundle.min.js' %}"></script>
+<script type="text/javascript">
+	$(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+	})
+</script>
+{% endblock %}

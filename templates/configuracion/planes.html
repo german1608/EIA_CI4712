@@ -14,7 +14,7 @@
 		<input type="text" id="buscar-plan" onkeypress="teclado()" name="buscar" class="buscar-p-sp" />
 	</div>
 	<div class="col-md-1">
-		<a class="btn btn-crud" onclick="buscar()"><i class="material-icons">search</i></a>
+		<a class="btn btn-crud" onclick="buscar()" data-toggle="tooltip" title="Buscar"><i class="material-icons">search</i></a>
 	</div>
 </div>
 
@@ -36,8 +36,8 @@
 					<td>{{p.id}}</td>
 					<td><a name="{{p.nombre}}" href="{% url 'detalles_plan' p.nombre %}">{{p.nombre}}</a></td>
 					<td>{{p.medidas}}</td>
-					<td><a class="btn rounded pl-3 btn-crud" href="{% url 'editar_plan' p.id %}"><i class="material-icons">edit</i></a></td>
-					<td><a class="btn rounded pl-3 btn-crud" onclick="return confirm('¿Está seguro de eliminar este plan?')" href="{% url 'eliminar_plan' p.id %}"><i class="material-icons">delete</i></a></td>
+					<td><a class="btn rounded pl-3 btn-crud" href="{% url 'editar_plan' p.id %}" data-toggle="tooltip" title="Editar plan"><i class="material-icons">edit</i></a></td>
+					<td><a class="btn rounded pl-3 btn-crud" onclick="return confirm('¿Está seguro de eliminar este plan?')" href="{% url 'eliminar_plan' p.id %}" data-toggle="tooltip" title="Eliminar plan"><i class="material-icons">delete</i></a></td>
 				</tr>
 				{% endfor %}
 			</tbody>
@@ -45,11 +45,17 @@
 	
 	</div>
 	<div class="col-md-1">
-		<a class="btn rounded btn-crud" id="agregar_plan" href="{% url 'agregar_plan' %}"><i class="material-icons">add</i></a>
+		<a class="btn rounded btn-crud" id="agregar_plan" href="{% url 'agregar_plan' %}" data-toggle="tooltip" title="Agregar plan"><i class="material-icons">add</i></a>
 	</div>
 </div>
 {% endblock %}
 
 {% block js %}
 <script type="text/javascript" src="{% static 'configuracion/js/buscar-plan.js' %}"></script>
+<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.bundle.min.js' %}"></script>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
 {% endblock %}
