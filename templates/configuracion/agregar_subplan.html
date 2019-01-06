@@ -18,6 +18,20 @@
 		</div>
 	</div>
 
+	{% if form.errors %}
+	{% for fields in form %}
+	{% for error in fields.errors %}
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+	  {{error}}
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    <span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
+	{% endfor %}
+	{% endfor %}
+	{% endif %}
+	
+
 	<div class="row p-3 justify-content-center fondo-form bottom-rounded">
 		<div class="col-md-10">
 			<form method="post" id="formulario">

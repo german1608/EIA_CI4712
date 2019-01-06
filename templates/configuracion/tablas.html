@@ -9,6 +9,16 @@
 <div class="row justify-content-center mb-3 pt-3 titulo all-rounded">
 	<h1>Valoraciones</h1>
 </div>
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{message}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+{% endif %}
 <div class="row justify-content-center px-3">
 	<div class="col-md-6 col-sm-12">
 		<table class="indicador">
