@@ -7,6 +7,21 @@
 body{
     overflow-x: hidden;
 }
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #4f6228;
+}
+#pill-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 30%;
+    width: 50%;
+    margin: -15% 0 0 -25%;
+}
+.nav-link{
+    position: relative;
+}
 </style>
 {% endblock %}
 
@@ -24,25 +39,25 @@ body{
     <br>
     <!-- Nav pills -->
     <ul class="nav nav-pills nav-justified" role="tablist">
-      <li class="nav-item">
-        <a id="botonHumano" class="nav-link active" data-toggle="pill" href="#humano">Talento Humano</a>
+      <li class="nav-item text-center">
+        <a id="botonHumano" style="height: 100px;" class="nav-link active" data-toggle="pill" href="#humano"><p id="pill-text">Talento Humano</p></a>
       </li>
       <li class="nav-item">
-        <a id="botonServicio" class="nav-link" data-toggle="pill" href="#serviciosProf">Servicios Profesionales y técnicos</a>
+        <a id="botonServicio" style="height: 100px;" class="nav-link" data-toggle="pill" href="#serviciosProf"><p id="pill-text">Servicios Profesionales y Técnicos</p></a>
       </li>
       <li class="nav-item">
-        <a id="botonPasaje" class="nav-link" data-toggle="pill" href="#pasaje">Pasaje y Hospedaje</a>
+        <a id="botonPasaje" style="height: 100px;" class="nav-link" data-toggle="pill" href="#pasaje"><p id="pill-text">Pasaje y Hospedaje</p></a>
       </li>
       <li class="nav-item">
-        <a id="botonRecursos" class="nav-link" data-toggle="pill" href="#recursos">Recursos Materiales</a>
-      </li>
-
-      <li class="nav-item">
-        <a id="botonOficina" class="nav-link" data-toggle="pill" href="#oficina">Materiales de Oficina</a>
+        <a id="botonRecursos" style="height: 100px;" class="nav-link" data-toggle="pill" href="#recursos"><p id="pill-text">Recursos Materiales</p></a>
       </li>
 
       <li class="nav-item">
-        <a id="botonInsumos" class="nav-link" data-toggle="pill" href="#insumos">Insumos</a>
+        <a id="botonOficina" style="height: 100px;" class="nav-link" data-toggle="pill" href="#oficina"><p id="pill-text">Materiales de Oficina</p></a>
+      </li>
+
+      <li class="nav-item">
+        <a id="botonInsumos" style="height: 100px;" class="nav-link" data-toggle="pill" href="#insumos"><p id="pill-text">Insumos</p></a>
       </li>
     </ul>
   
@@ -380,12 +395,13 @@ body{
     });
   });
 </script>
-{% comment %} 
-IMPLEMENTAR QUE DEPENDIENDO DE CREAR O EDITAR SE DEBE ENTRAR A UNA PESTAÑA 
+{% if success %}
 <script>
-$(document).ready( function () {
-    $('#serviciosProf-tab').tab('show')
-});
+    $(document).ready( function () {
+        console.log("hola entre con ")
+        $("#{{success}}").tab('show')
+        console.log("#{{success}}")
+    });
 </script> 
-{% endcomment %}
+{% endif %}
 {% endblock %}

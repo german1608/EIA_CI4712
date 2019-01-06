@@ -491,11 +491,9 @@ class CostoHumanoList(ListView): # pylint: disable=too-many-ancestors
             'recursos': CostoMateriales.objects.filter(tipo=4),
             'oficina': CostoMateriales.objects.filter(tipo=5),
             'insumos': CostoMateriales.objects.filter(tipo=6),
-            
-            
-
-            
         })
+        if self.kwargs.get('success') != None:
+            context["success"] = self.kwargs.get('success')
         return context
 
 class CostoHumanoCreate(CreateView): # pylint: disable=too-many-ancestors
@@ -503,7 +501,8 @@ class CostoHumanoCreate(CreateView): # pylint: disable=too-many-ancestors
     model = CostoHumano
     fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
     template_name = 'eia_app/create_form.html'
-    success_url = reverse_lazy('consultor-crud:costos')
+    success_url = reverse_lazy('consultor-crud:costos-success',
+                                kwargs={'success': 'botonHumano'})
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoHumanoCreate, self).get_context_data(**kwargs)
@@ -520,7 +519,8 @@ class CostoHumano_ServiciosCreate(CreateView): # pylint: disable=too-many-ancest
     model = CostoHumano
     fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
     template_name = 'eia_app/create_form.html'
-    success_url = reverse_lazy('consultor-crud:costos')
+    success_url = reverse_lazy('consultor-crud:costos-success',
+                                kwargs={'success': 'botonServicio'})
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoHumano_ServiciosCreate, self).get_context_data(**kwargs)
@@ -536,8 +536,8 @@ class CostoHumano_PasajeCreate(CreateView): # pylint: disable=too-many-ancestors
     model = CostoHumano
     fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
     template_name = 'eia_app/create_form.html'
-    success_url = reverse_lazy('consultor-crud:costos')
-
+    success_url = reverse_lazy('consultor-crud:costos-success',
+                                kwargs={'success': 'botonPasaje'})
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoHumano_PasajeCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Agregar costos de pasajes y hospedaje"
@@ -552,7 +552,8 @@ class CostoMaterial_RecursosCreate(CreateView): # pylint: disable=too-many-ances
     model = CostoMateriales
     fields = ['proyecto', 'material', 'cantidad', 'costo_unidad', 'monto']
     template_name = 'eia_app/create_form.html'
-    success_url = reverse_lazy('consultor-crud:costos')
+    success_url = reverse_lazy('consultor-crud:costos-success',
+                                kwargs={'success': 'botonRecursos'})
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoMaterial_RecursosCreate, self).get_context_data(**kwargs)
@@ -568,7 +569,8 @@ class CostoMaterial_OficinaCreate(CreateView): # pylint: disable=too-many-ancest
     model = CostoMateriales
     fields = ['proyecto', 'material', 'cantidad', 'costo_unidad', 'monto']
     template_name = 'eia_app/create_form.html'
-    success_url = reverse_lazy('consultor-crud:costos')
+    success_url = reverse_lazy('consultor-crud:costos-success',
+                                kwargs={'success': 'botonOficina'})
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoMaterial_OficinaCreate, self).get_context_data(**kwargs)
@@ -584,7 +586,8 @@ class CostoMaterial_InsumosCreate(CreateView): # pylint: disable=too-many-ancest
     model = CostoMateriales
     fields = ['proyecto', 'material', 'cantidad', 'costo_unidad', 'monto']
     template_name = 'eia_app/create_form.html'
-    success_url = reverse_lazy('consultor-crud:costos')
+    success_url = reverse_lazy('consultor-crud:costos-success',
+                                kwargs={'success': 'botonInsumos'})
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoMaterial_InsumosCreate, self).get_context_data(**kwargs)

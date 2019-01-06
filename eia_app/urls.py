@@ -116,4 +116,6 @@ urlpatterns = [  # pylint: disable=invalid-name
     path('costoshumano/eliminar/<int:pk>/', CostoHumanoDelete.as_view(), name='borrar-costohumano'),
     path('costosmaterial/editar/<int:pk>/', CostoMaterialesUpdate.as_view(), name='editar-costomaterial'),
     path('costosmaterial/eliminar/<int:pk>/', CostoMaterialesDelete.as_view(), name='borrar-costomaterial'),
+    path('costos/<slug:success>/', CostoHumanoList.as_view(),
+         name='costos-success'),  
 ]
