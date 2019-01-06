@@ -19,8 +19,7 @@ class ViewsTest(SeleniumTestCase):
             titulo="prueba de detalles",
             ubicacion="caracas, venezuela",
             area="area de prueba, caracas",
-            tipo="prueba selenium",
-            url="www.google.com.ve")
+            tipo="prueba selenium")
         # Se inicia sesion en cada prueba de forma automatica
         self.selenium.get(
             '{}{}'.format(
@@ -45,8 +44,6 @@ class ViewsTest(SeleniumTestCase):
         self.selenium.find_element_by_name('area').send_keys(area)
         tipo = "Recreación"
         self.selenium.find_element_by_name('tipo').send_keys(tipo)
-        url = "https://www.google.co.ve"
-        self.selenium.find_element_by_name('url').send_keys(url)
         self.selenium.find_element_by_xpath("//button[@type='submit']").click()
 
     def test_ver_detalles_datosproyecto(self):
@@ -98,8 +95,7 @@ class TestOrganizaciones(SeleniumTestCase):
             titulo="prueba de detalles",
             ubicacion="caracas, venezuela",
             area="area de prueba, caracas",
-            tipo="prueba selenium",
-            url="www.google.com.ve")
+            tipo="prueba selenium")
 
         self.organizacion = Organizacion.objects.create(
             proyecto=self.proyecto,
@@ -208,8 +204,7 @@ class TestResponsable(SeleniumTestCase):
             titulo="prueba de detalles",
             ubicacion="caracas, venezuela",
             area="area de prueba, caracas",
-            tipo="prueba selenium",
-            url="www.google.com.ve")
+            tipo="prueba selenium")
 
         # Se crea un responsable para editar y eliminar
         self.responsable = Responsable.objects.create(
@@ -303,8 +298,7 @@ class TestDatosDocumento(SeleniumTestCase):
             titulo="prueba de detalles",
             ubicacion="caracas, venezuela",
             area="area de prueba, caracas",
-            tipo="prueba selenium",
-            url="www.google.com.ve")
+            tipo="prueba selenium")
 
         # Se crea un documento para editar y eliminar
         self.documento = DatosDocumento.objects.create(
@@ -391,7 +385,7 @@ class TestSolicitante(SeleniumTestCase):
             ubicacion="caracas, venezuela",
             area="area de prueba, caracas",
             tipo="prueba selenium",
-            url="www.google.com.ve")
+            )
 
         # Se crea un solicitante para editar y eliminar
         self.solicitante = Solicitante.objects.create(
@@ -486,14 +480,13 @@ class TestDescripcionProyecto(SeleniumTestCase):
             ubicacion="caracas, venezuela",
             area="area de prueba, caracas",
             tipo="prueba selenium",
-            url="www.google.com.ve")
+            )
 
         self.proyecto1 = DatosProyecto.objects.create(
             titulo="prueba de detalles1",
             ubicacion="caracas, venezuela1",
             area="area de prueba, caracas1",
-            tipo="prueba selenium1",
-            url="www.google1.com.ve")
+            tipo="prueba selenium1")
 
         # Se crea una descripcion de un proyecto para editar y eliminar
         self.descripcion = DescripcionProyecto.objects.create(
@@ -587,14 +580,13 @@ class TestCaracteristicaMedio(SeleniumTestCase):
             ubicacion="caracas, venezuela",
             area="area de prueba, caracas",
             tipo="prueba selenium",
-            url="www.google.com.ve")
+            )
 
         self.proyecto1 = DatosProyecto.objects.create(
             titulo="prueba de detalles1",
             ubicacion="caracas, venezuela1",
             area="area de prueba, caracas1",
-            tipo="prueba selenium1",
-            url="www.google1.com.ve")
+            tipo="prueba selenium1")
 
         self.medio1=Medio.objects.create(
             tipo= "biologico",
@@ -800,14 +792,13 @@ class TestTipoCosto(SeleniumTestCase):
             ubicacion="caracas, venezuela",
             area="area de prueba, caracas",
             tipo="prueba selenium",
-            url="www.google.com.ve")
+            )
 
         self.proyecto1 = DatosProyecto.objects.create(
             titulo="prueba de detalles1",
             ubicacion="caracas, venezuela1",
             area="area de prueba, caracas1",
-            tipo="prueba selenium1",
-            url="www.google1.com.ve")
+            tipo="prueba selenium1")
 
         self.tipoHumano = TipoCosto.objects.create(
             tipo = "humano")
@@ -888,10 +879,7 @@ class TestTipoCosto(SeleniumTestCase):
         """
             Test para anadir costo humano.
         """
-        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
-        self.selenium.find_element_by_css_selector('#costos-plan').click()
-        self.selenium.find_element_by_css_selector('#botonHumano').click()
-        self.selenium.find_element_by_css_selector('#botonAdd').click()
+        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-humano/'))
         proyecto = self.proyecto1.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         actividad = "Actividades realizadas"
@@ -908,10 +896,7 @@ class TestTipoCosto(SeleniumTestCase):
         """
             Test para anadir costo de servicios.
         """
-        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
-        self.selenium.find_element_by_css_selector('#costos-plan').click()
-        self.selenium.find_element_by_css_selector('#botonServicio').click()
-        self.selenium.find_element_by_css_selector('#botonAdd').click()
+        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-servicio/'))
         proyecto = self.proyecto1.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         actividad = "Actividades realizadas"
@@ -928,10 +913,7 @@ class TestTipoCosto(SeleniumTestCase):
         """
             Test para anadir costo de pasaje.
         """
-        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
-        self.selenium.find_element_by_css_selector('#costos-plan').click()
-        self.selenium.find_element_by_css_selector('#botonPasaje').click()
-        self.selenium.find_element_by_css_selector('#botonAdd').click()
+        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-pasaje/'))
         proyecto = self.proyecto1.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         actividad = "Actividades realizadas"
@@ -948,14 +930,11 @@ class TestTipoCosto(SeleniumTestCase):
         """
             Test para anadir costo de recursos.
         """
-        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
-        self.selenium.find_element_by_css_selector('#costos-plan').click()
-        self.selenium.find_element_by_css_selector('#botonRecursos').click()
-        self.selenium.find_element_by_css_selector('#botonAdd').click()
+        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-recursos/'))
         proyecto = self.proyecto1.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         material = "Materiales usados"
-        self.selenium.find_element_by_name('actividad').send_keys(actividad)
+        self.selenium.find_element_by_name('material').send_keys(material)
         cantidad = 10
         self.selenium.find_element_by_name('cantidad').send_keys(cantidad)
         costo_unidad = 10
@@ -968,14 +947,11 @@ class TestTipoCosto(SeleniumTestCase):
         """
             Test para anadir costo de oficina.
         """
-        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
-        self.selenium.find_element_by_css_selector('#costos-plan').click()
-        self.selenium.find_element_by_css_selector('#botonOficina').click()
-        self.selenium.find_element_by_css_selector('#botonAdd').click()
+        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-oficina/'))
         proyecto = self.proyecto1.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         material = "Materiales usados"
-        self.selenium.find_element_by_name('actividad').send_keys(actividad)
+        self.selenium.find_element_by_name('material').send_keys(material)
         cantidad = 20
         self.selenium.find_element_by_name('cantidad').send_keys(cantidad)
         costo_unidad = 20
@@ -988,10 +964,7 @@ class TestTipoCosto(SeleniumTestCase):
         """
             Test para anadir costo de recursos.
         """
-        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
-        self.selenium.find_element_by_css_selector('#costos-plan').click()
-        self.selenium.find_element_by_css_selector('#botonInsumos').click()
-        self.selenium.find_element_by_css_selector('#botonAdd').click()
+        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-insumos/'))
         proyecto = self.proyecto1.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         material = "Materiales usados"

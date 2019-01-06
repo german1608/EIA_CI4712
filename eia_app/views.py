@@ -459,7 +459,7 @@ class SubaracteristicaMedioUpdate(UpdateView):  # pylint: disable=too-many-ances
                             kwargs={'pk': subcaracteristica.caracteristica.pk})
     
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
-        context = super(CaracteristicaMedioUpdate, self).get_context_data(**kwargs)
+        context = super(SubaracteristicaMedioUpdate, self).get_context_data(**kwargs)
         context["nombre"] = "Editar subcaracterística de un medio"
         return context
 
