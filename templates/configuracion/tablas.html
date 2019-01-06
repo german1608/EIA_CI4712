@@ -6,9 +6,6 @@
 {% endblock %}
 {% block content %}
 
-<div class="row justify-content-center mb-3 pt-3 titulo all-rounded">
-	<h1>Valoraciones</h1>
-</div>
 {% if messages %}
 {% for message in messages %}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -19,266 +16,276 @@
 </div>
 {% endfor %}
 {% endif %}
-<div class="row justify-content-center px-3">
-	<div class="col-md-6 col-sm-12">
-		<table class="indicador">
-			<caption>Criterios de clasificación de la importancia del efecto</caption>
-			<tr class="cabecera">
-				<th>Importancia</th>
-				<th colspan="2">Rango</th>
-				<th>Valor del impacto</th>
-			</tr>
-			<tr class="cabecera_2">
-				<th>
-					<th>Min</th>
-					<th>Max</th>
-				</th>
-				<th></th>
-			</tr>
-			{% for i in importancia %}
-			{% if i.importancia == 'MA' %}
-			<tr>
-				<td>Muy alta</td>
-				<td>{{i.minimo}}</td>
-				<td>{{i.maximo}}</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% elif i.importancia == 'A' %}
-			<tr>
-				<td>Alta</td>
-				<td>{{i.minimo}}</td>
-				<td>{{i.maximo}}</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% elif i.importancia == 'M' %}
-			<tr>
-				<td>Media</td>
-				<td>{{i.minimo}}</td>
-				<td>{{i.maximo}}</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% elif i.importancia == 'B' %}
-			<tr>
-				<td>Baja</td>
-				<td>{{i.minimo}}</td>
-				<td>{{i.maximo}}</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% endif %}
-			{% endfor %}
-		</table>
-	</div>
 
-	<div class="col-md-6 col-sm-12">
-		<table class="indicador">
-			<caption>Valoración de la extensión</caption>
-			<tr class="cabecera">
-				<th>Clasificacion</th>
-				<th colspan="2">Extension</th>
-			</tr>
-			<tr class="cabecera_2">
-				<th>
-					<th>%</th>
-					<th>Valor</th>
-				</th>
-			</tr>
-			<tr>
-				{% for i in extension %}
-				{% if i.clasificacion == 'GE' %}
-				<td>Generalizada</td>
-				<td>>75%</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			<tr>
-				{% elif i.clasificacion == 'EX' %}
-				<td>Extensiva</td>
-				<td>35-74%</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			<tr>
-				{% elif i.clasificacion == 'LO' %}
-				<td>Local</td>
-				<td>10-34%</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			<tr>
-				{% elif i.clasificacion == 'PU' %}
-				<td>Puntual</td>
-				<td><10%</td>
-				<td>{{i.valor}}</td>
-				{% endif %}
-				{% endfor %}
-			</tr>
-		</table>
-	</div>
+<div class="row justify-content-center pt-3 titulo all-rounded">
+	<h1>Valoraciones</h1>
 </div>
-<div class="row justify-content-center px-3">
-	<div class="col-md-6 col-sm-12">
-		<table class="indicador">
-			<caption>Valoración de la duración</caption>
-			<tr class="cabecera">
-				<th>Criterios</th>
-				<th>Valor</th>
-			</tr>
-			{% for i in duracion %}
-			{% if i.criterio == 'M2' %}
-			<tr>
-				<td>Menos de 2 años</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% elif i.criterio == 'M2-5' %}
-			<tr>
-				<td>2 a 5 años</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% elif i.criterio == 'M5-10' %}
-			<tr>
-				<td>5 a 10 años</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% elif i.criterio == 'M10' %}
-			<tr>
-				<td>Más de 10 años</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% endif %}
-			{% endfor %}
-		</table>
-	</div>
-	<div class="col-md-6 col-sm-12">
-		<table class="indicador">
-			<caption>Valoración de la reversibilidad</caption>
-			<tr class="cabecera">
-				<th>Clasificación</th>
-				<th>Valor</th>
-			</tr>
-			{% for i in reversibilidad %}
-			{% if i.clasificacion == 'IR' %}
-			<tr>
-				<td>Irreversible</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% elif i.clasificacion == 'TR' %}
-			<tr>
-				<td>Requiere tratamiento</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% elif i.clasificacion == 'MR' %}
-			<tr>
-				<td>Medianamente reversible</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% elif i.clasificacion == 'RE' %}
-			<tr>
-				<td>Reversible</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% endif %}
-			{% endfor %}
-		</table>
-	</div>
-</div>
-<div class="row justify-content-center px-3">
-	<div class="col-md-6 col-sm-12">
-		<table class="indicador">
-			<caption>Probabilidades</caption>
-			<tr class="cabecera">
-				<th>Clasificación</th>
-				<th>Porcentaje</th>
-			</tr>
-			{% for i in probabilidad %}
-			{% if i.probabilidad == 'A' %}
-			<tr>
-				<td>Alta</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% elif i.probabilidad == 'M' %}
-			<tr>
-				<td>Media</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% elif i.probabilidad == 'B' %}
-			<tr>
-				<td>Baja</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% elif i.probabilidad == 'N' %}
-			<tr>
-				<td>Nula</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% endif %}
-			{% endfor %}
-		</table>
-	</div>
-	<div class="col-md-6 col-sm-12">
-		<table class="indicador">
-			<caption>Valoración de la intensidad</caption>
-			<tr class="cabecera">
-				<th>Grado de perturbancia</th>
-				<th colspan="4">Valor socio-cultural</th>
-			</tr>
-			<tr class="cabecera_2">
-				<th>
-					<th>Muy alto</th>
-					<th>Alto</th>
-					<th>Medio</th>
-					<th>Bajo</th>
-				</th>
-			</tr>
-			<tr>
-				<td>Fuerte</td>
-				{% for i in intensidad_fuerte %}
-				{% if i.valor_sociocultural == 'MA' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'A' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'M' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'B' %}
-				<td>{{i.valor}}</td>
-				{% endif %}
-				{% endfor %}
-			</tr>
-				<td>Medio</td>
-				{% for i in intensidad_medio %}
-				{% if i.valor_sociocultural == 'MA' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'A' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'M' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'B' %}
-				<td>{{i.valor}}</td>
-				{% endif %}
-				{% endfor %}
-			</tr>
-			<tr>
-				<td>Suave</td>
-				{% for i in intensidad_suave %}
-				{% if i.valor_sociocultural == 'MA' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'A' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'M' %}
-				<td>{{i.valor}}</td>
-				{% elif i.valor_sociocultural == 'B' %}
-				<td>{{i.valor}}</td>
-				{% endif %}
-				{% endfor %}
-			</tr>
-		</table>
-	</div>
-</div>
-<div class="row p-3">
-	<div class="col-md-6 col-sm-6" align="center">
-		<a class="btn btn-crud" name="modificar_valores" style="width: 50%" href="{% url 'modificar_tablas' %}" data-toggle="tooltip" title="Modificar valores"><i class="material-icons">edit</i></a>
-	</div>
-	<div class="col-md-6 col-sm-6" align="center">
-		<a class="btn btn-crud" name="estudios" style="width: 50%" href="{% url 'index' %}" data-toggle="tooltip" title="Ir a estudios"><i class="fas fa-tree"></i></a>
-	</div>
 
+<div class="row p-3 justify-content-center fondo-form bottom-rounded">
+	<div class="col-md-12">
+		<div class="row justify-content-center px-3">
+			<div class="col-md-6 col-sm-12 px-3">
+				<table class="indicador">
+					<caption>Criterios de clasificación de la importancia del efecto</caption>
+					<tr class="cabecera">
+						<th>Importancia</th>
+						<th colspan="2">Rango</th>
+						<th>Valor del impacto</th>
+					</tr>
+					<tr class="cabecera_2">
+						<th>
+							<th>Min</th>
+							<th>Max</th>
+						</th>
+						<th></th>
+					</tr>
+					{% for i in importancia %}
+					{% if i.importancia == 'MA' %}
+					<tr>
+						<td>Muy alta</td>
+						<td>{{i.minimo}}</td>
+						<td>{{i.maximo}}</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% elif i.importancia == 'A' %}
+					<tr>
+						<td>Alta</td>
+						<td>{{i.minimo}}</td>
+						<td>{{i.maximo}}</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% elif i.importancia == 'M' %}
+					<tr>
+						<td>Media</td>
+						<td>{{i.minimo}}</td>
+						<td>{{i.maximo}}</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% elif i.importancia == 'B' %}
+					<tr>
+						<td>Baja</td>
+						<td>{{i.minimo}}</td>
+						<td>{{i.maximo}}</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% endif %}
+					{% endfor %}
+				</table>
+			</div>
+
+			<div class="col-md-6 col-sm-12">
+				<table class="indicador">
+					<caption>Valoración de la extensión</caption>
+					<tr class="cabecera">
+						<th>Clasificacion</th>
+						<th colspan="2">Extension</th>
+					</tr>
+					<tr class="cabecera_2">
+						<th>
+							<th>%</th>
+							<th>Valor</th>
+						</th>
+					</tr>
+					<tr>
+						{% for i in extension %}
+						{% if i.clasificacion == 'GE' %}
+						<td>Generalizada</td>
+						<td>>75%</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					<tr>
+						{% elif i.clasificacion == 'EX' %}
+						<td>Extensiva</td>
+						<td>35-74%</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					<tr>
+						{% elif i.clasificacion == 'LO' %}
+						<td>Local</td>
+						<td>10-34%</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					<tr>
+						{% elif i.clasificacion == 'PU' %}
+						<td>Puntual</td>
+						<td><10%</td>
+						<td>{{i.valor}}</td>
+						{% endif %}
+						{% endfor %}
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="row justify-content-center px-3">
+			<div class="col-md-6 col-sm-12">
+				<table class="indicador">
+					<caption>Valoración de la duración</caption>
+					<tr class="cabecera">
+						<th>Criterios</th>
+						<th>Valor</th>
+					</tr>
+					{% for i in duracion %}
+					{% if i.criterio == 'M2' %}
+					<tr>
+						<td>Menos de 2 años</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% elif i.criterio == 'M2-5' %}
+					<tr>
+						<td>2 a 5 años</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% elif i.criterio == 'M5-10' %}
+					<tr>
+						<td>5 a 10 años</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% elif i.criterio == 'M10' %}
+					<tr>
+						<td>Más de 10 años</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% endif %}
+					{% endfor %}
+				</table>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<table class="indicador">
+					<caption>Valoración de la reversibilidad</caption>
+					<tr class="cabecera">
+						<th>Clasificación</th>
+						<th>Valor</th>
+					</tr>
+					{% for i in reversibilidad %}
+					{% if i.clasificacion == 'IR' %}
+					<tr>
+						<td>Irreversible</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% elif i.clasificacion == 'TR' %}
+					<tr>
+						<td>Requiere tratamiento</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% elif i.clasificacion == 'MR' %}
+					<tr>
+						<td>Medianamente reversible</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% elif i.clasificacion == 'RE' %}
+					<tr>
+						<td>Reversible</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% endif %}
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+		<div class="row justify-content-center px-3">
+			<div class="col-md-6 col-sm-12">
+				<table class="indicador">
+					<caption>Probabilidades</caption>
+					<tr class="cabecera">
+						<th>Clasificación</th>
+						<th>Porcentaje</th>
+					</tr>
+					{% for i in probabilidad %}
+					{% if i.probabilidad == 'A' %}
+					<tr>
+						<td>Alta</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% elif i.probabilidad == 'M' %}
+					<tr>
+						<td>Media</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% elif i.probabilidad == 'B' %}
+					<tr>
+						<td>Baja</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% elif i.probabilidad == 'N' %}
+					<tr>
+						<td>Nula</td>
+						<td>{{i.valor}}</td>
+					</tr>
+					{% endif %}
+					{% endfor %}
+				</table>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<table class="indicador">
+					<caption>Valoración de la intensidad</caption>
+					<tr class="cabecera">
+						<th>Grado de perturbancia</th>
+						<th colspan="4">Valor socio-cultural</th>
+					</tr>
+					<tr class="cabecera_2">
+						<th>
+							<th>Muy alto</th>
+							<th>Alto</th>
+							<th>Medio</th>
+							<th>Bajo</th>
+						</th>
+					</tr>
+					<tr>
+						<td>Fuerte</td>
+						{% for i in intensidad_fuerte %}
+						{% if i.valor_sociocultural == 'MA' %}
+						<td>{{i.valor}}</td>
+						{% elif i.valor_sociocultural == 'A' %}
+						<td>{{i.valor}}</td>
+						{% elif i.valor_sociocultural == 'M' %}
+						<td>{{i.valor}}</td>
+						{% elif i.valor_sociocultural == 'B' %}
+						<td>{{i.valor}}</td>
+						{% endif %}
+						{% endfor %}
+					</tr>
+						<td>Medio</td>
+						{% for i in intensidad_medio %}
+						{% if i.valor_sociocultural == 'MA' %}
+						<td>{{i.valor}}</td>
+						{% elif i.valor_sociocultural == 'A' %}
+						<td>{{i.valor}}</td>
+						{% elif i.valor_sociocultural == 'M' %}
+						<td>{{i.valor}}</td>
+						{% elif i.valor_sociocultural == 'B' %}
+						<td>{{i.valor}}</td>
+						{% endif %}
+						{% endfor %}
+					</tr>
+					<tr>
+						<td>Suave</td>
+						{% for i in intensidad_suave %}
+						{% if i.valor_sociocultural == 'MA' %}
+						<td>{{i.valor}}</td>
+						{% elif i.valor_sociocultural == 'A' %}
+						<td>{{i.valor}}</td>
+						{% elif i.valor_sociocultural == 'M' %}
+						<td>{{i.valor}}</td>
+						{% elif i.valor_sociocultural == 'B' %}
+						<td>{{i.valor}}</td>
+						{% endif %}
+						{% endfor %}
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="row p-3">
+			<div class="col-md-6 col-sm-6" align="center">
+				<a class="btn btn-crud" name="modificar_valores" style="width: 50%" href="{% url 'modificar_tablas' %}" data-toggle="tooltip" title="Modificar valores"><i class="material-icons">edit</i></a>
+			</div>
+			<div class="col-md-6 col-sm-6" align="center">
+				<a class="btn btn-crud" name="estudios" style="width: 50%" href="{% url 'index' %}" data-toggle="tooltip" title="Ir a estudios"><i class="fas fa-tree"></i></a>
+			</div>
+
+		</div>
+	</div>
 </div>
+		
 {%endblock%}
 
 {% block js %}
