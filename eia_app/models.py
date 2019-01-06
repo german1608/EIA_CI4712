@@ -371,7 +371,7 @@ class SubaracteristicaMedio(models.Model):
     atributo = models.TextField()
     comentario = models.TextField()
 
-    def get_model_type(self):  # pylint: disable=no-self-use
+    def get_model_type(self): # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "SubaracteristicaMedio"
 
@@ -386,15 +386,14 @@ class TipoCosto(models.Model):
                     ('profesionales', 'Servicios Profesionales y Técnicos'),
                     ('hospedaje', 'Pasajes y Hospedaje'),
                     ('materiales', 'Recursos Materiales'),
-                    ('oficina','Materiales de Oficina'), 
+                    ('oficina', 'Materiales de Oficina'), 
                     ('insumos', 'Insumos'))
     tipo = models.CharField(max_length=100, choices=TYPE_CHOICES, unique=True)
 
-    def get_model_type(self):  # pylint: disable=no-self-use
+    def get_model_type(self): # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "TipoCosto"
-    
-    def __str__(self):       # pylint: disable=no-self-use
+    def __str__(self): # pylint: disable=no-self-use
         '''Devuelve el modelo en tipo String'''
         return self.tipo
 

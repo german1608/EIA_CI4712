@@ -1,5 +1,4 @@
 '''Test para el crud del consultor '''
-import os
 from django.test import TestCase
 from .forms import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .models import *  # pylint: disable=wildcard-import, unused-wildcard-import

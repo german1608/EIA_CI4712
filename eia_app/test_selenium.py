@@ -588,23 +588,23 @@ class TestCaracteristicaMedio(SeleniumTestCase):
             area="area de prueba, caracas1",
             tipo="prueba selenium1")
 
-        self.medio1=Medio.objects.create(
-            tipo= "biologico",
-            proyecto= self.proyecto1,
-            descripcion= "descripcion del medio",
-            conclusiones= "conclusiones sobre el medio"
+        self.medio1 = Medio.objects.create(
+            tipo="biologico",
+            proyecto=self.proyecto1,
+            descripcion="descripcion del medio",
+            conclusiones="conclusiones sobre el medio"
         )
 
-        self.caracteristica1=CaracteristicaMedio.objects.create(
-            caracteristica = "caracteristica",
-            medio =self.medio1,
-            descripcion ="descripcion"
+        self.caracteristica1 = CaracteristicaMedio.objects.create(
+            caracteristica="caracteristica",
+            medio=self.medio1,
+            descripcion="descripcion"
         )
 
-        self.subcaracteristica1=SubaracteristicaMedio.objects.create(
-            nombre_sub= 'nombre',
-            caracteristica= self.caracteristica1,
-            atributo= 'atributo',
+        self.subcaracteristica1 = SubaracteristicaMedio.objects.create(
+            nombre_sub='nombre',
+            caracteristica=self.caracteristica1,
+            atributo='atributo',
             comentario='comentario'
         )
 
@@ -630,7 +630,7 @@ class TestCaracteristicaMedio(SeleniumTestCase):
             'tipo').send_keys(tipo)
         proy = self.proyecto1.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proy)
-        descripcion= "Descripcion del medio",
+        descripcion = "Descripcion del medio"
         self.selenium.find_element_by_name(
             'descripcion').send_keys(descripcion)
         conclusiones= "Conclusiones sobre el medio"
@@ -688,8 +688,7 @@ class TestCaracteristicaMedio(SeleniumTestCase):
         caracteristica = "caracteristica"
         self.selenium.find_element_by_name(
             'caracteristica').send_keys(caracteristica)
-        proy = self.medio1.id
-        descripcion= "Descripcion"
+        descripcion = "Descripcion"
         self.selenium.find_element_by_name(
             'descripcion').send_keys(descripcion)
 
@@ -744,13 +743,10 @@ class TestCaracteristicaMedio(SeleniumTestCase):
         nombre_sub = "nombre_sub"
         self.selenium.find_element_by_name(
             'nombre_sub').send_keys(nombre_sub)
-        caracteristica = self.caracteristica1.id
-        atributo= "atributo"
-        self.selenium.find_element_by_name(
-            'atributo').send_keys(atributo)
-        comentario= "comentario"
-        self.selenium.find_element_by_name(
-            'comentario').send_keys(comentario)
+        atributo = "atributo"
+        self.selenium.find_element_by_name('atributo').send_keys(atributo)
+        comentario = "comentario"
+        self.selenium.find_element_by_name('comentario').send_keys(comentario)
 
     def test_editar_subcaracteristica(self):
         """
@@ -773,9 +769,8 @@ class TestCaracteristicaMedio(SeleniumTestCase):
         self.selenium.get(
             '%s%s' %
             (self.live_server_url,
-              '/consultor-crud/caracteristica_medio/detalles/caracteristica/'+str(self.caracteristica1.id) +'/' ))
-        self.selenium.find_element_by_css_selector(
-            '#borrar' + str(self.subcaracteristica1.id)).click()
+              '/consultor-crud/caracteristica_medio/detalles/caracteristica/'+str(self.caracteristica1.id) +'/'))
+        self.selenium.find_element_by_css_selector('#borrar' + str(self.subcaracteristica1.id)).click()
         self.selenium.find_element_by_xpath("//button[@type='submit']").click()
 
 class TestTipoCosto(SeleniumTestCase):
@@ -800,67 +795,67 @@ class TestTipoCosto(SeleniumTestCase):
             area="area de prueba, caracas1",
             tipo="prueba selenium1")
 
-        self.tipoHumano = TipoCosto.objects.create(
-            tipo = "humano")
+        self.TipoHumano = TipoCosto.objects.create(
+            tipo="humano")
 
-        self.tipoMateriales = TipoCosto.objects.create(
-            tipo = "materiales")
+        self.TipoMateriales = TipoCosto.objects.create(
+            tipo="materiales")
 
-        self.tipoProfesionales = TipoCosto.objects.create(
-            tipo = "profesionales")
+        self.TipoProfesionales = TipoCosto.objects.create(
+            tipo="profesionales")
 
-        self.tipoHospedaje = TipoCosto.objects.create(
-            tipo = "hospedaje")
+        self.TipoHospedaje = TipoCosto.objects.create(
+            tipo="hospedaje")
 
-        self.tipoOficina = TipoCosto.objects.create(
-            tipo = "oficina")
+        self.TipoOficina = TipoCosto.objects.create(
+            tipo="oficina")
 
-        self.tipoInsumos = TipoCosto.objects.create(
-            tipo = "insumos")
+        self.TipoInsumos = TipoCosto.objects.create(
+            tipo="insumos")
 
-        self.costoHumano = CostoHumano.objects.create(
+        self.CostoHumano = CostoHumano.objects.create(
             proyecto=self.proyecto,
-            tipo=self.tipoHumano,
+            tipo=self.TipoHumano,
             actividad="actividad realizada",
             cantidad="10 personas",
             tiempo="dos semanas",
             monto=100)
 
-        self.costoHospedaje = CostoHumano.objects.create(
+        self.CostoHospedaje = CostoHumano.objects.create(
             proyecto=self.proyecto,
-            tipo=self.tipoHospedaje,
+            tipo=self.TipoHospedaje,
             actividad="actividad realizada",
             cantidad="10 personas",
             tiempo="dos semanas",
             monto=100)
 
-        self.costoServicios = CostoHumano.objects.create(
+        self.CostoServicios = CostoHumano.objects.create(
             proyecto=self.proyecto,
-            tipo=self.tipoProfesionales,
+            tipo=self.TipoProfesionales,
             actividad="actividad realizada",
             cantidad="10 personas",
             tiempo="dos semanas",
             monto=100)
 
-        self.costoMateriales = CostoMateriales.objects.create(
+        self.CostoMateriales = CostoMateriales.objects.create(
             proyecto=self.proyecto,
-            tipo=self.tipoMateriales,
+            tipo=self.TipoMateriales,
             material="material utilizado",
             cantidad=10,
             costo_unidad=10,
             monto=100)
 
-        self.costoOficina = CostoMateriales.objects.create(
+        self.CostoOficina = CostoMateriales.objects.create(
             proyecto=self.proyecto,
-            tipo=self.tipoOficina,
+            tipo=self.TipoOficina,
             material="material utilizado",
             cantidad=10,
             costo_unidad=10,
             monto=100)
 
-        self.costoInsumos = CostoMateriales.objects.create(
+        self.CostoInsumos = CostoMateriales.objects.create(
             proyecto=self.proyecto,
-            tipo=self.tipoInsumos,
+            tipo=self.TipoInsumos,
             material="material utilizado",
             cantidad=10,
             costo_unidad=10,
@@ -960,7 +955,7 @@ class TestTipoCosto(SeleniumTestCase):
         self.selenium.find_element_by_name('monto').send_keys(monto)
         self.selenium.find_element_by_xpath("//button[@type='submit']").click()
 
-    def test_anadir_costo_recurso(self):
+    def test_anadir_costo_insumo(self):
         """
             Test para anadir costo de recursos.
         """
@@ -968,7 +963,7 @@ class TestTipoCosto(SeleniumTestCase):
         proyecto = self.proyecto1.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         material = "Materiales usados"
-        self.selenium.find_element_by_name('actividad').send_keys(actividad)
+        self.selenium.find_element_by_name('material').send_keys(material)
         cantidad = 30
         self.selenium.find_element_by_name('cantidad').send_keys(cantidad)
         costo_unidad = 30
