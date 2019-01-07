@@ -386,7 +386,7 @@ class TipoCosto(models.Model):
                     ('profesionales', 'Servicios Profesionales y Técnicos'),
                     ('hospedaje', 'Pasajes y Hospedaje'),
                     ('materiales', 'Recursos Materiales'),
-                    ('oficina', 'Materiales de Oficina'), 
+                    ('oficina', 'Materiales de Oficina'),
                     ('insumos', 'Insumos'))
     tipo = models.CharField(max_length=100, choices=TYPE_CHOICES, unique=True)
 

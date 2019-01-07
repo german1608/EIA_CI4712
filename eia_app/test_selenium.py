@@ -633,7 +633,7 @@ class TestCaracteristicaMedio(SeleniumTestCase):
         descripcion = "Descripcion del medio"
         self.selenium.find_element_by_name(
             'descripcion').send_keys(descripcion)
-        conclusiones= "Conclusiones sobre el medio"
+        conclusiones = "Conclusiones sobre el medio"
         self.selenium.find_element_by_name(
             'conclusiones').send_keys(conclusiones)
 
@@ -710,7 +710,7 @@ class TestCaracteristicaMedio(SeleniumTestCase):
         self.selenium.get(
             '%s%s' %
             (self.live_server_url,
-             '/consultor-crud/caracteristica_medio/'+str(self.medio1.id) +'/' ))
+             '/consultor-crud/caracteristica_medio/'+str(self.medio1.id) +'/'))
         self.selenium.find_element_by_css_selector(
             '#editar' + str(self.caracteristica1.id)).click()
         descripcion = "Edicion de prueba"
@@ -724,7 +724,7 @@ class TestCaracteristicaMedio(SeleniumTestCase):
         self.selenium.get(
             '%s%s' %
             (self.live_server_url,
-             '/consultor-crud/caracteristica_medio/' +str(self.medio1.id) +'/' ))
+             '/consultor-crud/caracteristica_medio/' +str(self.medio1.id) +'/'))
         self.selenium.find_element_by_css_selector(
             '#borrar' + str(self.caracteristica1.id)).click()
         self.selenium.find_element_by_xpath("//button[@type='submit']").click()
@@ -736,7 +736,7 @@ class TestCaracteristicaMedio(SeleniumTestCase):
         self.selenium.get(
             '%s%s' %
             (self.live_server_url,
-             '/consultor-crud/caracteristica_medio/' +str(self.medio1.id) +'/' ))
+             '/consultor-crud/caracteristica_medio/' +str(self.medio1.id) +'/'))
         self.selenium.find_element_by_css_selector(
             '#detalles' + str(self.caracteristica1.id)).click()
         self.selenium.find_element_by_css_selector('#add').click()
@@ -755,7 +755,8 @@ class TestCaracteristicaMedio(SeleniumTestCase):
         self.selenium.get(
             '%s%s' %
             (self.live_server_url,
-             '/consultor-crud/caracteristica_medio/detalles/caracteristica/'+str(self.caracteristica1.id) +'/' ))
+             '/consultor-crud/caracteristica_medio/detalles/caracteristica/'+str(
+                 self.caracteristica1.id) +'/'))
         self.selenium.find_element_by_css_selector(
             '#editar' + str(self.subcaracteristica1.id)).click()
         atributo = "Edicion de prueba"
@@ -769,11 +770,13 @@ class TestCaracteristicaMedio(SeleniumTestCase):
         self.selenium.get(
             '%s%s' %
             (self.live_server_url,
-              '/consultor-crud/caracteristica_medio/detalles/caracteristica/'+str(self.caracteristica1.id) +'/'))
-        self.selenium.find_element_by_css_selector('#borrar' + str(self.subcaracteristica1.id)).click()
+             '/consultor-crud/caracteristica_medio/detalles/caracteristica/' +
+             str(self.caracteristica1.id) +'/'))
+        self.selenium.find_element_by_css_selector(
+            '#borrar'+str(self.subcaracteristica1.id)).click()
         self.selenium.find_element_by_xpath("//button[@type='submit']").click()
 
-class TestTipoCosto(SeleniumTestCase):
+class TestTipoCosto(SeleniumTestCase): # pylint: disable=too-many-instance-attributes
     """
         Clase para probar las vistas del crud del consultor ambiental.
     """
@@ -795,67 +798,67 @@ class TestTipoCosto(SeleniumTestCase):
             area="area de prueba, caracas1",
             tipo="prueba selenium1")
 
-        self.TipoHumano = TipoCosto.objects.create(
+        self.tipo_humano = TipoCosto.objects.create(
             tipo="humano")
 
-        self.TipoMateriales = TipoCosto.objects.create(
+        self.tipo_materiales = TipoCosto.objects.create(
             tipo="materiales")
 
-        self.TipoProfesionales = TipoCosto.objects.create(
+        self.tipo_profesionales = TipoCosto.objects.create(
             tipo="profesionales")
 
-        self.TipoHospedaje = TipoCosto.objects.create(
+        self.tipo_hospedaje = TipoCosto.objects.create(
             tipo="hospedaje")
 
-        self.TipoOficina = TipoCosto.objects.create(
+        self.tipo_oficina = TipoCosto.objects.create(
             tipo="oficina")
 
-        self.TipoInsumos = TipoCosto.objects.create(
+        self.tipo_insumos = TipoCosto.objects.create(
             tipo="insumos")
 
-        self.CostoHumano = CostoHumano.objects.create(
+        self.costo_humano = CostoHumano.objects.create(
             proyecto=self.proyecto,
-            tipo=self.TipoHumano,
+            tipo=self.tipo_humano,
             actividad="actividad realizada",
             cantidad="10 personas",
             tiempo="dos semanas",
             monto=100)
 
-        self.CostoHospedaje = CostoHumano.objects.create(
+        self.costo_hospedaje = CostoHumano.objects.create(
             proyecto=self.proyecto,
-            tipo=self.TipoHospedaje,
+            tipo=self.tipo_hospedaje,
             actividad="actividad realizada",
             cantidad="10 personas",
             tiempo="dos semanas",
             monto=100)
 
-        self.CostoServicios = CostoHumano.objects.create(
+        self.costo_servicios = CostoHumano.objects.create(
             proyecto=self.proyecto,
-            tipo=self.TipoProfesionales,
+            tipo=self.tipo_profesionales,
             actividad="actividad realizada",
             cantidad="10 personas",
             tiempo="dos semanas",
             monto=100)
 
-        self.CostoMateriales = CostoMateriales.objects.create(
+        self.costo_materiales = CostoMateriales.objects.create(
             proyecto=self.proyecto,
-            tipo=self.TipoMateriales,
+            tipo=self.tipo_materiales,
             material="material utilizado",
             cantidad=10,
             costo_unidad=10,
             monto=100)
 
-        self.CostoOficina = CostoMateriales.objects.create(
+        self.costo_oficina = CostoMateriales.objects.create(
             proyecto=self.proyecto,
-            tipo=self.TipoOficina,
+            tipo=self.tipo_oficina,
             material="material utilizado",
             cantidad=10,
             costo_unidad=10,
             monto=100)
 
-        self.CostoInsumos = CostoMateriales.objects.create(
+        self.costo_insumos = CostoMateriales.objects.create(
             proyecto=self.proyecto,
-            tipo=self.TipoInsumos,
+            tipo=self.tipo_insumos,
             material="material utilizado",
             cantidad=10,
             costo_unidad=10,
@@ -874,7 +877,8 @@ class TestTipoCosto(SeleniumTestCase):
         """
             Test para anadir costo humano.
         """
-        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-humano/'))
+        self.selenium.get(
+            '%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-humano/'))
         proyecto = self.proyecto1.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         actividad = "Actividades realizadas"
@@ -886,12 +890,13 @@ class TestTipoCosto(SeleniumTestCase):
         monto = 10
         self.selenium.find_element_by_name('monto').send_keys(monto)
         self.selenium.find_element_by_xpath("//button[@type='submit']").click()
-    
+
     def test_anadir_costo_servicios(self):
         """
             Test para anadir costo de servicios.
         """
-        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-servicio/'))
+        self.selenium.get(
+            '%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-servicio/'))
         proyecto = self.proyecto1.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         actividad = "Actividades realizadas"
@@ -903,12 +908,13 @@ class TestTipoCosto(SeleniumTestCase):
         monto = 20
         self.selenium.find_element_by_name('monto').send_keys(monto)
         self.selenium.find_element_by_xpath("//button[@type='submit']").click()
-    
+
     def test_anadir_costo_pasaje(self):
         """
             Test para anadir costo de pasaje.
         """
-        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-pasaje/'))
+        self.selenium.get(
+            '%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-pasaje/'))
         proyecto = self.proyecto1.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         actividad = "Actividades realizadas"
@@ -925,7 +931,8 @@ class TestTipoCosto(SeleniumTestCase):
         """
             Test para anadir costo de recursos.
         """
-        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-recursos/'))
+        self.selenium.get(
+            '%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-recursos/'))
         proyecto = self.proyecto1.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         material = "Materiales usados"
@@ -942,7 +949,8 @@ class TestTipoCosto(SeleniumTestCase):
         """
             Test para anadir costo de oficina.
         """
-        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-oficina/'))
+        self.selenium.get(
+            '%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-oficina/'))
         proyecto = self.proyecto1.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         material = "Materiales usados"
@@ -959,7 +967,8 @@ class TestTipoCosto(SeleniumTestCase):
         """
             Test para anadir costo de recursos.
         """
-        self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-insumos/'))
+        self.selenium.get(
+            '%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-insumos/'))
         proyecto = self.proyecto1.titulo
         self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         material = "Materiales usados"
