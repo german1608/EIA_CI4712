@@ -1,14 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 <link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
 {% endblock %}
 
 {% block content %}
-
-<h3>Lista de organizaciones</h3>
-<p>
-    <a href="{% url "consultor-crud:nueva-organizacion" %}">Agregar organizacion</a>
+<div class="row p-3 justify-content-center mb-3 titulo all-rounded">
+		<div class="col-md-9 col-sm-11 text-center">
+        <h3>Lista de organizaciones</h3>
+		</div>
+</div><p>
+    <div class="col-md-1">
+        <a id ="add" class="btn rounded btn-crud" href="{% url 'consultor-crud:nueva-organizacion' %}"><i class="material-icons">add</i></a>
+  </div>
 </p>
 <div class="container" style="width:90% !important">
     {%if object_list.count > 0%}
@@ -29,9 +34,9 @@
                 <td>{{ organizacion.nombre }}</td>
                 <td>{{ organizacion.rif }}</td>
                 <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  organizacion.proyecto.id %}">{{ organizacion.proyecto }}</a></td>
-                <td style="text-align:center;"><a href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
-                <td style="text-align:center;"><a href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
-                <td style="text-align:center;"><a href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+                <td style="text-align:center;"><a id="detalles{{organizacion.id}}" href="{% url "consultor-crud:detalles-organizacion"  organizacion.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+                <td style="text-align:center;"><a id="editar{{organizacion.id}}" href="{% url "consultor-crud:editar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+                <td style="text-align:center;"><a id="borrar{{organizacion.id}}" href="{% url "consultor-crud:borrar-organizacion" organizacion.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
             </tr>
           {% endfor %}
         </tbody>

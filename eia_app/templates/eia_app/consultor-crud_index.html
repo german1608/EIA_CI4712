@@ -26,7 +26,7 @@ img.icon {
 <div class="row">
   <div class="col s4">
     <div class="card">
-    <a href="{% url "consultor-crud:lista-organizaciones" %}">   
+    <a id="datos-organizaciones" href="{% url "consultor-crud:lista-organizaciones" %}">   
           <div class="card"> 
               <img class="icon"  src="{% static 'img/enterprise.png' %}" height="100" width="150" style="margin-left:auto; margin-right:auto">
       
@@ -155,6 +155,58 @@ img.icon {
         </div>
     </a>
     </div>
+    </div>
+
+</div>
+
+<div class="row">
+  <div class="col s4">
+  <div class="card">  
+  <a id="caracteristicas-medio" href="{% url "consultor-crud:lista-medios" %}">   
+        <div class="card"  > 
+            <img class="icon" src="{% static 'img/folder.png' %}" height="100" width="150">
+            <div class="card-title">
+    
+                <h5>
+                    Características del medio
+                </h5>
+            </div>
+            <!--
+            <div>
+              Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> 
+              from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 
+              is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+            </div>
+            -->
+        </div>
+    </a>
+  </div>
+  </div>
+
+  <div class="col s4">
+    <div class="card">  
+    <a id="costos-plan" href="{% url "consultor-crud:costos" %}">   
+          <div class="card"  > 
+              <img class="icon" src="{% static 'img/folder.png' %}" height="100" width="150">
+              <div class="card-title">
+      
+                  <h5>
+                      Costos del Plan de acción
+                  </h5>
+              </div>
+              <!--
+              <div>
+                Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> 
+                from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 
+                is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+              </div>
+              -->
+          </div>
+      </a>
+    </div>
+    </div>
+
+    <div class="col s4">
     </div>
 
 </div>

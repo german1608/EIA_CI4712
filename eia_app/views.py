@@ -8,11 +8,12 @@ from django.views.generic import (CreateView, DetailView,
 from django.urls import reverse_lazy
 from .models import (
     Organizacion, Responsable, Solicitante,
-    DatosProyecto, DatosDocumento, DescripcionProyecto
+    DatosProyecto, DatosDocumento, DescripcionProyecto,
+    CaracteristicaMedio, Medio, SubaracteristicaMedio, CostoHumano, CostoMateriales, TipoCosto
 )
 from .forms import (
     OrganizacionCreateForm, SolicitanteCreateForm,
-    ResponsableCreateForm, DatosDocumentoCreateForm, DescripcionProyectoCreateForm
+    ResponsableCreateForm, DatosDocumentoCreateForm, DescripcionProyectoCreateForm,
 )
 
 
@@ -37,7 +38,7 @@ class OrganizacionCreate(CreateView):  # pylint: disable=too-many-ancestors
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(OrganizacionCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Organización"
+        context["nombre"] = "Agregar organización"
         return context
 
 
@@ -48,6 +49,10 @@ class OrganizacionUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     success_url = reverse_lazy('consultor-crud:lista-organizaciones')
     fields = '__all__'
 
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(OrganizacionUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar organización"
+        return context
 
 class OrganizacionDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una organizacion'''
@@ -71,7 +76,7 @@ class DatosProyectoCreate(CreateView):  # pylint: disable=too-many-ancestors
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(DatosProyectoCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Datos de un proyecto"
+        context["nombre"] = "Agregar datos de un proyecto"
         return context
 
 
@@ -81,6 +86,11 @@ class DatosProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-proyectos')
     fields = '__all__'
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(DatosProyectoUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar datos del proyecto"
+        return context
 
 
 class DatosProyectoDelete(DeleteView):  # pylint: disable=too-many-ancestors
@@ -117,7 +127,7 @@ class ResponsableCreate(CreateView):  # pylint: disable=too-many-ancestors
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(ResponsableCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Responsable"
+        context["nombre"] = "Agregar responsable"
         return context
 
 
@@ -127,6 +137,11 @@ class ResponsableUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-responsables')
     fields = '__all__'
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(ResponsableUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar responsable"
+        return context
 
 
 class ResponsableDelete(DeleteView):  # pylint: disable=too-many-ancestors
@@ -157,7 +172,7 @@ class SolicitanteCreate(CreateView):  # pylint: disable=too-many-ancestors
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(SolicitanteCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Solicitante"
+        context["nombre"] = "Agregar solicitante"
         return context
 
 
@@ -167,6 +182,11 @@ class SolicitanteUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-solicitantes')
     fields = '__all__'
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(SolicitanteUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar solicitante"
+        return context
 
 
 class SolicitanteDelete(DeleteView):  # pylint: disable=too-many-ancestors
@@ -197,7 +217,7 @@ class DatosDocumentoCreate(CreateView):  # pylint: disable=too-many-ancestors
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(DatosDocumentoCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Datos de un documento"
+        context["nombre"] = "Agregar datos de un documento"
         return context
 
 
@@ -208,12 +228,17 @@ class DatosDocumentoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     success_url = reverse_lazy('consultor-crud:lista-datos-documentos')
     fields = '__all__'
 
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(DatosDocumentoUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar datos de un documento"
+        return context
 
 class DatosDocumentoDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una DatosDocumento'''
     model = DatosDocumento
     template_name = 'eia_app/datos_documentos/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-documentos')
+
 
 class DescripcionProyectoList(ListView):  # pylint: disable=too-many-ancestors
     '''Listar las DescripcionProyecto'''
@@ -235,8 +260,10 @@ class DescripcionProyectoCreate(CreateView):  # pylint: disable=too-many-ancesto
     success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
-        context = super(DescripcionProyectoCreate, self).get_context_data(**kwargs)
-        context["nombre"] = "Detalles de un documento"
+        context = super(
+            DescripcionProyectoCreate,
+            self).get_context_data(**kwargs)
+        context["nombre"] = "Agregar detalles de un documento"
         return context
 
 
@@ -247,6 +274,13 @@ class DescripcionProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancesto
     success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
     fields = '__all__'
 
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(
+            DescripcionProyectoUpdate,
+            self).get_context_data(**kwargs)
+        context["nombre"] = "Editar detalles de un documento"
+        return context
+
 
 class DescripcionProyectoDelete(DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una DescripcionProyecto'''
@@ -254,7 +288,344 @@ class DescripcionProyectoDelete(DeleteView):  # pylint: disable=too-many-ancesto
     template_name = 'eia_app/descripcion_proyecto/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
 
+
 def consultor_index(request):
     '''Index de la vista del consultor'''
     template_name = 'eia_app/consultor-crud_index.html'
     return render(request, template_name)
+
+
+class MedioList(ListView): # pylint: disable=too-many-ancestors
+    ''' Index de los distintos medios'''
+    model = Medio
+    template_name = 'eia_app/caracterizacion_medio/medios_index.html'
+
+
+class MedioCreate(CreateView):  # pylint: disable=too-many-ancestors
+    '''Crear una Medio'''
+    model = Medio
+    fields = "__all__"
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-medios')
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(MedioCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Agregar detalles de un medio ambiental"
+        return context
+
+
+class MedioDetail(DetailView):  # pylint: disable=too-many-ancestors
+    '''Detalles de un Medio'''
+    model = Medio
+    template_name = 'eia_app/caracterizacion_medio/detail.html'
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(MedioDetail, self).get_context_data(**kwargs)
+        caracteristicas = CaracteristicaMedio.objects.filter(
+            medio=self.kwargs['pk'])
+        context["caracteristicas"] = caracteristicas
+        return context
+
+
+class MedioUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+    '''Actualizar una Medio'''
+    model = Medio
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:lista-medios')
+    fields = '__all__'
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(MedioUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar medio"
+        return context
+
+
+class MedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
+    '''Eliminar una Medio'''
+    model = Medio
+    template_name = 'eia_app/caracterizacion_medio/delete.html'
+    success_url = reverse_lazy('consultor-crud:lista-medios')
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(MedioDelete, self).get_context_data(**kwargs)
+        context["medio"] = True
+        return context
+
+
+class CaracteristicaMedioDetail(DetailView): # pylint: disable=too-many-ancestors
+    '''Ver caracteristicas de un medio fisico'''
+    model = CaracteristicaMedio
+    template_name = 'eia_app/caracterizacion_medio/subcategorias_detail.html'
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(
+            CaracteristicaMedioDetail,
+            self).get_context_data(**kwargs)
+        subcaracteristicas = SubaracteristicaMedio.objects.filter(
+            caracteristica=self.kwargs['pk'])
+        context["subcaracteristicas"] = subcaracteristicas
+        return context
+
+
+class CaracteristicaMedioUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+    '''Actualizar una CaracteristicaMedio'''
+    model = CaracteristicaMedio
+    template_name = 'eia_app/create_form.html'
+    fields = ['caracteristica', 'descripcion']
+
+    def get_success_url(self):
+        caracteristica = CaracteristicaMedio.objects.get(pk=self.kwargs['pk'])
+        return reverse_lazy('consultor-crud:detalles-medio',
+                            kwargs={'pk': caracteristica.medio.pk})
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CaracteristicaMedioUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar característica de un medio"
+        return context
+
+
+class CaracteristicaMedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
+    '''Eliminar una CaracteristicaMedio'''
+    model = CaracteristicaMedio
+    template_name = 'eia_app/caracterizacion_medio/delete.html'
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(
+            CaracteristicaMedioDelete,
+            self).get_context_data(**kwargs)
+        context["caracteristica"] = True
+        return context
+
+    def get_success_url(self):
+        caracteristica = CaracteristicaMedio.objects.get(pk=self.kwargs['pk'])
+        return reverse_lazy('consultor-crud:detalles-medio',
+                            kwargs={'pk': caracteristica.medio.pk})
+
+
+class CaracteristicaMedioCreate(CreateView):  # pylint: disable=too-many-ancestors
+    '''Crear una Medio'''
+    model = CaracteristicaMedio
+    fields = "__all__"
+    template_name = 'eia_app/create_form.html'
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(
+            CaracteristicaMedioCreate,
+            self).get_context_data(**kwargs)
+        medio = Medio.objects.get(pk=self.kwargs['pk'])
+        context["nombre"] = "Agregar características del proyecto " + \
+        str(medio.proyecto) + " del medio " + \
+        str(medio.tipo)
+        context["medio"] = medio.pk
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('consultor-crud:detalles-medio',
+                            kwargs={'pk': self.kwargs['pk']})
+
+
+class SubaracteristicaMedioCreate(CreateView):  # pylint: disable=too-many-ancestors
+    '''Crear una Medio'''
+    model = SubaracteristicaMedio
+    fields = "__all__"
+    template_name = 'eia_app/create_form.html'
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(
+            SubaracteristicaMedioCreate,
+            self).get_context_data(**kwargs)
+        caracteristica = CaracteristicaMedio.objects.get(pk=self.kwargs['pk'])
+        context["nombre"] = "Agregar sub-característica de la característica " + \
+        str(caracteristica.caracteristica) + " del medio " + \
+        str(caracteristica.medio.tipo) + " del proyecto " + \
+        str(caracteristica.medio.proyecto)
+        context["caracteristica"] = caracteristica.pk
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('consultor-crud:detalles-caracteristica',
+                            kwargs={'pk': self.kwargs['pk']})
+
+class SubaracteristicaMedioUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+    '''Actualizar una SubaracteristicaMedio'''
+    model = SubaracteristicaMedio
+    template_name = 'eia_app/create_form.html'
+    fields = ['nombre_sub', 'atributo', 'comentario']
+
+    def get_success_url(self):
+        subcaracteristica = SubaracteristicaMedio.objects.get(
+            pk=self.kwargs['pk'])
+        return reverse_lazy('consultor-crud:detalles-caracteristica',
+                            kwargs={'pk': subcaracteristica.caracteristica.pk})
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(SubaracteristicaMedioUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar subcaracterística de un medio"
+        return context
+
+
+class SubaracteristicaMedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
+    '''Eliminar una SubaracteristicaMedio'''
+    model = SubaracteristicaMedio
+    template_name = 'eia_app/caracterizacion_medio/delete.html'
+
+    def get_success_url(self):
+        subcaracteristica = SubaracteristicaMedio.objects.get(
+            pk=self.kwargs['pk'])
+        return reverse_lazy('consultor-crud:detalles-caracteristica',
+                            kwargs={'pk': subcaracteristica.caracteristica.pk})
+
+class CostoHumanoList(ListView): # pylint: disable=too-many-ancestors
+    ''' Index de los distintos medios'''
+    model = CostoHumano
+    #context_object_name = 'CostoHumano_list'
+    template_name = 'eia_app/Costos/list.html'
+
+    def get_context_data(self, **kwargs): # pylint: disable=arguments-differ
+        context = super(CostoHumanoList, self).get_context_data(**kwargs) # pylint: disable=arguments-differ
+        context.update({
+            'CostoMateriales': CostoMateriales.objects.order_by('proyecto'),
+            'pasajes': CostoHumano.objects.filter(tipo=3),
+            'servicios': CostoHumano.objects.filter(tipo=2),
+            'humanos': CostoHumano.objects.filter(tipo=1),
+            'recursos': CostoMateriales.objects.filter(tipo=4),
+            'oficina': CostoMateriales.objects.filter(tipo=5),
+            'insumos': CostoMateriales.objects.filter(tipo=6),
+        })
+        if self.kwargs.get('success') is not None:
+            context["success"] = self.kwargs.get('success')
+        return context
+
+class CostoHumanoCreate(CreateView): # pylint: disable=too-many-ancestors
+    ''' Index de los distintos medios'''
+    model = CostoHumano
+    fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos-success', kwargs={'success': 'botonHumano'})
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoHumanoCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Agregar costo de talento humano"
+        return context
+
+    def form_valid(self, form):
+        form.instance.tipo = TipoCosto.objects.filter(id=1)[0]
+        return super().form_valid(form)
+
+
+class CostoHumanoServiciosCreate(CreateView): # pylint: disable=too-many-ancestors
+    ''' Index de los distintos medios'''
+    model = CostoHumano
+    fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos-success', kwargs={'success': 'botonServicio'})
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoHumanoServiciosCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Agregar costo de servicios profesionales y técnicos"
+        return context
+
+    def form_valid(self, form):
+        form.instance.tipo = TipoCosto.objects.filter(id=2)[0]
+        return super().form_valid(form)
+
+class CostoHumanoPasajeCreate(CreateView): # pylint: disable=too-many-ancestors
+    ''' Index de los distintos medios'''
+    model = CostoHumano
+    fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos-success',
+                               kwargs={'success': 'botonPasaje'})
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoHumanoPasajeCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Agregar costos de pasajes y hospedaje"
+        return context
+
+    def form_valid(self, form):
+        form.instance.tipo = TipoCosto.objects.filter(id=3)[0]
+        return super().form_valid(form)
+
+class CostoMaterialRecursosCreate(CreateView): # pylint: disable=too-many-ancestors
+    ''' Index de los distintos medios'''
+    model = CostoMateriales
+    fields = ['proyecto', 'material', 'cantidad', 'costo_unidad', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos-success', kwargs={'success': 'botonRecursos'})
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoMaterialRecursosCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Agregar costo de recursos materiales"
+        return context
+
+    def form_valid(self, form):
+        form.instance.tipo = TipoCosto.objects.filter(id=4)[0]
+        return super().form_valid(form)
+
+class CostoMaterialOficinaCreate(CreateView): # pylint: disable=too-many-ancestors
+    ''' Index de los distintos medios'''
+    model = CostoMateriales
+    fields = ['proyecto', 'material', 'cantidad', 'costo_unidad', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos-success', kwargs={'success': 'botonOficina'})
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoMaterialOficinaCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Agregar costo de materiales de oficina"
+        return context
+
+    def form_valid(self, form):
+        form.instance.tipo = TipoCosto.objects.filter(id=5)[0]
+        return super().form_valid(form)
+
+class CostoMaterialInsumosCreate(CreateView): # pylint: disable=too-many-ancestors
+    ''' Index de los distintos medios'''
+    model = CostoMateriales
+    fields = ['proyecto', 'material', 'cantidad', 'costo_unidad', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos-success', kwargs={'success': 'botonInsumos'})
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoMaterialInsumosCreate, self).get_context_data(**kwargs)
+        context["nombre"] = "Agregar costo de insumos"
+        return context
+
+    def form_valid(self, form):
+        form.instance.tipo = TipoCosto.objects.filter(id=6)[0]
+        return super().form_valid(form)
+
+class CostoHumanoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+    '''Actualizar un CostoHumano'''
+    model = CostoHumano
+    fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos')
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoHumanoUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar costo humano"
+        return context
+
+
+class CostoHumanoDelete(DeleteView):  # pylint: disable=too-many-ancestors
+    '''Eliminar una CostoHumano'''
+    model = CostoHumano
+    template_name = 'eia_app/Costos/delete.html'
+    success_url = reverse_lazy('consultor-crud:costos')
+
+class CostoMaterialesUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+    '''Actualizar un CostoMateriales'''
+    model = CostoMateriales
+    fields = ['proyecto', 'material', 'cantidad', 'costo_unidad', 'monto']
+    template_name = 'eia_app/create_form.html'
+    success_url = reverse_lazy('consultor-crud:costos')
+
+    def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
+        context = super(CostoMaterialesUpdate, self).get_context_data(**kwargs)
+        context["nombre"] = "Editar costo de materiales"
+        return context
+
+
+class CostoMaterialesDelete(DeleteView):  # pylint: disable=too-many-ancestors
+    '''Eliminar una CostoMateriales'''
+    model = CostoMateriales
+    template_name = 'eia_app/Costos/delete.html'
+    success_url = reverse_lazy('consultor-crud:costos')

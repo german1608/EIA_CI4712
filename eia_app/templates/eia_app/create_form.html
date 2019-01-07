@@ -2,18 +2,58 @@
 {% load static %}
 {% load materializecss %}
 {% load crispy_forms_tags %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
+<style>
+body{
+    overflow-x: hidden;
+}
+</style>
+{% endblock %}
 {% block content %}
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-8">
-      <h3 class="mt-2">Agregar {{ nombre }}</h3>
-      <hr class="mt-0 mb-4">
-      <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          {{ form | crispy }}
-          <button type="submit" class="btn btn-primary">Guardar</button>
-        </form>
+<div class="container-fluid" style="width:80%;">
+    <div class="row p-3 justify-content-center mb-3 titulo all-rounded">
+		<div class="col-md-9 col-sm-11 text-center">
+			<h3>{{ nombre }}</h3>
+		</div>
     </div>
-  </div>
+    <form id="add" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row" style="background-color: #ECF0DF;">
+            {{ form | crispy }}
+        </div>
+        <div class="row justify-content-center p-3" style="background-color: #ECF0DF;">
+            <div class="col-md-6" align="center">
+                <button type="submit" style="width: 50%" class="btn btn-crud"><i class="material-icons">save</i></button>
+            </div>
+        </div>
+    </form>
 </div>
+{% endblock %}
+
+{% block js %}
+<script>
+$(document).ready( function () {
+    $(".form-group").each(function(){
+        var input = $(this);
+        input.addClass("col-lg-4");
+    });
+});
+</script>
+{% if medio %}
+<script>
+    $(document).ready( function () {
+        $('#id_medio').val("{{medio}}")
+        $('#div_id_medio').hide()
+    });
+</script>
+{% endif %}
+{% if caracteristica %}
+<script>
+    $(document).ready( function () {
+        $('#id_caracteristica').val("{{caracteristica}}")
+        $('#div_id_caracteristica').hide()
+    });
+</script>
+{% endif %}
 {% endblock %}

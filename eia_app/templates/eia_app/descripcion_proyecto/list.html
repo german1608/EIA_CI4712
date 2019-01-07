@@ -2,13 +2,19 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 {% endblock %}
 
 {% block content %}
 
-<h3>Lista de detalles de proyectos</h3>
-<p>
-    <a href="{% url "consultor-crud:nuevo-detalles-proyecto" %}">Agregar detalles de un proyecto</a>
+<div class="row p-3 justify-content-center mb-3 titulo all-rounded">
+		<div class="col-md-9 col-sm-11 text-center">
+			<h3>Lista de detalles de proyectos</h3>
+		</div>
+</div><p>
+    <div class="col-md-1">
+        <a id ="add" class="btn rounded btn-crud" href="{% url 'consultor-crud:nuevo-detalles-proyecto' %}"><i class="material-icons">add</i></a>
+  </div>
 </p>
 <div class="container" style="width:90% !important">
   {%if object_list.count > 0%}
@@ -27,9 +33,9 @@
           <tr>
               <td><a href="{% url "consultor-crud:detalles-proyecto"  detalles.proyecto.id %}">{{ detalles.proyecto }}</a></td>
               <td>{{ detalles.obj_general }}</td>
-              <td style="text-align:center;"> <a href="{% url "consultor-crud:detalles-proyecto"  detalles.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
-              <td style="text-align:center;"><a href="{% url "consultor-crud:editar-detalles-proyecto" detalles.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
-              <td style="text-align:center;"><a href="{% url "consultor-crud:borrar-detalles-proyecto" detalles.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+              <td style="text-align:center;"> <a id="detalles{{detalles.id}}" href="{% url "consultor-crud:detalles-proyecto"  detalles.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+              <td style="text-align:center;"><a id="editar{{detalles.id}}" href="{% url "consultor-crud:editar-detalles-proyecto" detalles.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+              <td style="text-align:center;"><a id="borrar{{detalles.id}}" href="{% url "consultor-crud:borrar-detalles-proyecto" detalles.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
           </tr>
         {% endfor %}
       </tbody>

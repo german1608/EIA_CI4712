@@ -13,7 +13,7 @@ from django.utils.translation import gettext_lazy as _  # pylint: disable=unused
 class DatosProyecto(models.Model):
     """ Tabla para almacenar la informacion general de un proyecto.
     Parametros:
-        models.Model (Datos_Proyecto): Instancia sobre la que se crea la tabla.
+        models.Model (DatosProyecto): Instancia sobre la que se crea la tabla.
     Atributos:
         titulo: Titulo del proyecto
         ubicacion: ubicacion geografica donde se desarrollara el proyecto
@@ -25,7 +25,6 @@ class DatosProyecto(models.Model):
     ubicacion = models.TextField()
     area = models.TextField()
     tipo = models.TextField()
-    url = models.URLField()
 
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
@@ -301,3 +300,147 @@ class DescripcionProyecto(models.Model):
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
         return "Descripcion_Proyecto"
+
+
+class Medio(models.Model):
+    """ Tabla para almacenar la informacion del medio de un proyecto.
+    Parametros:
+        models.Model (Medio): Instancia sobre la que se crea la tabla.
+    Atributos:
+        tipo: Tipo de medio
+        proyecto: Proyecto asociado
+        descripcion: Descripcion del medio
+        conclusiones: Conclusiones sobre el medio
+    """
+
+    class Meta:  # pylint: disable=too-few-public-methods
+        '''Hacer unica la combinacion entre tipo y proyecto'''
+        unique_together = (('tipo', 'proyecto'))
+
+    TYPE_CHOICES = (('fisico', 'Medio físico'),
+                    ('biologico', 'Medio biológico'),
+                    ('socio', 'Medio sociocultural'))
+    tipo = models.CharField(max_length=100, choices=TYPE_CHOICES)
+    proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
+    descripcion = models.TextField()
+    conclusiones = models.TextField()
+
+    def get_model_type(self):  # pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
+        return "Medio"
+
+
+class CaracteristicaMedio(models.Model):
+    """ Tabla para almacenar las caracteristicas de un medio fisico de un proyecto.
+    Parametros:
+        models.Model (CaracteristicaMedio): Instancia sobre la que se crea la tabla.
+    Atributos:
+        tipo: Nombre de la caracteristica asociada al medio fisico
+        proyecto: Proyecto asociado
+    """
+    class Meta:  # pylint: disable=too-few-public-methods
+        '''Hacer unica la combinacion entre tipo y proyecto'''
+        unique_together = (('caracteristica', 'medio'))
+
+    caracteristica = models.CharField(max_length=100)
+    medio = models.ForeignKey(Medio, on_delete=models.CASCADE)
+    descripcion = models.TextField(default="")
+
+    def get_model_type(self):  # pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
+        return "CaracteristicaMedio"
+
+
+class SubaracteristicaMedio(models.Model):
+    """ Tabla para almacenar las caracteristicas de un medio fisico de un proyecto.
+    Parametros:
+        models.Model (SubaracteristicaMedio): Instancia sobre la que se crea la tabla.
+    Atributos:
+        nombre_sub: Nombre de la subcaracteristica asociada a la caracteristica
+        caracteristica: caracteristica asociada
+        atributo: especificaciones de la subcaracteristica
+        comentario: comentarios adicionales de la subcaracteristica
+    """
+    class Meta:  # pylint: disable=too-few-public-methods
+        '''Hacer unica la combinacion entre tipo y proyecto'''
+        unique_together = (('nombre_sub', 'caracteristica'))
+
+    nombre_sub = models.CharField(max_length=100)
+    caracteristica = models.ForeignKey(
+        CaracteristicaMedio, on_delete=models.CASCADE)
+    atributo = models.TextField()
+    comentario = models.TextField()
+
+    def get_model_type(self): # pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
+        return "SubaracteristicaMedio"
+
+class TipoCosto(models.Model):
+    """ Tabla para almacenar la informacion del tipo de costo de un proyecto.
+    Parametros:
+        models.Model (TipoCosto): Instancia sobre la que se crea la tabla.
+    Atributos:
+        tipo: Tipo de costo
+    """
+    TYPE_CHOICES = (('humano', 'Talento Humano'),
+                    ('profesionales', 'Servicios Profesionales y Técnicos'),
+                    ('hospedaje', 'Pasajes y Hospedaje'),
+                    ('materiales', 'Recursos Materiales'),
+                    ('oficina', 'Materiales de Oficina'),
+                    ('insumos', 'Insumos'))
+    tipo = models.CharField(max_length=100, choices=TYPE_CHOICES, unique=True)
+
+    def get_model_type(self): # pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
+        return "TipoCosto"
+    def __str__(self): # pylint: disable=no-self-use
+        '''Devuelve el modelo en tipo String'''
+        return self.tipo
+
+
+class CostoHumano(models.Model):
+    """ Tabla para almacenar los detalles de los costos humanos de un proyecto.
+    Parametros:
+        models.Model (CostoHumano): Instancia sobre la que se crea la tabla.
+    Atributos:
+        proyecto: Proyecto asociado
+        tipo: Tipo de costo
+        actividad: Descripcion de la actividad realizada
+        cantidad: Cantidad de personas o equipos requeridos
+        tiempo: Lapso durante el cual se realizó la actividad
+        monto: Monto total de la actividad
+    """
+    proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
+    tipo = models.ForeignKey(TipoCosto, on_delete=models.PROTECT)
+    actividad = models.TextField()
+    cantidad = models.TextField()
+    tiempo = models.CharField(max_length=100)
+    monto = models.FloatField(validators=[MinValueValidator(0)])
+
+    def get_model_type(self):  # pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
+        return "CostoHumano"
+
+
+class CostoMateriales(models.Model):
+    """ Tabla para almacenar los detalles de los costos de materiales de un proyecto.
+    Parametros:
+        models.Model (CostoMateriales): Instancia sobre la que se crea la tabla.
+    Atributos:
+        proyecto: Proyecto asociado
+        tipo: Tipo de costo
+        material: Materiales utilizados
+        cantidad: Cantidad de materiales utilizados
+        costo_unidad: Costo por unidad de los materiales
+        monto: Monto total de los materiales
+    """
+    proyecto = models.ForeignKey(DatosProyecto, on_delete=models.CASCADE)
+    tipo = models.ForeignKey(TipoCosto, on_delete=models.PROTECT)
+    material = models.CharField(max_length=100)
+    cantidad = models.IntegerField(validators=[MinValueValidator(0)])
+    costo_unidad = models.FloatField(validators=[MinValueValidator(0)])
+    monto = models.FloatField(validators=[MinValueValidator(0)])
+
+    def get_model_type(self):  # pylint: disable=no-self-use
+        '''Devuelve el tipo de modelo'''
+        return "CostoMateriales"
