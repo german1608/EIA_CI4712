@@ -825,7 +825,7 @@ def disciplinas(request):
     }
     return render(request, 'configuracion/disciplinas.html', context)
 
-class PlanCreate(CreateView): # pylint: disable=too-many-ancestors
+class PlanCreate(CreateView, SuccessMessageMixin): # pylint: disable=too-many-ancestors
     """
        Clase que permite registrar un plan
     """
@@ -894,7 +894,7 @@ def planes(request):
     }
     return render(request, 'configuracion/planes.html', context)
 
-class SubPlanCreate(CreateView): # pylint: disable=too-many-ancestors
+class SubPlanCreate(CreateView, SuccessMessageMixin): # pylint: disable=too-many-ancestors
     """
        Clase que permite registrar un subplan
     """

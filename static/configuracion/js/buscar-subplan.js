@@ -20,6 +20,15 @@ function buscar(){
 			}
 		}
 	}
+	else{
+		var tbody = document.getElementById("contenido")
+		var tr = tbody.getElementsByTagName("tr")
+		//Iteracion sobre la tabla
+		for (var i = tr.length - 1; i >= 0; i--) {
+			var td = tr[i].getElementsByTagName("td")
+			tr[i].style.display = "";
+		}
+	}
 	calcularTotal(restar)
 }
 function teclado(){

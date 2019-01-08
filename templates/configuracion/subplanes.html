@@ -9,12 +9,23 @@
 	<h1>Planes de Accion</h1>
 </div>
 
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{message}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+{% endif %}
+
 <div class="row justify-content-center mb-3">
 	<div class="col-md-10">
 		<input type="text" id="buscar-plan" onkeypress="teclado()" name="buscar" class="buscar-p-sp" />
 	</div>
 	<div class="col-md-2">
-		<a class="btn" onclick="buscar()" style="background: #4f6228; color: white;"><i class="material-icons">search</i></a>
+		<a class="btn btn-crud" onclick="buscar()" data-toggle="tooltip" title="Buscar"><i class="material-icons">search</i></a>
 	</div>
 </div>
 
@@ -42,8 +53,8 @@
 					<td>{{sp.plan_principal.nombre}}</td>
 					<td>{{sp.tiempo}}</td>
 					<td>{{sp.monto}}</td>
-					<td><a class="btn rounded pl-3" name="editar-{{sp.actividad}}" style="background: #4f6228; color: white;" href="{% url 'editar_subplan' sp.id %}"><i class="material-icons">edit</i></a></td>
-					<td><a class="btn rounded pl-3" name="eliminar-{{sp.actividad}}" style="background: #4f6228; color: white;" onclick="return confirm('¿Está seguro de eliminar este subplan?')" href="{% url 'eliminar_subplan' sp.id %}"><i class="material-icons">delete</i></a></td>
+					<td><a class="btn rounded pl-3 btn-crud" name="editar-{{sp.actividad}}" href="{% url 'editar_subplan' sp.id %}"data-toggle="tooltip" title="Editar plan"><i class="material-icons">edit</i></a></td>
+					<td><a class="btn rounded pl-3 btn-crud" name="eliminar-{{sp.actividad}}" onclick="return confirm('¿Está seguro de eliminar este subplan?')" href="{% url 'eliminar_subplan' sp.id %}" data-toggle="tooltip" title="Eliminar plan"><i class="material-icons">delete</i></a></td>
 				</tr>
 				{% endfor %}
 			</tbody>
@@ -59,7 +70,7 @@
 		
 	</div>
 	<div class="col-md-2">
-		<a class="btn rounded" id="agregar_subplan" href="{% url 'agregar_subplan' %}" style="background: #4f6228; color: white;"><i class="material-icons">add</i></a>
+		<a class="btn rounded btn-crud" id="agregar_subplan" href="{% url 'agregar_subplan' %}" data-toggle="tooltip" title="Agregar plan"><i class="material-icons">add</i></a>
 	</div>
 </div>
 
@@ -67,4 +78,10 @@
 
 {% block js %}
 <script type="text/javascript" src="{% static 'configuracion/js/buscar-subplan.js' %}"></script>
+<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.bundle.min.js' %}"></script>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
 {% endblock %}

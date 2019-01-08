@@ -7,20 +7,32 @@
 
 {% block content %}
 
-	<div class="row p-3 justify-content-center mb-3 titulo all-rounded">
+	<div class="row justify-content-center mb-3 pt-3 titulo all-rounded">
 		<div class="col-md-1 col-sm-1">
-			<a class="btn menu" href="{% url 'actividades' %}"><i class="material-icons">arrow_back</i></a>
+			<a class="btn menu" href="{% url 'actividades' %}" data-toggle="tooltip" title="Volver a actividades"><i class="material-icons">arrow_back</i></a>
 		</div>
-		<div class="col-md-9 col-sm-11 text-center">
+		<div class="col-md-10 col-sm-11 text-center">
 			<h1>Disciplinas</h1>
 		</div>
 	</div>
+
+	{% if messages %}
+	{% for message in messages %}
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+	  {{message}}
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    <span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
+	{% endfor %}
+	{% endif %}
+	
 	<div class="row justify-content-center mb-3">
 		<div class="col-md-10">
 			<input type="text" id="buscar-actividad" onkeypress="teclado()" name="buscar" class="buscar-p-sp" />
 		</div>
 		<div class="col-md-1">
-			<a class="btn btn-crud" onclick="buscar()"><i class="material-icons">search</i></a>
+			<a class="btn btn-crud" onclick="buscar()" data-toggle="tooltip" title="Buscar"><i class="material-icons">search</i></a>
 		</div>
 	</div>
 
@@ -41,8 +53,8 @@
 						<td>{{m.nombre}}</td>
 						<td>{{m.descripcion}}</td>
 						<td>{{m.proyecto}}</td>
-						<td><a class="btn rounded pl-3 btn-crud" href="{% url 'editar_disciplina' m.id %}"><i class="material-icons">edit</i></a>
-							<a class="btn rounded btn-crud" onclick = "return confirm('¿Está seguro de eliminar esta disciplina?')" href="{% url 'eliminar_disciplina' m.id %}"><i class="material-icons">delete</i></a>
+						<td><a class="btn rounded pl-3 btn-crud" href="{% url 'editar_disciplina' m.id %}" data-toggle="tooltip" title="Editar disciplina"><i class="material-icons">edit</i></a>
+							<a class="btn rounded btn-crud" onclick = "return confirm('¿Está seguro de eliminar esta disciplina?')" href="{% url 'eliminar_disciplina' m.id %}" data-toggle="tooltip" title="Eliminar disciplina"><i class="material-icons">delete</i></a>
 						</td>
 					</tr>
 					{% endfor %}
@@ -50,13 +62,18 @@
 			</table>
 		</div>
 		<div class="col-md-1">
-			<a class="btn rounded btn-crud" href="{% url 'agregar_disciplina' %}"><i class="material-icons">add</i></a>
+			<a class="btn rounded btn-crud" href="{% url 'agregar_disciplina' %}" data-toggle="tooltip" title="Agragar disciplina"><i class="material-icons">add</i></a>
 		</div>
 	</div>
 
 {% endblock %}
 
 {% block js %}
-<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'configuracion/js/actividades.js' %}"></script>
+<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.bundle.min.js' %}"></script>
+<script type="text/javascript">
+	$(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+	})
+</script>
 {% endblock %}
