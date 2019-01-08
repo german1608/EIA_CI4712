@@ -28,16 +28,6 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             context['edicion'] = editable
         return context
 
-    def get(self, request, *args, **kwargs):
-        '''
-        Metodo que se encarga de manejar los request tipo GET
-        a la vista de seleccion de un proyecto
-        '''
-        usuario_loggeado = self.request.user
-        usuario_loggeado.proyecto_seleccionado = -1
-        usuario_loggeado.save()
-        return super().get(request)
-
     def post(self, request, *args, **kwargs):
         '''
         Metodo que se encarga de manejar el request tipo POST
