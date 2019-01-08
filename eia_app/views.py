@@ -20,7 +20,8 @@ from .forms import (
     OrganizacionCreateForm, SolicitanteCreateForm,
     DatosProyectoCreateForm, MarcoForm, DescripcionProyectoCreateForm,
     ResponsableCreateForm, DatosDocumentoCreateForm,
-    RecomendacionProyectoCreateForm, ConclusionProyectoCreateForm
+    RecomendacionProyectoCreateForm, ConclusionProyectoCreateForm,
+    MedioCreateForm
 )
 
 
@@ -47,6 +48,27 @@ class OrganizacionCreate(CreateView):  # pylint: disable=too-many-ancestors
         context = super(OrganizacionCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Agregar organización"
         return context
+    
+    def form_valid(self, form):
+        """
+        Reescribe el form valid para
+        que agregue el proyecto que ha seleccionado
+        el usuario para que se edite automaticamente
+        """
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object, self.request)
+        return HttpResponseRedirect(self.success_url)
+
+def agregar_proyecto(objeto, request):
+    """
+    Funcion auxiliar que se encarga de agregar
+    el proyecto al form
+    """
+    usuario_loggeado = request.user
+    pk = usuario_loggeado.proyecto_seleccionado
+    proyecto_editable = DatosProyecto.objects.get(pk=pk)
+    objeto.proyecto = proyecto_editable
+    objeto.save()
 
 
 class OrganizacionUpdate(UpdateView):  # pylint: disable=too-many-ancestors
@@ -156,6 +178,16 @@ class ResponsableCreate(CreateView):  # pylint: disable=too-many-ancestors
         context = super(ResponsableCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Agregar responsable"
         return context
+    
+    def form_valid(self, form):
+        """
+        Reescribe el form valid para
+        que agregue el proyecto que ha seleccionado
+        el usuario para que se edite automaticamente
+        """
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object, self.request)
+        return HttpResponseRedirect(self.success_url)
 
 
 class ResponsableUpdate(UpdateView):  # pylint: disable=too-many-ancestors
@@ -202,6 +234,16 @@ class SolicitanteCreate(CreateView):  # pylint: disable=too-many-ancestors
         context["nombre"] = "Agregar solicitante"
         return context
 
+    def form_valid(self, form):
+        """
+        Reescribe el form valid para
+        que agregue el proyecto que ha seleccionado
+        el usuario para que se edite automaticamente
+        """
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object, self.request)
+        return HttpResponseRedirect(self.success_url)
+
 
 class SolicitanteUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una Solicitante'''
@@ -247,6 +289,15 @@ class DatosDocumentoCreate(CreateView):  # pylint: disable=too-many-ancestors
         context["nombre"] = "Agregar datos de un documento"
         return context
 
+    def form_valid(self, form):
+        """
+        Reescribe el form valid para
+        que agregue el proyecto que ha seleccionado
+        el usuario para que se edite automaticamente
+        """
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object, self.request)
+        return HttpResponseRedirect(self.success_url)
 
 class DatosDocumentoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una DatosDocumento'''
@@ -284,7 +335,6 @@ class CargaContextoMarcoMixin(LoginRequiredMixin, ContextMixin): # pylint: disab
             tipo_marco = 'jurídico'
         context['tipo_marco'] = tipo_marco
         return context
-
 
 class MarcoListView(CargaContextoMarcoMixin, ListView): # pylint: disable=too-many-ancestors
     '''
@@ -435,6 +485,16 @@ class DescripcionProyectoCreate(CreateView):  # pylint: disable=too-many-ancesto
         context["nombre"] = "Agregar detalles de un documento"
         return context
 
+    def form_valid(self, form):
+        """
+        Reescribe el form valid para
+        que agregue el proyecto que ha seleccionado
+        el usuario para que se edite automaticamente
+        """
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object, self.request)
+        return HttpResponseRedirect(self.success_url)
+
 
 class DescripcionProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una DescripcionProyecto'''
@@ -466,6 +526,18 @@ class RecomendacionProyectoCreateUpdateBase: # pylint: disable=too-few-public-me
 
 class RecomendacionProyectoCreateView(RecomendacionProyectoCreateUpdateBase, CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una RecomendacionProyecto'''
+    def form_valid(self, form):
+        """
+        Sobreescribe la funcion de form_valid
+        para poder incluir el proyecto seleccionado
+        por el usuario para editar
+        """
+        usuario_loggeado = self.request.user
+        pk_proyecto_editable = usuario_loggeado.proyecto_seleccionado
+        proyecto_editable = DatosProyecto.objects.get(pk=pk_proyecto_editable)
+        contenido = form.cleaned_data['recomendaciones']
+        RecomendacionProyecto.objects.create(proyecto=proyecto_editable, recomendaciones=contenido)
+        return redirect(self.success_url)
 
 
 class RecomendacionProyectoUpdateView(RecomendacionProyectoCreateUpdateBase, UpdateView):  # pylint: disable=too-many-ancestors
@@ -492,8 +564,6 @@ def consultor_index(request):
     '''Index de la vista del consultor'''
     template_name = 'eia_app/consultor-crud_index.html'
     return render(request, template_name)
-
-
 
 class ConclusionesListView(ListView):
     'Lista de las conclusiones de todos los proyectos'
@@ -546,7 +616,7 @@ class MedioList(ListView): # pylint: disable=too-many-ancestors
 class MedioCreate(CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una Medio'''
     model = Medio
-    fields = "__all__"
+    form_class = MedioCreateForm
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-medios')
 
@@ -554,6 +624,16 @@ class MedioCreate(CreateView):  # pylint: disable=too-many-ancestors
         context = super(MedioCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Agregar detalles de un medio ambiental"
         return context
+
+    def form_valid(self, form):
+        """
+        Reescribe el form valid para
+        que agregue el proyecto que ha seleccionado
+        el usuario para que se edite automaticamente
+        """
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object, self.request)
+        return HttpResponseRedirect(self.success_url)
 
 
 class MedioDetail(DetailView):  # pylint: disable=too-many-ancestors
@@ -574,7 +654,7 @@ class MedioUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     model = Medio
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-medios')
-    fields = '__all__'
+    form_class = MedioCreateForm
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(MedioUpdate, self).get_context_data(**kwargs)
@@ -740,7 +820,7 @@ class CostoHumanoList(ListView): # pylint: disable=too-many-ancestors
 class CostoHumanoCreate(CreateView): # pylint: disable=too-many-ancestors
     ''' Index de los distintos medios'''
     model = CostoHumano
-    fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
+    fields = ['actividad', 'cantidad', 'tiempo', 'monto']
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:costos-success', kwargs={'success': 'botonHumano'})
 
@@ -750,14 +830,21 @@ class CostoHumanoCreate(CreateView): # pylint: disable=too-many-ancestors
         return context
 
     def form_valid(self, form):
+        """
+        Reescribe el form valid para
+        que agregue el proyecto que ha seleccionado
+        el usuario para que se edite automaticamente
+        """
         form.instance.tipo = TipoCosto.objects.filter(id=1)[0]
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object, self.request)
         return super().form_valid(form)
 
 
 class CostoHumanoServiciosCreate(CreateView): # pylint: disable=too-many-ancestors
     ''' Index de los distintos medios'''
     model = CostoHumano
-    fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
+    fields = ['actividad', 'cantidad', 'tiempo', 'monto']
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:costos-success', kwargs={'success': 'botonServicio'})
 
@@ -767,13 +854,20 @@ class CostoHumanoServiciosCreate(CreateView): # pylint: disable=too-many-ancesto
         return context
 
     def form_valid(self, form):
+        """
+        Reescribe el form valid para
+        que agregue el proyecto que ha seleccionado
+        el usuario para que se edite automaticamente
+        """
         form.instance.tipo = TipoCosto.objects.filter(id=2)[0]
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object, self.request)
         return super().form_valid(form)
 
 class CostoHumanoPasajeCreate(CreateView): # pylint: disable=too-many-ancestors
     ''' Index de los distintos medios'''
     model = CostoHumano
-    fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
+    fields = ['actividad', 'cantidad', 'tiempo', 'monto']
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:costos-success',
                                kwargs={'success': 'botonPasaje'})
@@ -781,9 +875,16 @@ class CostoHumanoPasajeCreate(CreateView): # pylint: disable=too-many-ancestors
         context = super(CostoHumanoPasajeCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Agregar costos de pasajes y hospedaje"
         return context
-
+    
     def form_valid(self, form):
+        """
+        Reescribe el form valid para
+        que agregue el proyecto que ha seleccionado
+        el usuario para que se edite automaticamente
+        """
         form.instance.tipo = TipoCosto.objects.filter(id=3)[0]
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object, self.request)
         return super().form_valid(form)
 
 class CostoMaterialRecursosCreate(CreateView): # pylint: disable=too-many-ancestors
@@ -799,7 +900,14 @@ class CostoMaterialRecursosCreate(CreateView): # pylint: disable=too-many-ancest
         return context
 
     def form_valid(self, form):
+        """
+        Reescribe el form valid para
+        que agregue el proyecto que ha seleccionado
+        el usuario para que se edite automaticamente
+        """
         form.instance.tipo = TipoCosto.objects.filter(id=4)[0]
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object, self.request)
         return super().form_valid(form)
 
 class CostoMaterialOficinaCreate(CreateView): # pylint: disable=too-many-ancestors
@@ -815,7 +923,14 @@ class CostoMaterialOficinaCreate(CreateView): # pylint: disable=too-many-ancesto
         return context
 
     def form_valid(self, form):
+        """
+        Reescribe el form valid para
+        que agregue el proyecto que ha seleccionado
+        el usuario para que se edite automaticamente
+        """
         form.instance.tipo = TipoCosto.objects.filter(id=5)[0]
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object, self.request)
         return super().form_valid(form)
 
 class CostoMaterialInsumosCreate(CreateView): # pylint: disable=too-many-ancestors
@@ -831,8 +946,16 @@ class CostoMaterialInsumosCreate(CreateView): # pylint: disable=too-many-ancesto
         return context
 
     def form_valid(self, form):
+        """
+        Reescribe el form valid para
+        que agregue el proyecto que ha seleccionado
+        el usuario para que se edite automaticamente
+        """
         form.instance.tipo = TipoCosto.objects.filter(id=6)[0]
+        self.object = form.save(commit=False)
+        agregar_proyecto(self.object, self.request)
         return super().form_valid(form)
+
 
 class CostoHumanoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar un CostoHumano'''

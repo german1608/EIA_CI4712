@@ -15,7 +15,6 @@
       <hr class="mt-0 mb-4">
       <form method="post">
         {% csrf_token %}
-        {% bootstrap_field form.proyecto %}
         {% bootstrap_field form.contenido %}
         <button type="submit" class="btn btn-primary">Guardar</button>
       </form>

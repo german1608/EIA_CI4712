@@ -15,6 +15,7 @@ class OrganizacionCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = Organizacion
         fields = '__all__'
+        exclude = ['proyecto']
 
 
 class SolicitanteCreateForm(forms.ModelForm):
@@ -23,7 +24,7 @@ class SolicitanteCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = Solicitante
         fields = '__all__'
-
+        exclude = ['proyecto']
 
 class ResponsableCreateForm(forms.ModelForm):
     '''Form del modelo solicitante'''
@@ -31,7 +32,7 @@ class ResponsableCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = Responsable
         fields = '__all__'
-
+        exclude = ['proyecto']
 
 class DatosProyectoCreateForm(forms.ModelForm):
     '''Form del modelo datos proyecto'''
@@ -39,6 +40,7 @@ class DatosProyectoCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = DatosProyecto
         fields = ('titulo', 'ubicacion', 'area', 'tipo')
+        exclude = ['proyecto']
 
 
 class DatosDocumentoCreateForm(forms.ModelForm):
@@ -47,10 +49,10 @@ class DatosDocumentoCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = DatosDocumento
         fields = '__all__'
+        exclude = ['proyecto']
 
 class MarcoForm(forms.Form):
     """Form para el marco (metodologico, juridico o teorico) de un proyecto."""
-    proyecto = forms.ModelChoiceField(DatosProyecto.objects.all(), label='Proyecto')
     contenido = forms.CharField(widget=forms.Textarea, label='Contenido')
 
 class DescripcionProyectoCreateForm(forms.ModelForm):
@@ -59,6 +61,7 @@ class DescripcionProyectoCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = DescripcionProyecto
         fields = '__all__'
+        exclude = ['proyecto']
 
 class RecomendacionProyectoCreateForm(forms.ModelForm):
     '''Form del modelo recomendaciones de proyectos'''
@@ -66,6 +69,7 @@ class RecomendacionProyectoCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = RecomendacionProyecto
         fields = '__all__'
+        exclude = ['proyecto']
 
 class ConclusionProyectoCreateForm(forms.ModelForm):
     '''Form del modelo conclusiones de proyectos'''
@@ -80,6 +84,7 @@ class MedioCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = Medio
         fields = '__all__'
+        exclude = ['proyecto']
 
 class CaracteristicaMedioCreateForm(forms.ModelForm):
     '''Form del modelo medio'''
