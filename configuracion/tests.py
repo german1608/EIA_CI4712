@@ -754,7 +754,6 @@ class PruebaFormularioEstudio(SeleniumTestCase):
         # time.sleep(5)
 
         #Visualizando los datos del impacto SC y modificandolos
-        consulta = Estudio.objects.get(nombre=nombre)
         self.selenium.find_element_by_name(str(nombre)).click() # Hacemos click para consultar
         self.selenium.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
         self.selenium.execute_script("window.scrollTo(0, 0)") #movemos el scroll un poco
