@@ -9,6 +9,7 @@ class SeleniumTestCase(StaticLiveServerTestCase):
     """
     Clase para crear casos de pruebas que usen selenium
     """
+    fixtures = ['groups.json', 'users.json']
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

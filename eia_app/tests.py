@@ -894,7 +894,7 @@ class MarcoListViewTestCase(MarcoHelper, TestCase):
     '''
     Prueba la vista de listado de los marcos.
     '''
-    fixtures = ['users-and-groups.json', 'proyectos.json']
+    fixtures = ['groups.json', 'users.json', 'proyectos.json']
 
     def test_login_required(self):
         '''
@@ -950,26 +950,7 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
     '''
     Prueba la vista de eliminacion de marcos.
     '''
-    fixtures = ['users-and-groups.json', 'proyectos.json']
-
-    # def test_login_required(self):
-        # '''
-        # Prueba que la vista tenga sus restricciones de autenticidad
-        # '''
-        # login_url = reverse('login')
-        # for tipo_marco in self.tipo_marcos:
-            # marco = DatosProyecto.objects.filter(~Q(**{
-                # 'marco_{}'.format(tipo_marco): None
-            # })).first()
-# 
-            # target_url = reverse('eia_app:eliminar-marco', kwargs={
-                # 'tipo': tipo_marco,
-                # 'pk': marco.pk
-            # })
-            # response = self.client.post(target_url)
-            # actual = response
-            # expected = login_url + '?next=' + target_url
-            # self.assertRedirects(actual, expected)
+    fixtures = ['groups.json', 'users.json', 'proyectos.json']
 
     def test_view_url_correspondence(self):
         '''
@@ -1127,7 +1108,7 @@ class MarcoDetailViewTestCase(MarcoHelper, TestCase):
     '''
     Suite de pruebas para la vista de detalles de marcos
     '''
-    fixtures = ['users-and-groups.json', 'proyectos.json']
+    fixtures = ['groups.json', 'users.json', 'proyectos.json']
 
     def test_login_required(self):
         '''
@@ -1273,7 +1254,7 @@ class MarcoFormViewTestCase(MarcoHelper, TestCase):
     Pruebas unitarias para para la vista de creacion y edicion
     de marcos de proyectos
     '''
-    fixtures = ['users-and-groups.json', 'proyectos.json']
+    fixtures = ['groups.json', 'users.json', 'proyectos.json']
 
     def test_url_correspondence_agregar(self):
         '''

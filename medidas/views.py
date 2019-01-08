@@ -1,7 +1,8 @@
 '''Views del crud del consultor'''
 
 from django.shortcuts import render, redirect
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required, permission_required
 from django.db import transaction
 from django.views.generic import (DetailView,
                                   ListView,
@@ -14,23 +15,35 @@ from .forms import (
     MedidaForm, ImpactoFormSet, ObjetivoFormSet, IndicadorDeCumplimientoFormSet
 )
 
-class MedidaListView(LoginRequiredMixin, ListView):  # pylint: disable=too-many-ancestors
+class MedidaListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):  # pylint: disable=too-many-ancestors
     '''Listar las medidas'''
     model = Medida
     template_name = 'medidas/list.html'
+    permission_required = ('medidas.view_medida',
+                           'medidas.view_impacto', 'medidas.view_objetivo',
+                           'medidas.view_indicadordecumplimiento')
 
-class MedidaDetailView(LoginRequiredMixin, DetailView):  # pylint: disable=too-many-ancestors
+class MedidaDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de una medida'''
     model = Medida
     template_name = 'medidas/detail.html'
+    permission_required = ('medidas.view_medida',
+                           'medidas.view_impacto', 'medidas.view_objetivo',
+                           'medidas.view_indicadordecumplimiento')
 
 
-class MedidaDeleteView(LoginRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
+class MedidaDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una medida'''
     model = Medida
     template_name = 'medidas/delete.html'
     success_url = reverse_lazy('medidas:lista-medidas')
+    permission_required = ('medidas.delete_medida',
+                           'medidas.delete_impacto', 'medidas.delete_objetivo',
+                           'medidas.delete_indicadordecumplimiento')
 
+@login_required
+@permission_required(('medidas.view_medida', 'medidas.view_impacto', 'medidas.view_objetivo',
+                      'medidas.view_indicadordecumplimiento'), raise_exception=True)
 @transaction.atomic
 def medida_form_view(request, pk=None): # pylint: disable=invalid-name
     """
