@@ -7,7 +7,6 @@
     "ubicacion": "Ubicacion",
     "area": "Area",
     "tipo": "Tipo",
-    "url": "https://url.com",
     "marco_metodologico": "{\"ops\":[{\"insert\":\"Mi \"},{\"attributes\":{\"italic\":true},\"insert\":\"super\"},{\"insert\":\" \"},{\"attributes\":{\"underline\":true},\"insert\":\"marco\"},{\"insert\":\" \"},{\"attributes\":{\"bold\":true},\"insert\":\"metodologico\"},{\"insert\":\"\\n\"}]}",
     "marco_juridico": null,
     "marco_teorico": null
@@ -21,7 +20,6 @@
     "ubicacion": "Ubicacion",
     "area": "Area",
     "tipo": "Tipo",
-    "url": "https://url.com",
     "marco_metodologico": null,
     "marco_juridico": null,
     "marco_teorico": "{\"ops\":[{\"insert\":\"Mi \"},{\"attributes\":{\"italic\":true},\"insert\":\"super\"},{\"insert\":\" \"},{\"attributes\":{\"underline\":true},\"insert\":\"marco\"},{\"insert\":\" \"},{\"attributes\":{\"bold\":true},\"insert\":\"teorico\"},{\"insert\":\"\\n\"}]}"
@@ -35,7 +33,6 @@
     "ubicacion": "Ubicacion",
     "area": "Area",
     "tipo": "Tipo",
-    "url": "https://url.com",
     "marco_metodologico": null,
     "marco_juridico": "{\"ops\":[{\"insert\":\"Mi \"},{\"attributes\":{\"italic\":true},\"insert\":\"super\"},{\"insert\":\" \"},{\"attributes\":{\"underline\":true},\"insert\":\"marco\"},{\"insert\":\" \"},{\"attributes\":{\"bold\":true},\"insert\":\"juridico\"},{\"insert\":\"\\n\"}]}",
     "marco_teorico": null
