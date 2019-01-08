@@ -2,11 +2,8 @@
 Pruebas Unitarias
 """
 # pylint: disable=too-many-lines
-import time
 from django.test import Client
 from django.test import TestCase
-from django.urls import reverse
-from selenium.webdriver.support.ui import Select
 from configuracion.models import NIVEL_RELEVANCIA, TIPO_RELEVANCIA, GRADO_PERTUBACION
 from configuracion.models import VALOR_SA, EXT_CLASIFICACION, DUR_CRITERIOS, REV_CLASIFICACION
 from configuracion.models import NIVEL_IMPORTANCIA, PROBABILIDAD, MEDIOS
@@ -15,7 +12,6 @@ from configuracion.forms import EstudioForm
 from configuracion.models import Intensidad, Probabilidad, Extension, Reversibilidad
 from configuracion.models import Duracion, Importancia, Estudio, Macro, Disciplina
 from configuracion.models import Actividad, Plan
-from utils.testutils import SeleniumTestCase
 
 class KaraotaTests(TestCase): # pylint: disable=too-many-public-methods
     """
