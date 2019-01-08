@@ -786,7 +786,6 @@ class PruebaFormularioEstudio(SeleniumTestCase):
 
         #Consultando los datos y Eliminando el impacto F cambiado
         nombre = "Impacto F"
-        consulta = Estudio.objects.get(nombre=nombre)
         self.selenium.find_element_by_name(str(nombre)).click() # Hacemos click para consultar
         self.selenium.execute_script("window.scrollTo(0, 1080)") #movemos el scroll un poco
         self.selenium.find_element_by_name('eliminar').click() # Hacemos click en agregar
