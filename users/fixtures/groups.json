@@ -5,106 +5,6 @@
     "name": "Administrador del Sistema",
     "permissions": [
       [
-        "add_logentry",
-        "admin",
-        "logentry"
-      ],
-      [
-        "change_logentry",
-        "admin",
-        "logentry"
-      ],
-      [
-        "delete_logentry",
-        "admin",
-        "logentry"
-      ],
-      [
-        "view_logentry",
-        "admin",
-        "logentry"
-      ],
-      [
-        "add_group",
-        "auth",
-        "group"
-      ],
-      [
-        "change_group",
-        "auth",
-        "group"
-      ],
-      [
-        "delete_group",
-        "auth",
-        "group"
-      ],
-      [
-        "view_group",
-        "auth",
-        "group"
-      ],
-      [
-        "add_permission",
-        "auth",
-        "permission"
-      ],
-      [
-        "change_permission",
-        "auth",
-        "permission"
-      ],
-      [
-        "delete_permission",
-        "auth",
-        "permission"
-      ],
-      [
-        "view_permission",
-        "auth",
-        "permission"
-      ],
-      [
-        "add_actividad",
-        "configuracion",
-        "actividad"
-      ],
-      [
-        "change_actividad",
-        "configuracion",
-        "actividad"
-      ],
-      [
-        "delete_actividad",
-        "configuracion",
-        "actividad"
-      ],
-      [
-        "view_actividad",
-        "configuracion",
-        "actividad"
-      ],
-      [
-        "add_disciplina",
-        "configuracion",
-        "disciplina"
-      ],
-      [
-        "change_disciplina",
-        "configuracion",
-        "disciplina"
-      ],
-      [
-        "delete_disciplina",
-        "configuracion",
-        "disciplina"
-      ],
-      [
-        "view_disciplina",
-        "configuracion",
-        "disciplina"
-      ],
-      [
         "add_duracion",
         "configuracion",
         "duracion"
@@ -123,26 +23,6 @@
         "view_duracion",
         "configuracion",
         "duracion"
-      ],
-      [
-        "add_estudio",
-        "configuracion",
-        "estudio"
-      ],
-      [
-        "change_estudio",
-        "configuracion",
-        "estudio"
-      ],
-      [
-        "delete_estudio",
-        "configuracion",
-        "estudio"
-      ],
-      [
-        "view_estudio",
-        "configuracion",
-        "estudio"
       ],
       [
         "add_extension",
@@ -205,46 +85,6 @@
         "intensidad"
       ],
       [
-        "add_macro",
-        "configuracion",
-        "macro"
-      ],
-      [
-        "change_macro",
-        "configuracion",
-        "macro"
-      ],
-      [
-        "delete_macro",
-        "configuracion",
-        "macro"
-      ],
-      [
-        "view_macro",
-        "configuracion",
-        "macro"
-      ],
-      [
-        "add_plan",
-        "configuracion",
-        "plan"
-      ],
-      [
-        "change_plan",
-        "configuracion",
-        "plan"
-      ],
-      [
-        "delete_plan",
-        "configuracion",
-        "plan"
-      ],
-      [
-        "view_plan",
-        "configuracion",
-        "plan"
-      ],
-      [
         "add_probabilidad",
         "configuracion",
         "probabilidad"
@@ -285,44 +125,79 @@
         "reversibilidad"
       ],
       [
-        "add_subplan",
+        "add_usuario",
+        "users",
+        "usuario"
+      ],
+      [
+        "change_usuario",
+        "users",
+        "usuario"
+      ],
+      [
+        "delete_usuario",
+        "users",
+        "usuario"
+      ],
+      [
+        "view_usuario",
+        "users",
+        "usuario"
+      ]
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "fields": {
+    "name": "Solicitante o Promotor",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "fields": {
+    "name": "Especialista de EsIA",
+    "permissions": [
+      [
+        "add_actividad",
         "configuracion",
-        "subplan"
+        "actividad"
       ],
       [
-        "change_subplan",
+        "change_actividad",
         "configuracion",
-        "subplan"
+        "actividad"
       ],
       [
-        "delete_subplan",
+        "delete_actividad",
         "configuracion",
-        "subplan"
+        "actividad"
       ],
       [
-        "view_subplan",
+        "view_actividad",
         "configuracion",
-        "subplan"
+        "actividad"
       ],
       [
-        "add_contenttype",
-        "contenttypes",
-        "contenttype"
+        "add_disciplina",
+        "configuracion",
+        "disciplina"
       ],
       [
-        "change_contenttype",
-        "contenttypes",
-        "contenttype"
+        "change_disciplina",
+        "configuracion",
+        "disciplina"
       ],
       [
-        "delete_contenttype",
-        "contenttypes",
-        "contenttype"
+        "delete_disciplina",
+        "configuracion",
+        "disciplina"
       ],
       [
-        "view_contenttype",
-        "contenttypes",
-        "contenttype"
+        "view_disciplina",
+        "configuracion",
+        "disciplina"
       ],
       [
         "add_caracteristicamedio",
@@ -703,46 +578,6 @@
         "view_objetivo",
         "medidas",
         "objetivo"
-      ],
-      [
-        "add_session",
-        "sessions",
-        "session"
-      ],
-      [
-        "change_session",
-        "sessions",
-        "session"
-      ],
-      [
-        "delete_session",
-        "sessions",
-        "session"
-      ],
-      [
-        "view_session",
-        "sessions",
-        "session"
-      ],
-      [
-        "add_usuario",
-        "users",
-        "usuario"
-      ],
-      [
-        "change_usuario",
-        "users",
-        "usuario"
-      ],
-      [
-        "delete_usuario",
-        "users",
-        "usuario"
-      ],
-      [
-        "view_usuario",
-        "users",
-        "usuario"
       ]
     ]
   }
@@ -750,36 +585,550 @@
 {
   "model": "auth.group",
   "fields": {
-    "name": "Solicitante o Promotor",
-    "permissions": []
-  }
-},
-{
-  "model": "auth.group",
-  "fields": {
-    "name": "Especialista de EsIA",
-    "permissions": []
-  }
-},
-{
-  "model": "auth.group",
-  "fields": {
     "name": "Especialista del Medio F\u00edsico",
-    "permissions": []
+    "permissions": [
+      [
+        "add_caracteristicamedio",
+        "eia_app",
+        "caracteristicamedio"
+      ],
+      [
+        "change_caracteristicamedio",
+        "eia_app",
+        "caracteristicamedio"
+      ],
+      [
+        "delete_caracteristicamedio",
+        "eia_app",
+        "caracteristicamedio"
+      ],
+      [
+        "view_caracteristicamedio",
+        "eia_app",
+        "caracteristicamedio"
+      ],
+      [
+        "add_costohumano",
+        "eia_app",
+        "costohumano"
+      ],
+      [
+        "change_costohumano",
+        "eia_app",
+        "costohumano"
+      ],
+      [
+        "delete_costohumano",
+        "eia_app",
+        "costohumano"
+      ],
+      [
+        "view_costohumano",
+        "eia_app",
+        "costohumano"
+      ],
+      [
+        "add_costomateriales",
+        "eia_app",
+        "costomateriales"
+      ],
+      [
+        "change_costomateriales",
+        "eia_app",
+        "costomateriales"
+      ],
+      [
+        "delete_costomateriales",
+        "eia_app",
+        "costomateriales"
+      ],
+      [
+        "view_costomateriales",
+        "eia_app",
+        "costomateriales"
+      ],
+      [
+        "add_medio",
+        "eia_app",
+        "medio"
+      ],
+      [
+        "change_medio",
+        "eia_app",
+        "medio"
+      ],
+      [
+        "delete_medio",
+        "eia_app",
+        "medio"
+      ],
+      [
+        "view_medio",
+        "eia_app",
+        "medio"
+      ],
+      [
+        "add_subaracteristicamedio",
+        "eia_app",
+        "subaracteristicamedio"
+      ],
+      [
+        "change_subaracteristicamedio",
+        "eia_app",
+        "subaracteristicamedio"
+      ],
+      [
+        "delete_subaracteristicamedio",
+        "eia_app",
+        "subaracteristicamedio"
+      ],
+      [
+        "view_subaracteristicamedio",
+        "eia_app",
+        "subaracteristicamedio"
+      ],
+      [
+        "add_tipocosto",
+        "eia_app",
+        "tipocosto"
+      ],
+      [
+        "change_tipocosto",
+        "eia_app",
+        "tipocosto"
+      ],
+      [
+        "delete_tipocosto",
+        "eia_app",
+        "tipocosto"
+      ],
+      [
+        "view_tipocosto",
+        "eia_app",
+        "tipocosto"
+      ],
+      [
+        "add_impacto",
+        "medidas",
+        "impacto"
+      ],
+      [
+        "change_impacto",
+        "medidas",
+        "impacto"
+      ],
+      [
+        "delete_impacto",
+        "medidas",
+        "impacto"
+      ],
+      [
+        "view_impacto",
+        "medidas",
+        "impacto"
+      ],
+      [
+        "add_indicadordecumplimiento",
+        "medidas",
+        "indicadordecumplimiento"
+      ],
+      [
+        "change_indicadordecumplimiento",
+        "medidas",
+        "indicadordecumplimiento"
+      ],
+      [
+        "delete_indicadordecumplimiento",
+        "medidas",
+        "indicadordecumplimiento"
+      ],
+      [
+        "view_indicadordecumplimiento",
+        "medidas",
+        "indicadordecumplimiento"
+      ],
+      [
+        "add_medida",
+        "medidas",
+        "medida"
+      ],
+      [
+        "change_medida",
+        "medidas",
+        "medida"
+      ],
+      [
+        "delete_medida",
+        "medidas",
+        "medida"
+      ],
+      [
+        "view_medida",
+        "medidas",
+        "medida"
+      ],
+      [
+        "add_objetivo",
+        "medidas",
+        "objetivo"
+      ],
+      [
+        "change_objetivo",
+        "medidas",
+        "objetivo"
+      ],
+      [
+        "delete_objetivo",
+        "medidas",
+        "objetivo"
+      ],
+      [
+        "view_objetivo",
+        "medidas",
+        "objetivo"
+      ]
+    ]
   }
 },
 {
   "model": "auth.group",
   "fields": {
     "name": "Especialista del Medio Biol\u00f3gico",
-    "permissions": []
+    "permissions": [
+      [
+        "add_actividad",
+        "configuracion",
+        "actividad"
+      ],
+      [
+        "add_caracteristicamedio",
+        "eia_app",
+        "caracteristicamedio"
+      ],
+      [
+        "change_caracteristicamedio",
+        "eia_app",
+        "caracteristicamedio"
+      ],
+      [
+        "delete_caracteristicamedio",
+        "eia_app",
+        "caracteristicamedio"
+      ],
+      [
+        "view_caracteristicamedio",
+        "eia_app",
+        "caracteristicamedio"
+      ],
+      [
+        "add_costohumano",
+        "eia_app",
+        "costohumano"
+      ],
+      [
+        "change_costohumano",
+        "eia_app",
+        "costohumano"
+      ],
+      [
+        "delete_costohumano",
+        "eia_app",
+        "costohumano"
+      ],
+      [
+        "view_costohumano",
+        "eia_app",
+        "costohumano"
+      ],
+      [
+        "add_costomateriales",
+        "eia_app",
+        "costomateriales"
+      ],
+      [
+        "change_costomateriales",
+        "eia_app",
+        "costomateriales"
+      ],
+      [
+        "delete_costomateriales",
+        "eia_app",
+        "costomateriales"
+      ],
+      [
+        "view_costomateriales",
+        "eia_app",
+        "costomateriales"
+      ],
+      [
+        "add_medio",
+        "eia_app",
+        "medio"
+      ],
+      [
+        "change_medio",
+        "eia_app",
+        "medio"
+      ],
+      [
+        "delete_medio",
+        "eia_app",
+        "medio"
+      ],
+      [
+        "view_medio",
+        "eia_app",
+        "medio"
+      ],
+      [
+        "add_subaracteristicamedio",
+        "eia_app",
+        "subaracteristicamedio"
+      ],
+      [
+        "change_subaracteristicamedio",
+        "eia_app",
+        "subaracteristicamedio"
+      ],
+      [
+        "delete_subaracteristicamedio",
+        "eia_app",
+        "subaracteristicamedio"
+      ],
+      [
+        "view_subaracteristicamedio",
+        "eia_app",
+        "subaracteristicamedio"
+      ],
+      [
+        "add_tipocosto",
+        "eia_app",
+        "tipocosto"
+      ],
+      [
+        "change_tipocosto",
+        "eia_app",
+        "tipocosto"
+      ],
+      [
+        "delete_tipocosto",
+        "eia_app",
+        "tipocosto"
+      ],
+      [
+        "view_tipocosto",
+        "eia_app",
+        "tipocosto"
+      ],
+      [
+        "add_impacto",
+        "medidas",
+        "impacto"
+      ],
+      [
+        "change_impacto",
+        "medidas",
+        "impacto"
+      ],
+      [
+        "delete_impacto",
+        "medidas",
+        "impacto"
+      ],
+      [
+        "view_impacto",
+        "medidas",
+        "impacto"
+      ],
+      [
+        "add_indicadordecumplimiento",
+        "medidas",
+        "indicadordecumplimiento"
+      ],
+      [
+        "change_indicadordecumplimiento",
+        "medidas",
+        "indicadordecumplimiento"
+      ],
+      [
+        "delete_indicadordecumplimiento",
+        "medidas",
+        "indicadordecumplimiento"
+      ],
+      [
+        "view_indicadordecumplimiento",
+        "medidas",
+        "indicadordecumplimiento"
+      ],
+      [
+        "add_medida",
+        "medidas",
+        "medida"
+      ],
+      [
+        "change_medida",
+        "medidas",
+        "medida"
+      ],
+      [
+        "delete_medida",
+        "medidas",
+        "medida"
+      ],
+      [
+        "view_medida",
+        "medidas",
+        "medida"
+      ],
+      [
+        "add_objetivo",
+        "medidas",
+        "objetivo"
+      ],
+      [
+        "change_objetivo",
+        "medidas",
+        "objetivo"
+      ],
+      [
+        "delete_objetivo",
+        "medidas",
+        "objetivo"
+      ],
+      [
+        "view_objetivo",
+        "medidas",
+        "objetivo"
+      ]
+    ]
   }
 },
 {
   "model": "auth.group",
   "fields": {
     "name": "Especialista del Medio Socioecon\u00f3mico",
-    "permissions": []
+    "permissions": [
+      [
+        "add_caracteristicamedio",
+        "eia_app",
+        "caracteristicamedio"
+      ],
+      [
+        "change_caracteristicamedio",
+        "eia_app",
+        "caracteristicamedio"
+      ],
+      [
+        "delete_caracteristicamedio",
+        "eia_app",
+        "caracteristicamedio"
+      ],
+      [
+        "view_caracteristicamedio",
+        "eia_app",
+        "caracteristicamedio"
+      ],
+      [
+        "add_costohumano",
+        "eia_app",
+        "costohumano"
+      ],
+      [
+        "change_costohumano",
+        "eia_app",
+        "costohumano"
+      ],
+      [
+        "delete_costohumano",
+        "eia_app",
+        "costohumano"
+      ],
+      [
+        "view_costohumano",
+        "eia_app",
+        "costohumano"
+      ],
+      [
+        "add_costomateriales",
+        "eia_app",
+        "costomateriales"
+      ],
+      [
+        "change_costomateriales",
+        "eia_app",
+        "costomateriales"
+      ],
+      [
+        "delete_costomateriales",
+        "eia_app",
+        "costomateriales"
+      ],
+      [
+        "view_costomateriales",
+        "eia_app",
+        "costomateriales"
+      ],
+      [
+        "add_medio",
+        "eia_app",
+        "medio"
+      ],
+      [
+        "change_medio",
+        "eia_app",
+        "medio"
+      ],
+      [
+        "delete_medio",
+        "eia_app",
+        "medio"
+      ],
+      [
+        "view_medio",
+        "eia_app",
+        "medio"
+      ],
+      [
+        "add_subaracteristicamedio",
+        "eia_app",
+        "subaracteristicamedio"
+      ],
+      [
+        "change_subaracteristicamedio",
+        "eia_app",
+        "subaracteristicamedio"
+      ],
+      [
+        "delete_subaracteristicamedio",
+        "eia_app",
+        "subaracteristicamedio"
+      ],
+      [
+        "view_subaracteristicamedio",
+        "eia_app",
+        "subaracteristicamedio"
+      ],
+      [
+        "add_tipocosto",
+        "eia_app",
+        "tipocosto"
+      ],
+      [
+        "change_tipocosto",
+        "eia_app",
+        "tipocosto"
+      ],
+      [
+        "delete_tipocosto",
+        "eia_app",
+        "tipocosto"
+      ],
+      [
+        "view_tipocosto",
+        "eia_app",
+        "tipocosto"
+      ]
+    ]
   }
 },
 {
