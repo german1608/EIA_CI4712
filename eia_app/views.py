@@ -95,6 +95,15 @@ class DatosProyectoList(ListView):  # pylint: disable=too-many-ancestors
     model = DatosProyecto
     template_name = 'eia_app/datos_proyectos/list.html'
 
+    def get(self, request, **kwargs):
+        """
+        Sobreescribe el get para que el queryset
+        sea solo de los proyectos el cual el usuario
+        loggeado es el propietario
+        """
+        self.queryset = DatosProyecto.objects.filter(usuario=request.user)
+        return super().get(request)
+
 
 class DatosProyectoCreate(CreateView):  # pylint: disable=too-many-ancestors
     '''Crear datos de un proyecto'''
