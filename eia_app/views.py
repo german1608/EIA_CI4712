@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.db.models import Q
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django_weasyprint import WeasyTemplateResponseMixin
 from .models import (
     Responsable, Solicitante,
@@ -85,6 +85,15 @@ class DatosProyectoCreate(CreateView):  # pylint: disable=too-many-ancestors
         context = super(DatosProyectoCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Agregar datos de un proyecto"
         return context
+
+    def form_valid(self, form):
+        usuario_loggeado = self.request.user
+        # Recupero lo que esta guardado del proyecto
+        proyecto = form.save(commit=False)
+        # Le agrego el usuario asociado que es el que esta loggeado
+        proyecto.usuario = usuario_loggeado
+        proyecto.save()
+        return HttpResponseRedirect(self.success_url)
 
 
 class DatosProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
@@ -326,7 +335,9 @@ class MarcoFormView(CargaContextoMarcoMixin, FormView):
         self.success_url = reverse_lazy('consultor-crud:lista-marcos', kwargs={
             'tipo': tipo
         })
-        proyecto = form.cleaned_data['proyecto']
+        usuario_loggeado = self.request.user
+        pk_proyecto = usuario_loggeado.proyecto_seleccionado
+        proyecto = DatosProyecto.objects.get(pk=pk_proyecto)
         contenido = form.cleaned_data['contenido']
         if tipo == 'metodologico':
             proyecto.marco_metodologico = contenido
@@ -499,6 +510,18 @@ class ConclusionAddOrEditBase:
 
 class ConclusionesCreateView(ConclusionAddOrEditBase, CreateView):
     'Crear una conclusión para un proyecto'
+    def form_valid(self, form):
+        """
+        Sobreescribe la funcion de form_valid
+        para poder incluir el proyecto seleccionado
+        por el usuario para editar
+        """
+        usuario_loggeado = self.request.user
+        pk_proyecto_editable = usuario_loggeado.proyecto_seleccionado
+        proyecto_editable = DatosProyecto.objects.get(pk=pk_proyecto_editable)
+        contenido = form.cleaned_data['conclusiones']
+        ConclusionProyecto.objects.create(proyecto=proyecto_editable, conclusiones=contenido)
+        return redirect(self.success_url)
 
 class ConclusionUpdateView(ConclusionAddOrEditBase, UpdateView):
     'Actualizar datos de una conclusión'

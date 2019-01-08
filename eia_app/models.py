@@ -9,6 +9,7 @@ from django.core.validators import MinValueValidator
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _  # pylint: disable=unused-import
 from eia.validators import CI_VALIDATOR
+from users.models import Usuario
 
 
 class DatosProyecto(models.Model):
@@ -29,6 +30,7 @@ class DatosProyecto(models.Model):
     marco_metodologico = models.TextField(null=True)
     marco_juridico = models.TextField(null=True)
     marco_teorico = models.TextField(null=True)
+    usuario = models.ForeignKey(Usuario, null=True, on_delete=models.CASCADE)
 
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
