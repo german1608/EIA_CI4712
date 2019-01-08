@@ -311,7 +311,9 @@ class MarcoFormView(CargaContextoMarcoMixin, FormView):
         self.success_url = reverse_lazy('consultor-crud:lista-marcos', kwargs={
             'tipo': tipo
         })
-        proyecto = form.cleaned_data['proyecto']
+        usuario_loggeado = self.request.user
+        pk_proyecto = usuario_loggeado.proyecto_seleccionado
+        proyecto = DatosProyecto.objects.get(pk=pk_proyecto)
         contenido = form.cleaned_data['contenido']
         if tipo == 'metodologico':
             proyecto.marco_metodologico = contenido
@@ -475,6 +477,18 @@ class ConclusionAddOrEditBase:
 
 class ConclusionesCreateView(ConclusionAddOrEditBase, CreateView):
     'Crear una conclusión para un proyecto'
+    def form_valid(self, form):
+        """
+        Sobreescribe la funcion de form_valid
+        para poder incluir el proyecto seleccionado
+        por el usuario para editar
+        """
+        usuario_loggeado = self.request.user
+        pk_proyecto_editable = usuario_loggeado.proyecto_seleccionado
+        proyecto_editable = DatosProyecto.objects.get(pk=pk_proyecto_editable)
+        contenido = form.cleaned_data['conclusiones']
+        ConclusionProyecto.objects.create(proyecto=proyecto_editable, conclusiones=contenido)
+        return redirect(self.success_url)
 
 class ConclusionUpdateView(ConclusionAddOrEditBase, UpdateView):
     'Actualizar datos de una conclusión'

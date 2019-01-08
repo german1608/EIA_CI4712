@@ -71,4 +71,4 @@ class ConclusionProyectoCreateForm(forms.ModelForm):
     class Meta: # pylint: disable=too-few-public-methods
         '''Clase meta del formulario'''
         model = ConclusionProyecto
-        fields = '__all__'
+        fields = ['conclusiones']
