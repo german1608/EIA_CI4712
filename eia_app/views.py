@@ -4,8 +4,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView, DeleteView,
                                   FormView)
 from django.views.generic.base import ContextMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.http import Http404, HttpResponseRedirect
@@ -24,24 +24,27 @@ from .forms import (
 )
 
 
-class OrganizacionList(ListView):  # pylint: disable=too-many-ancestors
+class OrganizacionList(LoginRequiredMixin, PermissionRequiredMixin, ListView):  # pylint: disable=too-many-ancestors
     '''Listar las organizaciones'''
     model = Organizacion
     template_name = 'eia_app/organizaciones/list.html'
+    permission_required = 'eia_app.view_organizacion'
 
 
-class OrganizacionDetail(DetailView):  # pylint: disable=too-many-ancestors
+class OrganizacionDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de una organizacion'''
     model = Organizacion
     template_name = 'eia_app/organizaciones/detail.html'
+    permission_required = 'eia_app.view_organizacion'
 
 
-class OrganizacionCreate(CreateView):  # pylint: disable=too-many-ancestors
+class OrganizacionCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una organizacion'''
     model = Organizacion
     form_class = OrganizacionCreateForm
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-organizaciones')
+    permission_required = 'eia_app.add_organizacion'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(OrganizacionCreate, self).get_context_data(**kwargs)
@@ -49,11 +52,12 @@ class OrganizacionCreate(CreateView):  # pylint: disable=too-many-ancestors
         return context
 
 
-class OrganizacionUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+class OrganizacionUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una organizacion'''
     model = Organizacion
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-organizaciones')
+    permission_required = 'eia_app.change_organizacion'
     fields = '__all__'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
@@ -61,25 +65,28 @@ class OrganizacionUpdate(UpdateView):  # pylint: disable=too-many-ancestors
         context["nombre"] = "Editar organización"
         return context
 
-class OrganizacionDelete(DeleteView):  # pylint: disable=too-many-ancestors
+class OrganizacionDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una organizacion'''
     model = Organizacion
     template_name = 'eia_app/organizaciones/delete.html'
+    permission_required = 'eia_app.delete_organizacion'
     success_url = reverse_lazy('consultor-crud:lista-organizaciones')
 
 
-class DatosProyectoList(ListView):  # pylint: disable=too-many-ancestors
+class DatosProyectoList(LoginRequiredMixin, PermissionRequiredMixin, ListView):  # pylint: disable=too-many-ancestors
     '''Listar los datos de los proyectos'''
     model = DatosProyecto
     template_name = 'eia_app/datos_proyectos/list.html'
+    permission_required = 'eia_app.view_datosproyecto'
 
 
-class DatosProyectoCreate(CreateView):  # pylint: disable=too-many-ancestors
+class DatosProyectoCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):  # pylint: disable=too-many-ancestors
     '''Crear datos de un proyecto'''
     model = DatosProyecto
     form_class = DatosProyectoCreateForm
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-proyectos')
+    permission_required = 'eia_app.add_datosproyecto'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(DatosProyectoCreate, self).get_context_data(**kwargs)
@@ -96,12 +103,13 @@ class DatosProyectoCreate(CreateView):  # pylint: disable=too-many-ancestors
         return HttpResponseRedirect(self.success_url)
 
 
-class DatosProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+class DatosProyectoUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar los datos de un proyecto'''
     model = DatosProyecto
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-proyectos')
     form_class = DatosProyectoCreateForm
+    permission_required = 'eia_app.change_datosproyecto'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(DatosProyectoUpdate, self).get_context_data(**kwargs)
@@ -109,48 +117,55 @@ class DatosProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
         return context
 
 
-class DatosProyectoDelete(DeleteView):  # pylint: disable=too-many-ancestors
+class DatosProyectoDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar los datos de un proyecto'''
     model = DatosProyecto
     template_name = 'eia_app/datos_proyectos/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-proyectos')
+    permission_required = 'eia_app.delete_datosproyecto'
 
 
-class DatosProyectoDetail(DetailView):  # pylint: disable=too-many-ancestors
+class DatosProyectoDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de los datos de un proyecto'''
     model = DatosProyecto
     template_name = 'eia_app/datos_proyectos/detail.html'
+    permission_required = 'eia_app.view_datosproyecto'
 
-class GenerarPDFView(DetailView): # pylint: disable=too-many-ancestors
+class GenerarPDFView(LoginRequiredMixin, PermissionRequiredMixin, DetailView): # pylint: disable=too-many-ancestors
     '''Vista que se encarga de conectar con el html que servira de modelo de pdf'''
     model = DatosProyecto
     template_name = 'eia_app/datos_proyectos/imprimir.html'
+    permission_required = 'eia_app.view_datosproyecto'
 
 class ImprimirDatosDelProyecto(WeasyTemplateResponseMixin, GenerarPDFView): # pylint: disable=too-many-ancestors
     '''Con esta vista se generara el pdf con los detalles del proyect'''
     pdf_stylesheets = [
         'static/css/generacion_pdf.css',
     ]
+    permission_required = 'eia_app.view_datosproyecto'
 
 
-class ResponsableList(ListView):  # pylint: disable=too-many-ancestors
+class ResponsableList(LoginRequiredMixin, PermissionRequiredMixin, ListView):  # pylint: disable=too-many-ancestors
     '''Listar las Responsables'''
     model = Responsable
     template_name = 'eia_app/responsables/list.html'
+    permission_required = 'eia_app.view_responsable'
 
 
-class ResponsableDetail(DetailView):  # pylint: disable=too-many-ancestors
+class ResponsableDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de una Responsable'''
     model = Responsable
     template_name = 'eia_app/responsables/detail.html'
+    permission_required = 'eia_app.view_responsable'
 
 
-class ResponsableCreate(CreateView):  # pylint: disable=too-many-ancestors
+class ResponsableCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una Responsable'''
     model = Responsable
     form_class = ResponsableCreateForm
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-responsables')
+    permission_required = 'eia_app.add_responsable'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(ResponsableCreate, self).get_context_data(**kwargs)
@@ -158,12 +173,13 @@ class ResponsableCreate(CreateView):  # pylint: disable=too-many-ancestors
         return context
 
 
-class ResponsableUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+class ResponsableUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una Responsable'''
     model = Responsable
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-responsables')
     fields = '__all__'
+    permission_required = 'eia_app.change_responsable'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(ResponsableUpdate, self).get_context_data(**kwargs)
@@ -171,31 +187,34 @@ class ResponsableUpdate(UpdateView):  # pylint: disable=too-many-ancestors
         return context
 
 
-class ResponsableDelete(DeleteView):  # pylint: disable=too-many-ancestors
+class ResponsableDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una Responsable'''
     model = Responsable
     template_name = 'eia_app/responsables/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-responsables')
+    permission_required = 'eia_app.delete_responsable'
 
 
-class SolicitanteList(ListView):  # pylint: disable=too-many-ancestors
+class SolicitanteList(LoginRequiredMixin, PermissionRequiredMixin, ListView):  # pylint: disable=too-many-ancestors
     '''Listar las Solicitantes'''
     model = Solicitante
     template_name = 'eia_app/solicitantes/list.html'
+    permission_required = 'eia_app.view_solicitante'
 
-
-class SolicitanteDetail(DetailView):  # pylint: disable=too-many-ancestors
+class SolicitanteDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de una Solicitante'''
     model = Solicitante
     template_name = 'eia_app/solicitantes/detail.html'
+    permission_required = 'eia_app.view_solicitante'
 
 
-class SolicitanteCreate(CreateView):  # pylint: disable=too-many-ancestors
+class SolicitanteCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una Solicitante'''
     model = Solicitante
     form_class = SolicitanteCreateForm
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-solicitantes')
+    permission_required = 'eia_app.add_solicitante'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(SolicitanteCreate, self).get_context_data(**kwargs)
@@ -203,12 +222,13 @@ class SolicitanteCreate(CreateView):  # pylint: disable=too-many-ancestors
         return context
 
 
-class SolicitanteUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+class SolicitanteUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una Solicitante'''
     model = Solicitante
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-solicitantes')
     fields = '__all__'
+    permission_required = 'eia_app.change_solicitante'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(SolicitanteUpdate, self).get_context_data(**kwargs)
@@ -216,31 +236,35 @@ class SolicitanteUpdate(UpdateView):  # pylint: disable=too-many-ancestors
         return context
 
 
-class SolicitanteDelete(DeleteView):  # pylint: disable=too-many-ancestors
+class SolicitanteDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una Solicitante'''
     model = Solicitante
     template_name = 'eia_app/solicitantes/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-solicitantes')
+    permission_required = 'eia_app.delete_solicitante'
 
 
-class DatosDocumentoList(ListView):  # pylint: disable=too-many-ancestors
+class DatosDocumentoList(LoginRequiredMixin, PermissionRequiredMixin, ListView):  # pylint: disable=too-many-ancestors
     '''Listar las DatosDocumentos'''
     model = DatosDocumento
     template_name = 'eia_app/datos_documentos/list.html'
+    permission_required = 'eia_app.view_datosdocumento'
 
 
-class DatosDocumentoDetail(DetailView):  # pylint: disable=too-many-ancestors
+class DatosDocumentoDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de un DatosDocumento'''
     model = DatosDocumento
     template_name = 'eia_app/datos_documentos/detail.html'
+    permission_required = 'eia_app.view_datosdocumento'
 
 
-class DatosDocumentoCreate(CreateView):  # pylint: disable=too-many-ancestors
+class DatosDocumentoCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una DatosDocumento'''
     model = DatosDocumento
     form_class = DatosDocumentoCreateForm
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-documentos')
+    permission_required = 'eia_app.add_datosdocumento'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(DatosDocumentoCreate, self).get_context_data(**kwargs)
@@ -248,25 +272,27 @@ class DatosDocumentoCreate(CreateView):  # pylint: disable=too-many-ancestors
         return context
 
 
-class DatosDocumentoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+class DatosDocumentoUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una DatosDocumento'''
     model = DatosDocumento
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-documentos')
     fields = '__all__'
+    permission_required = 'eia_app.change_datosdocumento'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(DatosDocumentoUpdate, self).get_context_data(**kwargs)
         context["nombre"] = "Editar datos de un documento"
         return context
 
-class DatosDocumentoDelete(DeleteView):  # pylint: disable=too-many-ancestors
+class DatosDocumentoDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una DatosDocumento'''
     model = DatosDocumento
     template_name = 'eia_app/datos_documentos/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-datos-documentos')
+    permission_required = 'eia_app.delete_datosdocumento'
 
-class CargaContextoMarcoMixin(LoginRequiredMixin, ContextMixin): # pylint: disable=too-few-public-methods
+class CargaContextoMarcoMixin(LoginRequiredMixin, ContextMixin, PermissionRequiredMixin): # pylint: disable=too-few-public-methods
     '''
     Mixin que anade contexto adicional a las vistas de marcos.
     Anade el tipo de marco a editar acentuado (para mostrarlo al usuario)
@@ -293,6 +319,7 @@ class MarcoListView(CargaContextoMarcoMixin, ListView): # pylint: disable=too-ma
         tipo: (metodologico|juridico|teorico) Tipo de marco a listar
     '''
     template_name = 'eia_app/marco/list.html'
+    permission_required = 'eia_app.view_datosproyecto'
     model = DatosProyecto
 
     def get_queryset(self):
@@ -308,6 +335,8 @@ class MarcoFormView(CargaContextoMarcoMixin, FormView):
     form_class = MarcoForm
     template_name = 'eia_app/marco/form.html'
     success_url = reverse_lazy('consultor-crud:lista-marcos')
+    permission_required = 'eia_app.add_datosproyecto'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['edicion'] = self.kwargs.get('pk', None) is not None
@@ -353,6 +382,7 @@ class MarcoDetailView(CargaContextoMarcoMixin, DetailView): # pylint: disable=to
     ''' Vista para mostrar un marco de un proyecto '''
     template_name = "eia_app/marco/detail.html"
     model = DatosProyecto
+    permission_required = 'eia_app.view_datosproyecto'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -376,6 +406,7 @@ class MarcoDetailView(CargaContextoMarcoMixin, DetailView): # pylint: disable=to
         return response
 
 @login_required
+@permission_required('eia_app.delete_datosproyecto', raise_exception=True)
 def delete_marco_view(request, tipo, pk): # pylint: disable=invalid-name
     '''
     Maneja la eliminacion de marcos. La eliminacion de marcos consiste
@@ -409,24 +440,27 @@ def delete_marco_view(request, tipo, pk): # pylint: disable=invalid-name
     proyecto.save()
     return redirect(reverse_lazy('consultor-crud:lista-marcos', kwargs={'tipo': tipo}))
 
-class DescripcionProyectoList(ListView):  # pylint: disable=too-many-ancestors
+class DescripcionProyectoList(LoginRequiredMixin, PermissionRequiredMixin, ListView):  # pylint: disable=too-many-ancestors
     '''Listar las DescripcionProyecto'''
     model = DescripcionProyecto
     template_name = 'eia_app/descripcion_proyecto/list.html'
+    permission_required = 'eia_app.view_descripcionproyecto'
 
 
-class DescripcionProyectoDetail(DetailView):  # pylint: disable=too-many-ancestors
+class DescripcionProyectoDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de un DescripcionProyecto'''
     model = DescripcionProyecto
     template_name = 'eia_app/descripcion_proyecto/detail.html'
+    permission_required = 'eia_app.view_descripcionproyecto'
 
 
-class DescripcionProyectoCreate(CreateView):  # pylint: disable=too-many-ancestors
+class DescripcionProyectoCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una DescripcionProyecto'''
     model = DescripcionProyecto
     form_class = DescripcionProyectoCreateForm
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
+    permission_required = 'eia_app.add_descripcionproyecto'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(
@@ -436,12 +470,13 @@ class DescripcionProyectoCreate(CreateView):  # pylint: disable=too-many-ancesto
         return context
 
 
-class DescripcionProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+class DescripcionProyectoUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una DescripcionProyecto'''
     model = DescripcionProyecto
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
     fields = '__all__'
+    permission_required = 'eia_app.change_descripcionproyecto'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(
@@ -451,13 +486,14 @@ class DescripcionProyectoUpdate(UpdateView):  # pylint: disable=too-many-ancesto
         return context
 
 
-class DescripcionProyectoDelete(DeleteView):  # pylint: disable=too-many-ancestors
+class DescripcionProyectoDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una DescripcionProyecto'''
     model = DescripcionProyecto
     template_name = 'eia_app/descripcion_proyecto/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-detalles-proyecto')
+    permission_required = 'eia_app.delete_descripcionproyecto'
 
-class RecomendacionProyectoCreateUpdateBase: # pylint: disable=too-few-public-methods
+class RecomendacionProyectoCreateUpdateBase(LoginRequiredMixin, PermissionRequiredMixin): # pylint: disable=too-few-public-methods
     ''' Clase base para la creacion y edicion de recomendaciones '''
     model = RecomendacionProyecto
     form_class = RecomendacionProyectoCreateForm
@@ -466,26 +502,31 @@ class RecomendacionProyectoCreateUpdateBase: # pylint: disable=too-few-public-me
 
 class RecomendacionProyectoCreateView(RecomendacionProyectoCreateUpdateBase, CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una RecomendacionProyecto'''
+    permission_required = 'eia_app.add_recomendacionproyecto'
 
 
 class RecomendacionProyectoUpdateView(RecomendacionProyectoCreateUpdateBase, UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una RecomendacionProyecto'''
+    permission_required = 'eia_app.change_recomendacionproyecto'
 
-class RecomendacionProyectoDetailView(DetailView):  # pylint: disable=too-many-ancestors
+class RecomendacionProyectoDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de un DescripcionProyecto'''
     model = RecomendacionProyecto
     template_name = 'eia_app/recomendaciones_proyecto/detail.html'
+    permission_required = 'eia_app.view_recomendacionproyecto'
 
-class RecomendacionProyectoDeleteView(DeleteView):  # pylint: disable=too-many-ancestors
+class RecomendacionProyectoDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una RecomendacionProyecto'''
     model = RecomendacionProyecto
     template_name = 'eia_app/recomendaciones_proyecto/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-recomendaciones-proyecto')
+    permission_required = 'eia_app.delete_recomendacionproyecto'
 
-class RecomendacionProyectoListView(ListView):  # pylint: disable=too-many-ancestors
+class RecomendacionProyectoListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):  # pylint: disable=too-many-ancestors
     '''Listar las RecomendacionProyecto'''
     model = RecomendacionProyecto
     template_name = 'eia_app/recomendaciones_proyecto/list.html'
+    permission_required = 'eia_app.view_recomendacionproyecto'
 
 
 def consultor_index(request):
@@ -495,12 +536,13 @@ def consultor_index(request):
 
 
 
-class ConclusionesListView(ListView):
+class ConclusionesListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     'Lista de las conclusiones de todos los proyectos'
     model = ConclusionProyecto
     template_name = 'eia_app/conclusiones/list.html'
+    permission_required = 'eia_app.view_conclusionproyecto'
 
-class ConclusionAddOrEditBase:
+class ConclusionAddOrEditBase(LoginRequiredMixin, PermissionRequiredMixin):
     ''' Clase base para la edicion y creacion de conclusiones '''
     model = ConclusionProyecto
     form_class = ConclusionProyectoCreateForm
@@ -510,6 +552,7 @@ class ConclusionAddOrEditBase:
 
 class ConclusionesCreateView(ConclusionAddOrEditBase, CreateView):
     'Crear una conclusión para un proyecto'
+    permission_required = 'eia_app.add_conclusionproyecto'
     def form_valid(self, form):
         """
         Sobreescribe la funcion de form_valid
@@ -525,30 +568,35 @@ class ConclusionesCreateView(ConclusionAddOrEditBase, CreateView):
 
 class ConclusionUpdateView(ConclusionAddOrEditBase, UpdateView):
     'Actualizar datos de una conclusión'
+    permission_required = 'eia_app.change_conclusionproyecto'
 
-class ConclusionDeleteView(DeleteView):
+class ConclusionDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     'Eliminar una conclusión de un proyecto'
     model = ConclusionProyecto
     template_name = 'eia_app/conclusiones/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-conclusiones')
+    permission_required = 'eia_app.delete_conclusionproyecto'
 
-class ConclusionDetailView(DetailView):
+class ConclusionDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     'Detalles acerca de una conclusión de un proyecto'
     model = ConclusionProyecto
     template_name = 'eia_app/conclusiones/detail.html'
+    permission_required = 'eia_app.view_conclusionproyecto'
 
-class MedioList(ListView): # pylint: disable=too-many-ancestors
+class MedioList(LoginRequiredMixin, PermissionRequiredMixin, ListView): # pylint: disable=too-many-ancestors
     ''' Index de los distintos medios'''
     model = Medio
     template_name = 'eia_app/caracterizacion_medio/medios_index.html'
+    permission_required = 'eia_app.view_medio'
 
 
-class MedioCreate(CreateView):  # pylint: disable=too-many-ancestors
+class MedioCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una Medio'''
     model = Medio
     fields = "__all__"
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-medios')
+    permission_required = 'eia_app.add_medio'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(MedioCreate, self).get_context_data(**kwargs)
@@ -556,10 +604,11 @@ class MedioCreate(CreateView):  # pylint: disable=too-many-ancestors
         return context
 
 
-class MedioDetail(DetailView):  # pylint: disable=too-many-ancestors
+class MedioDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de un Medio'''
     model = Medio
     template_name = 'eia_app/caracterizacion_medio/detail.html'
+    permission_required = 'eia_app.view_medio'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(MedioDetail, self).get_context_data(**kwargs)
@@ -569,12 +618,13 @@ class MedioDetail(DetailView):  # pylint: disable=too-many-ancestors
         return context
 
 
-class MedioUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+class MedioUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una Medio'''
     model = Medio
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:lista-medios')
     fields = '__all__'
+    permission_required = 'eia_app.change_medio'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(MedioUpdate, self).get_context_data(**kwargs)
@@ -582,11 +632,12 @@ class MedioUpdate(UpdateView):  # pylint: disable=too-many-ancestors
         return context
 
 
-class MedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
+class MedioDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una Medio'''
     model = Medio
     template_name = 'eia_app/caracterizacion_medio/delete.html'
     success_url = reverse_lazy('consultor-crud:lista-medios')
+    permission_required = 'eia_app.delete_medio'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(MedioDelete, self).get_context_data(**kwargs)
@@ -594,10 +645,11 @@ class MedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
         return context
 
 
-class CaracteristicaMedioDetail(DetailView): # pylint: disable=too-many-ancestors
+class CaracteristicaMedioDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView): # pylint: disable=too-many-ancestors
     '''Ver caracteristicas de un medio fisico'''
     model = CaracteristicaMedio
     template_name = 'eia_app/caracterizacion_medio/subcategorias_detail.html'
+    permission_required = 'eia_app.view_caracteristicamedio'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(
@@ -609,11 +661,12 @@ class CaracteristicaMedioDetail(DetailView): # pylint: disable=too-many-ancestor
         return context
 
 
-class CaracteristicaMedioUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+class CaracteristicaMedioUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una CaracteristicaMedio'''
     model = CaracteristicaMedio
     template_name = 'eia_app/create_form.html'
     fields = ['caracteristica', 'descripcion']
+    permission_required = 'eia_app.change_caracteristicamedio'
 
     def get_success_url(self):
         caracteristica = CaracteristicaMedio.objects.get(pk=self.kwargs['pk'])
@@ -625,10 +678,11 @@ class CaracteristicaMedioUpdate(UpdateView):  # pylint: disable=too-many-ancesto
         return context
 
 
-class CaracteristicaMedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
+class CaracteristicaMedioDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una CaracteristicaMedio'''
     model = CaracteristicaMedio
     template_name = 'eia_app/caracterizacion_medio/delete.html'
+    permission_required = 'eia_app.delete_caracteristicamedio'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(
@@ -643,11 +697,12 @@ class CaracteristicaMedioDelete(DeleteView):  # pylint: disable=too-many-ancesto
                             kwargs={'pk': caracteristica.medio.pk})
 
 
-class CaracteristicaMedioCreate(CreateView):  # pylint: disable=too-many-ancestors
+class CaracteristicaMedioCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una Medio'''
     model = CaracteristicaMedio
     fields = "__all__"
     template_name = 'eia_app/create_form.html'
+    permission_required = 'eia_app.add_caracteristicamedio'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(
@@ -665,11 +720,12 @@ class CaracteristicaMedioCreate(CreateView):  # pylint: disable=too-many-ancesto
                             kwargs={'pk': self.kwargs['pk']})
 
 
-class SubaracteristicaMedioCreate(CreateView):  # pylint: disable=too-many-ancestors
+class SubaracteristicaMedioCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):  # pylint: disable=too-many-ancestors
     '''Crear una Medio'''
     model = SubaracteristicaMedio
     fields = "__all__"
     template_name = 'eia_app/create_form.html'
+    permission_required = 'eia_app.add_subaracteristicamedio'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(
@@ -687,11 +743,12 @@ class SubaracteristicaMedioCreate(CreateView):  # pylint: disable=too-many-ances
         return reverse_lazy('consultor-crud:detalles-caracteristica',
                             kwargs={'pk': self.kwargs['pk']})
 
-class SubaracteristicaMedioUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+class SubaracteristicaMedioUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar una SubaracteristicaMedio'''
     model = SubaracteristicaMedio
     template_name = 'eia_app/create_form.html'
     fields = ['nombre_sub', 'atributo', 'comentario']
+    permission_required = 'eia_app.change_subaracteristicamedio'
 
     def get_success_url(self):
         subcaracteristica = SubaracteristicaMedio.objects.get(
@@ -705,10 +762,11 @@ class SubaracteristicaMedioUpdate(UpdateView):  # pylint: disable=too-many-ances
         return context
 
 
-class SubaracteristicaMedioDelete(DeleteView):  # pylint: disable=too-many-ancestors
+class SubaracteristicaMedioDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una SubaracteristicaMedio'''
     model = SubaracteristicaMedio
     template_name = 'eia_app/caracterizacion_medio/delete.html'
+    permission_required = 'eia_app.delete_subaracteristicamedio'
 
     def get_success_url(self):
         subcaracteristica = SubaracteristicaMedio.objects.get(
@@ -716,11 +774,12 @@ class SubaracteristicaMedioDelete(DeleteView):  # pylint: disable=too-many-ances
         return reverse_lazy('consultor-crud:detalles-caracteristica',
                             kwargs={'pk': subcaracteristica.caracteristica.pk})
 
-class CostoHumanoList(ListView): # pylint: disable=too-many-ancestors
+class CostoHumanoList(LoginRequiredMixin, PermissionRequiredMixin, ListView): # pylint: disable=too-many-ancestors
     ''' Index de los distintos medios'''
     model = CostoHumano
     #context_object_name = 'CostoHumano_list'
     template_name = 'eia_app/Costos/list.html'
+    permission_required = 'eia_app.view_costohumano'
 
     def get_context_data(self, **kwargs): # pylint: disable=arguments-differ
         context = super(CostoHumanoList, self).get_context_data(**kwargs) # pylint: disable=arguments-differ
@@ -737,12 +796,13 @@ class CostoHumanoList(ListView): # pylint: disable=too-many-ancestors
             context["success"] = self.kwargs.get('success')
         return context
 
-class CostoHumanoCreate(CreateView): # pylint: disable=too-many-ancestors
+class CostoHumanoCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView): # pylint: disable=too-many-ancestors
     ''' Index de los distintos medios'''
     model = CostoHumano
     fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:costos-success', kwargs={'success': 'botonHumano'})
+    permission_required = 'eia_app.add_costohumano'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoHumanoCreate, self).get_context_data(**kwargs)
@@ -754,12 +814,13 @@ class CostoHumanoCreate(CreateView): # pylint: disable=too-many-ancestors
         return super().form_valid(form)
 
 
-class CostoHumanoServiciosCreate(CreateView): # pylint: disable=too-many-ancestors
+class CostoHumanoServiciosCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView): # pylint: disable=too-many-ancestors
     ''' Index de los distintos medios'''
     model = CostoHumano
     fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:costos-success', kwargs={'success': 'botonServicio'})
+    permission_required = 'eia_app.add_costohumano'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoHumanoServiciosCreate, self).get_context_data(**kwargs)
@@ -770,13 +831,15 @@ class CostoHumanoServiciosCreate(CreateView): # pylint: disable=too-many-ancesto
         form.instance.tipo = TipoCosto.objects.filter(id=2)[0]
         return super().form_valid(form)
 
-class CostoHumanoPasajeCreate(CreateView): # pylint: disable=too-many-ancestors
+class CostoHumanoPasajeCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView): # pylint: disable=too-many-ancestors
     ''' Index de los distintos medios'''
     model = CostoHumano
     fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:costos-success',
                                kwargs={'success': 'botonPasaje'})
+    permission_required = 'eia_app.add_costohumano'
+
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoHumanoPasajeCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Agregar costos de pasajes y hospedaje"
@@ -786,12 +849,13 @@ class CostoHumanoPasajeCreate(CreateView): # pylint: disable=too-many-ancestors
         form.instance.tipo = TipoCosto.objects.filter(id=3)[0]
         return super().form_valid(form)
 
-class CostoMaterialRecursosCreate(CreateView): # pylint: disable=too-many-ancestors
+class CostoMaterialRecursosCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView): # pylint: disable=too-many-ancestors
     ''' Index de los distintos medios'''
     model = CostoMateriales
     fields = ['proyecto', 'material', 'cantidad', 'costo_unidad', 'monto']
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:costos-success', kwargs={'success': 'botonRecursos'})
+    permission_required = 'eia_app.add_costomateriales'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoMaterialRecursosCreate, self).get_context_data(**kwargs)
@@ -802,12 +866,13 @@ class CostoMaterialRecursosCreate(CreateView): # pylint: disable=too-many-ancest
         form.instance.tipo = TipoCosto.objects.filter(id=4)[0]
         return super().form_valid(form)
 
-class CostoMaterialOficinaCreate(CreateView): # pylint: disable=too-many-ancestors
+class CostoMaterialOficinaCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView): # pylint: disable=too-many-ancestors
     ''' Index de los distintos medios'''
     model = CostoMateriales
     fields = ['proyecto', 'material', 'cantidad', 'costo_unidad', 'monto']
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:costos-success', kwargs={'success': 'botonOficina'})
+    permission_required = 'eia_app.add_costomateriales'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoMaterialOficinaCreate, self).get_context_data(**kwargs)
@@ -818,12 +883,13 @@ class CostoMaterialOficinaCreate(CreateView): # pylint: disable=too-many-ancesto
         form.instance.tipo = TipoCosto.objects.filter(id=5)[0]
         return super().form_valid(form)
 
-class CostoMaterialInsumosCreate(CreateView): # pylint: disable=too-many-ancestors
+class CostoMaterialInsumosCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView): # pylint: disable=too-many-ancestors
     ''' Index de los distintos medios'''
     model = CostoMateriales
     fields = ['proyecto', 'material', 'cantidad', 'costo_unidad', 'monto']
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:costos-success', kwargs={'success': 'botonInsumos'})
+    permission_required = 'eia_app.add_costomateriales'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoMaterialInsumosCreate, self).get_context_data(**kwargs)
@@ -834,12 +900,13 @@ class CostoMaterialInsumosCreate(CreateView): # pylint: disable=too-many-ancesto
         form.instance.tipo = TipoCosto.objects.filter(id=6)[0]
         return super().form_valid(form)
 
-class CostoHumanoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+class CostoHumanoUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar un CostoHumano'''
     model = CostoHumano
     fields = ['proyecto', 'actividad', 'cantidad', 'tiempo', 'monto']
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:costos')
+    permission_required = 'eia_app.change_costohumano'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoHumanoUpdate, self).get_context_data(**kwargs)
@@ -847,18 +914,20 @@ class CostoHumanoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
         return context
 
 
-class CostoHumanoDelete(DeleteView):  # pylint: disable=too-many-ancestors
+class CostoHumanoDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una CostoHumano'''
     model = CostoHumano
     template_name = 'eia_app/Costos/delete.html'
     success_url = reverse_lazy('consultor-crud:costos')
+    permission_required = 'eia_app.delete_costohumano'
 
-class CostoMaterialesUpdate(UpdateView):  # pylint: disable=too-many-ancestors
+class CostoMaterialesUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):  # pylint: disable=too-many-ancestors
     '''Actualizar un CostoMateriales'''
     model = CostoMateriales
     fields = ['proyecto', 'material', 'cantidad', 'costo_unidad', 'monto']
     template_name = 'eia_app/create_form.html'
     success_url = reverse_lazy('consultor-crud:costos')
+    permission_required = 'eia_app.change_costomateriales'
 
     def get_context_data(self, **kwargs):  # pylint: disable=arguments-differ
         context = super(CostoMaterialesUpdate, self).get_context_data(**kwargs)
@@ -866,8 +935,9 @@ class CostoMaterialesUpdate(UpdateView):  # pylint: disable=too-many-ancestors
         return context
 
 
-class CostoMaterialesDelete(DeleteView):  # pylint: disable=too-many-ancestors
+class CostoMaterialesDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):  # pylint: disable=too-many-ancestors
     '''Eliminar una CostoMateriales'''
     model = CostoMateriales
     template_name = 'eia_app/Costos/delete.html'
     success_url = reverse_lazy('consultor-crud:costos')
+    permission_required = 'eia_app.delete_costomateriales'
