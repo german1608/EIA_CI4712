@@ -1,10 +1,9 @@
 [
 {
   "model": "users.usuario",
-  "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$120000$lrJq9SsBrSmo$RdzD8BHdGAWsL0XESGrXYYhPkXkXixEsbIivj3+5eII=",
-    "last_login": null,
+    "last_login": "2019-01-08T01:00:42.424Z",
     "is_superuser": true,
     "username": "admin",
     "is_staff": true,
@@ -14,15 +13,17 @@
     "first_name": "Super",
     "last_name": "Usuario",
     "email": "admin@admin.com",
+    "proyecto_seleccionado": -1,
     "groups": [
-      1
+      [
+        "Administrador del Sistema"
+      ]
     ],
     "user_permissions": []
   }
 },
 {
   "model": "users.usuario",
-  "pk": 2,
   "fields": {
     "password": "pbkdf2_sha256$120000$1vnLy6RVHq4U$zoeUUfDjq5PoJosdPrNn5E6JedkF1eGfEPH1EyswidQ=",
     "last_login": null,
@@ -35,15 +36,17 @@
     "first_name": "Administrador",
     "last_name": "del Sistema",
     "email": "adminsistema@adminsistema.com",
+    "proyecto_seleccionado": -1,
     "groups": [
-      1
+      [
+        "Administrador del Sistema"
+      ]
     ],
     "user_permissions": []
   }
 },
 {
   "model": "users.usuario",
-  "pk": 3,
   "fields": {
     "password": "pbkdf2_sha256$120000$BvFNyVxokVzO$zCJ6BIZl4NyyQi7P+1PeSZWYxJcpfy6HtwMstzd9it4=",
     "last_login": null,
@@ -56,18 +59,20 @@
     "first_name": "Solicitante",
     "last_name": "o Promotor",
     "email": "solicitante@solicitante.com",
+    "proyecto_seleccionado": -1,
     "groups": [
-      2
+      [
+        "Solicitante o Promotor"
+      ]
     ],
     "user_permissions": []
   }
 },
 {
   "model": "users.usuario",
-  "pk": 4,
   "fields": {
     "password": "pbkdf2_sha256$120000$6Z2hIL8iyBCn$t/g8olcWUCqi0PFeq7bH86LBdHE/sBtuEWhLlqWVk1Y=",
-    "last_login": null,
+    "last_login": "2018-12-13T18:49:26.813Z",
     "is_superuser": false,
     "username": "especialistaesia",
     "is_staff": false,
@@ -77,15 +82,17 @@
     "first_name": "Especialista",
     "last_name": "de EsIA",
     "email": "especialistaesia@especialistaesia.com",
+    "proyecto_seleccionado": -1,
     "groups": [
-      3
+      [
+        "Especialista de EsIA"
+      ]
     ],
     "user_permissions": []
   }
 },
 {
   "model": "users.usuario",
-  "pk": 5,
   "fields": {
     "password": "pbkdf2_sha256$120000$jVzromCqt2Jv$b5NeE5zwDBUNqxzCoPv35iz94hyq8qCMxX8stuGZ32Y=",
     "last_login": null,
@@ -98,15 +105,17 @@
     "first_name": "Especialista",
     "last_name": "del Medio F\u00edsico",
     "email": "espmediofisico@espmediofisico.com",
+    "proyecto_seleccionado": -1,
     "groups": [
-      4
+      [
+        "Especialista del Medio F\u00edsico"
+      ]
     ],
     "user_permissions": []
   }
 },
 {
   "model": "users.usuario",
-  "pk": 6,
   "fields": {
     "password": "pbkdf2_sha256$120000$PS577szUazDx$nQb1K9NPNvCws5DkjUJE7mMkk6qaeSrFcAnvaxGvy2M=",
     "last_login": null,
@@ -119,15 +128,17 @@
     "first_name": "Especialista",
     "last_name": "del Medio Biol\u00f3gico",
     "email": "espmediobio@espmediobio.com",
+    "proyecto_seleccionado": -1,
     "groups": [
-      5
+      [
+        "Especialista del Medio Biol\u00f3gico"
+      ]
     ],
     "user_permissions": []
   }
 },
 {
   "model": "users.usuario",
-  "pk": 7,
   "fields": {
     "password": "pbkdf2_sha256$120000$OwMr286hnNVa$ED306xnnpVydAuPZwjCDRjS+7ILEpuD6zrm57ZFmZjM=",
     "last_login": null,
@@ -140,15 +151,17 @@
     "first_name": "Especialista",
     "last_name": "del Medio Socioecon\u00f3mico",
     "email": "espmediosoc@espmediosoc.com",
+    "proyecto_seleccionado": -1,
     "groups": [
-      6
+      [
+        "Especialista del Medio Socioecon\u00f3mico"
+      ]
     ],
     "user_permissions": []
   }
 },
 {
   "model": "users.usuario",
-  "pk": 8,
   "fields": {
     "password": "pbkdf2_sha256$120000$B6Nmb2eZ6nXl$kAXeKUXyNYBiL0HYnLA+7287j9P11jGOVtulpldvdJw=",
     "last_login": null,
@@ -161,15 +174,17 @@
     "first_name": "Gerente",
     "last_name": "del Proyecto de Desarrollo",
     "email": "gerente@gerente.com",
+    "proyecto_seleccionado": -1,
     "groups": [
-      7
+      [
+        "Gerente del Proyecto de desarrollo"
+      ]
     ],
     "user_permissions": []
   }
 },
 {
   "model": "users.usuario",
-  "pk": 9,
   "fields": {
     "password": "pbkdf2_sha256$120000$PfiZ0n423iaK$o1Et2s160DNnKwZ7SeXqD6TciTCKXjeHuQmtngncYng=",
     "last_login": null,
@@ -182,8 +197,11 @@
     "first_name": "Representante",
     "last_name": "Legal",
     "email": "representante@representante.com",
+    "proyecto_seleccionado": -1,
     "groups": [
-      8
+      [
+        "Representante legal"
+      ]
     ],
     "user_permissions": []
   }
