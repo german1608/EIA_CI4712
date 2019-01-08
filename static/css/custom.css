@@ -66,8 +66,8 @@ footer{
   bottom: 0;
   width: 100%;
   text-align: center;
-  position: fixed;
-  z-index: 1000;
+  /* position: fixed;
+  z-index: 1000; */
 }
 
 ul>li>a>i{
