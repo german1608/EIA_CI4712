@@ -755,7 +755,7 @@ class PruebaFormularioEstudio(SeleniumTestCase):
 
         #Visualizando los datos del impacto SC y modificandolos
         consulta = Estudio.objects.get(nombre=nombre)
-        self.selenium.find_element_by_name(str(consulta.nombre)).click() # Hacemos click para consultar
+        self.selenium.find_element_by_name(str(nombre)).click() # Hacemos click para consultar
         self.selenium.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
         self.selenium.execute_script("window.scrollTo(0, 0)") #movemos el scroll un poco
         self.selenium.find_element_by_name('nombre').clear()
@@ -779,7 +779,7 @@ class PruebaFormularioEstudio(SeleniumTestCase):
         confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
         confirmacion.accept()
         self.selenium.get('%s%s' % (self.live_server_url, '/configuracion/index/'))
-        self.selenium.find_element_by_name(str(consulta.nombre)).click() # Hacemos click para consultar
+        self.selenium.find_element_by_name(str(nombre)).click() # Hacemos click para consultar
         self.selenium.execute_script("window.scrollTo(0, 720)") #movemos el scroll un poco
         self.selenium.execute_script("window.scrollTo(0, 0)") #movemos el scroll un poco
 
@@ -788,7 +788,7 @@ class PruebaFormularioEstudio(SeleniumTestCase):
         #Consultando los datos y Eliminando el impacto F cambiado
         nombre = "Impacto F"
         consulta = Estudio.objects.get(nombre=nombre)
-        self.selenium.find_element_by_name(str(consulta.nombre)).click() # Hacemos click para consultar
+        self.selenium.find_element_by_name(str(nombre)).click() # Hacemos click para consultar
         self.selenium.execute_script("window.scrollTo(0, 1080)") #movemos el scroll un poco
         self.selenium.find_element_by_name('eliminar').click() # Hacemos click en agregar
         confirmacion = self.selenium.switch_to.alert #para las alertas del navegador
