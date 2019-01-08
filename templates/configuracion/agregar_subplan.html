@@ -1,0 +1,69 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
+{% endblock %}
+
+	{% block content %}
+		<div class="row p-3 justify-content-center titulo top-rounded">
+			<div class="col-md-1 col-sm-1">
+				<a class="btn menu" href="{% url 'subplanes' %}"><i class="material-icons">arrow_back</i></a>
+			</div>
+			<div class="col-md-9 col-sm-11 text-center">
+				{% if object %}
+				<h1>Editar subplan</h1>
+				{% else %}
+				<h1>Agregar nuevo subplan</h1>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="row p-3 justify-content-center fondo-form bottom-rounded">
+			<div class="col-md-10">
+				<form method="post" id="formulario">
+					{% csrf_token %}
+					
+					<div class="row justify-content-center mb-3">
+						<div class="col-md-3 offset-md-2">
+							<label for="">{{form.actividad.label}}</label>
+							{{form.actividad}}
+
+							<label for="">{{form.accion.label}}</label>
+							{{form.accion}}
+						</div>
+						<div class="col-md-3 offset-md-2">
+							<label for="">{{form.plan_principal.label}}</label>
+								{{form.plan_principal}}
+
+							<label for="">{{form.tiempo.label}}</label>
+								{{form.tiempo}}
+
+							
+							<label for="">{{form.monto.label}}</label>
+								{{form.monto}}
+							
+						</div>
+					</div>
+					
+					<div class="row justify-content-center p-3">
+						<div class="col-md-6" align="center">
+							<div class="">
+									<input id="editar" name="editar" class="btn" onclick = "return confirm('¿Está seguro de los datos introducidos?')" style="background: #4f6228; color: white; width: 50%" value="Guardar" type="submit">
+							</div>
+						</div>
+						{% if object %}
+						<div class="col-md-6" align="center">
+							<div class="">
+								<a class="btn" name="eliminar" style="background: #4f6228; color: white; width: 50%" onclick="return confirm('¿Está seguro de eliminar esta actividad?')" href="{% url 'eliminar_plan' object.id %}">Eliminar</a>
+							</div>
+						{% endif %}
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		
+
+	{%endblock%}

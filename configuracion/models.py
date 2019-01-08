@@ -60,6 +60,25 @@ MEDIOS = (
     ('BIO', 'Biologico'),
     ('SC', 'Socio-Cultural'),
     )
+# MACRO = (
+#     ('PI', 'Proceso de Inicio'),
+#     ('PP', 'Proceso de Planificación'),
+#     ('PE', 'Proceso de Ejecucion'),
+#     ('PCS', 'Proceso de Control y Seguimiento'),
+#     ('PC', 'Proceso de Cierre'),
+#     )
+# DISCIPLINA = (
+#     ('IN', 'Integración'),
+#     ('SK', 'Stakeholder'),
+#     ('AL', 'Alcance'),
+#     ('RE', 'Recurso'),
+#     ('TI', 'Tiempo'),
+#     ('CO', 'Costo'),
+#     ('RI', 'Riesgo'),
+#     ('CA', 'Calidad'),
+#     ('AD', 'Adquisición'),
+#     ('COM', 'Comunicación'),
+#     )
 
 class Intensidad(models.Model):
     """
@@ -245,3 +264,196 @@ class Estudio(models.Model):
         default='',
         on_delete=models.PROTECT
         )
+
+class Macro(models.Model):
+    """
+       Clase que representa la tabla de Macro
+    """
+    nombre = models.CharField(
+        max_length=40,
+        default="",
+        )
+    descripcion = models.CharField(
+        max_length=40,
+        default=""
+        )
+    proyecto = models.CharField(
+        max_length=40,
+        default=""
+        )
+
+    class Meta:
+        """
+           Clase  macro
+        """
+
+        unique_together = (
+            ('nombre',
+             'proyecto'),
+            )
+
+    def __str__(self):
+        """
+            formato de aparicion en frontend
+        """
+        return '{}'.format(self.nombre)
+
+class Disciplina(models.Model):
+    """
+       Clase que representa la tabla de Disciplina
+    """
+    nombre = models.CharField(
+        max_length=40,
+        default="",
+        )
+    descripcion = models.CharField(
+        max_length=40,
+        default=""
+        )
+    proyecto = models.CharField(
+        max_length=40,
+        default=""
+        )
+
+    class Meta:
+        """
+           Clase  macro
+        """
+
+        unique_together = (
+            ('nombre',
+             'proyecto'),
+            )
+
+    def __str__(self):
+        """
+            formato de aparicion en frontend
+        """
+        return '{}'.format(self.nombre)
+
+class Actividad(models.Model):
+    """
+       Clase que representa la tabla de Actividad
+    """
+    nombre = models.CharField(
+        max_length=40,
+        default="",
+        )
+    descripcion = models.CharField(
+        max_length=300,
+        default=""
+        )
+    disciplina = models.ForeignKey(
+        Disciplina,
+        default='',
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE
+        )
+    macro = models.ForeignKey(
+        Macro,
+        default='',
+        on_delete=models.CASCADE
+        )
+    amenazas = models.CharField(
+        max_length=500,
+        default=""
+        )
+    vulnerabilidades = models.CharField(
+        max_length=500,
+        default=""
+        )
+
+    class Meta:
+        """
+           Clase disciplina
+        """
+
+        unique_together = (
+            ('nombre',
+             'macro',
+             'disciplina'),
+            )
+
+class Plan(models.Model):
+    """
+        aaaa
+    """
+    nombre = models.CharField(
+        max_length=40,
+        default="",
+        )
+    medidas = models.CharField(
+        max_length=500,
+        default=""
+        )
+    objetivo_general = models.CharField(
+        max_length=200,
+        default="",
+        )
+    objetivo_especifico = models.CharField(
+        max_length=500,
+        default=""
+        )
+    alcance = models.CharField(
+        max_length=200,
+        default="",
+        )
+    metodologia = models.CharField(
+        max_length=400,
+        default="",
+        )
+    cronograma = models.CharField(
+        max_length=300,
+        default="",
+        )
+    responsable = models.CharField(
+        max_length=200,
+        default="",
+        )
+    costo = models.FloatField(
+        )
+    proyecto = models.CharField(
+        max_length=40,
+        default=""
+        )
+
+    def __str__(self):
+        """
+            formato de aparicion en frontend
+        """
+        return '{}'.format(self.nombre)
+
+class SubPlan(models.Model):
+    """
+        aaa
+    """
+    actividad = models.CharField(
+        max_length=200,
+        default="",
+        )
+    accion = models.CharField(
+        max_length=200,
+        default="",
+        )
+    # plan = models.CharField(
+    #     max_length=200,
+    #     default="",
+    #     )
+    tiempo = models.CharField(
+        max_length=200,
+        default="",
+        )
+    monto = models.FloatField(
+        )
+    plan_principal = models.ForeignKey(
+        Plan,
+        default='',
+        on_delete=models.CASCADE
+        )
+
+    def __str__(self):
+        """
+            formato de aparicion en frontend
+        """
+        return '{}'.format(self.actividad)

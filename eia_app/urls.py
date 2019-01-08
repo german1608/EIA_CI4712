@@ -1,9 +1,9 @@
 '''Modulo de urls del crud del consultor '''
 
 from django.urls import path, re_path
-from .views import * #pylint: disable=wildcard-import, unused-wildcard-import
+from .views import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
-app_name = 'eia_app' #pylint: disable=invalid-name
+app_name = 'eia_app'  # pylint: disable=invalid-name
 
 urlpatterns = [ #pylint: disable=invalid-name
     path('', consultor_index, name='consultor-crud-index'),
@@ -102,4 +102,60 @@ urlpatterns = [ #pylint: disable=invalid-name
             name='editar-conclusiones-proyecto'),
     re_path(r'^conclusiones_proyecto/borrar/(?P<pk>\d+)/$', ConclusionDeleteView.as_view(),
             name='borrar-conclusiones-proyecto'),
+    path('caracteristicas_medio/', MedioList.as_view(),
+         name='lista-medios'),
+    path('caracteristicas_medio/nuevo/', MedioCreate.as_view(),
+         name='nuevo-medio'),
+    re_path(r'^caracteristica_medio/(?P<pk>\d+)/$', MedioDetail.as_view(),
+            name='detalles-medio'),
+    re_path(r'^caracteristica_medio/editar/(?P<pk>\d+)/$', MedioUpdate.as_view(),
+            name='editar-detalles-medio'),
+    re_path(r'^caracteristica_medio/borrar/(?P<pk>\d+)/$', MedioDelete.as_view(),
+            name='borrar-detalles-medio'),
+    path('caracteristica_medio/<int:pk>/nueva_caracteristica/',
+         CaracteristicaMedioCreate.as_view(), name='nueva-caracteristica'),
+    path(
+        'caracteristica_medio/editar/caracteristica/<int:pk>/',
+        CaracteristicaMedioUpdate.as_view(),
+        name='editar-detalles-caracteristica'),
+    path(
+        'caracteristica_medio/borrar/caracteristica/<int:pk>/',
+        CaracteristicaMedioDelete.as_view(),
+        name='borrar-detalles-caracteristica'),
+    path('caracteristica_medio/detalles/caracteristica/<int:pk>/',
+         CaracteristicaMedioDetail.as_view(), name='detalles-caracteristica'),
+    path('caracteristica_medio/<int:pk>/nueva_subcaracteristica/',
+         SubaracteristicaMedioCreate.as_view(), name='nueva-subcaracteristica'),
+    path(
+        'caracteristica_medio/editar/subcaracteristica/<int:pk>/',
+        SubaracteristicaMedioUpdate.as_view(),
+        name='editar-detalles-subcaracteristica'),
+    path(
+        'caracteristica_medio/borrar/subcaracteristica/<int:pk>/',
+        SubaracteristicaMedioDelete.as_view(),
+        name='borrar-detalles-subcaracteristica'),
+    path('costos/', CostoHumanoList.as_view(),
+         name='costos'),
+    path('costos/nuevo-costo-humano/', CostoHumanoCreate.as_view(),
+         name='nuevo-costo'),
+    path('costos/nuevo-costo-servicio/', CostoHumanoServiciosCreate.as_view(),
+         name='nuevo-costo-servicios'),
+    path('costos/nuevo-costo-pasaje/', CostoHumanoPasajeCreate.as_view(),
+         name='nuevo-costo-pasaje'),
+    path('costos/nuevo-costo-recursos/', CostoMaterialRecursosCreate.as_view(),
+         name='nuevo-costo-recursos'),
+    path('costos/nuevo-costo-oficina/', CostoMaterialOficinaCreate.as_view(),
+         name='nuevo-costo-oficina'),
+    path('costos/nuevo-costo-insumos/', CostoMaterialInsumosCreate.as_view(),
+         name='nuevo-costo-insumos'),
+    path('costoshumano/editar/<int:pk>/', CostoHumanoUpdate.as_view(),
+         name='editar-costohumano'),
+    path('costoshumano/eliminar/<int:pk>/', CostoHumanoDelete.as_view(),
+         name='borrar-costohumano'),
+    path('costosmaterial/editar/<int:pk>/', CostoMaterialesUpdate.as_view(),
+         name='editar-costomaterial'),
+    path('costosmaterial/eliminar/<int:pk>/', CostoMaterialesDelete.as_view(),
+         name='borrar-costomaterial'),
+    path('costos/<slug:success>/', CostoHumanoList.as_view(),
+         name='costos-success'),
 ]

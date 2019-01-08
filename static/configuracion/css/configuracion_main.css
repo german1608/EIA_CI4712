@@ -2,6 +2,7 @@
 caption{
   caption-side: top;
   text-align: center;
+  background: #f3f3f3;
 }
 
 input{
@@ -12,6 +13,7 @@ input{
 td, th{
   border-radius:0px;
   text-align: center;
+  padding: 3px;
 }
 h1{
   font-size: 3rem;
@@ -20,12 +22,22 @@ h1{
 .total_height{
   height:100%;
 }
-
+i{
+  vertical-align: middle;
+  color: white;
+}
+dl dt{
+  font-size: 1.5rem;
+}
+dl dd{
+  font-size: 1.2rem;
+  margin-left: 25px;
+}
 .banner{
   background-color: rgb(79, 98, 40);
   color: rgb(248, 248, 248);
   padding: 0.5em;
-    font-size: 40px;
+  font-size: 40px;
 }
 .tablenav tr td {
   font-weight: bold;
@@ -35,7 +47,8 @@ h1{
 }
 .menu {
   background-color: rgb(196, 213, 159);
-  border-radius: 0px;
+  border-radius: 5px;
+  color: white;
 }
 .menu:hover {
   background-color: rgb(196, 213, 159);
@@ -51,7 +64,16 @@ h1{
   background-color: #4f6228;
   color: #fff;
   text-align: center;
-}   
+}     
+
+.cabecera_2{
+  background-color: #86a742;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 3px;
+  margin-top: 3px;
+}
+
 .table tr td {
   font-weight: bold;
   border: 2px solid #000;
@@ -72,9 +94,9 @@ h1{
 
 .indicador{
   font-weight: bold;
-  border: 2px solid #000;
   text-align: center;
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .boton-form{
@@ -87,4 +109,73 @@ h1{
   right: auto !important;
   bottom: 10%;
   left: 20%;
+}
+
+.btn_agregar{
+  background: #4f6228; 
+  color: white;
+  margin-bottom:5px;
+}
+
+.tabla-actividades {
+  width: 100%;
+}
+
+.tabla-actividades tr {
+  border-bottom: 1px solid #000;
+}
+
+.tabla-plan{
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+  border-color: white; 
+}
+
+.tabla-plan thead tr th{
+  background-color: #4f6228;
+  color: #fff;
+  border: solid 1px white;
+}
+.tabla-plan tbody tr td{
+  background-color: #ECF0DF;
+  border: solid 1px white;  
+}
+.tabla-plan tbody tr td a:hover{
+  text-decoration: underline;
+}
+.monto-total{
+  float: right;
+  width: 100%;
+  background-color: #ECF0DF;
+  border: 2px solid #4f6228;
+  border-radius: 5px;
+}
+.buscar-p-sp{
+  float: right;
+  background-color: #ECF0DF;
+  border: 2px solid #4f6228;
+  border-radius: 5px;  
+}
+.titulo{
+  background-color: #4f6228;
+  color: #fff;
+  text-align: center;
+}
+.fondo-form{
+  background-color: #ECF0DF;
+}
+.top-rounded{
+  border-radius: 5px 5px 0px 0px;
+}
+.bottom-rounded{
+  border-radius: 0px 0px 5px 5px;
+}
+.all-rounded{
+  border-radius: 5px;
+}
+.btn-crud{
+  background: #4f6228;
+  color: white;
 }

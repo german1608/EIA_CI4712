@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 <link rel="stylesheet" href="{% static 'css/details.css' %}">
 {% endblock %}
 {% block content %}
+	<div class="row p-3 justify-content-center mb-3 titulo all-rounded">
+		<div class="col-md-9 col-sm-11 text-center">
+        <h4> Detalles del {{datosproyecto.titulo}} y el {{datosproyecto.tipo}}</h4>
+		</div>
+</div>
 
-<h4> Detalles del proyecto: {{datosproyecto.titulo}}</h4>
 <div class="grid-container" style="margin-left:10%">
 
 
@@ -20,13 +25,6 @@
                         <div class="text-col">
                             <p class="title">Área</p>
                             <p>{{ datosproyecto.area }}</p>
-                        </div>
-                </div>
-
-                <div class="grid-item">
-                        <div class="text-col">
-                            <p class="title">URL</p>
-                            <p><a href="{{ datosproyecto.url }}">{{ datosproyecto.url }}</a></p>
                         </div>
                 </div>
 

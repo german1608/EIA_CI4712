@@ -1,0 +1,62 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
+{% endblock %}
+
+{% block content %}
+
+	<div class="row p-3 justify-content-center mb-3 titulo all-rounded">
+		<div class="col-md-1 col-sm-1">
+			<a class="btn menu" href="{% url 'actividades' %}"><i class="material-icons">arrow_back</i></a>
+		</div>
+		<div class="col-md-9 col-sm-11 text-center">
+			<h1>Disciplinas</h1>
+		</div>
+	</div>
+	<div class="row justify-content-center mb-3">
+		<div class="col-md-10">
+			<input type="text" id="buscar-actividad" onkeypress="teclado()" name="buscar" class="buscar-p-sp" />
+		</div>
+		<div class="col-md-1">
+			<a class="btn btn-crud" onclick="buscar()"><i class="material-icons">search</i></a>
+		</div>
+	</div>
+
+	<div class="row justify-content-center mb-3">
+		<div class="col-md-10 col-sm-12" align="center">
+			<table id="disciplinas" class="tabla-plan">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Descripcion</th>
+						<th>Proyecto</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody id="contenido">
+					{% for m in disciplinas %}
+					<tr>
+						<td>{{m.nombre}}</td>
+						<td>{{m.descripcion}}</td>
+						<td>{{m.proyecto}}</td>
+						<td><a class="btn rounded pl-3 btn-crud" href="{% url 'editar_disciplina' m.id %}"><i class="material-icons">edit</i></a>
+							<a class="btn rounded btn-crud" onclick = "return confirm('¿Está seguro de eliminar esta disciplina?')" href="{% url 'eliminar_disciplina' m.id %}"><i class="material-icons">delete</i></a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-1">
+			<a class="btn rounded btn-crud" href="{% url 'agregar_disciplina' %}"><i class="material-icons">add</i></a>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'configuracion/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'configuracion/js/actividades.js' %}"></script>
+{% endblock %}

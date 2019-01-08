@@ -19,11 +19,10 @@ class OrganizacionTestCase(TestCase):
         '''Se crean instancias de organizaciones para realizar pruebas'''
         # pylint: disable=no-member
         self.proyecto = DatosProyecto.objects.create(
-            titulo="hola",
+            titulo="organizacion",
             ubicacion="caracas",
             area="area de prueba",
-            tipo="prueba",
-            url="www.google.com")
+            tipo="prueba")
         form_data = {
             'proyecto': self.proyecto.id,
             'razon_social': "natural",
@@ -278,11 +277,10 @@ class SolicitanteTestCase(TestCase):
         '''Se crean instancias de solicitantes para realizar pruebas'''
         # pylint: disable=no-member
         self.proyecto = DatosProyecto.objects.create(
-            titulo="hola",
+            titulo="solicitante",
             ubicacion="caracas",
             area="area de prueba",
-            tipo="prueba",
-            url="www.google.com")
+            tipo="prueba")
         form_data = {
             'proyecto': self.proyecto.id,
             'nombre': "Nombre Prueba",
@@ -474,11 +472,10 @@ class ResponsableTestCase(TestCase):
         '''Se crean instancias de responsables para realizar pruebas'''
         # pylint: disable=no-member
         self.proyecto = DatosProyecto.objects.create(
-            titulo="hola",
+            titulo="responsable",
             ubicacion="caracas",
             area="area de prueba",
-            tipo="prueba",
-            url="www.google.com")
+            tipo="prueba2")
         form_data = {
             'proyecto': self.proyecto.id,
             'nombre': "Nombre Prueba",
@@ -673,11 +670,10 @@ class DatosDocumentoTestCase(TestCase):
         '''Se crean instancias de responsables para realizar pruebas'''
         # pylint: disable=no-member
         self.proyecto = DatosProyecto.objects.create(
-            titulo="hola",
+            titulo="datosdocumentos",
             ubicacion="caracas",
             area="area de prueba",
-            tipo="prueba",
-            url="www.google.com")
+            tipo="prueba")
         form_data = {
             'proyecto': self.proyecto.id,
             'fecha': "2007-10-25",

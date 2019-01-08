@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
+<link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="row p-3 justify-content-center mb-3 titulo all-rounded">
+		<div class="col-md-9 col-sm-11 text-center">
+			<h3>Lista de medios ambientales</h3>
+		</div>
+</div><p>
+    <div class="col-md-1">
+        <a id ="add" class="btn rounded btn-crud" href="{% url 'consultor-crud:nuevo-medio' %}"><i class="material-icons">add</i></a>
+    </div>
+</p>
+
+<div class="container" style="width:90% !important">
+  {%if object_list.count > 0%}
+  <table id="medios-ambientales" class="display">
+      <thead>
+          <tr>
+              <th>Proyecto</th>
+              <th>Tipo de medio</th>
+              <th>Descripción</th>
+              <th style="text-align:center;">Ver detalles</th>
+              <th style="text-align:center;">Editar</th>
+              <th style="text-align:center;">Borrar</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for medio in object_list %}
+          <tr>
+              <td>{{ medio.proyecto }}</td>
+              <td>{{ medio.get_tipo_display }}</td>
+              <td>{{ medio.descripcion }}</td>
+              <td style="text-align:center;"> <a id="detalles{{medio.id}}" href="{% url "consultor-crud:detalles-medio"  medio.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+              <td style="text-align:center;"><a id="editar{{medio.id}}" href="{% url "consultor-crud:editar-detalles-medio" medio.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+              <td style="text-align:center;"><a id="borrar{{medio.id}}" href="{% url "consultor-crud:borrar-detalles-medio" medio.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No existen datos de medios ambientales agregados a la base de datos</p>
+  {% endif %}
+</div>
+
+{% endblock %}
+
+<!--BLOQUE DE JS-->
+
+{% block js %}
+<script src="{% static 'js/jquery.dataTables.js' %}"></script>
+<script>
+  $(document).ready( function () {
+    $('#medios-ambientales').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      }
+    });
+  });
+</script>
+{% endblock %}
