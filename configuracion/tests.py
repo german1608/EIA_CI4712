@@ -628,7 +628,7 @@ class PruebaFormularioEstudio(SeleniumTestCase):
     """
     Prueba Formulario Estudio
     """
-    fixtures = ['users-and-groups.json']
+    fixtures = ['groups.json', 'users.json']
 
     def test_navegador(self): #pylint: disable=too-many-statements
         """

@@ -904,7 +904,7 @@ class MarcoListViewTestCase(MarcoHelper, TestCase):
     '''
     Prueba la vista de listado de los marcos.
     '''
-    fixtures = ['users-and-groups.json', 'proyectos.json']
+    fixtures = ['groups.json', 'users.json', 'proyectos.json']
 
     def test_login_required(self):
         '''
@@ -979,7 +979,7 @@ class MarcoDeleteViewTestCase(MarcoHelper, TestCase):
     '''
     Prueba la vista de eliminacion de marcos.
     '''
-    fixtures = ['users-and-groups.json', 'proyectos.json']
+    fixtures = ['groups.json', 'users.json', 'proyectos.json']
 
     def test_login_required(self):
         '''
@@ -1156,7 +1156,7 @@ class MarcoDetailViewTestCase(MarcoHelper, TestCase):
     '''
     Suite de pruebas para la vista de detalles de marcos
     '''
-    fixtures = ['users-and-groups.json', 'proyectos.json']
+    fixtures = ['groups.json', 'users.json', 'proyectos.json']
 
     def test_login_required(self):
         '''
@@ -1302,7 +1302,7 @@ class MarcoFormViewTestCase(MarcoHelper, TestCase):
     Pruebas unitarias para para la vista de creacion y edicion
     de marcos de proyectos
     '''
-    fixtures = ['users-and-groups.json', 'proyectos.json']
+    fixtures = ['groups.json', 'users.json', 'proyectos.json']
 
     def test_url_correspondence_agregar(self):
         '''

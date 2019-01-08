@@ -12,7 +12,7 @@ class MedidaViewHelper(TestCase):
     '''
     Helper para las pruebas de las vistas de medidas
     '''
-    fixtures = ['users-and-groups.json', 'medidas.json']
+    fixtures = ['groups.json', 'users.json', 'medidas.json']
 
     def login(self):
         '''

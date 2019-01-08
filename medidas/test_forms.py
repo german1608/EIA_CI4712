@@ -13,7 +13,7 @@ from .models import Medida
 @tag('medida')
 class MedidaFormTestCase(TestCase):
     ''' Pruebas unitarias para el formulario de medida '''
-    fixtures = ['users-and-groups.json', 'medidas.json']
+    fixtures = ['groups.json', 'users.json', 'medidas.json']
 
     def setUp(self):
         self.medida = Medida.objects.get(nombre='Medida 1')
