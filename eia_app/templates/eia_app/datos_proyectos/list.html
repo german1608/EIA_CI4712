@@ -1,14 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 <link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
 {% endblock %}
 
 {% block content %}
-
-<h3>Lista de datos de proyectos</h3>
-<p>
-    <a id="add" href="{% url "consultor-crud:nueva-datos-proyecto" %}">Agregar datos de un proyecto</a>
+	<div class="row p-3 justify-content-center mb-3 titulo all-rounded">
+		<div class="col-md-9 col-sm-11 text-center">
+			<h3>Lista de datos de proyectos</h3>
+		</div>
+</div><p>
+    <div class="col-md-1">
+        <a id ="add" class="btn rounded btn-crud" href="{% url 'consultor-crud:nueva-datos-proyecto' %}"><i class="material-icons">add</i></a>
+  </div>
 </p>
 <div class="container" style="width:90% !important">
   {%if object_list.count > 0%}
@@ -20,6 +25,7 @@
               <th style="text-align:center;">Ver detalles</th>
               <th style="text-align:center;">Editar</th>
               <th style="text-align:center;">Borrar</th>
+              <th style="text-align:center;">Imprimir </th>
           </tr>
       </thead>
       <tbody>
@@ -30,6 +36,7 @@
               <td style="text-align:center;"> <a id="detalles{{proyecto.id}}" href="{% url "consultor-crud:detalles-datos-proyecto"  proyecto.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
               <td style="text-align:center;"><a id="editar{{proyecto.id}}" href="{% url "consultor-crud:editar-datos-proyecto" proyecto.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
               <td style="text-align:center;"><a id="borrar{{proyecto.id}}" href="{% url "consultor-crud:borrar-datos-proyecto" proyecto.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+              <td style="text-align:center;"><a id="imprimir{{proyecto.id}}" href="{% url "consultor-crud:imprimir-datos-proyecto" proyecto.id %}"><i class="material-icons" style="color: #77933c">print</i></a></td>
           </tr>
         {% endfor %}
       </tbody>

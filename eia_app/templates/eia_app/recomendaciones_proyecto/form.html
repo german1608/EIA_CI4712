@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block css %}
+<link href="{% static 'css/froala_editor.pkgd.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/froala_style.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <h3 class="mt-2">Agregar recomendación</h3>
+      <hr class="mt-0 mb-4">
+      <form method="post">
+        {% csrf_token %}
+        {% bootstrap_field form.recomendaciones %}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/froala_editor.pkgd.min.js' %}"></script>
+<script>
+  $(function () {
+    $('#id_recomendaciones').froalaEditor()
+  })
+</script>
+{% endblock %}

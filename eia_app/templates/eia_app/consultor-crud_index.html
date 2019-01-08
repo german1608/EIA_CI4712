@@ -4,61 +4,63 @@
 
 
 <div class="wrap">
-        <h1>Crud consultor ambiental</h1>
+  <h1>Crud consultor ambiental</h1>
 </div>
 
 
 <style>
-    a {
-    text-decoration: none; 
-    color: black; 
-}
-h5{
-  text-align: center
-}
-img.icon {
-  display: block;
-  margin-left: auto;
-  margin-right: auto 
-}
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  h5 {
+    text-align: center
+  }
+
+  img.icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+  }
 </style>
 
 <div class="row">
   <div class="col s4">
     <div class="card">
-    <a href="{% url "consultor-crud:lista-organizaciones" %}">   
-          <div class="card"> 
-              <img class="icon"  src="{% static 'img/enterprise.png' %}" height="100" width="150" style="margin-left:auto; margin-right:auto">
-      
-              <div class="card-title text-center">
-      
-                  <h5>
-                      Ver organizaciones
-                  </h5>
-              </div>
-              <!--
+    <a id="datos-organizaciones" href="{% url "consultor-crud:lista-organizaciones" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/enterprise.png' %}" height="100" width="150" style="margin-left:auto; margin-right:auto">
+
+          <div class="card-title text-center">
+
+            <h5>
+              Ver organizaciones
+            </h5>
+          </div>
+          <!--
               <div>
                 Icons made by <a href="https://www.flaticon.com/authors/geotatah" title="geotatah">geotatah</a>
                 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
                 is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
               </div>
               -->
-          </div>
+        </div>
       </a>
-      </div> 
-  </div> 
+    </div>
+  </div>
   <div class="col s4">
-  <div class="card">
-    <a id="datos-proyectos" href="{% url "consultor-crud:lista-datos-proyectos" %}">   
-        <div class="card"  > 
-            <img class="icon" src="{% static 'img/infographic.png' %}" height="100" width="150">
-            <div class="card-title">
-    
-                <h5>
-                    Ver datos del proyectos 
-                </h5>
-            </div>
-            <!--
+    <div class="card">
+      <a id="datos-proyectos" href="{% url "consultor-crud:lista-datos-proyectos" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/infographic.png' %}" height="100" width="150">
+          <div class="card-title">
+
+            <h5>
+              Ver datos del proyectos
+            </h5>
+          </div>
+          <!--
             <div>
               Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> 
               from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 
@@ -66,22 +68,22 @@ img.icon {
             </div>
             -->
         </div>
-    </a>
-  </div>
+      </a>
+    </div>
   </div>
 
   <div class="col s4">
-  <div class="card">  
-  <a id="responsables" href="{% url "consultor-crud:lista-responsables" %}">   
-        <div class="card"  > 
-            <img class="icon"  src="{% static 'img/group.png' %}" height="100" width="150">
-            <div class="card-title">
-    
-                <h5>
-                    Responsables del proyecto
-                </h5>
-            </div>
-            <!--
+    <div class="card">
+      <a id="responsables" href="{% url "consultor-crud:lista-responsables" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/group.png' %}" height="100" width="150">
+          <div class="card-title">
+
+            <h5>
+              Responsables del proyecto
+            </h5>
+          </div>
+          <!--
             <div>
               Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> 
               from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 
@@ -89,21 +91,131 @@ img.icon {
             </div>
             -->
         </div>
-    </a>
-  </div>
+      </a>
+    </div>
   </div>
 </div>
 
 <div class="row">
   <div class="col s4">
+    <div class="card">
+      <a id="datos-documentos" href="{% url "consultor-crud:lista-datos-documentos" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/folder.png' %}" height="100" width="150">
+          <div class="card-title">
+
+            <h5>
+              Ver datos del documento
+            </h5>
+          </div>
+          <!--
+            <div>
+              Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> 
+              from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 
+              is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+            </div>
+            -->
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="col s4">
+    <div class="card">
+      <a id="solicitantes" href="{% url "consultor-crud:lista-solicitantes" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/solicitante.png' %}" height="100" width="150">
+          <div class="card-title">
+
+            <h5>
+              Ver datos de Solicitantes
+            </h5>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="col s4">
+    <div class="card">
+      <a id="detalles-proyecto" href="{% url "consultor-crud:lista-detalles-proyecto" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/profiles.png' %}" height="100" width="150">
+          <div class="card-title">
+
+            <h5>
+              Ver detalles del Proyecto
+            </h5>
+          </div>
+          <!--
+            <div>
+              Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a>
+               from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 
+               is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+            </div>
+            -->
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>
+<div class="row">
+  <div class="col s4">
+    <div class="card">
+      <a href="{% url "consultor-crud:lista-marcos" 'teorico' %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/teorico.png' %}" height="100" width="150">
+          <div class="card-title">
+            <h5>
+              Ver marcos teóricos
+            </h5>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="col s4">
+    <div class="card">
+      <a href="{% url "consultor-crud:lista-marcos" 'metodologico' %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/metodologico.png' %}" height="100" width="150">
+          <div class="card-title">
+            <h5>
+              Ver marcos metodológicos
+            </h5>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="col s4">
+    <div class="card">
+      <a href="{% url "consultor-crud:lista-marcos" 'juridico' %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/juridico.png' %}" height="100" width="150">
+          <div class="card-title">
+            <h5>
+              Ver marcos jurídicos
+            </h5>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col s4">
   <div class="card">  
-  <a id="datos-documentos" href="{% url "consultor-crud:lista-datos-documentos" %}">   
+  <a id="caracteristicas-medio" href="{% url "consultor-crud:lista-medios" %}">   
         <div class="card"  > 
             <img class="icon" src="{% static 'img/folder.png' %}" height="100" width="150">
             <div class="card-title">
     
                 <h5>
-                    Ver datos del documento
+                    Características del medio
                 </h5>
             </div>
             <!--
@@ -119,50 +231,68 @@ img.icon {
   </div>
 
   <div class="col s4">
-  <div class="card">  
-  <a id="solicitantes" href="{% url "consultor-crud:lista-solicitantes" %}">   
-      <div class="card"  > 
-          <img class="icon"  src="{% static 'img/solicitante.png' %}" height="100" width="150">
-          <div class="card-title">
-  
-              <h5>
-                  Ver datos de Solicitantes
-              </h5>
-          </div>
-      </div>
-  </a>
-  </div>
-  </div>
-
-  <div class="col s4">
     <div class="card">  
-    <a id="detalles-proyecto" href="{% url "consultor-crud:lista-detalles-proyecto" %}">   
-        <div class="card"  > 
-            <img class="icon"  src="{% static 'img/profiles.png' %}" height="100" width="150">
-            <div class="card-title">
-    
-                <h5>
-                    Ver detalles del Proyecto
-                </h5>
-            </div>
-            <!--
-            <div>
-              Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a>
-               from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 
-               is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
-            </div>
-            -->
-        </div>
-    </a>
+    <a id="costos-plan" href="{% url "consultor-crud:costos" %}">   
+          <div class="card"  > 
+              <img class="icon" src="{% static 'img/folder.png' %}" height="100" width="150">
+              <div class="card-title">
+      
+                  <h5>
+                      Costos del Plan de acción
+                  </h5>
+              </div>
+              <!--
+              <div>
+                Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> 
+                from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> 
+                is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+              </div>
+              -->
+          </div>
+      </a>
     </div>
+    </div>
+
+    <div class="col s4">
     </div>
 
 </div>
 
 
-
-  
+<div class="row">
+  <div class="col s4">
+    <div class="card">
+      <a href="{% url "consultor-crud:lista-conclusiones" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/conclusion.png' %}" height="100" width="150">
+          <div class="card-title">
+            <h5>
+              Ver Conclusiones
+            </h5>
+          </div>
+        </div>
+      </a>
+    </div>
   </div>
-  
- 
+  <div class="col s4">
+    <div class="card">
+      <a href="{% url "consultor-crud:lista-recomendaciones-proyecto" %}">
+        <div class="card">
+          <img class="icon" src="{% static 'img/recomendacion.png' %}" height="100" width="150">
+          <div class="card-title">
+            <h5>
+              Ver Recomendaciones
+            </h5>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="col s4">
+
+  </div>
+
+</div>
+
+
 {% endblock %}

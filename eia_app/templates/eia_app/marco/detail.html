@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'css/froala_style.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+
+<h4>Detalles del marco {{tipo_marco}} del proyecto "{{object.titulo}}"</h4>
+<div class="container" style="width: 75%">
+  <div class="fr-view">
+    {% autoescape off %}
+    {{contenido}}
+    {% endautoescape %}
+  </div>
+</div>
+{% endblock %}
+  

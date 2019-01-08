@@ -1,0 +1,41 @@
+[
+{
+  "model": "eia_app.datosproyecto",
+  "pk": 2,
+  "fields": {
+    "titulo": "Proyecto 1",
+    "ubicacion": "Ubicacion",
+    "area": "Area",
+    "tipo": "Tipo",
+    "marco_metodologico": "{\"ops\":[{\"insert\":\"Mi \"},{\"attributes\":{\"italic\":true},\"insert\":\"super\"},{\"insert\":\" \"},{\"attributes\":{\"underline\":true},\"insert\":\"marco\"},{\"insert\":\" \"},{\"attributes\":{\"bold\":true},\"insert\":\"metodologico\"},{\"insert\":\"\\n\"}]}",
+    "marco_juridico": null,
+    "marco_teorico": null
+  }
+},
+{
+  "model": "eia_app.datosproyecto",
+  "pk": 3,
+  "fields": {
+    "titulo": "Proyecto 2",
+    "ubicacion": "Ubicacion",
+    "area": "Area",
+    "tipo": "Tipo",
+    "marco_metodologico": null,
+    "marco_juridico": null,
+    "marco_teorico": "{\"ops\":[{\"insert\":\"Mi \"},{\"attributes\":{\"italic\":true},\"insert\":\"super\"},{\"insert\":\" \"},{\"attributes\":{\"underline\":true},\"insert\":\"marco\"},{\"insert\":\" \"},{\"attributes\":{\"bold\":true},\"insert\":\"teorico\"},{\"insert\":\"\\n\"}]}"
+  }
+},
+{
+  "model": "eia_app.datosproyecto",
+  "pk": 4,
+  "fields": {
+    "titulo": "Proyecto 3",
+    "ubicacion": "Ubicacion",
+    "area": "Area",
+    "tipo": "Tipo",
+    "marco_metodologico": null,
+    "marco_juridico": "{\"ops\":[{\"insert\":\"Mi \"},{\"attributes\":{\"italic\":true},\"insert\":\"super\"},{\"insert\":\" \"},{\"attributes\":{\"underline\":true},\"insert\":\"marco\"},{\"insert\":\" \"},{\"attributes\":{\"bold\":true},\"insert\":\"juridico\"},{\"insert\":\"\\n\"}]}",
+    "marco_teorico": null
+  }
+}
+]

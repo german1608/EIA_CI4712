@@ -2,19 +2,19 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 {% endblock %}
 
 {% block content %}
-
-<div class="wrap">
-        <h3>Lista de solicitantes</h3>
-        <p>
-            <a href="{% url "consultor-crud:nuevo-solicitante" %}">Agregar datos de un solicitante</a>
-        </p>
-
-</div>
-
-
+<div class="row p-3 justify-content-center mb-3 titulo all-rounded">
+		<div class="col-md-9 col-sm-11 text-center">
+			<h3>Lista de solicitantes</h3>
+		</div>
+</div><p>
+    <div class="col-md-1">
+        <a id ="add" class="btn rounded btn-crud" href="{% url 'consultor-crud:nuevo-solicitante' %}"><i class="material-icons">add</i></a>
+    </div>
+</p>
 
 <div class="container" style="width:90% !important">
   {%if object_list.count > 0%}
@@ -35,9 +35,9 @@
               <td>{{ solicitante.nombre }}</td>
               <td>{{ solicitante.cedula }}</td>
               <td><a href="{% url "consultor-crud:detalles-datos-proyecto"  solicitante.proyecto.id %}">{{ solicitante.proyecto }}</a></td>
-              <td style="text-align:center;"><a href="{% url "consultor-crud:detalles-solicitante"  solicitante.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
-              <td style="text-align:center;"><a href="{% url "consultor-crud:editar-solicitante" solicitante.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
-              <td style="text-align:center;"><a href="{% url "consultor-crud:borrar-solicitante" solicitante.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+              <td style="text-align:center;"><a id="detalles{{solicitante.id}}" href="{% url "consultor-crud:detalles-solicitante"  solicitante.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
+              <td style="text-align:center;"><a id="editar{{solicitante.id}}" href="{% url "consultor-crud:editar-solicitante" solicitante.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+              <td style="text-align:center;"><a id="borrar{{solicitante.id}}" href="{% url "consultor-crud:borrar-solicitante" solicitante.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
           </tr>
         {% endfor %}
       </tbody>

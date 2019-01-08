@@ -55,7 +55,7 @@ class TestDashboardInterface(SeleniumTestCase):
     """
     Suite de pruebas para la interfaz del dashboard
     """
-    fixtures = ['users-and-groups.json']
+    fixtures = ['groups.json', 'users.json']
     def setUp(self):
         """
         Configuracion necesaria para cada prueba del suite.

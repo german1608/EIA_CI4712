@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
+<link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
+<link rel="stylesheet" href="{% static 'css/medios_detail.css' %}">
+{% endblock %}
+{% block content %}
+
+<div class="row p-3 justify-content-center mb-3 titulo all-rounded">
+		<div class="col-md-9 col-sm-11 text-center">
+        <h3> Detalle de característica del {{ caracteristicamedio.medio.get_tipo_display }} del proyecto {{ caracteristicamedio.medio.proyecto }}</h3>
+		</div>
+</div>
+
+<hr>
+<div class="grid-container-medio" style="margin-left:10%">
+
+
+                <div class="grid-item-medio">
+                        <div class="text-col">
+                            <p class="title">Caracteristica</p>
+                            <p>{{ caracteristicamedio.caracteristica }}</p>
+                        </div>
+                </div>
+
+                <div class="grid-item-medio">
+                        <div class="text-col">
+                            <p class="title">Descripción</p>
+                            <p>{{ caracteristicamedio.descripcion }}</p>
+                        </div>
+                </div>
+</div>
+<hr>
+
+<div class="row p-3 justify-content-center mb-3 titulo all-rounded">
+		<div class="col-md-9 col-sm-11 text-center">
+			<h4>Lista de sub-características</h4>
+		</div>
+</div><p>
+  <div class="col-md-1">
+      <a id ="add" class="btn rounded btn-crud" href="{% url 'consultor-crud:nueva-subcaracteristica' view.kwargs.pk %}"><i class="material-icons">add</i></a>
+  </div>
+</p>
+
+<div class="container" style="width:90% !important">
+  {%if subcaracteristicas.count > 0%}
+  <table id="subcaracteristicas-table" class="display">
+      <thead>
+          <tr>
+              <th>Sub-Característica</th>
+              <th>Atributo</th>
+              <th>Comentario</th>
+              <th style="text-align:center;">Editar</th>
+              <th style="text-align:center;">Borrar</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for subcaracteristica in subcaracteristicas %}
+          <tr>
+              <td>{{ subcaracteristica.nombre_sub }}</td>
+              <td>{{ subcaracteristica.atributo }}</td>
+              <td>{{ subcaracteristica.comentario }}</td>
+              <td style="text-align:center;"><a id="editar{{subcaracteristica.id}}" href="{% url "consultor-crud:editar-detalles-subcaracteristica" subcaracteristica.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
+              <td style="text-align:center;"><a id="borrar{{subcaracteristica.id}}" href="{% url "consultor-crud:borrar-detalles-subcaracteristica" subcaracteristica.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No existen subcaracterísticas para esta categoria agregadas a la base de datos</p>
+  {% endif %}
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/jquery.dataTables.js' %}"></script>
+<script>
+  $(document).ready( function () {
+    $('#subcaracteristicas-table').DataTable({
+      "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+      }
+    });
+  });
+</script>
+{% endblock %}

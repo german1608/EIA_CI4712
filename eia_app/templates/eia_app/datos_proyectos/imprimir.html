@@ -1,0 +1,367 @@
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{% static 'css/generacion_pdf.css' %}">
+  <script src="{% static 'js/quill.min.js' %}"></script>
+  <title>Imprimir</title>
+</head>
+<body>
+    <!-- Inicio del archivo -->
+    <div class="titulos">
+      <h3 class="titulo">ESTUDIO DE IMPACTO AMBIENTAL</h2>
+    </div>
+    <div class="contenido">
+      <p>
+        Los Estudios de Impacto Ambiental presentan una estructura de secuencia, que se apoya
+        esencialmente en la descripción del proyecto y en la caracterización del ambiente
+        (Echechuri y col, 2002), por lo que para poder identificar los impactos potenciales es
+        necesario, en primera instancia, conocer las acciones del proyecto con potencial de
+        generar impactos ambientales, negativos y positivos.
+      </p>
+    </div>
+
+    <!-- Bloque de informacion sobre los datos generales de un proyecto -->
+    <div class="bloque">
+      <div class="titulos">
+        <h3 class="subtitulo">I. DATOS GENERALES DEL PROYECTO</h3>
+      </div>
+      <div class="contenido tabla">
+        <table>
+
+          <tr>
+            <td class="slot-izquierda">Título del Proyecto: </td>
+            <td class="slot-derecha tabla">{{ datosproyecto.titulo }}</td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">Ubicación Geográfica: </td>
+            <td class="slot-derecha tabla">{{ datosproyecto.ubicacion }}</td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">Área de desempeño: </td>
+            <td class="slot-derecha tabla">{{ datosproyecto.area }}</td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">Tipo de Proyecto: </td>
+            <td class="slot-derecha tabla">{{ datosproyecto.tipo }}</td>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+
+    <!-- Bloque de informacion sobre los datos del solicitante o promotor -->
+    <div class="bloque">
+      <div class="titulos">
+        <h3 class="subtitulo">II. DATOS DEL SOLICITANTE O PROMOTOR</h3>
+      </div>
+      <div class="contenido tabla">
+        {% for solicitante in datosproyecto.solicitante_set.all %}
+        <table>
+
+          <tr>
+            <td class="slot-izquierda">Nombre y apellido: </td>
+            <td class="slot-derecha tabla">{{ solicitante.nombre }} {{ solicitante.apellido }}</td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">Cédula de Identidad: </td>
+            <td class="slot-derecha tabla">{{ solicitante.cedula }}</td>
+          </tr>
+
+          <tr>
+              <td class="slot-izquierda">Teléfono de Contacto: </td>
+              <td class="slot-derecha tabla">{{ solicitante.telefono }}</td>
+          </tr>
+
+          <tr>
+              <td class="slot-izquierda">E-mail </td>
+              <td class="slot-derecha tabla">{{ solicitante.email }}</td>
+          </tr>
+
+        </table>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Bloque de informacion sobre los datos de la organizacion -->
+    <div class="bloque">
+      <div class="titulos">
+        <h3 class="subtitulo">III. DATOS DE LA ORGANIZACIÓN</h3>
+      </div>
+      <div class="contenido tabla">
+        {% for organizacion in datosproyecto.organizacion_set.all %}
+        <table>
+
+          <tr>
+            <td class="slot-izquierda">Razón Social: </td>
+            <td class="slot-derecha tabla">{{ organizacion.razon_social }}</td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">Nombre: </td>
+            <td class="slot-derecha tabla">{{ organizacion.nombre }}</td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">R.I.F: </td>
+            <td class="slot-derecha tabla">{{ organizacion.rif }}</td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">Dirección de Oficina: </td>
+            <td class="slot-derecha tabla">{{ organizacion.direccion }}</td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">Representante legal: </td>
+            <td class="slot-derecha tabla">
+              {{ organizacion.nombre_representante_legal }} {{ organizacion.apellido_representante_legal }},
+              {{ organizacion.cedula_representante_legal }}
+            </td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">Télefono: </td>
+            <td class="slot-derecha tabla">{{ organizacion.telefono }}</td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">E-mail: </td>
+            <td class="slot-derecha tabla">{{ organizacion.email }}</td>
+          </tr>
+
+        </table>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Bloque de informacion sobre el personal responsable del estudio de impacto ambiental -->
+    <div class="bloque">
+      <div class="titulos">
+        <h3 class="subtitulo">IV. DATOS DEL PERSONAL RESPONSABLE DEL ESTUDIO DEL IMPACTO AMBIENTAL</h3>
+      </div>
+      <div class="contenido tabla">
+        <table>
+
+          <tr>
+            <td class="slot-izquierda">Especialista del EsIA: </td>
+            <td class="slot-derecha tabla">
+              {% for responsable in datosproyecto.responsable_set.all %}
+              {% if responsable.tipo_responsable == "EsIA" %}
+              {{ responsable.nombre }} {{ responsable.apellido }}, {{ responsable.cedula }}, {{ responsable.nivel_academico }}
+              {% endif %}
+              {% endfor %}
+            </td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">Especialista del Medio Físico: </td>
+            <td class="slot-derecha tabla">
+                {% for responsable in datosproyecto.responsable_set.all %}
+                {% if responsable.tipo_responsable == "fisico" %}
+                {{ responsable.nombre }} {{ responsable.apellido }}, {{ responsable.cedula }}, {{ responsable.nivel_academico }}
+                {% endif %}
+                {% endfor %}
+            </td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">Especialista del Medio Biológico: </td>
+            <td class="slot-derecha tabla">
+                {% for responsable in datosproyecto.responsable_set.all %}
+                {% if responsable.tipo_responsable == "biologico" %}
+                {{ responsable.nombre }} {{ responsable.apellido }}, {{ responsable.cedula }}, {{ responsable.nivel_academico }}
+                {% endif %}
+                {% endfor %}
+            </td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">Especialista del Medio Socioeconómico: </td>
+            <td class="slot-derecha tabla">
+                {% for responsable in datosproyecto.responsable_set.all %}
+                {% if responsable.tipo_responsable == "socioeconomico" %}
+                {{ responsable.nombre }} {{ responsable.apellido }}, {{ responsable.cedula }}, {{ responsable.nivel_academico }}
+                {% endif %}
+                {% endfor %}
+            </td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">Gerente del Proyecto de desarrollo: </td>
+            <td class="slot-derecha tabla">
+                {% for responsable in datosproyecto.responsable_set.all %}
+                {% if responsable.tipo_responsable == "gerente" %}
+                {{ responsable.nombre }} {{ responsable.apellido }}, {{ responsable.cedula }}, {{ responsable.nivel_academico }}
+                {% endif %}
+                {% endfor %}
+            </td>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+
+    <!-- Bloque que contiene la informacion sobre los datos de elaboracion del presente estudio -->
+    <div class="bloque">
+      <div class="titulos">
+        <h3 class="subtitulo">IV. DATOS DE LA ELABORACIÓN DEL PRESENTE ESTUDIO</h3>
+      </div>
+      <div class="contenido tabla">
+        {% for datos in datosproyecto.datosdocumento_set.all %}
+        <table>
+
+          <tr>
+            <td class="slot-izquierda" style="width: 175px;">Fecha: </td>
+            <td class="slot-derecha tabla">{{ datos.fecha }}</td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">Ciudad: </td>
+            <td class="slot-derecha tabla">{{ datos.ciudad }}</td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">Estado: </td>
+            <td class="slot-derecha tabla">{{ datos.estado }}</td>
+          </tr>
+
+          <tr>
+            <td class="slot-izquierda">País: </td>
+            <td class="slot-derecha tabla">{{ datos.pais }}</td>
+          </tr>
+
+        </table>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Bloque que contiene la descripcion del proyecto -->
+    <div class="bloque">
+
+      <div class="titulos">
+        <h3 class="subtitulo">VI. DESCRIPCIÓN DEL PROYECTO</h3>
+      </div>
+
+      <div class="titulos" style="margin-top: 10px;">
+        <h3 class="subtitulo">A. OBJETIVOS DEL ESTUDIO DE IMPACTO AMBIENTAL</h3>
+      </div>
+
+      <div class="subtitulos titulos">
+        <h5 class="subtitulo">Objetivo General: </h5>
+      </div>
+      <div class="contenido tabla">
+        <p>
+          {{ datosproyecto.descripcionproyecto.obj_general }}
+        </p>
+      </div>
+
+      <div class="subtitulos titulos">
+        <h5 class="subtitulo">Objetivos Específicos: </h5>
+      </div>
+      <div class="contenido tabla">
+        <p>
+          {{ datosproyecto.descripcionproyecto.obj_especifico }}
+        </p>
+      </div>
+
+      <div class="titulos">
+        <h3 class="subtitulo">B. JUSTIFICACIÓN E IMPORTANCIA</h3>
+      </div>
+      <div class="contenido tabla">
+        <p>
+          {{ datosproyecto.descripcionproyecto.justificacion }}
+        </p>
+      </div>
+
+      <div class="titulos">
+        <h3 class="subtitulo">C. ZONIFICACIÓN DEL ÁREA OBJETO DE ESTUDIO</h3>
+      </div>
+      <div class="contenido tabla">
+        {{ datosproyecto.descripcionproyecto.area }}
+      </div>
+
+    </div>
+
+    <!-- Bloque que contiene la informacion sobre el marco teorico referencial -->
+    <div class="bloque">
+      <div class="titulos">
+        <h3 class="subtitulo">VII. MARCO TEÓRICO REFERENCIAL</h3>
+      </div>
+
+      <div class="contenido tabla">
+        <p>
+
+          {% autoescape off %}
+          {{ datosproyecto.marco_teorico|default:"" }}
+
+          {% endautoescape %}
+
+        </p>
+      </div>
+    </div>
+
+    <div class="bloque">
+      <div class="titulos">
+        <h3 class="subtitulo">VIII. MARCO LEGAL EN MATERIA AMBIENTAL</h3>
+      </div>
+
+      <div class="contenido tabla">
+        <p>
+
+          {% autoescape off %}
+          {{ datosproyecto.marco_juridico }}
+          {% endautoescape %}
+
+        </p>
+      </div>
+    </div>
+
+    <div class="bloque">
+      <div class="titulos">
+        <h3 class="subtitulo">IX. MARCO METODOLÓGICO </h3>
+      </div>
+
+      <div class="contenido tabla" id="marco_metodologico">
+        {% autoescape off %}
+        {{ datosproyecto.marco_metodologico }}
+        {% endautoescape %}
+      </div>
+    </div>
+
+    <div class="bloque">
+      <div class="titulos">
+        <h3 class="subtitulo">X. CONCLUSIONES</h3>
+      </div>
+
+      <div class="contenido tabla" id="conclusiones">
+        <p>
+          {% autoescape off %}
+          {{datosproyecto.conclusionproyecto.conclusiones}}
+          {% endautoescape %}
+        </p>
+      </div>
+    </div>
+
+    <div class="bloque">
+      <div class="titulos">
+        <h3 class="subtitulo">XI. RECOMENDACIONES</h3>
+      </div>
+
+      <div class="contenido tabla">
+        <p>
+          {% autoescape off %}
+          {{datosproyecto.recomendacionproyecto.recomendaciones}}
+          {% endautoescape %}
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

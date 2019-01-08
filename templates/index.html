@@ -2,4 +2,19 @@
 {% load static %}
 
 {% block content %}
+<div class="seleccionarProyecto">
+  {% if usuario.proyecto_seleccionado == -1 %}
+  <h1>Bienvenido, {{usuario.first_name}}</h1>
+  {% endif %}
+  <form action="{% url 'dashboard:index' %}" method="post">
+    {% csrf_token %}
+    <label for="">Seleccione un proyecto: </label>
+    <select name="proyecto">
+      {% for proyecto in proyectos %}
+      <option value={{proyecto.pk}}>{{proyecto.titulo}}</option>
+      {% endfor %}
+    </select>
+    <input type="submit" value="Elegir">
+  </form>
+</div>
 {% endblock content %}

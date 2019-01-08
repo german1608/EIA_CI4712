@@ -18,22 +18,14 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve
-from eia_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(
-        'consultor-crud/',
-        views.consultor_index,
-        name='consultor-crud-index'),
-    path(
-        'consultor-crud/',
-        include(
-            'eia_app.urls',
-            namespace='consultor-crud')),
+    path('consultor-crud/', include('eia_app.urls', namespace='consultor-crud')),
     path('users/', include("users.urls")),
     path('', include('dashboard.urls')),
     path('configuracion/', include("configuracion.urls")),
+    path('medidas/', include("medidas.urls")),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, },
             name='media'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

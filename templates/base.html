@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="{% static 'css/custom.css' %}">
   <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/all.css' %}" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
     crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/jquery.dataTables.css' %}">
 
 
   <!-- COMIENZO DEL CSS -->
@@ -32,7 +33,6 @@
     <nav id="sidebar">
       <!-- PARTE SUPERIOR DEL SIDEBAR -->
       <div class="sidebar-header">
-        <img class="circle" src="{% static 'img/germanbb.jpg' %}">
         <h4 id="side-menu-user-name" class="white-text name">Bienvenido {{ request.user.full_name }}</h4>
       </div>
       <!-- FIN DE LA PARTE SUPERIOR DEL SIDEBAR -->
@@ -80,8 +80,13 @@
           </a>
         </li>
         <li>
-          <a href="{% url "consultor-crud-index" %}" id="consultor-crud"><i class="fas fa-edit"></i>
+          <a href="{% url "eia_app:consultor-crud-index" %}"><i class="fas fa-edit"></i>
             <span class="white-text name">Consultor ambiental</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'medidas:lista-medidas' %}" id="medidas"><i class="fas fa-edit"></i>
+            <span class="white-text name">Listado de Medidas</span>
           </a>
         </li>
         <li>
@@ -108,7 +113,7 @@
           </button>
         </div>
       </nav>
-      <section class="container">
+      <section class="container" style="padding-bottom: 50px;">
         {% block content %}
 
         {% endblock %}

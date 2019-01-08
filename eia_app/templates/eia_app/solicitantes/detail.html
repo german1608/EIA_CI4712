@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'configuracion/css/configuracion_main.css' %}">
 <link rel="stylesheet" href="{% static 'css/details.css' %}">
 {% endblock %}
 {% block content %}
+<div class="row p-3 justify-content-center mb-3 titulo all-rounded">
+		<div class="col-md-9 col-sm-11 text-center">
+        <h4> Detalles del solicitante: {{solicitante.nombre}}</h4>
+		</div>
+</div>
 
-<h3> Detalles del solicitante {{solicitante.nombre}}</h3>
 <div class="grid-container" style="margin-left:10%">
         
 
