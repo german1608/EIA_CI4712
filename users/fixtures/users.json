@@ -1,6 +1,7 @@
 [
 {
   "model": "users.usuario",
+  "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$120000$lrJq9SsBrSmo$RdzD8BHdGAWsL0XESGrXYYhPkXkXixEsbIivj3+5eII=",
     "last_login": "2019-01-08T01:00:42.424Z",
@@ -24,6 +25,7 @@
 },
 {
   "model": "users.usuario",
+  "pk": 2,
   "fields": {
     "password": "pbkdf2_sha256$120000$1vnLy6RVHq4U$zoeUUfDjq5PoJosdPrNn5E6JedkF1eGfEPH1EyswidQ=",
     "last_login": null,
@@ -47,6 +49,7 @@
 },
 {
   "model": "users.usuario",
+  "pk": 3,
   "fields": {
     "password": "pbkdf2_sha256$120000$BvFNyVxokVzO$zCJ6BIZl4NyyQi7P+1PeSZWYxJcpfy6HtwMstzd9it4=",
     "last_login": null,
@@ -70,6 +73,7 @@
 },
 {
   "model": "users.usuario",
+  "pk": 4,
   "fields": {
     "password": "pbkdf2_sha256$120000$6Z2hIL8iyBCn$t/g8olcWUCqi0PFeq7bH86LBdHE/sBtuEWhLlqWVk1Y=",
     "last_login": "2018-12-13T18:49:26.813Z",
@@ -93,6 +97,7 @@
 },
 {
   "model": "users.usuario",
+  "pk": 5,
   "fields": {
     "password": "pbkdf2_sha256$120000$jVzromCqt2Jv$b5NeE5zwDBUNqxzCoPv35iz94hyq8qCMxX8stuGZ32Y=",
     "last_login": null,
@@ -116,6 +121,7 @@
 },
 {
   "model": "users.usuario",
+  "pk": 6,
   "fields": {
     "password": "pbkdf2_sha256$120000$PS577szUazDx$nQb1K9NPNvCws5DkjUJE7mMkk6qaeSrFcAnvaxGvy2M=",
     "last_login": null,
@@ -139,6 +145,7 @@
 },
 {
   "model": "users.usuario",
+  "pk": 7,
   "fields": {
     "password": "pbkdf2_sha256$120000$OwMr286hnNVa$ED306xnnpVydAuPZwjCDRjS+7ILEpuD6zrm57ZFmZjM=",
     "last_login": null,
@@ -162,6 +169,7 @@
 },
 {
   "model": "users.usuario",
+  "pk": 8,
   "fields": {
     "password": "pbkdf2_sha256$120000$B6Nmb2eZ6nXl$kAXeKUXyNYBiL0HYnLA+7287j9P11jGOVtulpldvdJw=",
     "last_login": null,
@@ -185,6 +193,7 @@
 },
 {
   "model": "users.usuario",
+  "pk": 9,
   "fields": {
     "password": "pbkdf2_sha256$120000$PfiZ0n423iaK$o1Et2s160DNnKwZ7SeXqD6TciTCKXjeHuQmtngncYng=",
     "last_login": null,
