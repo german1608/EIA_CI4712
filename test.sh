@@ -6,5 +6,6 @@ find . -path ./env -prune -o \
     -name "*.py" -exec pylint --load-plugins=pylint_django {} + || exit 1
 
 # corremos las pruebas
+python manage.py collectstatic --no-input || exit 1
 python manage.py test || exit 1
 exit 0
