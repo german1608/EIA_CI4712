@@ -29,7 +29,16 @@ class OrganizacionList(ListView):  # pylint: disable=too-many-ancestors
     '''Listar las organizaciones'''
     model = Organizacion
     template_name = 'eia_app/organizaciones/list.html'
-
+    def get_queryset(self):
+        """
+        Sobreescribe el get para que el queryset
+        sea solo de los proyectos el cual el usuario
+        loggeado es el propietario
+        """
+        usuario_loggeado = self.request.user
+        pk_proyecto = usuario_loggeado.proyecto_seleccionado
+        proyecto_editable = DatosProyecto.objects.get(pk=pk_proyecto)
+        return Organizacion.objects.filter(proyecto=proyecto_editable)
 
 class OrganizacionDetail(DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de una organizacion'''
@@ -94,16 +103,13 @@ class DatosProyectoList(ListView):  # pylint: disable=too-many-ancestors
     '''Listar los datos de los proyectos'''
     model = DatosProyecto
     template_name = 'eia_app/datos_proyectos/list.html'
-
-    def get(self, request, **kwargs):
+    def get_queryset(self):
         """
         Sobreescribe el get para que el queryset
         sea solo de los proyectos el cual el usuario
         loggeado es el propietario
         """
-        self.queryset = DatosProyecto.objects.filter(usuario=request.user)
-        return super().get(request)
-
+        return DatosProyecto.objects.filter(usuario=self.request.user)
 
 class DatosProyectoCreate(CreateView):  # pylint: disable=too-many-ancestors
     '''Crear datos de un proyecto'''
@@ -168,7 +174,16 @@ class ResponsableList(ListView):  # pylint: disable=too-many-ancestors
     '''Listar las Responsables'''
     model = Responsable
     template_name = 'eia_app/responsables/list.html'
-
+    def get_queryset(self):
+        """
+        Sobreescribe el get para que el queryset
+        sea solo de los proyectos el cual el usuario
+        loggeado es el propietario
+        """
+        usuario_loggeado = self.request.user
+        pk_proyecto = usuario_loggeado.proyecto_seleccionado
+        proyecto_editable = DatosProyecto.objects.get(pk=pk_proyecto)
+        return Responsable.objects.filter(proyecto=proyecto_editable)
 
 class ResponsableDetail(DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de una Responsable'''
@@ -223,6 +238,16 @@ class SolicitanteList(ListView):  # pylint: disable=too-many-ancestors
     '''Listar las Solicitantes'''
     model = Solicitante
     template_name = 'eia_app/solicitantes/list.html'
+    def get_queryset(self):
+        """
+        Sobreescribe el get para que el queryset
+        sea solo de los proyectos el cual el usuario
+        loggeado es el propietario
+        """
+        usuario_loggeado = self.request.user
+        pk_proyecto = usuario_loggeado.proyecto_seleccionado
+        proyecto_editable = DatosProyecto.objects.get(pk=pk_proyecto)
+        return Solicitante.objects.filter(proyecto=proyecto_editable)
 
 
 class SolicitanteDetail(DetailView):  # pylint: disable=too-many-ancestors
@@ -278,7 +303,17 @@ class DatosDocumentoList(ListView):  # pylint: disable=too-many-ancestors
     '''Listar las DatosDocumentos'''
     model = DatosDocumento
     template_name = 'eia_app/datos_documentos/list.html'
-
+    
+    def get_queryset(self):
+        """
+        Sobreescribe el get para que el queryset
+        sea solo de los proyectos el cual el usuario
+        loggeado es el propietario
+        """
+        usuario_loggeado = self.request.user
+        pk_proyecto = usuario_loggeado.proyecto_seleccionado
+        proyecto_editable = DatosProyecto.objects.get(pk=pk_proyecto)
+        return DatosDocumento.objects.filter(proyecto=proyecto_editable)
 
 class DatosDocumentoDetail(DetailView):  # pylint: disable=too-many-ancestors
     '''Detalles de un DatosDocumento'''
@@ -358,8 +393,10 @@ class MarcoListView(CargaContextoMarcoMixin, ListView): # pylint: disable=too-ma
         query = {
             'marco_{tipo}'.format(tipo=self.kwargs.get('tipo')): None
         }
+        usuario_loggeado = self.request.user
+        pk_proyecto = usuario_loggeado.proyecto_seleccionado
         # Filtramos los que no esten en None
-        return self.model.objects.filter(~Q(**query))
+        return self.model.objects.filter(~Q(**query), pk=pk_proyecto)
 
 
 class MarcoFormView(CargaContextoMarcoMixin, FormView):
@@ -472,6 +509,16 @@ class DescripcionProyectoList(ListView):  # pylint: disable=too-many-ancestors
     '''Listar las DescripcionProyecto'''
     model = DescripcionProyecto
     template_name = 'eia_app/descripcion_proyecto/list.html'
+    def get_queryset(self):
+        """
+        Sobreescribe el get para que el queryset
+        sea solo de los proyectos el cual el usuario
+        loggeado es el propietario
+        """
+        usuario_loggeado = self.request.user
+        pk_proyecto = usuario_loggeado.proyecto_seleccionado
+        proyecto_editable = DatosProyecto.objects.get(pk=pk_proyecto)
+        return DescripcionProyecto.objects.filter(proyecto=proyecto_editable)
 
 
 class DescripcionProyectoDetail(DetailView):  # pylint: disable=too-many-ancestors
@@ -567,6 +614,16 @@ class RecomendacionProyectoListView(ListView):  # pylint: disable=too-many-ances
     '''Listar las RecomendacionProyecto'''
     model = RecomendacionProyecto
     template_name = 'eia_app/recomendaciones_proyecto/list.html'
+    def get_queryset(self):
+        """
+        Sobreescribe el get para que el queryset
+        sea solo de los proyectos el cual el usuario
+        loggeado es el propietario
+        """
+        usuario_loggeado = self.request.user
+        pk_proyecto = usuario_loggeado.proyecto_seleccionado
+        proyecto_editable = DatosProyecto.objects.get(pk=pk_proyecto)
+        return RecomendacionProyecto.objects.filter(proyecto=proyecto_editable)
 
 
 def consultor_index(request):
@@ -578,6 +635,16 @@ class ConclusionesListView(ListView):
     'Lista de las conclusiones de todos los proyectos'
     model = ConclusionProyecto
     template_name = 'eia_app/conclusiones/list.html'
+    def get_queryset(self):
+        """
+        Sobreescribe el get para que el queryset
+        sea solo de los proyectos el cual el usuario
+        loggeado es el propietario
+        """
+        usuario_loggeado = self.request.user
+        pk_proyecto = usuario_loggeado.proyecto_seleccionado
+        proyecto_editable = DatosProyecto.objects.get(pk=pk_proyecto)
+        return ConclusionProyecto.objects.filter(proyecto=proyecto_editable)
 
 class ConclusionAddOrEditBase:
     ''' Clase base para la edicion y creacion de conclusiones '''
@@ -620,6 +687,16 @@ class MedioList(ListView): # pylint: disable=too-many-ancestors
     ''' Index de los distintos medios'''
     model = Medio
     template_name = 'eia_app/caracterizacion_medio/medios_index.html'
+    def get_queryset(self):
+        """
+        Sobreescribe el get para que el queryset
+        sea solo de los proyectos el cual el usuario
+        loggeado es el propietario
+        """
+        usuario_loggeado = self.request.user
+        pk_proyecto = usuario_loggeado.proyecto_seleccionado
+        proyecto_editable = DatosProyecto.objects.get(pk=pk_proyecto)
+        return Medio.objects.filter(proyecto=proyecto_editable)
 
 
 class MedioCreate(CreateView):  # pylint: disable=too-many-ancestors
@@ -825,6 +902,17 @@ class CostoHumanoList(ListView): # pylint: disable=too-many-ancestors
         if self.kwargs.get('success') is not None:
             context["success"] = self.kwargs.get('success')
         return context
+
+    def get_queryset(self):
+        """
+        Sobreescribe el get para que el queryset
+        sea solo de los proyectos el cual el usuario
+        loggeado es el propietario
+        """
+        usuario_loggeado = self.request.user
+        pk_proyecto = usuario_loggeado.proyecto_seleccionado
+        proyecto_editable = DatosProyecto.objects.get(pk=pk_proyecto)
+        return CostoHumano.objects.filter(proyecto=proyecto_editable)
 
 class CostoHumanoCreate(CreateView): # pylint: disable=too-many-ancestors
     ''' Index de los distintos medios'''
