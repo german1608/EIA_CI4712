@@ -1,0 +1,33 @@
+body {
+  background: url("/static/img/green.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.text {
+  position: absolute;
+  top: 25%;
+  margin-left: 15%;
+  color: white;
+}
+
+.nro{
+  font-size: 70px;
+  font-weight: 600;
+}
+
+.description{
+  font-size: 40px;
+  font-weight: 500;
+}
+
+.description-fully{
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.material-icons{
+  font-size: 40px;
+}
