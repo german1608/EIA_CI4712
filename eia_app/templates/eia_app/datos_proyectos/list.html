@@ -25,6 +25,7 @@
               <th style="text-align:center;">Ver detalles</th>
               <th style="text-align:center;">Editar</th>
               <th style="text-align:center;">Borrar</th>
+              <th style="text-align:center;">Imprimir </th>
           </tr>
       </thead>
       <tbody>
@@ -35,6 +36,7 @@
               <td style="text-align:center;"> <a id="detalles{{proyecto.id}}" href="{% url "consultor-crud:detalles-datos-proyecto"  proyecto.id %}"><i class="material-icons" style="color: #77933c">info</i></a></td>
               <td style="text-align:center;"><a id="editar{{proyecto.id}}" href="{% url "consultor-crud:editar-datos-proyecto" proyecto.id %}"><i class="material-icons" style="color: #77933c">edit</i></a></td>
               <td style="text-align:center;"><a id="borrar{{proyecto.id}}" href="{% url "consultor-crud:borrar-datos-proyecto" proyecto.id %}"><i class="material-icons" style="color: #77933c">delete</i></a></td>
+              <td style="text-align:center;"><a id="imprimir{{proyecto.id}}" href="{% url "consultor-crud:imprimir-datos-proyecto" proyecto.id %}"><i class="material-icons" style="color: #77933c">print</i></a></td>
           </tr>
         {% endfor %}
       </tbody>

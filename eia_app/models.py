@@ -8,6 +8,8 @@ from django.db import models
 from django.core.validators import MinValueValidator
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _  # pylint: disable=unused-import
+from eia.validators import CI_VALIDATOR
+from users.models import Usuario
 
 
 class DatosProyecto(models.Model):
@@ -25,6 +27,10 @@ class DatosProyecto(models.Model):
     ubicacion = models.TextField()
     area = models.TextField()
     tipo = models.TextField()
+    marco_metodologico = models.TextField(null=True)
+    marco_juridico = models.TextField(null=True)
+    marco_teorico = models.TextField(null=True)
+    usuario = models.ForeignKey(Usuario, null=True, on_delete=models.CASCADE)
 
     def get_model_type(self):  # pylint: disable=no-self-use
         '''Devuelve el tipo de modelo'''
@@ -66,11 +72,7 @@ class DatosPersona(models.Model):
                 'invalid')])
     cedula = models.CharField(
         max_length=8,
-        validators=[
-            RegexValidator(
-                re.compile('/^[V|E|J|P][0-9]{5,9}$/'),
-                _('Cédula incorrecta'),
-                'invalid')])
+        validators=[CI_VALIDATOR])
     pasaporte = models.IntegerField(validators=[MinValueValidator(0)])
 
 
@@ -120,11 +122,7 @@ class Organizacion(models.Model):
                 'invalid')])
     cedula_representante_legal = models.CharField(
         max_length=9,
-        validators=[
-            RegexValidator(
-                re.compile('^[V|E|J|P][0-9]{5,9}$'),
-                _('Cédula incorrecta'),
-                'invalid')])
+        validators=[CI_VALIDATOR])
     pasaporte_representante_legal = models.IntegerField(
         validators=[MinValueValidator(0)], blank=True, null=True)
     telefono = models.CharField(
@@ -176,11 +174,7 @@ class Solicitante(models.Model):
                 'invalid')])
     cedula = models.CharField(
         max_length=9,
-        validators=[
-            RegexValidator(
-                re.compile('^[V|E|J|P][0-9]{5,9}$'),
-                _('Cédula incorrecta'),
-                'invalid')])
+        validators=[CI_VALIDATOR])
     pasaporte = models.IntegerField(
         validators=[
             MinValueValidator(0)],
@@ -235,11 +229,7 @@ class Responsable(models.Model):
                 'invalid')])
     cedula = models.CharField(
         max_length=9,
-        validators=[
-            RegexValidator(
-                re.compile('^[V|E|J|P][0-9]{5,9}$'),
-                _('Cédula incorrecta'),
-                'invalid')])
+        validators=[CI_VALIDATOR])
     pasaporte = models.IntegerField(
         validators=[
             MinValueValidator(0)],
@@ -301,6 +291,15 @@ class DescripcionProyecto(models.Model):
         '''Devuelve el tipo de modelo'''
         return "Descripcion_Proyecto"
 
+class RecomendacionProyecto(models.Model):
+    """ Tabla para almacenar la informacion de las recomendaciones de un proyecto"""
+    proyecto = models.OneToOneField(DatosProyecto, on_delete=models.CASCADE)
+    recomendaciones = models.TextField()
+
+class ConclusionProyecto(models.Model):
+    """ Tabla para alamacenar la informacion de las conclusiones de un proyecto """
+    proyecto = models.OneToOneField(DatosProyecto, on_delete=models.CASCADE)
+    conclusiones = models.TextField()
 
 class Medio(models.Model):
     """ Tabla para almacenar la informacion del medio de un proyecto.

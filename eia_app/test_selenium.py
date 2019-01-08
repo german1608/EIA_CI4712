@@ -19,13 +19,19 @@ class ViewsTest(SeleniumTestCase):
             titulo="prueba de detalles",
             ubicacion="caracas, venezuela",
             area="area de prueba, caracas",
-            tipo="prueba selenium")
+            tipo="prueba selenium",
+            usuario=Usuario.objects.get(username='especialistaesia'))
+
         # Se inicia sesion en cada prueba de forma automatica
+        usuario = Usuario.objects.get(username='especialistaesia')
+        usuario.proyecto_seleccionado = self.proyecto.pk
+        usuario.save()
+
         self.selenium.get(
             '{}{}'.format(
                 self.live_server_url,
                 reverse('dashboard:index')))
-        self.selenium.find_element_by_id('id_username').send_keys('admin')
+        self.selenium.find_element_by_id('id_username').send_keys('especialistaesia')
         self.selenium.find_element_by_id('id_password').send_keys('jaja1234')
         self.selenium.find_element_by_id('id_submit').click()
 
@@ -109,13 +115,16 @@ class TestOrganizaciones(SeleniumTestCase):
             pasaporte_representante_legal=25872061,
             telefono="04141234567",
             email="prueba@gmail.ve")
+        usuario = Usuario.objects.get(username='especialistaesia')
+        usuario.proyecto_seleccionado = self.proyecto.pk
+        usuario.save()
 
         # Se inicia sesion en cada prueba de forma automatica
         self.selenium.get(
             '{}{}'.format(
                 self.live_server_url,
                 reverse('dashboard:index')))
-        self.selenium.find_element_by_id('id_username').send_keys('admin')
+        self.selenium.find_element_by_id('id_username').send_keys('especialistaesia')
         self.selenium.find_element_by_id('id_password').send_keys('jaja1234')
         self.selenium.find_element_by_id('id_submit').click()
 
@@ -127,8 +136,6 @@ class TestOrganizaciones(SeleniumTestCase):
         self.selenium.find_element_by_css_selector(
             '#datos-organizaciones').click()
         self.selenium.find_element_by_css_selector('#add').click()
-        proy = self.proyecto.titulo
-        self.selenium.find_element_by_name('proyecto').send_keys(proy)
         razon_social = "natural"
         self.selenium.find_element_by_name(
             'razon_social').send_keys(razon_social)
@@ -215,13 +222,16 @@ class TestResponsable(SeleniumTestCase):
             pasaporte=25872061,
             nivel_academico="Licenciado",
             tipo_responsable="EsIA")
+        usuario = Usuario.objects.get(username='especialistaesia')
+        usuario.proyecto_seleccionado = self.proyecto.pk
+        usuario.save()
 
         # Se inicia sesion en cada prueba de forma automatica
         self.selenium.get(
             '{}{}'.format(
                 self.live_server_url,
                 reverse('dashboard:index')))
-        self.selenium.find_element_by_id('id_username').send_keys('admin')
+        self.selenium.find_element_by_id('id_username').send_keys('especialistaesia')
         self.selenium.find_element_by_id('id_password').send_keys('jaja1234')
         self.selenium.find_element_by_id('id_submit').click()
 
@@ -232,8 +242,6 @@ class TestResponsable(SeleniumTestCase):
         self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
         self.selenium.find_element_by_css_selector('#responsables').click()
         self.selenium.find_element_by_css_selector('#add').click()
-        proy = self.proyecto.titulo
-        self.selenium.find_element_by_name('proyecto').send_keys(proy)
         nombre = "Nombre1"
         self.selenium.find_element_by_name('nombre').send_keys(nombre)
         apellido = "Apellido1"
@@ -307,13 +315,15 @@ class TestDatosDocumento(SeleniumTestCase):
             ciudad="Ciudad",
             estado="Estado",
             pais="Pais")
-
+        usuario = Usuario.objects.get(username='especialistaesia')
+        usuario.proyecto_seleccionado = self.proyecto.pk
+        usuario.save()
         # Se inicia sesion en cada prueba de forma automatica
         self.selenium.get(
             '{}{}'.format(
                 self.live_server_url,
                 reverse('dashboard:index')))
-        self.selenium.find_element_by_id('id_username').send_keys('admin')
+        self.selenium.find_element_by_id('id_username').send_keys('especialistaesia')
         self.selenium.find_element_by_id('id_password').send_keys('jaja1234')
         self.selenium.find_element_by_id('id_submit').click()
 
@@ -324,8 +334,6 @@ class TestDatosDocumento(SeleniumTestCase):
         self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
         self.selenium.find_element_by_css_selector('#datos-documentos').click()
         self.selenium.find_element_by_css_selector('#add').click()
-        proy = self.proyecto.titulo
-        self.selenium.find_element_by_name('proyecto').send_keys(proy)
         fecha = "2007-10-25"
         self.selenium.find_element_by_name('fecha').send_keys(fecha)
         ciudad = "Ciudad"
@@ -396,13 +404,15 @@ class TestSolicitante(SeleniumTestCase):
             pasaporte=25872061,
             telefono="04241234567",
             email="email@gmail.com")
-
+        usuario = Usuario.objects.get(username='especialistaesia')
+        usuario.proyecto_seleccionado = self.proyecto.pk
+        usuario.save()
         # Se inicia sesion en cada prueba de forma automatica
         self.selenium.get(
             '{}{}'.format(
                 self.live_server_url,
                 reverse('dashboard:index')))
-        self.selenium.find_element_by_id('id_username').send_keys('admin')
+        self.selenium.find_element_by_id('id_username').send_keys('especialistaesia')
         self.selenium.find_element_by_id('id_password').send_keys('jaja1234')
         self.selenium.find_element_by_id('id_submit').click()
 
@@ -413,8 +423,6 @@ class TestSolicitante(SeleniumTestCase):
         self.selenium.get('%s%s' % (self.live_server_url, '/consultor-crud/'))
         self.selenium.find_element_by_css_selector('#solicitantes').click()
         self.selenium.find_element_by_css_selector('#add').click()
-        proy = self.proyecto.titulo
-        self.selenium.find_element_by_name('proyecto').send_keys(proy)
         nombre = "Nombre1"
         self.selenium.find_element_by_name('nombre').send_keys(nombre)
         apellido = "Apellido1"
@@ -495,13 +503,15 @@ class TestDescripcionProyecto(SeleniumTestCase):
             obj_especifico="Obj Especifico",
             justificacion="Justificacion",
             area=self.image_path)
-
+        usuario = Usuario.objects.get(username='especialistaesia')
+        usuario.proyecto_seleccionado = self.proyecto.pk
+        usuario.save()
         # Se inicia sesion en cada prueba de forma automatica
         self.selenium.get(
             '{}{}'.format(
                 self.live_server_url,
                 reverse('dashboard:index')))
-        self.selenium.find_element_by_id('id_username').send_keys('admin')
+        self.selenium.find_element_by_id('id_username').send_keys('especialistaesia')
         self.selenium.find_element_by_id('id_password').send_keys('jaja1234')
         self.selenium.find_element_by_id('id_submit').click()
 
@@ -513,8 +523,6 @@ class TestDescripcionProyecto(SeleniumTestCase):
         self.selenium.find_element_by_css_selector(
             '#detalles-proyecto').click()
         self.selenium.find_element_by_css_selector('#add').click()
-        proy = self.proyecto1.titulo
-        self.selenium.find_element_by_name('proyecto').send_keys(proy)
         obj_general = "Obj General"
         self.selenium.find_element_by_name(
             'obj_general').send_keys(obj_general)
@@ -531,10 +539,13 @@ class TestDescripcionProyecto(SeleniumTestCase):
         """
             Probar el boton de ver detalles de una descripcion de un proyecto.
         """
+        import time
+        time.sleep(5)
         self.selenium.get(
             '%s%s' %
             (self.live_server_url,
              '/consultor-crud/descripcion_proyecto/'))
+        time.sleep(5)
         self.selenium.find_element_by_css_selector(
             '#detalles' + str(self.descripcion.id)).click()
 
@@ -607,13 +618,16 @@ class TestCaracteristicaMedio(SeleniumTestCase):
             atributo='atributo',
             comentario='comentario'
         )
+        usuario = Usuario.objects.get(username='especialistaesia')
+        usuario.proyecto_seleccionado = self.proyecto1.pk
+        usuario.save()
 
         # Se inicia sesion en cada prueba de forma automatica
         self.selenium.get(
             '{}{}'.format(
                 self.live_server_url,
                 reverse('dashboard:index')))
-        self.selenium.find_element_by_id('id_username').send_keys('admin')
+        self.selenium.find_element_by_id('id_username').send_keys('especialistaesia')
         self.selenium.find_element_by_id('id_password').send_keys('jaja1234')
         self.selenium.find_element_by_id('id_submit').click()
 
@@ -628,8 +642,6 @@ class TestCaracteristicaMedio(SeleniumTestCase):
         tipo = "biologico"
         self.selenium.find_element_by_name(
             'tipo').send_keys(tipo)
-        proy = self.proyecto1.titulo
-        self.selenium.find_element_by_name('proyecto').send_keys(proy)
         descripcion = "Descripcion del medio"
         self.selenium.find_element_by_name(
             'descripcion').send_keys(descripcion)
@@ -863,13 +875,16 @@ class TestTipoCosto(SeleniumTestCase): # pylint: disable=too-many-instance-attri
             cantidad=10,
             costo_unidad=10,
             monto=100)
+        usuario = Usuario.objects.get(username='especialistaesia')
+        usuario.proyecto_seleccionado = self.proyecto1.pk
+        usuario.save()
 
         # Se inicia sesion en cada prueba de forma automatica
         self.selenium.get(
             '{}{}'.format(
                 self.live_server_url,
                 reverse('dashboard:index')))
-        self.selenium.find_element_by_id('id_username').send_keys('admin')
+        self.selenium.find_element_by_id('id_username').send_keys('especialistaesia')
         self.selenium.find_element_by_id('id_password').send_keys('jaja1234')
         self.selenium.find_element_by_id('id_submit').click()
 
@@ -879,8 +894,6 @@ class TestTipoCosto(SeleniumTestCase): # pylint: disable=too-many-instance-attri
         """
         self.selenium.get(
             '%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-humano/'))
-        proyecto = self.proyecto1.titulo
-        self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         actividad = "Actividades realizadas"
         self.selenium.find_element_by_name('actividad').send_keys(actividad)
         cantidad = "Cantidad de actividades"
@@ -897,8 +910,6 @@ class TestTipoCosto(SeleniumTestCase): # pylint: disable=too-many-instance-attri
         """
         self.selenium.get(
             '%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-servicio/'))
-        proyecto = self.proyecto1.titulo
-        self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         actividad = "Actividades realizadas"
         self.selenium.find_element_by_name('actividad').send_keys(actividad)
         cantidad = "Cantidad de actividades"
@@ -915,8 +926,6 @@ class TestTipoCosto(SeleniumTestCase): # pylint: disable=too-many-instance-attri
         """
         self.selenium.get(
             '%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-pasaje/'))
-        proyecto = self.proyecto1.titulo
-        self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         actividad = "Actividades realizadas"
         self.selenium.find_element_by_name('actividad').send_keys(actividad)
         cantidad = "Cantidad de actividades"
@@ -933,8 +942,6 @@ class TestTipoCosto(SeleniumTestCase): # pylint: disable=too-many-instance-attri
         """
         self.selenium.get(
             '%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-recursos/'))
-        proyecto = self.proyecto1.titulo
-        self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         material = "Materiales usados"
         self.selenium.find_element_by_name('material').send_keys(material)
         cantidad = 10
@@ -951,8 +958,6 @@ class TestTipoCosto(SeleniumTestCase): # pylint: disable=too-many-instance-attri
         """
         self.selenium.get(
             '%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-oficina/'))
-        proyecto = self.proyecto1.titulo
-        self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         material = "Materiales usados"
         self.selenium.find_element_by_name('material').send_keys(material)
         cantidad = 20
@@ -969,8 +974,6 @@ class TestTipoCosto(SeleniumTestCase): # pylint: disable=too-many-instance-attri
         """
         self.selenium.get(
             '%s%s' % (self.live_server_url, '/consultor-crud/costos/nuevo-costo-insumos/'))
-        proyecto = self.proyecto1.titulo
-        self.selenium.find_element_by_name('proyecto').send_keys(proyecto)
         material = "Materiales usados"
         self.selenium.find_element_by_name('material').send_keys(material)
         cantidad = 30

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'css/froala_style.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+
+<h4>Recomendaciones del proyecto "{{object.proyecto}}"</h4>
+<div class="container" style="width: 75%">
+  <div class="fr-view">
+    {% autoescape off %}
+    {{object.recomendaciones}}
+    {% endautoescape %}
+  </div>
+</div>
+{% endblock %}

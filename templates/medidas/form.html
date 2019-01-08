@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load materializecss %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+
+{% block css %}
+<style>
+  .formset-row {
+    align-items: center;
+  }
+  .formset-row .btn-sm {
+    margin-bottom: 1rem;
+  }
+</style>
+{% endblock css %}
+  
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <h3 class="mt-2">Agregar {{ nombre }}</h3>
+      <hr class="mt-0 mb-4">
+      <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <!-- Formulario sin impacto, indicadores y objetivos -->
+          {{ medida_form | crispy }}
+          <!-- Formulario de impactos -->
+          <div id="{{impacto_formset.prefix}}" class="row">
+            <div class="col">
+              <h3>Impactos</h3>
+            </div>
+            {% for error in impacto_formset.non_field_errors %}
+            {{error}}
+            {% endfor %}
+            <div class="w-100"></div>
+            {{ impacto_formset.management_form }}
+            <div class="col">
+              {% for form in impacto_formset %}
+              <div class="row formset-row">
+                <div class="col">
+                  {{form.id}}
+                  {{form.medida}}
+                  <div class="form-group">
+                    {{form.descripcion.errors}}
+                    {% if form.instance.pk %}{{ form.DELETE }}{% endif %}
+                    {% render_field form.descripcion class="form-control" placeholder=form.descripcion.label required="required" %}
+                  </div>
+                  <div class="w-100"></div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <br>
+
+          <!-- Formulario de objetivos -->
+          <div id="{{objetivo_formset.prefix}}" class="row">
+            <div class="col">
+              <h3>Objetivos</h3>
+            </div>
+            {% for error in objetivo_formset.non_field_errors %}
+            {{error}}
+            {% endfor %}
+            <div class="w-100"></div>
+            {{ objetivo_formset.management_form }}
+            <div class="col">
+              {% for form in objetivo_formset %}
+              <div class="row formset-row">
+                <div class="col">
+                  {{form.id}}
+                  {{form.medida}}
+                  <div class="form-group">
+                    {% if form.instance.pk %}{{ form.DELETE }}{% endif %}
+                    {{form.descripcion.errors}}
+                    {% render_field form.descripcion class="form-control" placeholder=form.descripcion.label required="required" %}
+                  </div>
+                  <div class="w-100"></div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <br>
+
+          <!-- Formulario de indicadores -->
+          <div id="{{indicador_formset.prefix}}" class="row">
+            <div class="col">
+              <h3>Indicadores</h3>
+            </div>
+            {% for error in indicador_formset.non_field_errors %}
+            {{error}}
+            {% endfor %}
+            <div class="w-100"></div>
+            {{ indicador_formset.management_form }}
+            <div class="col">
+              {% for form in indicador_formset %}
+              <div class="row formset-row">
+                <div class="col">
+                  {{form.id}}
+                  {{form.medida}}
+                  <div class="form-group">
+                    {{form.descripcion.errors}}
+                    {% if form.instance.pk %}{{ form.DELETE }}{% endif %}
+                    {% render_field form.descripcion class="form-control" placeholder=form.descripcion.label required="required" %}
+                  </div>
+                  <div class="w-100"></div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <br>
+
+          <button id="agregar" type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="{% static 'js/jquery.formset.js' %}"></script>
+<script>
+  $(function() {
+    $('#{{indicador_formset.prefix}} .formset-row').formset({
+      prefix: '{{indicador_formset.prefix}}',
+      formCssClass: '{{indicador_formset.prefix}}-formset',
+      addText: 'Añadir indicador',
+      deleteText: 'Eliminar indicador',
+      addCssClass: 'btn btn-primary btn-sm',
+      deleteCssClass: 'btn btn-danger btn-sm'
+    })
+    $('#{{objetivo_formset.prefix}} .formset-row').formset({
+      prefix: '{{objetivo_formset.prefix}}',
+      formCssClass: '{{objetivo_formset.prefix}}-formset',
+      addText: 'Añadir objetivo',
+      deleteText: 'Eliminar objetivo',
+      addCssClass: 'btn btn-primary btn-sm',
+      deleteCssClass: 'btn btn-danger btn-sm'
+    })
+    $('#{{impacto_formset.prefix}} .formset-row').formset({
+      prefix: '{{impacto_formset.prefix}}',
+      formCssClass: '{{impacto_formset.prefix}}-formset',
+      addText: 'Añadir impacto',
+      deleteText: 'Eliminar impacto',
+      addCssClass: 'btn btn-primary btn-sm',
+      deleteCssClass: 'btn btn-danger btn-sm'
+    })
+
+  })
+</script>
+{% endblock js %}
+  

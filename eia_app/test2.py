@@ -24,21 +24,13 @@ class MedioTestCase(TestCase):
             'descripcion': 'esto es una prueba',
             'conclusiones': 'esto es una conclusion'}
         form_datos = MedioCreateForm(data=form_data)
-        form_datos.save()
+        medio = form_datos.save(commit=False)
+        medio.proyecto = self.proyecto
+        medio.save()
         # pylint: disable=no-member
         datos = Medio.objects.get(
             proyecto=self.proyecto.id)
         self.assertEqual(datos.tipo, "fisico")
-
-    def test_medio_sin_proyecto(self):
-        '''Prueba para crear una instancia de medio sin proyecto'''
-        form_data = {
-            'tipo': 'fisico',
-            'proyecto': None,
-            'descripcion': 'esto es una prueba',
-            'conclusiones': 'esto es una conclusion'}
-        form_datos = MedioCreateForm(data=form_data)
-        self.assertFalse(form_datos.is_valid())
 
     def test_medio_sin_tipo(self):
         '''Prueba para crear una instancia de medio sin tipo'''
@@ -89,7 +81,9 @@ class MedioTestCase(TestCase):
             'descripcion': 'esto es una prueba',
             'conclusiones': 'esto es una conclusion'}
         form_datos = MedioCreateForm(data=form_data)
-        form_datos.save()
+        medio = form_datos.save(commit=False)
+        medio.proyecto = self.proyecto
+        medio.save()
         # pylint: disable=no-member
         datos = Medio.objects.get(
             proyecto=self.proyecto.id)
@@ -108,7 +102,9 @@ class MedioTestCase(TestCase):
             'descripcion': 'esto es una prueba',
             'conclusiones': 'esto es una conclusion'}
         form_datos = MedioCreateForm(data=form_data)
-        form_datos.save()
+        medio = form_datos.save(commit=False)
+        medio.proyecto = self.proyecto
+        medio.save()
         # pylint: disable=no-member
         datos = Medio.objects.get(
             proyecto=self.proyecto.id)
@@ -127,7 +123,9 @@ class MedioTestCase(TestCase):
             'descripcion': 'esto es una prueba',
             'conclusiones': 'esto es una conclusion'}
         form_datos = MedioCreateForm(data=form_data)
-        form_datos.save()
+        medio = form_datos.save(commit=False)
+        medio.proyecto = self.proyecto
+        medio.save()
         # pylint: disable=no-member
         datos = Medio.objects.get(
             proyecto=self.proyecto.id)
@@ -146,7 +144,9 @@ class MedioTestCase(TestCase):
             'descripcion': 'esto es una prueba',
             'conclusiones': 'esto es una conclusion'}
         form_datos = MedioCreateForm(data=form_data)
-        form_datos.save()
+        medio = form_datos.save(commit=False)
+        medio.proyecto = self.proyecto
+        medio.save()
         # pylint: disable=no-member
         datos = Medio.objects.get(
             proyecto=self.proyecto.id)
@@ -165,7 +165,9 @@ class MedioTestCase(TestCase):
             'descripcion': 'esto es una prueba',
             'conclusiones': 'esto es una conclusion'}
         form_datos = MedioCreateForm(data=form_data)
-        form_datos.save()
+        medio = form_datos.save(commit=False)
+        medio.proyecto = self.proyecto
+        medio.save()
         # pylint: disable=no-member
         Medio.objects.get(proyecto=self.proyecto.id).delete()
         try:
@@ -180,19 +182,21 @@ class CaracteristicaMedioTestCase(TestCase):
     def setUp(self):
         '''Se crean instancias de responsables para realizar pruebas'''
         # pylint: disable=no-member
-        proyecto = DatosProyecto.objects.create(
+        self.proyecto = DatosProyecto.objects.create(
             titulo="caracteristicas",
             ubicacion="caracas",
             area="area de prueba",
             tipo="prueba")
         form_data = {
             'tipo': 'fisico',
-            'proyecto': proyecto.id,
+            'proyecto': self.proyecto.id,
             'descripcion': 'esto es una prueba de medio',
             'conclusiones': 'esto es una conclusion de medio'}
         form_datos = MedioCreateForm(data=form_data)
-        form_datos.save()
-        self.medio = Medio.objects.get(proyecto=proyecto.id, tipo='fisico')
+        medio = form_datos.save(commit=False)
+        medio.proyecto = self.proyecto
+        medio.save()
+        self.medio = Medio.objects.get(proyecto=self.proyecto.id, tipo='fisico')
 
     def test_caracteristica_medio_crear(self):
         '''Prueba para crear una instancia de datos de caracteristica de medio'''
@@ -301,19 +305,21 @@ class SubaracteristicaMedioTestCase(TestCase):
     def setUp(self):
         '''Se crean instancias de responsables para realizar pruebas'''
         # pylint: disable=no-member
-        proyecto = DatosProyecto.objects.create(
+        self.proyecto = DatosProyecto.objects.create(
             titulo="subcaracteristicas",
             ubicacion="caracas",
             area="area de prueba",
             tipo="prueba")
         form_data = {
             'tipo': 'fisico',
-            'proyecto': proyecto.id,
+            'proyecto': self.proyecto.id,
             'descripcion': 'esto es una prueba de medio',
             'conclusiones': 'esto es una conclusion de medio'}
         form_datos = MedioCreateForm(data=form_data)
-        form_datos.save()
-        medio = Medio.objects.get(proyecto=proyecto.id, tipo='fisico')
+        medio = form_datos.save(commit=False)
+        medio.proyecto = self.proyecto
+        medio.save()
+        medio = Medio.objects.get(proyecto=self.proyecto.id, tipo='fisico')
         form_data = {
             'caracteristica': 'esto es una caracteristica de caracteristicamedio',
             'medio': medio.id,
