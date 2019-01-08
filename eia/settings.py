@@ -26,7 +26,7 @@ MEDIA_URL = '/media/'
 SECRET_KEY = 'l(5-p^c*9er-d!mepb*p=iim*u3(48gz9+pp43k6y_%94a40!9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = bool(os.environ.get('DEBUG', 'True'))
 
 ALLOWED_HOSTS = [
     '*'
