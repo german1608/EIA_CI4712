@@ -1,5 +1,5 @@
 '''Views del crud del consultor'''
-# pylint: disable=too-many-ancestors,too-few-public-methods
+# pylint: disable=too-many-ancestors,too-few-public-methods,too-many-lines
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import (CreateView, DetailView, ListView, UpdateView, DeleteView,
                                   FormView)
@@ -57,15 +57,15 @@ class OrganizacionCreate(CreateView):  # pylint: disable=too-many-ancestors
         context = super(OrganizacionCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Agregar organización"
         return context
-    
+
     def form_valid(self, form):
         """
         Reescribe el form valid para
         que agregue el proyecto que ha seleccionado
         el usuario para que se edite automaticamente
         """
-        self.object = form.save(commit=False)
-        agregar_proyecto(self.object, self.request)
+        objeto = form.save(commit=False)
+        agregar_proyecto(objeto, self.request)
         return HttpResponseRedirect(self.success_url)
 
 def agregar_proyecto(objeto, request):
@@ -74,7 +74,7 @@ def agregar_proyecto(objeto, request):
     el proyecto al form
     """
     usuario_loggeado = request.user
-    pk = usuario_loggeado.proyecto_seleccionado
+    pk = usuario_loggeado.proyecto_seleccionado # pylint: disable=invalid-name
     proyecto_editable = DatosProyecto.objects.get(pk=pk)
     objeto.proyecto = proyecto_editable
     objeto.save()
@@ -202,15 +202,15 @@ class ResponsableCreate(CreateView):  # pylint: disable=too-many-ancestors
         context = super(ResponsableCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Agregar responsable"
         return context
-    
+
     def form_valid(self, form):
         """
         Reescribe el form valid para
         que agregue el proyecto que ha seleccionado
         el usuario para que se edite automaticamente
         """
-        self.object = form.save(commit=False)
-        agregar_proyecto(self.object, self.request)
+        objeto = form.save(commit=False)
+        agregar_proyecto(objeto, self.request)
         return HttpResponseRedirect(self.success_url)
 
 
@@ -274,8 +274,8 @@ class SolicitanteCreate(CreateView):  # pylint: disable=too-many-ancestors
         que agregue el proyecto que ha seleccionado
         el usuario para que se edite automaticamente
         """
-        self.object = form.save(commit=False)
-        agregar_proyecto(self.object, self.request)
+        objeto = form.save(commit=False)
+        agregar_proyecto(objeto, self.request)
         return HttpResponseRedirect(self.success_url)
 
 
@@ -303,7 +303,7 @@ class DatosDocumentoList(ListView):  # pylint: disable=too-many-ancestors
     '''Listar las DatosDocumentos'''
     model = DatosDocumento
     template_name = 'eia_app/datos_documentos/list.html'
-    
+
     def get_queryset(self):
         """
         Sobreescribe el get para que el queryset
@@ -339,8 +339,8 @@ class DatosDocumentoCreate(CreateView):  # pylint: disable=too-many-ancestors
         que agregue el proyecto que ha seleccionado
         el usuario para que se edite automaticamente
         """
-        self.object = form.save(commit=False)
-        agregar_proyecto(self.object, self.request)
+        objeto = form.save(commit=False)
+        agregar_proyecto(objeto, self.request)
         return HttpResponseRedirect(self.success_url)
 
 class DatosDocumentoUpdate(UpdateView):  # pylint: disable=too-many-ancestors
@@ -547,8 +547,8 @@ class DescripcionProyectoCreate(CreateView):  # pylint: disable=too-many-ancesto
         que agregue el proyecto que ha seleccionado
         el usuario para que se edite automaticamente
         """
-        self.object = form.save(commit=False)
-        agregar_proyecto(self.object, self.request)
+        objeto = form.save(commit=False)
+        agregar_proyecto(objeto, self.request)
         return HttpResponseRedirect(self.success_url)
 
 
@@ -717,8 +717,8 @@ class MedioCreate(CreateView):  # pylint: disable=too-many-ancestors
         que agregue el proyecto que ha seleccionado
         el usuario para que se edite automaticamente
         """
-        self.object = form.save(commit=False)
-        agregar_proyecto(self.object, self.request)
+        objeto = form.save(commit=False)
+        agregar_proyecto(objeto, self.request)
         return HttpResponseRedirect(self.success_url)
 
 
@@ -933,8 +933,8 @@ class CostoHumanoCreate(CreateView): # pylint: disable=too-many-ancestors
         el usuario para que se edite automaticamente
         """
         form.instance.tipo = TipoCosto.objects.filter(id=1)[0]
-        self.object = form.save(commit=False)
-        agregar_proyecto(self.object, self.request)
+        objeto = form.save(commit=False)
+        agregar_proyecto(objeto, self.request)
         return super().form_valid(form)
 
 
@@ -957,8 +957,8 @@ class CostoHumanoServiciosCreate(CreateView): # pylint: disable=too-many-ancesto
         el usuario para que se edite automaticamente
         """
         form.instance.tipo = TipoCosto.objects.filter(id=2)[0]
-        self.object = form.save(commit=False)
-        agregar_proyecto(self.object, self.request)
+        objeto = form.save(commit=False)
+        agregar_proyecto(objeto, self.request)
         return super().form_valid(form)
 
 class CostoHumanoPasajeCreate(CreateView): # pylint: disable=too-many-ancestors
@@ -972,7 +972,7 @@ class CostoHumanoPasajeCreate(CreateView): # pylint: disable=too-many-ancestors
         context = super(CostoHumanoPasajeCreate, self).get_context_data(**kwargs)
         context["nombre"] = "Agregar costos de pasajes y hospedaje"
         return context
-    
+
     def form_valid(self, form):
         """
         Reescribe el form valid para
@@ -980,8 +980,8 @@ class CostoHumanoPasajeCreate(CreateView): # pylint: disable=too-many-ancestors
         el usuario para que se edite automaticamente
         """
         form.instance.tipo = TipoCosto.objects.filter(id=3)[0]
-        self.object = form.save(commit=False)
-        agregar_proyecto(self.object, self.request)
+        objeto = form.save(commit=False)
+        agregar_proyecto(objeto, self.request)
         return super().form_valid(form)
 
 class CostoMaterialRecursosCreate(CreateView): # pylint: disable=too-many-ancestors
@@ -1003,8 +1003,8 @@ class CostoMaterialRecursosCreate(CreateView): # pylint: disable=too-many-ancest
         el usuario para que se edite automaticamente
         """
         form.instance.tipo = TipoCosto.objects.filter(id=4)[0]
-        self.object = form.save(commit=False)
-        agregar_proyecto(self.object, self.request)
+        objeto = form.save(commit=False)
+        agregar_proyecto(objeto, self.request)
         return super().form_valid(form)
 
 class CostoMaterialOficinaCreate(CreateView): # pylint: disable=too-many-ancestors
@@ -1026,8 +1026,8 @@ class CostoMaterialOficinaCreate(CreateView): # pylint: disable=too-many-ancesto
         el usuario para que se edite automaticamente
         """
         form.instance.tipo = TipoCosto.objects.filter(id=5)[0]
-        self.object = form.save(commit=False)
-        agregar_proyecto(self.object, self.request)
+        objeto = form.save(commit=False)
+        agregar_proyecto(objeto, self.request)
         return super().form_valid(form)
 
 class CostoMaterialInsumosCreate(CreateView): # pylint: disable=too-many-ancestors
@@ -1049,8 +1049,8 @@ class CostoMaterialInsumosCreate(CreateView): # pylint: disable=too-many-ancesto
         el usuario para que se edite automaticamente
         """
         form.instance.tipo = TipoCosto.objects.filter(id=6)[0]
-        self.object = form.save(commit=False)
-        agregar_proyecto(self.object, self.request)
+        objeto = form.save(commit=False)
+        agregar_proyecto(objeto, self.request)
         return super().form_valid(form)
 
 

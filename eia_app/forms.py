@@ -15,7 +15,7 @@ class OrganizacionCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = Organizacion
         fields = '__all__'
-        exclude = ['proyecto']
+        exclude = ['proyecto'] # pylint: disable=modelform-uses-exclude
 
 
 class SolicitanteCreateForm(forms.ModelForm):
@@ -24,7 +24,7 @@ class SolicitanteCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = Solicitante
         fields = '__all__'
-        exclude = ['proyecto']
+        exclude = ['proyecto'] # pylint: disable=modelform-uses-exclude
 
 class ResponsableCreateForm(forms.ModelForm):
     '''Form del modelo solicitante'''
@@ -32,7 +32,7 @@ class ResponsableCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = Responsable
         fields = '__all__'
-        exclude = ['proyecto']
+        exclude = ['proyecto'] # pylint: disable=modelform-uses-exclude
 
 class DatosProyectoCreateForm(forms.ModelForm):
     '''Form del modelo datos proyecto'''
@@ -40,7 +40,7 @@ class DatosProyectoCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = DatosProyecto
         fields = ('titulo', 'ubicacion', 'area', 'tipo')
-        exclude = ['proyecto']
+        exclude = ['proyecto'] # pylint: disable=modelform-uses-exclude
 
 
 class DatosDocumentoCreateForm(forms.ModelForm):
@@ -49,7 +49,7 @@ class DatosDocumentoCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = DatosDocumento
         fields = '__all__'
-        exclude = ['proyecto']
+        exclude = ['proyecto'] # pylint: disable=modelform-uses-exclude
 
 class MarcoForm(forms.Form):
     """Form para el marco (metodologico, juridico o teorico) de un proyecto."""
@@ -61,7 +61,7 @@ class DescripcionProyectoCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = DescripcionProyecto
         fields = '__all__'
-        exclude = ['proyecto']
+        exclude = ['proyecto'] # pylint: disable=modelform-uses-exclude
 
 class RecomendacionProyectoCreateForm(forms.ModelForm):
     '''Form del modelo recomendaciones de proyectos'''
@@ -69,7 +69,7 @@ class RecomendacionProyectoCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = RecomendacionProyecto
         fields = '__all__'
-        exclude = ['proyecto']
+        exclude = ['proyecto'] # pylint: disable=modelform-uses-exclude
 
 class ConclusionProyectoCreateForm(forms.ModelForm):
     '''Form del modelo conclusiones de proyectos'''
@@ -84,7 +84,7 @@ class MedioCreateForm(forms.ModelForm):
         '''Clase meta del formulario'''
         model = Medio
         fields = '__all__'
-        exclude = ['proyecto']
+        exclude = ['proyecto'] # pylint: disable=modelform-uses-exclude
 
 class CaracteristicaMedioCreateForm(forms.ModelForm):
     '''Form del modelo medio'''
