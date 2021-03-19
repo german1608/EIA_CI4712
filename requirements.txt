@@ -17,7 +17,7 @@ django-crispy-forms==1.7.2
 django-materializecss-form==1.1.10
 django-weasyprint==0.5.4
 django-widget-tweaks==1.4.3
-djangorestframework==3.9.0
+djangorestframework==3.11.2
 gunicorn==19.9.0
 html5lib==1.0.1
 isort==4.3.4
